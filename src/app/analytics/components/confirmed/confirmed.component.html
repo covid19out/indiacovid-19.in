@@ -1,0 +1,14 @@
+<div><h3>Confirmed Cases In India</h3></div>
+<div class="number-of-cases">
+    <div>Number of cases</div>
+    <div style="display: block;" class="stacked-chart">
+        <canvas baseChart 
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+        </canvas>
+    </div>
+</div>
