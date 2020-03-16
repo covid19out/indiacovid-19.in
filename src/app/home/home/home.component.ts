@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   ];
 
 
-  // Doughnut charts 
+  // Doughnut charts
   public doughnutChartType: ChartType = 'doughnut';
 
   //Doughnut Gender
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
       backgroundColor: 'rgba(255,0,0,0.3)',
     },
   ];
-  
+
 //Infection Source over Time
   public lineChartInfectionSourceData: ChartDataSets[] = [
     { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'IMPORTED CASE' },
