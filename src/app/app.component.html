@@ -10,15 +10,17 @@
           <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Analytics
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Confirmed Cases</a>
-            <a class="dropdown-item" href="#">Recovered Cases</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <a class="dropdown-item" href="#">Symptomatic Cases</a>
-          </div>
+            <div class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
+                    Analytics <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/confirmed">Confirmed Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/recovered">Recovered Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/symptomatic">Symptomatic Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/intensive_care_cases">Intensive Care Cases</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
