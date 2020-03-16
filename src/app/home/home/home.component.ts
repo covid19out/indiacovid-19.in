@@ -2,22 +2,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
-import {ApexAxisChartSeries, ApexChart, ChartComponent, ApexTitleSubtitle, ApexDataLabels, ApexStroke,
-  ApexGrid, ApexYAxis, ApexXAxis, ApexPlotOptions, ApexTooltip } from "ng-apexcharts";
-  
+import {
+  ApexAxisChartSeries, ApexChart, ChartComponent, ApexTitleSubtitle, ApexDataLabels, ApexStroke,
+  ApexGrid, ApexYAxis, ApexXAxis, ApexPlotOptions, ApexTooltip
+} from "ng-apexcharts";
+
 export type ApexChartOptions = {
-    series: ApexAxisChartSeries;
-    chart: ApexChart;
-    stroke: ApexStroke;
-    dataLabels: ApexDataLabels;
-    plotOptions: ApexPlotOptions;
-    yaxis: ApexYAxis;
-    xaxis: ApexXAxis;
-    grid: ApexGrid;
-    colors: string[];
-    tooltip: ApexTooltip;
-    title: ApexTitleSubtitle;
-  };
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  stroke: ApexStroke;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  grid: ApexGrid;
+  colors: string[];
+  tooltip: ApexTooltip;
+  title: ApexTitleSubtitle;
+};
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -54,15 +56,20 @@ export class HomeComponent implements OnInit {
       position: 'bottom'
     }
   };
+  public pieChartGenderColors = [
+    {
+      backgroundColor: [
+        '#86c7f3',
+        '#ffa1b5'
+      ]
+    }
+  ];
 
-  //   public pieChartGenderPlugins = [{
+  // public pieChartGenderPlugins = [{
   //   afterLayout: function (chart) {
-  //     console.log(chart.legend.legendItems)
   //     chart.legend.legendItems.forEach(
-  //       (label,i) => {
-  //         console.log("lable",chart.data.datasets[0]);
+  //       (label, i) => {
   //         let value = chart.data.datasets[0].data[label.index];
-  //
   //         label.text += ' ' + value;
   //         return label;
   //       }
@@ -104,8 +111,8 @@ export class HomeComponent implements OnInit {
   public lineChartPlugins = [];
   //Gender over Time line chart
   public lineChartData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
-    { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
+    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+    { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
   ];
   public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -139,8 +146,8 @@ export class HomeComponent implements OnInit {
 
   //Infection Source over Time
   public lineChartInfectionSourceData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
-    { data: [0, 0, 0, 6, 10, 20, 17, 22, 35, 40], label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
+    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+    { data: [0, 0, 0, 6, 10, 20, 17, 22, 35, 40], label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
   ];
   public lineChartInfectionSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartInfectionSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -172,7 +179,7 @@ export class HomeComponent implements OnInit {
 
   //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
+    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartConfirmedSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -200,7 +207,7 @@ export class HomeComponent implements OnInit {
 
   //Hospitalized card line chart
   public lineChartSymptomaticData: ChartDataSets[] = [
-    { data: [10, 12, 15, 17, 21, 23, 23, 25, 27, 27], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
+    { data: [10, 12, 15, 17, 21, 23, 23, 25, 27, 27], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartSymptomaticSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartSymptomaticSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -228,7 +235,7 @@ export class HomeComponent implements OnInit {
 
   //Intensive card line chart
   public lineChartIntensiveData: ChartDataSets[] = [
-    { data: [15, 20, 30, 8, 21, 10, 5, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
+    { data: [15, 20, 30, 8, 21, 10, 5, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartIntensiveSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartIntensiveSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -256,7 +263,7 @@ export class HomeComponent implements OnInit {
 
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
-    { data: [0, 0, 2, 1, 0, 1, 3, 0, 1, 2], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
+    { data: [0, 0, 2, 1, 0, 1, 3, 0, 1, 2], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDischargeSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartDischargeSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -282,10 +289,10 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-    //Apex chart
-  @ViewChild("chart",{static:true}) chart: ChartComponent;
+  //Apex chart
+  @ViewChild("chart", { static: true }) chart: ChartComponent;
   public apexChartOptions: Partial<ApexChartOptions>;
-  
+
 
   constructor() { }
 
@@ -293,12 +300,12 @@ export class HomeComponent implements OnInit {
     this.apexChartOptions = {
       series: [
         {
-          name: "Males",
-          data: [0.4, 0.65, 0.76, 0.88, 1.5, 2.1, 2.9, 3.8, 3.9, 4.2, 4, 4.3, 4.1, 4.2, 4.5, 3.9, 3.5, 3]
+          name: "Females",
+          data: [-0.8, -1.05, -1.06, -1.18, -1.4, -2.2, -2.85, -3.7, -3.96]
         },
         {
-          name: "Females",
-          data: [-0.8,-1.05,-1.06,-1.18,-1.4,-2.2,-2.85,-3.7,-3.96,-4.22,-4.3,-4.4,-4.1,-4,-4.1,-3.4,-3.1,-2.8]
+          name: "Males",
+          data: [0.4, 0.65, 0.76, 0.88, 1.5, 2.1, 2.9, 3.8, 3.9]
         }
       ],
       chart: {
@@ -306,7 +313,7 @@ export class HomeComponent implements OnInit {
         height: 440,
         stacked: true
       },
-      colors: ["#008FFB", "#FF4560"],
+      colors: ["#ffa1b5", "#86c7f3"],
       plotOptions: {
         bar: {
           horizontal: true,
@@ -338,25 +345,25 @@ export class HomeComponent implements OnInit {
       tooltip: {
         shared: false,
         x: {
-          formatter: function(val) {
+          formatter: function (val) {
             return val.toString();
           }
         },
         y: {
-          formatter: function(val) {
+          formatter: function (val) {
             return Math.abs(val) + "%";
           }
         }
       },
       xaxis: {
-        categories: ["85+","80-84","75-79","70-74","65-69","60-64", "55-59","50-54","45-49","40-44","35-39","30-34","25-29",
-          "20-24","15-19", "10-14","5-9","0-4"
+        categories: ["85+", "80-84", "75-79", "70-74", "65-69", "60-64", "55-59", "50-54", "45-49", "40-44", "35-39", "30-34", "25-29",
+          "20-24", "15-19", "10-14", "5-9", "0-4"
         ],
         title: {
           text: "Percent"
         },
         labels: {
-          formatter: function(val) {
+          formatter: function (val) {
             return Math.abs(Math.round(parseInt(val, 10))) + "%";
           }
         }
