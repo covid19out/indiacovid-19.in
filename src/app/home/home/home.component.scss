@@ -29,7 +29,18 @@
   }
 }
 
-
+.quick-link-state{
+  p{
+    font-size: 0.7rem;
+    margin-left: 6px;
+    .tx-danger{
+      color: #e60f24;
+    }
+    .tx-success {
+      color: #08bf58;
+    }
+  }
+}
 
 
   // .quick-link{
