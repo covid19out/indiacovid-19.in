@@ -59,7 +59,7 @@
       <div class="card-header">Gender</div>
       <div class="card-body">
         <div style="display: block;" class="doughnut-chart">
-          <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+          <canvas height="400" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="pieChartGenderOptions" [plugins]="pieChartGenderPlugins">
           </canvas>
         </div>
       </div>
@@ -71,8 +71,8 @@
       <div class="card-header">Nationality</div>
       <div class="card-body">
         <div style="display: block;" class="doughnut-chart">
-          <canvas baseChart [data]="doughnutNationalityChartData" [labels]="doughnutNationalityChartLabels"
-            [chartType]="doughnutChartType">
+          <canvas height="500" baseChart [data]="doughnutNationalityChartData" [labels]="doughnutNationalityChartLabels"
+            [chartType]="doughnutChartType" [options]="pieChartNationalityOptions" [plugins]="pieChartNationalityPlugins">
           </canvas>
         </div>
       </div>
@@ -91,7 +91,7 @@
       <div class="card-header">Source</div>
       <div class="card-body">
         <div style="display: block;" class="doughnut-chart">
-          <canvas baseChart [data]="doughnutSourceChartData" [labels]="doughnutSourceChartLabels"
+          <canvas height="500" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions" [labels]="doughnutSourceChartLabels"
             [chartType]="doughnutChartType">
           </canvas>
         </div>
@@ -101,12 +101,15 @@
 
   <div class="col-lg-6 margin-top-10">
     <div class="card">
-      <div class="card-header">Gender over Time</div>
+      <div class="card-header">
+        Gender over Time
+        <p>Showing Male Cases vs Female Over Time.</p>
+      </div>
       <div class="card-body">
         <div style="display: block;">
-          <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+          <canvas baseChart height="120" [datasets]="lineChartData" [labels]="lineChartLabels"
             [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-            [chartType]="lineChartType" [plugins]="lineChartPlugins">
+            [chartType]="lineChartType" [plugins]="lineChartPlugins" [options]="pieChartGenderOverTimeOptions">
           </canvas>
         </div>
       </div>
@@ -115,10 +118,13 @@
 
   <div class="col-lg-6 margin-top-10">
     <div class="card">
-      <div class="card-header">Infection Source over Time</div>
+      <div class="card-header">
+        Infection Source over Time
+        <p>Showing Number of Imported Cases vs Local Transmission Over Time.</p>
+      </div>
       <div class="card-body">
         <div style="display: block;">
-          <canvas baseChart width="400" height="400" [datasets]="lineChartInfectionSourceData"
+          <canvas baseChart height="120" [datasets]="lineChartInfectionSourceData"
             [labels]="lineChartInfectionSourceLabels" [options]="lineChartInfectionSourceOptions"
             [colors]="lineChartInfectionSourceColors" [legend]="lineChartLegend" [chartType]="lineChartType"
             [plugins]="lineChartPlugins">

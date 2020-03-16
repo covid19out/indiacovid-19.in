@@ -1,6 +1,36 @@
 .breadcrumb-title{
     margin-top: 10px;
+}
+
+.rounded-circle{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+
+  &.male{
+    background-color: #86c7f3;
   }
+
+  &.female{
+    background-color: #ffa1b5;
+  }
+
+}
+
+.card-footer{
+  p,h5{
+    margin-bottom: 0px;
+  }
+  .card-footer-state{
+    small{
+      color: rgba(0,0,0,0.5);
+    }
+  }
+}
+
+
+
 
   // .quick-link{
   //   margin-bottom: 20px;
