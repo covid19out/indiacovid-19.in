@@ -2,6 +2,14 @@
   font-size: 0.9rem;
   .nav-item{
     margin-right: 8px;
+    .btn-link{
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: rgba(0,0,0,.5);
+      &:hover{
+        color: rgba(0,0,0,.7);
+      }
+    }
   }
 }
 
@@ -14,7 +22,7 @@
   border-radius: 0;
   background-color: transparent;
   padding: 0;
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -30,4 +38,22 @@
 
 .margin-top-10{
   margin-top: 10px;
+}
+
+.row-xs>div{
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.card{
+  height: 100%;
+  .card-header{
+    background-color: rgba(0,0,0,0);
+    p{
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 0px;
+      margin-top: 2px;
+    }
+  }
 }
