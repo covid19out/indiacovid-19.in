@@ -14,14 +14,14 @@ export class HomeComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels: Label[] = ['01 Feb', '02 Mar','03 Mar', '04 Mar', '05 Mar','06 Mar', '07 Mar','08 Mar', '09 Mar','10 Mar','11 Mar', '12 Mar' ,'13 Mar','14 Mar','15 Mar', '16 Mar'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'CONFIRMED CASES', stack: 'a' },
-    { data: [15, 20, 25, 12, 50, 17, 10], label: ' DISCHARGED', stack: 'a' }
+    { data: [2, 3, 5, 6, 29, 30, 31,34,39,45,50,71,76,83,95,109,119], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+    { data: [0, 1, 40, 17, 1, 1, 2,], label: 'CONFIRMED CASES', stack: 'a' },
+    { data: [1, 1, 25, 6, 0, 0, 1,], label: ' DISCHARGED', stack: 'a' }
   ];
 
 
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
   //Doughnut Source
   public doughnutSourceChartLabels: Label[] = ['Local Transmission', 'Imported Cases'];
   public doughnutSourceChartData: MultiDataSet = [
-    [151, 75]
+    [81, 38]
   ];
 
   public pieChartSourceOptions: ChartOptions = {

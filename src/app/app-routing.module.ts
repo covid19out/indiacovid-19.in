@@ -9,7 +9,9 @@ const routes: Routes = [
   { path: 'cases', loadChildren: './cases/cases.module#CasesModule'},
   { path: 'insight', loadChildren: './insights/insights.module#InsightsModule'},
   { path: 'map', loadChildren: './map/map.module#MapModule'},
-  { path: 'worldwide', loadChildren: './worldwide/worldwide.module#WorldwideModule'}
+  { path: 'worldwide', loadChildren: './worldwide/worldwide.module#WorldwideModule'},
+  { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
+  { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'}
 ];
 
 
