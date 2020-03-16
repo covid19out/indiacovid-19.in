@@ -33,18 +33,67 @@ export class HomeComponent implements OnInit {
   public doughnutChartData: MultiDataSet = [
     [131, 95]
   ];
+  public pieChartGenderOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'bottom'
+    }
+  };
+
+//   public pieChartGenderPlugins = [{
+//   afterLayout: function (chart) {
+//     console.log(chart.legend.legendItems)
+//     chart.legend.legendItems.forEach(
+//       (label,i) => {
+//         console.log("lable",chart.data.datasets[0]);
+//         let value = chart.data.datasets[0].data[label.index];
+//
+//         label.text += ' ' + value;
+//         return label;
+//       }
+//     )
+//   }
+// }];
+
+
 
   //Doughnut Nationality
   public doughnutNationalityChartLabels: Label[] = ['Singaporean', 'Chinese', 'Filipino', 'Indonesian', 'Bangladeshi', 'Malaysian', 'Others'];
   public doughnutNationalityChartData: MultiDataSet = [
     [167, 19, 9, 8, 5, 5, 11]
   ];
+  public pieChartNationalityOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'bottom'
+    }
+  };
+
+//   public pieChartNationalityPlugins = [{
+//   afterLayout: function (chart) {
+//     chart.legend.legendItems.forEach(
+//       (label) => {
+//         let value = chart.data.datasets[0].data[label.index];
+//
+//         label.text += ' ' + value;
+//         return label;
+//       }
+//     )
+//   }
+// }];
 
   //Doughnut Source
   public doughnutSourceChartLabels: Label[] = ['Local Transmission', 'Imported Cases'];
   public doughnutSourceChartData: MultiDataSet = [
     [151, 75]
   ];
+
+  public pieChartSourceOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'bottom'
+    }
+  };
 
 
   //Line charts
@@ -63,10 +112,31 @@ export class HomeComponent implements OnInit {
   };
   public lineChartColors: Color[] = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: '#86c7f3',
+      backgroundColor: 'rgba(134,199,243,0.3)',
     },
+    {
+      borderColor: '#ffa1b5',
+      backgroundColor: 'rgba(255,161,181,0.3)',
+    }
   ];
+
+  public pieChartGenderOverTimeOptions: ChartOptions = {
+    scales: {
+       xAxes: [{
+           gridLines: {
+               display:false
+           }
+       }],
+       yAxes: [{
+           gridLines: {
+               display:false
+           }
+       }]
+   }
+};
+
+
 
 //Infection Source over Time
   public lineChartInfectionSourceData: ChartDataSets[] = [
@@ -80,8 +150,12 @@ export class HomeComponent implements OnInit {
   };
   public lineChartInfectionSourceColors: Color[] = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: '#86c7f3',
+      backgroundColor: 'rgba(134,199,243,0.3)',
+    },
+    {
+      borderColor: '#ffa1b5',
+      backgroundColor: 'rgba(255,161,181,0.3)',
     },
   ];
 
