@@ -1,0 +1,90 @@
+#sonarqube_develop_job:
+# stage: test
+# image: sonarsource/sonar-scanner-cli:latest
+# only:
+# - develop
+# script:
+# - sonar-scanner -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.analysis.mode=preview -Dsonar.gitlab.commit_sha=$CI_COMMIT_REF -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME -Dsonar.gitlab.project_id=$CI_PROJECT_ID -X
+
+stages:
+  - install
+  #- test
+  - build
+
+##############################################################################
+# Stage: Install
+##############################################################################
+
+install:
+ image: trion/ng-cli-karma
+ stage: install
+ script:
+   - npm install
+ artifacts:
+   paths:
+     - node_modules/
+ only:
+   refs:
+     - master
+    
+
+##############################################################################
+# Stage: Test
+##############################################################################
+
+#test:unit:
+#  image: trion/ng-cli-karma
+#  stage: test
+#  except:
+#    - /^ci\/.*/
+#  script:
+#    - npm test
+#  allow_failure: true
+#  artifacts:
+#    paths:
+#      - coverage/lcov.info
+#    reports:
+#      junit:
+#        - coverage/junit.xml
+#  dependencies:
+#    - install
+    
+
+##############################################################################
+# Stage: Document
+##############################################################################
+
+# Build Documentation
+build:doc:
+  image: node:10
+  stage: build
+  only:
+    refs:
+      - master
+  before_script:
+    - npm install -g @compodoc/compodoc
+  script:
+    - compodoc -p tsconfig.app.json
+  artifacts:
+    expire_in: 12 hrs
+    paths:
+      - documentation
+
+
+##############################################################################
+# Stage: FTP Deploy
+##############################################################################
+
+build:deploy:   
+ image: node:latest
+ stage: build
+ before_script:
+ - apt-get update -qq && apt-get install -y -qq lftp
+ - npm install -g @angular/cli
+ - npm install
+ - ng build --prod
+ script:
+ - lftp -c "set ftp:ssl-allow no; open -u $USERNAME,$PASSWORD $HOST; mirror -Rev ./dist/ ./elat/ng_framework/v1 --transfer-all --parallel=10 --ignore-time --exclude-glob .git* --exclude .git/"
+ only:
+    refs:
+      - master
