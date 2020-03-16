@@ -1,0 +1,81 @@
+
+<div class="number-of-cases">
+    <div>Number of cases</div>
+    <div style="display: block;" class="stacked-chart">
+        <canvas baseChart 
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+        </canvas>
+    </div>
+</div>
+
+
+<div class="gender">
+    <div>Gender</div>
+    <div style="display: block;" class="doughnut-chart">
+        <canvas baseChart 
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType">
+        </canvas>
+      </div>
+</div>
+
+<div class="nationality">
+    <div>Nationality</div>
+    <div style="display: block;" class="doughnut-chart">
+        <canvas baseChart 
+          [data]="doughnutNationalityChartData"
+          [labels]="doughnutNationalityChartLabels"
+          [chartType]="doughnutChartType">
+        </canvas>
+      </div>
+</div>
+
+<div class="source">
+    <div>Source</div>
+    <div style="display: block;" class="doughnut-chart">
+        <canvas baseChart 
+          [data]="doughnutSourceChartData"
+          [labels]="doughnutSourceChartLabels"
+          [chartType]="doughnutChartType">
+        </canvas>
+      </div>
+</div>
+
+<div class="gender-over-Time">
+    <div>Gender over Time </div>
+    <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+</div>
+
+<div class="infection-source-over-Time">
+    <div>Infection Source over Time </div>
+    <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+          [datasets]="lineChartInfectionSourceData"
+          [labels]="lineChartInfectionSourceLabels"
+          [options]="lineChartInfectionSourceOptions"
+          [colors]="lineChartInfectionSourceColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+</div>
+
+  
+
