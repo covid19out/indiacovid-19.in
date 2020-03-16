@@ -18,26 +18,28 @@
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
-      <div><h6>243</h6> <span>13 in ICU</span></div>
+      <div>
+        <h6>243</h6> <span>13 in ICU</span>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartConfirmedData"
-          [labels]="lineChartConfirmedSourceLabels" [options]="lineChartConfirmedSourceOptions"
-          [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
+        <canvas baseChart height="120" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
+          [options]="lineChartConfirmedSourceOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false"
+          [chartType]="lineChartType" [plugins]="lineChartPlugins">
         </canvas>
       </div>
     </div>
-   
+
   </div>
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
-      <div><h6>134</h6> <span>55.1% of total cases</span></div>
+      <div>
+        <h6>134</h6> <span>55.1% of total cases</span>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartSymptomaticData"
-          [labels]="lineChartSymptomaticSourceLabels" [options]="lineChartSymptomaticSourceOptions"
-          [colors]="lineChartSymptomaticSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
+        <canvas baseChart height="120" [datasets]="lineChartSymptomaticData" [labels]="lineChartSymptomaticSourceLabels"
+          [options]="lineChartSymptomaticSourceOptions" [colors]="lineChartSymptomaticSourceColors" [legend]="false"
+          [chartType]="lineChartType" [plugins]="lineChartPlugins">
         </canvas>
       </div>
     </div>
@@ -45,12 +47,13 @@
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
-      <div><h6>13</h6> <span>121 in stable condition</span></div>
+      <div>
+        <h6>13</h6> <span>121 in stable condition</span>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartIntensiveData"
-          [labels]="lineChartIntensiveSourceLabels" [options]="lineChartIntensiveSourceOptions"
-          [colors]="lineChartIntensiveSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
+        <canvas baseChart height="120" [datasets]="lineChartIntensiveData" [labels]="lineChartIntensiveSourceLabels"
+          [options]="lineChartIntensiveSourceOptions" [colors]="lineChartIntensiveSourceColors" [legend]="false"
+          [chartType]="lineChartType" [plugins]="lineChartPlugins">
         </canvas>
       </div>
     </div>
@@ -58,12 +61,13 @@
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
-      <div><h6>109</h6> <span>44.9% of total cases</span></div>
+      <div>
+        <h6>109</h6> <span>44.9% of total cases</span>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartDischargeData"
-          [labels]="lineChartDischargeSourceLabels" [options]="lineChartDischargeSourceOptions"
-          [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
+        <canvas baseChart height="120" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
+          [options]="lineChartDischargeSourceOptions" [colors]="lineChartDischargeSourceColors" [legend]="false"
+          [chartType]="lineChartType" [plugins]="lineChartPlugins">
         </canvas>
       </div>
     </div>
@@ -92,7 +96,8 @@
       <div class="card-header">Gender</div>
       <div class="card-body">
         <div style="display: block;" class="doughnut-chart">
-          <canvas height="400" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="pieChartGenderOptions" [plugins]="pieChartGenderPlugins">
+          <canvas height="400" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType" [options]="pieChartGenderOptions" [plugins]="pieChartGenderPlugins">
           </canvas>
         </div>
       </div>
@@ -105,7 +110,8 @@
       <div class="card-body">
         <div style="display: block;" class="doughnut-chart">
           <canvas height="500" baseChart [data]="doughnutNationalityChartData" [labels]="doughnutNationalityChartLabels"
-            [chartType]="doughnutChartType" [options]="pieChartNationalityOptions" [plugins]="pieChartNationalityPlugins">
+            [chartType]="doughnutChartType" [options]="pieChartNationalityOptions"
+            [plugins]="pieChartNationalityPlugins">
           </canvas>
         </div>
       </div>
@@ -115,7 +121,8 @@
     <div class="card">
       <div class="card-header">Age and Gender Distribution</div>
       <div class="card-body">
-
+        <apx-chart [series]="apexChartOptions.series" [chart]="apexChartOptions.chart" [xaxis]="apexChartOptions.xaxis"
+          [title]="apexChartOptions.title"></apx-chart>
       </div>
     </div>
   </div>
@@ -124,8 +131,8 @@
       <div class="card-header">Source</div>
       <div class="card-body">
         <div style="display: block;" class="doughnut-chart">
-          <canvas height="500" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions" [labels]="doughnutSourceChartLabels"
-            [chartType]="doughnutChartType">
+          <canvas height="500" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
+            [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType">
           </canvas>
         </div>
       </div>
