@@ -18,23 +18,29 @@
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
-      <div><h6>243</h6> <span>13 in ICU</span></div>
+      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">243</h3>
+        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">13<i class="icon ion-md-arrow-up"></i></span> in ICU</p>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartConfirmedData"
+        <canvas baseChart height="60" [datasets]="lineChartConfirmedData"
           [labels]="lineChartConfirmedSourceLabels" [options]="lineChartConfirmedSourceOptions"
           [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="lineChartType"
           [plugins]="lineChartPlugins">
         </canvas>
       </div>
     </div>
-   
+
   </div>
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
-      <div><h6>134</h6> <span>55.1% of total cases</span></div>
+      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">138</h3>
+        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">56.8%<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartSymptomaticData"
+        <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
           [labels]="lineChartSymptomaticSourceLabels" [options]="lineChartSymptomaticSourceOptions"
           [colors]="lineChartSymptomaticSourceColors" [legend]="false" [chartType]="lineChartType"
           [plugins]="lineChartPlugins">
@@ -45,9 +51,12 @@
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
-      <div><h6>13</h6> <span>121 in stable condition</span></div>
+      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">13</h3>
+        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">125<i class="icon ion-md-arrow-up"></i></span> in stable condition</p>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartIntensiveData"
+        <canvas baseChart height="60" [datasets]="lineChartIntensiveData"
           [labels]="lineChartIntensiveSourceLabels" [options]="lineChartIntensiveSourceOptions"
           [colors]="lineChartIntensiveSourceColors" [legend]="false" [chartType]="lineChartType"
           [plugins]="lineChartPlugins">
@@ -58,9 +67,12 @@
   <div class="col-sm-6 col-lg-3 margin-top-10">
     <div class="card card-body">
       <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
-      <div><h6>109</h6> <span>44.9% of total cases</span></div>
+      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">105</h3>
+        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">43.2% <i class="icon ion-md-arrow-up"></i></span> of total cases</p>
+      </div>
       <div style="display: block;">
-        <canvas baseChart height="120" [datasets]="lineChartDischargeData"
+        <canvas baseChart height="60" [datasets]="lineChartDischargeData"
           [labels]="lineChartDischargeSourceLabels" [options]="lineChartDischargeSourceOptions"
           [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="lineChartType"
           [plugins]="lineChartPlugins">

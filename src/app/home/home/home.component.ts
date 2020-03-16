@@ -89,8 +89,8 @@ export class HomeComponent implements OnInit {
   public lineChartPlugins = [];
   //Gender over Time line chart
   public lineChartData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', cubicInterpolationMode: 'monotone' },
-    { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', cubicInterpolationMode: 'monotone' },
+    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
+    { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
   ];
   public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -124,8 +124,8 @@ export class HomeComponent implements OnInit {
 
   //Infection Source over Time
   public lineChartInfectionSourceData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'IMPORTED CASE', cubicInterpolationMode: 'monotone' },
-    { data: [0, 0, 0, 6, 10, 20, 17, 22, 35, 40], label: 'LOCAL TRANSMISSION', cubicInterpolationMode: 'monotone' },
+    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
+    { data: [0, 0, 0, 6, 10, 20, 17, 22, 35, 40], label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' },
   ];
   public lineChartInfectionSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartInfectionSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -155,9 +155,9 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  //Confirmed card Line chart 
+  //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'CONFIRMED CASES', cubicInterpolationMode: 'monotone' }
+    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartConfirmedSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -178,14 +178,14 @@ export class HomeComponent implements OnInit {
   };
   public lineChartConfirmedSourceColors: Color[] = [
     {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
+      borderColor: '#6e7f90',
+      backgroundColor: 'rgba(110,127,144,0.2)',
     }
   ];
 
   //Hospitalized card line chart
   public lineChartSymptomaticData: ChartDataSets[] = [
-    { data: [10, 12, 15, 17, 21, 23, 23, 25, 27, 27], label: 'CONFIRMED CASES', cubicInterpolationMode: 'monotone' }
+    { data: [10, 12, 15, 17, 21, 23, 23, 25, 27, 27], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
   ];
   public lineChartSymptomaticSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartSymptomaticSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -206,14 +206,14 @@ export class HomeComponent implements OnInit {
   };
   public lineChartSymptomaticSourceColors: Color[] = [
     {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
+      borderColor: '#6e7f90',
+      backgroundColor: 'rgba(110,127,144,0.3)',
     }
   ];
 
   //Intensive card line chart
   public lineChartIntensiveData: ChartDataSets[] = [
-    { data: [15, 20, 30, 8, 21, 10, 5, 17, 21, 23], label: 'CONFIRMED CASES', cubicInterpolationMode: 'monotone' }
+    { data: [15, 20, 30, 8, 21, 10, 5, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
   ];
   public lineChartIntensiveSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartIntensiveSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -234,14 +234,14 @@ export class HomeComponent implements OnInit {
   };
   public lineChartIntensiveSourceColors: Color[] = [
     {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
+      borderColor: '#6e7f90',
+      backgroundColor: 'rgba(110,127,144,0.3)',
     }
   ];
 
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
-    { data: [0, 0, 2, 1, 0, 1, 3, 0, 1, 2], label: 'CONFIRMED CASES', cubicInterpolationMode: 'monotone' }
+    { data: [0, 0, 2, 1, 0, 1, 3, 0, 1, 2], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor:'rgba(0, 0, 0, 0)', pointBorderColor:'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDischargeSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartDischargeSourceOptions: (ChartOptions & { annotation: any }) = {
@@ -262,8 +262,8 @@ export class HomeComponent implements OnInit {
   };
   public lineChartDischargeSourceColors: Color[] = [
     {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
+      borderColor: '#6e7f90',
+      backgroundColor: 'rgba(110,127,144,0.3)',
     }
   ];
 
