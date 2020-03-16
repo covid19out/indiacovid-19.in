@@ -9,140 +9,120 @@
     <h5 class="mg-b-0 tx-spacing--1">Dashboard of the COVID-19 Virus Outbreak in India</h5>
   </div>
   <div class="d-flex justify-content-end calendar-button">
-      <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; 21 January 2020 to 15 March 2020</button>
+    <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"><i class="fa fa-calendar"
+        aria-hidden="true"></i>&nbsp;&nbsp; 21 January 2020 to 15 March 2020</button>
   </div>
 </div>
 
 <div class="row row-xs quick-link">
-<div class="col-sm-6 col-lg-3">
-<div class="card card-body">
-  <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
-</div>
-</div>
-<div class="col-sm-6 col-lg-3">
-<div class="card card-body">
-  <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
-</div>
-</div>
-<div class="col-sm-6 col-lg-3">
-<div class="card card-body">
-  <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
-</div>
-</div>
-<div class="col-sm-6 col-lg-3">
-<div class="card card-body">
-  <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
-</div>
-</div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-body">
+      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-body">
+      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-body">
+      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-body">
+      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
+    </div>
+  </div>
 </div>
 
 <div class="row row-x">
-<div class="col-lg-8 col-xl-9">
-<div class="card">
-  <div class="card-header">Number Of Cases</div>
-  <div class="card-body">
-    <div style="display: block;" class="stacked-chart">
-      <canvas baseChart 
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
-      </canvas>
-  </div>
-  </div>
-</div>
-</div>
-
-<div class="col-lg-4 col-xl-3 mg-t-10">
-<div class="card">
-  <div class="card-header">Gender</div>
-  <div class="card-body">
-    <div style="display: block;" class="doughnut-chart">
-      <canvas baseChart 
-        [data]="doughnutChartData"
-        [labels]="doughnutChartLabels"
-        [chartType]="doughnutChartType">
-      </canvas>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="col-lg-3 margin-top-10">
-  <div class="card">
-    <div class="card-header">Nationality</div>
-    <div class="card-body">
-      <div style="display: block;" class="doughnut-chart">
-        <canvas baseChart 
-          [data]="doughnutNationalityChartData"
-          [labels]="doughnutNationalityChartLabels"
-          [chartType]="doughnutChartType">
-        </canvas>
+  <div class="col-lg-8 col-xl-9">
+    <div class="card">
+      <div class="card-header">Number Of Cases</div>
+      <div class="card-body">
+        <div style="display: block;" class="stacked-chart">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="col-lg-6 margin-top-10">
-  <div class="card">
-    <div class="card-header">Age and Gender Distribution</div>
-    <div class="card-body">
 
-    </div>
-  </div>
-</div>
-<div class="col-lg-3 margin-top-10">
-  <div class="card">
-    <div class="card-header">Source</div>
-    <div class="card-body">
-      <div style="display: block;" class="doughnut-chart">
-        <canvas baseChart 
-          [data]="doughnutSourceChartData"
-          [labels]="doughnutSourceChartLabels"
-          [chartType]="doughnutChartType">
-        </canvas>
+  <div class="col-lg-4 col-xl-3 mg-t-10">
+    <div class="card">
+      <div class="card-header">Gender</div>
+      <div class="card-body">
+        <div style="display: block;" class="doughnut-chart">
+          <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="col-lg-6 margin-top-10">
-  <div class="card">
-    <div class="card-header">Gender over Time</div>
-    <div class="card-body">
-      <div style="display: block;">
-        <canvas baseChart width="400" height="400"
-          [datasets]="lineChartData"
-          [labels]="lineChartLabels"
-          [options]="lineChartOptions"
-          [colors]="lineChartColors"
-          [legend]="lineChartLegend"
-          [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
-        </canvas>
+  <div class="col-lg-3 margin-top-10">
+    <div class="card">
+      <div class="card-header">Nationality</div>
+      <div class="card-body">
+        <div style="display: block;" class="doughnut-chart">
+          <canvas baseChart [data]="doughnutNationalityChartData" [labels]="doughnutNationalityChartLabels"
+            [chartType]="doughnutChartType">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="col-lg-6 margin-top-10">
+    <div class="card">
+      <div class="card-header">Age and Gender Distribution</div>
+      <div class="card-body">
 
-<div class="col-lg-6 margin-top-10">
-  <div class="card">
-    <div class="card-header">Infection Source over Time</div>
-    <div class="card-body">
-      <div style="display: block;">
-        <canvas baseChart width="400" height="400"
-          [datasets]="lineChartInfectionSourceData"
-          [labels]="lineChartInfectionSourceLabels"
-          [options]="lineChartInfectionSourceOptions"
-          [colors]="lineChartInfectionSourceColors"
-          [legend]="lineChartLegend"
-          [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
-        </canvas>
       </div>
     </div>
   </div>
-</div>
+  <div class="col-lg-3 margin-top-10">
+    <div class="card">
+      <div class="card-header">Source</div>
+      <div class="card-body">
+        <div style="display: block;" class="doughnut-chart">
+          <canvas baseChart [data]="doughnutSourceChartData" [labels]="doughnutSourceChartLabels"
+            [chartType]="doughnutChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 margin-top-10">
+    <div class="card">
+      <div class="card-header">Gender over Time</div>
+      <div class="card-body">
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+            [chartType]="lineChartType" [plugins]="lineChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 margin-top-10">
+    <div class="card">
+      <div class="card-header">Infection Source over Time</div>
+      <div class="card-body">
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400" [datasets]="lineChartInfectionSourceData"
+            [labels]="lineChartInfectionSourceLabels" [options]="lineChartInfectionSourceOptions"
+            [colors]="lineChartInfectionSourceColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
