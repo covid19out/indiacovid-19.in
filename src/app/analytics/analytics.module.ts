@@ -8,6 +8,7 @@ import { ConfirmedComponent } from './components/confirmed/confirmed.component';
 import { RecoveredComponent } from './components/recovered/recovered.component';
 import { SymptomaticComponent } from './components/symptomatic/symptomatic.component';
 import { IntensiveCareCasesComponent } from './components/intensive-care-cases/intensive-care-cases.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { IntensiveCareCasesComponent } from './components/intensive-care-cases/i
   imports: [
     CommonModule,
     AnalyticsRoutingModule,
-    ChartsModule
+    ChartsModule,
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class AnalyticsModule { }

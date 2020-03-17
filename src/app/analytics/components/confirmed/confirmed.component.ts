@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-confirmed',
@@ -9,20 +10,39 @@ import { MultiDataSet, Label, Color } from 'ng2-charts';
   styleUrls: ['./confirmed.component.scss']
 })
 export class ConfirmedComponent implements OnInit {
+  public minDate=new Date('jan 2020');
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] = ['10 Mar', '11 Mar', '12 Mar', '13 Mar', '14 Mar', '15 Mar', '16 Mar'];
+  public dates=['10 Mar', '11 Mar', '12 Mar', '13 Mar', '14 Mar', '15 Mar', '16 Mar'];
+  public dataByDates=[65, 59, 80, 81, 56, 55, 40];
+  public barChartLabels: Label[] = this.dates;
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'CONFIRMED CASES', stack: 'a' }
+    { data: this.dataByDates, label: 'CONFIRMED CASES', stack: 'a' }
   ];
+  public startDate: any;
+  public endDate: any;
 
   constructor() { }
 
   ngOnInit() {
   }
-
+  dateFilterChanged(event){
+    let data=[];
+    var self=this;
+    this.startDate=event[0].toLocaleDateString("en-US" , Option);
+    this.endDate=event[1].toLocaleDateString("en-US", Option);
+    event[0].setHours(0,0,0,0);
+    this.barChartLabels=_.filter(this.dates,function(d,i){
+      let date=new Date(d +  "2020");
+      if(date >= event[0] && date <= event[1]){
+        data.push(self.dataByDates[i]);
+        return d;
+      }
+    });
+    this.barChartData= [{ data:data , label: 'DISCHARGED / RECOVERED CASES', stack: 'a' }];
+  }
 }
