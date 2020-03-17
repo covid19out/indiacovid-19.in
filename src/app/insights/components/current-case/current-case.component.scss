@@ -1,0 +1,75 @@
+.average-state{
+  width: 10px;
+  height: 10px;
+}
+
+.progress{
+  height: 3px;
+  margin-bottom: 4px;
+}
+
+.card-footer{
+  background-color: transparent;
+  p{
+    margin-bottom: 0px;
+  }
+}
+
+.pos-relative{
+  position: relative;
+}
+
+.pos-absolute{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.total-cases-chart{
+  .tx-9{
+    font-size: 0.75rem;
+  }
+}
+
+.media-body{
+  margin-left: 20px;
+  p{
+    font-size: 0.8rem;
+  }
+}
+
+.hospitalised-cases-state{
+  p{
+    font-size: 0.75rem;
+    color: #08bf58;
+  }
+}
+
+.hospitalised-cases-state-card{
+  .table{
+    margin-top: 20px;
+    font-size: 0.75rem;
+    thead{
+      font-size: 0.75rem;
+      font-weight: normal;
+    }
+  }
+  .table td, .table th {
+      padding: .25rem;
+  }
+}
+
+.case-details-card{
+  .table{
+    font-size: 0.75rem;
+    thead{
+      font-size: 0.75rem;
+      font-weight: normal;
+    }
+  }
+  .table td, .table th {
+      padding: .5rem;
+  }
+}

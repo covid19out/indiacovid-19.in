@@ -24,24 +24,21 @@
             </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Insight
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Current Cases In Hospital</a>
-            <a class="dropdown-item" href="#">Discharged Cases</a>
+          <div class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
+                  Insight <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item" href="/insight/currentCases">Current Cases In Hospital</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="/insight/dischargedCases">Discharged Cases</a></li>
+              </ul>
           </div>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cases
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Network Graph</a>
-            <a class="dropdown-item" href="#">Search</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="/cases">Cases</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" href="#/map">Map</a>
         </li>
