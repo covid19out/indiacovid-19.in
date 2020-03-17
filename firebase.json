@@ -7,7 +7,8 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
+    "public": "./dist/CovidStat",
+    "site": "india-covid-19",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -16,7 +17,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "index.html"
       }
     ]
   }
