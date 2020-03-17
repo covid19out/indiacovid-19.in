@@ -411,7 +411,6 @@ export class HomeComponent implements OnInit {
     this.assigndoughnutChartData(dateWiseData);
     this.assigndoughnutSourceChartData(dateWiseData);
     this.assignLineChartData(dateWiseData);
-    // this.assignNationalityData(dateWiseData);
   }
 
   assignLineChartData(dateWiseData: any[]) {
@@ -460,9 +459,7 @@ export class HomeComponent implements OnInit {
     this.doughnutNationalityChartLabels=NationalityChartLabels;
     this.doughnutNationalityChartData=[NationalityChartData];
   }
-  assignNationalityData(dateWiseData){
 
-  }
   assigndoughnutSourceChartData(dateWiseData: any[]) {
     var self = this;
     this.doughnutSourceChartData=_.map(_.groupBy(dateWiseData, 'source'),function(val){
@@ -513,46 +510,15 @@ export class HomeComponent implements OnInit {
   }
 
   dateFilterChanged(event){
-    // let reportedSympoMatic=[];
-    // let confirmedCases=[];
-    // let discharged=[];
-    // var self=this;
-    // this.startDate=event[0].toLocaleDateString("en-US" , Option);
-    // this.endDate=event[1].toLocaleDateString("en-US", Option);
-    // event[0].setHours(0,0,0,0);
-    // this.barChartLabels=_.filter(this.dates,function(d,i){
-    //   let date=new Date(d +  "2020");
-    //   if(date>=event[0]   && date<=event[1]){
-    //     reportedSympoMatic.push(self.reportedSympoMaticByDates[i] || 0);
-    //     confirmedCases.push(self.confirmedCasesByDates[i] || 0);
-    //     discharged.push(self.dischargedByDates[i] || 0 );
-    //     return d;
-    //   }
-    // });
-    // this.barChartData= [
-    //   { data: reportedSympoMatic, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-    //   { data:confirmedCases , label: 'CONFIRMED CASES', stack: 'a' },
-    //   { data:discharged , label: ' DISCHARGED', stack: 'a' }
-    // ];
-
-    // this.lineChartInfectionSourceLabels=this.lineChartLabels= _.filter(this.months,function(month){
-    //   let date=new Date(month +  "2020");
-    //   if((event[0].getMonth()==date.getMonth()) || (event[1].getMonth()==date.getMonth()) || (date>= event[0] && date<=event[1])){
-    //     return month;
-    //   }
-      
-    // });
-
-    //
-      var filteredData=_.filter(this.patientsData,function(patient){
-        let patientsDate=new Date(patient.confirmedAt);
-        event[0].setHours(0,0,0,0);
-        if(patientsDate>=event[0]   && patientsDate<=event[1]){
-          return patient;
-        }
-      });
-      this.loadDataintoComponent(filteredData);
-    //
+    var filteredData=_.filter(this.patientsData,function(patient){
+      let patientsDate=new Date(patient.confirmedAt);
+      event[0].setHours(0,0,0,0);
+      event[1].setHours(23,59,59,999);
+      if(patientsDate>=event[0]   && patientsDate<=event[1]){
+        return patient;
+      }
+    });
+    this.loadDataintoComponent(filteredData);
   }
 
 }
