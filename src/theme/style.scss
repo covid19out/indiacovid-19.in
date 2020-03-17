@@ -6,7 +6,7 @@ body{
 .navbar-nav{
   font-size: 0.9rem;
   .nav-item{
-    margin-right: 8px;
+    margin-right: 4px;
     .btn-link{
       text-decoration: none;
       font-size: 0.9rem;
@@ -20,8 +20,12 @@ body{
 
 .page-heading{
   margin-bottom: 30px;
+  margin-top: 20px;
 }
 
+.breadcrumb-item.active {
+    color: #0166e6;
+}
 
 .breadcrumb-title{
   border-radius: 0;
