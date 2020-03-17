@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PatientsDataService } from './services/patients-data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'INDIA COVID-19 - Corona Virus Updates';
+  constructor(private PatientsDataService:PatientsDataService){
+    this.PatientsDataService.loadPatientsData();
+  }
 }
