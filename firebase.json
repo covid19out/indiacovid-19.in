@@ -8,6 +8,7 @@
   },
   "hosting": {
     "public": "dist",
+    "site": "india-covid-19",
     "ignore": [
       "firebase.json",
       "**/.*",
