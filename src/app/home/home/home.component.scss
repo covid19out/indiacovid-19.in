@@ -42,12 +42,32 @@
   }
 }
 
+.icon-male{
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #86c7f3!important;
+  color: #fff;
+}
 
-  // .quick-link{
-  //   margin-bottom: 20px;
-  // }
+.icon-female{
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #ffa1b5!important;
+  color: #fff;
+}
 
-  #chart {
-    max-width: 650px;
-    margin: 35px auto;
+.media{
+  .media-body{
+    margin-left: 6px;
+    h6{
+      margin-bottom: 2px;
+    }
+    p{
+      margin-bottom: 0px;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
   }
+}

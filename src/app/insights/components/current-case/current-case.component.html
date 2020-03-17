@@ -1,0 +1,251 @@
+<div class="d-sm-flex justify-content-between page-heading">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-title">
+        <li class="breadcrumb-item"><a>Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">CURRENT CASES</li>
+      </ol>
+    </nav>
+    <h5 class="mg-b-0 tx-spacing--1">Cases Currently Hospitalised in India</h5>
+  </div>
+  <!-- <div class="d-flex justify-content-end calendar-button">
+    <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"><i class="fa fa-calendar"
+        aria-hidden="true"></i>&nbsp;&nbsp; 21 January 2020 to 15 March 2020</button>
+  </div> -->
+</div>
+
+
+<div class="row row-xs">
+  <div class="col-lg-8 col-xl-9 margin-top-10">
+    <div class="card">
+      <div class="card-header d-sm-flex justify-content-between">
+        <div class="">
+          Days in Hospital
+          <p>Current days spent in the hospital by case number.</p>
+        </div>
+        <ul class="list-inline tx-uppercase tx-10 tx-medium tx-spacing-1 tx-color-03 mg-b-0">
+            <li class="list-inline-item mg-l-10">
+              <span class="average-state d-inline-block wd-7 ht-7 rounded-circle mg-r-5" style="background-color: #65e0e0;"></span>
+              Average
+            </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <!-- <div style="display: block;" class="stacked-chart">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+          </canvas>
+        </div> -->
+      </div>
+      <div class="card-footer pd-y-15 pd-x-20">
+        <div class="row row-sm">
+          <div class="col-6 col-sm-4 col-md-3 col-lg">
+            <h5 class="tx-normal tx-rubik mg-b-10">134</h5>
+            <div class="progress ht-2 mg-b-10">
+              <div class="progress-bar bg-df-2" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="55" style="width: 55%;"></div>
+            </div>
+            <p class="tx-uppercase tx-spacing-1 tx-semibold tx-10 tx-color-02 mg-b-2">In Hospital</p>
+          </div><!-- col -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg">
+            <h5 class="tx-normal tx-rubik mg-b-10">13</h5>
+            <div class="progress ht-2 mg-b-10">
+              <div class="progress-bar bg-df-2" role="progressbar" aria-valuenow="134" aria-valuemin="0" aria-valuemax="13" style="width: 9%;"></div>
+            </div>
+            <p class="tx-uppercase tx-spacing-1 tx-semibold tx-10 tx-color-02 mg-b-2">Intensive Care</p>
+          </div><!-- col -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg mg-t-20 mg-sm-t-0">
+            <h5 class="tx-normal tx-rubik mg-b-10">109</h5>
+            <div class="progress ht-2 mg-b-10">
+              <div class="progress-bar bg-df-2" role="progressbar" aria-valuenow="243" aria-valuemin="0" aria-valuemax="44" style="width: 44%;"></div>
+            </div>
+            <p class="tx-uppercase tx-spacing-1 tx-semibold tx-10 tx-color-02 mg-b-2">Discharged</p>
+          </div><!-- col -->
+          <div class="col-6 col-sm-4 col-md-3 col-lg mg-t-20 mg-sm-t-0">
+            <h5 class="tx-normal tx-rubik mg-b-10">243</h5>
+            <div class="progress ht-2 mg-b-10">
+              <div class="progress-bar wd-100p bg-df-2" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p class="tx-uppercase tx-spacing-1 tx-semibold tx-10 tx-color-02 mg-b-2">Total Cases</p>
+          </div><!-- col -->
+        </div><!-- row -->
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-xl-3 margin-top-10">
+    <div class="card">
+      <div class="card-body">
+        <div class="media d-block d-sm-flex align-items-center">
+            <div class="d-inline-block pos-relative total-cases-chart">
+              <svg class="peity" height="110" width="110"><path d="M 55 0 A 55 55 0 1 1 37.531386932542055 107.15215774538422 L 40.389887252671535 98.61816829613952 A 46 46 0 1 0 55 9" data-value="134" fill="#ff7c8f"></path><path d="M 37.531386932542055 107.15215774538422 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 40.389887252671535 98.61816829613952" data-value="109" fill="#e5e9f2"></path></svg>
+
+              <div class="pos-absolute d-flex flex-column align-items-center justify-content-center">
+                <h5 class="tx-rubik tx-spacing--1 mg-b-0">55.1%</h5>
+                <span class="tx-9 tx-semibold tx-sans tx-color-03 tx-uppercase">Of Total Cases</span>
+              </div>
+            </div>
+            <div class="media-body">
+              <h6 class="mg-b-5">Cases in Hospital</h6>
+              <p>Percentage of cases currently hospitalised <span class="d-none d-lg-inline"></span></p>
+              <h4 class="tx-spacing--1 mg-b-0">134 cases</h4>
+            </div><!-- media-body -->
+        </div>
+      </div>
+
+      <div class="card-body hospitalised-cases-state-card" style="border-top: 1px solid rgba(0,0,0,.125);">
+        <h6 class="mg-b-0">Hospitalised Cases</h6>
+        <div class="d-flex align-items-baseline hospitalised-cases-state">
+          <h1 class="mg-b-5 mg-r-5">6.0</h1>
+          <p class="mg-b-0"><span>vs 10.0 for recovered cases</span></p>
+        </div>
+        <h6 class="tx-uppercase tx-spacing-1 tx-semibold tx-10 tx-color-02 mg-b-15">Median Days Spent in Hospital</h6>
+        <div class="progress bg-transparent op-7 ht-10 mg-b-15">
+            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100" style="width: 29.1%"></div>
+            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 29.9%"></div>
+            <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 32.1%"></div>
+            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="width: 5.2%"></div>
+            <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 3.7%"></div>
+        </div>
+        <table class="table table-dashboard">
+          <thead>
+            <tr>
+              <th colspan="2" class="tx-medium tx-10">Days in Hospital</th>
+              <th class="text-right tx-medium tx-10">Cases</th>
+              <th class="text-right tx-medium tx-10">Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-success"></div></td>
+                <td class="tx-medium">Below 3 days</td>
+                <td class="text-right">39</td>
+                <td class="text-right">29.1%</td>
+              </tr>
+              <tr>
+                <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-primary"></div></td>
+                <td class="tx-medium">4-7 days</td>
+                <td class="text-right">40</td>
+                <td class="text-right">29.9%</td>
+              </tr>
+              <tr>
+                <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-purple"></div></td>
+                <td class="tx-medium">8-14 days</td>
+                <td class="text-right">43</td>
+                <td class="text-right">32.1%</td>
+              </tr>
+              <tr>
+                <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-warning"></div></td>
+                <td class="tx-medium">15-21 days</td>
+                <td class="text-right">7</td>
+                <td class="text-right">5.2%</td>
+              </tr>
+              <tr>
+                <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-pink"></div></td>
+                <td class="tx-medium">&gt;21 days</td>
+                <td class="text-right">5</td>
+                <td class="text-right">3.7%</td>
+              </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 col-md-12 col-lg-4 margin-top-10">
+    <div class="card">
+      <div class="card-header d-sm-flex justify-content-between">
+        <div class="">
+          Nationality
+        </div>
+      </div>
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-4 margin-top-10">
+    <div class="card">
+      <div class="card-header d-sm-flex justify-content-between">
+        <div class="">
+          Gender
+        </div>
+      </div>
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-4 margin-top-10">
+    <div class="card">
+      <div class="card-header d-sm-flex justify-content-between">
+        <div class="">
+          Age Group
+        </div>
+      </div>
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-xl-12 margin-top-10">
+    <div class="card case-details-card">
+      <div class="card-header">
+        Case Details
+        <p>Details of cases currently in hospital ordered by longest stay.</p>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2" class="tx-medium tx-10">Days in Hospital</th>
+            <th class="text-right tx-medium tx-10">Cases</th>
+            <th class="text-right tx-medium tx-10">Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-success"></div></td>
+              <td class="tx-medium">Below 3 days</td>
+              <td class="text-right">39</td>
+              <td class="text-right">29.1%</td>
+            </tr>
+            <tr>
+              <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-primary"></div></td>
+              <td class="tx-medium">4-7 days</td>
+              <td class="text-right">40</td>
+              <td class="text-right">29.9%</td>
+            </tr>
+            <tr>
+              <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-purple"></div></td>
+              <td class="tx-medium">8-14 days</td>
+              <td class="text-right">43</td>
+              <td class="text-right">32.1%</td>
+            </tr>
+            <tr>
+              <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-warning"></div></td>
+              <td class="tx-medium">15-21 days</td>
+              <td class="text-right">7</td>
+              <td class="text-right">5.2%</td>
+            </tr>
+            <tr>
+              <td><div class="wd-12 ht-12 rounded-circle bd bd-3 bd-pink"></div></td>
+              <td class="tx-medium">&gt;21 days</td>
+              <td class="text-right">5</td>
+              <td class="text-right">3.7%</td>
+            </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
