@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 .firebase/hosting.ZGlzdA.cache
 *.cache
+src/.gitlab-ci.yml
