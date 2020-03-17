@@ -411,24 +411,25 @@ export class HomeComponent implements OnInit {
     this.assigndoughnutChartData(dateWiseData);
     this.assigndoughnutSourceChartData(dateWiseData);
     this.assignLineChartData(dateWiseData);
-    
+    // this.assignNationalityData(dateWiseData);
   }
 
   assignLineChartData(dateWiseData: any[]) {
+    var self=this;
     let chartLabels=[];
     let chartDataOfMales=[];
     let chartDataOfFemales = [];
     let chartDataOfImported=[];
     let chartDataOfLocal =[];
-    var data=_.groupBy(dateWiseData, 'confirmedInMonth');
-    _.forEach(data, function(value, key) {
+    _.forEach(_.groupBy(dateWiseData, 'confirmedInMonth'), function(value, key) {
      chartLabels.push(key);
      let genderWiseData=_.groupBy(value, 'gender');
-     chartDataOfMales.push(genderWiseData.Male? genderWiseData.Male.length : 0);
-     chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length :  0);
+     chartDataOfMales.push(self.getDataCount(genderWiseData.Male));
+     chartDataOfFemales.push(self.getDataCount(genderWiseData.Female));
      let transmissionSourceWiseData=_.groupBy(value, 'source');
-     chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
-     chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length :  0);
+     chartDataOfImported.push(self.getDataCount(transmissionSourceWiseData.Imported));
+     chartDataOfLocal.push(self.getDataCount(transmissionSourceWiseData.Local));
+
     });
     this.lineChartLabels=this.lineChartInfectionSourceLabels=chartLabels;
     this.lineChartData= [
@@ -441,29 +442,32 @@ export class HomeComponent implements OnInit {
     ];
 
   }
+  getDataCount(data: any): any {
+    let count : number = 0;
+    _.forEach(data,function(p){
+      count+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+    });
+    return count;
+  }
 
   assigndoughnutNationalityChartData(patientRecords: any[]) {
     let NationalityChartLabels=[];
     let NationalityChartData=[];
-    var data=_.groupBy(patientRecords, 'nationality');
-    _.forEach(data, function(value, key) {
+    _.forEach(_.groupBy(patientRecords, 'nationality'), function(value, key) {
       NationalityChartLabels.push(key);
       NationalityChartData.push(value.length);
     });
     this.doughnutNationalityChartLabels=NationalityChartLabels;
     this.doughnutNationalityChartData=[NationalityChartData];
   }
+  assignNationalityData(dateWiseData){
 
+  }
   assigndoughnutSourceChartData(dateWiseData: any[]) {
-     var imported = 0; var local = 0;
-    _.forEach(dateWiseData , function(p){
-      if(p.source=="Imported"){
-        imported+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }else if(p.source=="Local"){
-        local+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }
-    });
-    this.doughnutSourceChartData= [[imported,local]];
+    var self = this;
+    this.doughnutSourceChartData=_.map(_.groupBy(dateWiseData, 'source'),function(val){
+      return self.getDataCount(val);
+    })
   }
 
   assignDatatoBarChart(dateWiseData){
@@ -486,15 +490,10 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutChartData(dateWiseData: any[]) {
-    var males = 0; var females = 0;
-    _.forEach(dateWiseData , function(p){
-      if(p.gender=="Male"){
-        males+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }else if(p.gender=="Female"){
-        females+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }
-    });
-    this.doughnutChartData= [[males,females]];
+    var self = this;
+    this.doughnutChartData=_.map(_.groupBy(dateWiseData, 'gender'),function(val){
+      return self.getDataCount(val);
+    })
   }
 
   filterDataByCasetype(data: {},patient:any): {} {
@@ -509,7 +508,7 @@ export class HomeComponent implements OnInit {
     }
     data["gender"]=patient.gender;
     data["source"]=patient.source;
-    data["nationalty"]=patient.nationalty;
+    data["nationality"]=patient.nationality;
     return data;
   }
 
