@@ -1,6 +1,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#">India Fights COVID-19</a>
+
+    <a class="navbar-brand" href="#">
+      <img src="/assets/images/covid-19-logo.png" class="covid-19-logo d-inline-block align-top" alt="">
+      <!-- India Fights COVID-19 -->
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mr-auto justify-content-center">
         <li class="nav-item active">
-          <a class="nav-link" href="dashboard">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#/dashboard">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
             <div class="btn-group" dropdown>
@@ -16,10 +20,10 @@
                     Analytics <span class="caret"></span>
                 </button>
                 <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem"><a class="dropdown-item" href="analytics/confirmed">Confirmed Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="analytics/recovered">Recovered Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="analytics/symptomatic">Symptomatic Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="analytics/intensive_care_cases">Intensive Care Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/confirmed">Confirmed Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/recovered">Recovered Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/symptomatic">Symptomatic Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/intensive_care_cases">Intensive Care Cases</a></li>
                 </ul>
             </div>
         </li>
@@ -29,24 +33,24 @@
                   Insight <span class="caret"></span>
               </button>
               <ul *dropdownMenu class="dropdown-menu" role="menu">
-                <li role="menuitem"><a class="dropdown-item" href="insight/currentCases">Current Cases In Hospital</a></li>
-                <li role="menuitem"><a class="dropdown-item" href="insight/dischargedCases">Discharged Cases</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#/insight/currentCases">Current Cases In Hospital</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#/insight/dischargedCases">Discharged Cases</a></li>
               </ul>
           </div>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/cases">Cases</a>
+          <a class="nav-link" href="#/cases">Cases</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/map">Map</a>
+          <a class="nav-link" href="#/map">Map</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/worldwide">Worldwide</a>
+          <a class="nav-link" href="#/worldwide">Worldwide</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/sources">Sources</a>
+          <a class="nav-link" href="#/sources">Sources</a>
         </li>
         <li class="nav-item dropdown">
           <div class="btn-group" dropdown>
@@ -54,9 +58,9 @@
                   Helpline <span class="caret"></span>
               </button>
         <ul *dropdownMenu class="dropdown-menu" role="menu">
-          <li role="menuitem"><a class="dropdown-item" href="/helpline/contact-information">Contact Information</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="/helpline/awareness">Awareness</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="/helpline/testing-center">Testing Centers</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#/helpline/contact-information">Contact Information</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#/helpline/awareness">Awareness</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#/helpline/testing-center">Testing Centers</a></li>
         </ul>
       </div>
     </li>
@@ -78,16 +82,12 @@
   </div>
 </div>
 
-
+<div class="shareaholic-canvas" data-app="share_buttons" data-app-id="28824921"></div>
 <footer class="footer" style="display:block; position: fixed; bottom: 0; width: 100%; height: 45px; z-index: 100">
+  
   <div class="d-flex justify-content-between" style="margin-top: 0px !important;">
     <div>
-      <span>Created by <a href="https://www.aptlogica.com/">Aptlogica</a></span>
+      <span>Created by <a href="https://www.aptlogica.com" target="_blank">Aptlogica Technologies</a></span>
     </div>
-    <!-- <div>
-      <nav class="nav">
-        <a href="https://t.me/upcodesupport" class="nav-link">Spot an Error?</a>
-      </nav>
-    </div> -->
   </div>
 </footer>
