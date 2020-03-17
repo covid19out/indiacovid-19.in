@@ -10,8 +10,16 @@
         </h5>
     </div>
     <div class="d-flex justify-content-end calendar-button">
-        <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"><i class="fa fa-calendar"
-                aria-hidden="true"></i>&nbsp;&nbsp; 21 January 2020 to 15 March 2020</button>
+        <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;" (click)="daterangepicker.toggle()" ><i class="fa fa-calendar"
+            aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
+        <div class="col-xs-12 col-md-5 col-lg-4 form-group">
+            <input type="text"
+                class="form-control" style="border:0px; color: transparent; pointer-events: none;" tabindex="-1"
+                #daterangepicker="bsDaterangepicker"
+                bsDaterangepicker
+                [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }" (bsValueChange)="dateFilterChanged($event)"
+                [minDate]="minDate" >
+        </div>
     </div>
 </div>
 
