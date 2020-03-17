@@ -79,10 +79,10 @@ build:deploy:
  image: node:latest
  stage: build
  before_script:
- - apt-get update -qq && apt-get install -y -qq lftp
  - npm i -g firebase-tools
  - npm install -g @angular/cli
  - npm install
+ - ng config -g cli.warnings.versionMismatch false
  - ng build --prod
  script:
  - firebase deploy --only hosting:india-covid-19 --token $FIREBASE_TOKEN
