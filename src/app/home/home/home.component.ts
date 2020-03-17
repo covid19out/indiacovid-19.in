@@ -6,6 +6,7 @@ import {
   ApexAxisChartSeries, ApexChart, ChartComponent, ApexTitleSubtitle, ApexDataLabels, ApexStroke,
   ApexGrid, ApexYAxis, ApexXAxis, ApexPlotOptions, ApexTooltip
 } from "ng-apexcharts";
+import * as _ from 'lodash';
 
 export type ApexChartOptions = {
   series: ApexAxisChartSeries;
@@ -26,19 +27,23 @@ export type ApexChartOptions = {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  public minDate=new Date('jan 2020');
   //stacked chart
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] = ['01 Feb', '02 Mar', '03 Mar', '04 Mar', '05 Mar', '06 Mar', '07 Mar', '08 Mar', '09 Mar', '10 Mar', '11 Mar', '12 Mar', '13 Mar', '14 Mar', '15 Mar', '16 Mar'];
+  public dates=['01 Feb', '02 Mar','03 Mar', '04 Mar', '05 Mar','06 Mar', '07 Mar','08 Mar', '09 Mar','10 Mar','11 Mar', '12 Mar' ,'13 Mar','14 Mar','15 Mar', '16 Mar'];
+  public reportedSympoMaticByDates=[2, 3, 5, 6, 29, 30, 31,34,39,45,50,71,76,83,95,109,119];
+  public confirmedCasesByDates=[0, 1, 40, 17, 1, 1, 2,];
+  public dischargedByDates=[1, 1, 25, 6, 0, 0, 1,];
+  public barChartLabels: Label[] =this.dates;
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [
-    { data: [2, 3, 5, 6, 29, 30, 31, 34, 39, 45, 50, 71, 76, 83, 95, 109, 119], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-    { data: [0, 1, 40, 17, 1, 1, 2,], label: 'CONFIRMED CASES', stack: 'a' },
-    { data: [1, 1, 25, 6, 0, 0, 1,], label: ' DISCHARGED', stack: 'a' }
+    { data: this.reportedSympoMaticByDates, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+    { data: this.confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
+    { data: this.confirmedCasesByDates, label: ' DISCHARGED', stack: 'a' }
   ];
 
 
@@ -114,7 +119,8 @@ export class HomeComponent implements OnInit {
     { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
   ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public  months= ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Label[] = this.months;
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false,
@@ -181,7 +187,7 @@ export class HomeComponent implements OnInit {
   public lineChartConfirmedData: ChartDataSets[] = [
     { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
-  public lineChartConfirmedSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartConfirmedSourceLabels: Label[] = this.months;
   public lineChartConfirmedSourceOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false,
@@ -292,6 +298,8 @@ export class HomeComponent implements OnInit {
   //Apex chart
   @ViewChild("chart", { static: true }) chart: ChartComponent;
   public apexChartOptions: Partial<ApexChartOptions>;
+  public startDate: any;
+  public endDate: any;
 
 
   constructor() { }
@@ -369,6 +377,38 @@ export class HomeComponent implements OnInit {
         }
       }
     };
+  }
+
+  dateFilterChanged(event){
+    let reportedSympoMatic=[];
+    let confirmedCases=[];
+    let discharged=[];
+    var self=this;
+    this.startDate=event[0].toLocaleDateString("en-US" , Option);
+    this.endDate=event[1].toLocaleDateString("en-US", Option);
+    event[0].setHours(0,0,0,0);
+    this.barChartLabels=_.filter(this.dates,function(d,i){
+      let date=new Date(d +  "2020");
+      if(date>=event[0]   && date<=event[1]){
+        reportedSympoMatic.push(self.reportedSympoMaticByDates[i] || 0);
+        confirmedCases.push(self.confirmedCasesByDates[i] || 0);
+        discharged.push(self.dischargedByDates[i] || 0 );
+        return d;
+      }
+    });
+    this.barChartData= [
+      { data: reportedSympoMatic, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+      { data:confirmedCases , label: 'CONFIRMED CASES', stack: 'a' },
+      { data:discharged , label: ' DISCHARGED', stack: 'a' }
+    ];
+
+    this.lineChartInfectionSourceLabels=this.lineChartLabels= _.filter(this.months,function(month){
+      let date=new Date(month +  "2020");
+      if((event[0].getMonth()==date.getMonth()) || (event[1].getMonth()==date.getMonth()) || (date>= event[0] && date<=event[1])){
+        return month;
+      }
+      
+    });
   }
 
 }
