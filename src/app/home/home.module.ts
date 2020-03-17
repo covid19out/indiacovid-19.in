@@ -5,7 +5,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
-
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -13,7 +13,8 @@ import { HomeComponent } from './home/home.component';
     CommonModule,
     HomeRoutingModule,
     ChartsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class HomeModule { }
