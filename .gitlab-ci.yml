@@ -72,7 +72,7 @@ build:doc:
 
 
 ##############################################################################
-# Stage: FTP Deploy
+# Stage: Firebase Deploy
 ##############################################################################
 
 build:deploy:   
@@ -80,11 +80,12 @@ build:deploy:
  stage: build
  before_script:
  - apt-get update -qq && apt-get install -y -qq lftp
+ - npm i -g firebase-tools
  - npm install -g @angular/cli
  - npm install
  - ng build --prod
  script:
- - lftp -c "set ftp:ssl-allow no; open -u $USERNAME,$PASSWORD $HOST; mirror -Rev ./dist/ ./ --transfer-all --parallel=10 --ignore-time --exclude-glob .git* --exclude .git/"
+ - firebase deploy --only hosting:india-covid-19
  only:
     refs:
-      - master
+      - develop
