@@ -416,6 +416,9 @@ export class HomeComponent implements OnInit {
     let chartDataOfFemales = [];
     let chartDataOfImported=[];
     let chartDataOfLocal =[];
+    if(dateWiseData.length==1){
+      dateWiseData = _.concat( {"confirmedAt" : new Date( new Date().setDate( new Date(dateWiseData[0].confirmedAt).getDate()-1)) }, dateWiseData);
+    }
     _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function(value, key) {
      chartLabels.push(key);
      let genderWiseData=_.groupBy(value, 'gender');
