@@ -28,12 +28,17 @@ export type ApexChartOptions = {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate = new Date('jan 2020');
+  public totalCases = 0;
+  public totalConfirmedCases = 0;
+  public totalHospitalisedCases = 0; 
+  public totalIntesiveCases = 0; 
+  public totalDischargedCases = 0;
   //stacked chart
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] =[];
+  public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -64,20 +69,6 @@ export class HomeComponent implements OnInit {
       ]
     }
   ];
-
-  // public pieChartGenderPlugins = [{
-  //   afterLayout: function (chart) {
-  //     chart.legend.legendItems.forEach(
-  //       (label, i) => {
-  //         let value = chart.data.datasets[0].data[label.index];
-  //         label.text += ' ' + value;
-  //         return label;
-  //       }
-  //     )
-  //   }
-  // }];
-
-
 
   //Doughnut Nationality
   public doughnutNationalityChartLabels: Label[] = ['Singaporean', 'Chinese', 'Filipino', 'Indonesian', 'Bangladeshi', 'Malaysian', 'Others'];
@@ -180,9 +171,9 @@ export class HomeComponent implements OnInit {
 
   //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
-  public lineChartConfirmedSourceLabels: Label[] = this.months;
+  public lineChartConfirmedSourceLabels: Label[] = [];
   public lineChartConfirmedSourceOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false,
@@ -208,9 +199,9 @@ export class HomeComponent implements OnInit {
 
   //Hospitalized card line chart
   public lineChartSymptomaticData: ChartDataSets[] = [
-    { data: [10, 12, 15, 17, 21, 23, 23, 25, 27, 27], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'Hospitalised CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
-  public lineChartSymptomaticSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartSymptomaticSourceLabels: Label[] = [];
   public lineChartSymptomaticSourceOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false,
@@ -236,9 +227,9 @@ export class HomeComponent implements OnInit {
 
   //Intensive card line chart
   public lineChartIntensiveData: ChartDataSets[] = [
-    { data: [15, 20, 30, 8, 21, 10, 5, 17, 21, 23], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'INTENSIVE CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
-  public lineChartIntensiveSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartIntensiveSourceLabels: Label[] = [];
   public lineChartIntensiveSourceOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false,
@@ -261,12 +252,12 @@ export class HomeComponent implements OnInit {
       backgroundColor: 'rgba(110,127,144,0.3)',
     }
   ];
-
+ 
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
-    { data: [0, 0, 2, 1, 0, 1, 3, 0, 1, 2], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
-  public lineChartDischargeSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartDischargeSourceLabels: Label[] = [];
   public lineChartDischargeSourceOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false,
@@ -293,16 +284,16 @@ export class HomeComponent implements OnInit {
   //Apex chart
   @ViewChild("chart", { static: true }) chart: ChartComponent;
   public apexChartOptions: Partial<ApexChartOptions>;
-  public startDate: any=new Date("21 January 2020");
-  public endDate: any=new Date();
+  public startDate: any = new Date("21 January 2020");
+  public endDate: any = new Date();
   public patientsData: any;
 
-  constructor( private patientsDataService : PatientsDataService) { }
+  constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
-    this.patientsDataService.patientsData.subscribe(data=>{
-      this.patientsData=data;
-      this.dateFilterChanged([this.startDate,this.endDate]);
+    this.patientsDataService.patientsData.subscribe(data => {
+      this.patientsData = data;
+      this.dateFilterChanged([this.startDate, this.endDate]);
     })
     this.apexChartOptions = {
       series: [
@@ -379,117 +370,168 @@ export class HomeComponent implements OnInit {
   }
 
   prepareBarChartData(patientRecords: any) {
-    var dateWiseData=this.patientsDataService.filterDataByDates(patientRecords);
+    var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(dateWiseData);
     this.assigndoughnutChartData(dateWiseData);
     this.assigndoughnutSourceChartData(dateWiseData);
     this.assignLineChartData(dateWiseData);
-    
+    this.assignConfimedLineChartData(dateWiseData);
+    this.assignHospitalisedLineChartData(dateWiseData);
   }
 
   assignLineChartData(dateWiseData: any[]) {
-    let chartLabels=[];
-    let chartDataOfMales=[];
+    let chartLabels = [];
+    let chartDataOfMales = [];
     let chartDataOfFemales = [];
-    let chartDataOfImported=[];
-    let chartDataOfLocal =[];
-    if(dateWiseData.length==1){
-      dateWiseData = _.concat( {"confirmedAt" : new Date( new Date().setDate( new Date(dateWiseData[0].confirmedAt).getDate()-1)) }, dateWiseData);
+    let chartDataOfImported = [];
+    let chartDataOfLocal = [];
+    if (dateWiseData.length == 1) {
+      dateWiseData = _.concat({ "confirmedAt": new Date(new Date().setDate(new Date(dateWiseData[0].confirmedAt).getDate() - 1)) }, dateWiseData);
     }
-    _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function(value, key) {
-     chartLabels.push(key);
-     let genderWiseData=_.groupBy(value, 'gender');
-     chartDataOfMales.push(genderWiseData.Male? genderWiseData.Male.length : 0);
-     chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length :  0);
-     let transmissionSourceWiseData=_.groupBy(value, 'source');
-     chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
-     chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length :  0);
+    _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function (value, key) {
+      chartLabels.push(key);
+      let genderWiseData = _.groupBy(value, 'gender');
+      chartDataOfMales.push(genderWiseData.Male ? genderWiseData.Male.length : 0);
+      chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length : 0);
+      let transmissionSourceWiseData = _.groupBy(value, 'source');
+      chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
+      chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length : 0);
     });
-    this.lineChartLabels=this.lineChartInfectionSourceLabels=chartLabels;
-    this.lineChartData= [
+    this.lineChartLabels = this.lineChartInfectionSourceLabels = chartLabels;
+    this.lineChartData = [
       { data: chartDataOfMales, label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
       { data: chartDataOfFemales, label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     ];
-    this.lineChartInfectionSourceData= [
+    this.lineChartInfectionSourceData = [
       { data: chartDataOfImported, label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
       { data: chartDataOfLocal, label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     ];
   }
 
   getDataCount(data: any): any {
-    let count : number = 0;
-    _.forEach(data,function(p){
-      count+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+    let count: number = 0;
+    _.forEach(data, function (p) {
+      count += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
     });
     return count;
   }
 
   assigndoughnutNationalityChartData(patientRecords: any[]) {
-    let NationalityChartLabels=[];
-    let NationalityChartData=[];
-    var data=_.groupBy(patientRecords, 'nationality');
-    _.forEach(data, function(value, key) {
+    let NationalityChartLabels = [];
+    let NationalityChartData = [];
+    var data = _.groupBy(patientRecords, 'nationality');
+    _.forEach(data, function (value, key) {
       NationalityChartLabels.push(key);
       NationalityChartData.push(value.length);
     });
-    this.doughnutNationalityChartLabels=NationalityChartLabels;
-    this.doughnutNationalityChartData=[NationalityChartData];
+    this.doughnutNationalityChartLabels = NationalityChartLabels;
+    this.doughnutNationalityChartData = [NationalityChartData];
   }
 
   assigndoughnutSourceChartData(dateWiseData: any[]) {
-     var imported = 0; var local = 0;
-    _.forEach(dateWiseData , function(p){
-      if(p.source=="Imported"){
-        imported+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }else if(p.source=="Local"){
-        local+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+    var imported = 0; var local = 0;
+    _.forEach(dateWiseData, function (p) {
+      if (p.source == "Imported") {
+        imported += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      } else if (p.source == "Local") {
+        local += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
       }
     });
-    this.doughnutSourceChartData= [[imported,local]];
+    this.doughnutSourceChartData = [[imported, local]];
   }
 
-  assignDatatoBarChart(dateWiseData){
-    let dates=[];
-    let reportedSympoMaticByDates=[];
-    let confirmedCasesByDates=[];
-    let dischargedByDates=[]
-    _.forEach(dateWiseData,function(data){
-      dates.push(data.confirmedAt.slice(0,-5));
+  assignDatatoBarChart(dateWiseData) {
+    let dates = [];
+    let reportedSympoMaticByDates = [];
+    let confirmedCasesByDates = [];
+    let dischargedByDates = []
+    _.forEach(dateWiseData, function (data) {
+      dates.push(data.confirmedAt.slice(0, -5));
       reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
       confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
       dischargedByDates.push(data['dischargedByDates'] || 0);
     });
-    this.barChartLabels=dates;
+    this.barChartLabels = dates;
     this.barChartData = [
-        { data: reportedSympoMaticByDates, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-        { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
-        { data: dischargedByDates, label: ' DISCHARGED', stack: 'a' }
-      ];
+      { data: reportedSympoMaticByDates, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+      { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
+      { data: dischargedByDates, label: ' DISCHARGED', stack: 'a' }
+    ];
   }
 
   assigndoughnutChartData(dateWiseData: any[]) {
     var males = 0; var females = 0;
-    _.forEach(dateWiseData , function(p){
-      if(p.gender=="Male"){
-        males+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }else if(p.gender=="Female"){
-        females+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+    _.forEach(dateWiseData, function (p) {
+      if (p.gender == "Male") {
+        males += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      } else if (p.gender == "Female") {
+        females += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
       }
     });
-    this.doughnutChartData= [[males,females]];
+    this.doughnutChartData = [[males, females]];
   }
 
-  dateFilterChanged(event){
-    event[0].setHours(0,0,0,0);
-    event[1].setHours(23,59,59,999);
-    this.startDate = event[0].toLocaleDateString("en-US" , Option);
+  assignConfimedLineChartData(dateWiseData) {
+    let self = this;
+    _.forEach(dateWiseData, function (value, key) {
+      if(value.confirmedCasesByDates){
+        self.lineChartConfirmedSourceLabels.push(value.confirmedAt); 
+        self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
+        self.totalConfirmedCases += value.confirmedCasesByDates;
+      }      
+    }); 
+    this.totalCases += self.totalConfirmedCases;
+  }
+
+  assignHospitalisedLineChartData(dateWiseData){
+    let self = this; 
+    _.forEach(dateWiseData, function (value, key) {
+      if(value.confirmedCasesByDates || value.reportedSympoMaticByDates){
+        self.lineChartSymptomaticSourceLabels.push(value.confirmedAt); 
+        let totalHospitalisedCases = (value.confirmedCasesByDates || 0) + (value.reportedSympoMaticByDates || 0);
+        self.lineChartSymptomaticData[0].data.push(totalHospitalisedCases);
+        self.totalHospitalisedCases += totalHospitalisedCases;
+      }      
+    }); 
+    this.totalCases += self.totalHospitalisedCases;
+  }
+  
+  assignIntensiveLineChartData(dateWiseData){
+    let self = this;    
+    _.forEach(dateWiseData, function (value, key) {
+      if(value.icuByDate){
+        self.lineChartIntensiveSourceLabels.push(value.confirmedAt); 
+        self.lineChartIntensiveData[0].data.push(value.icuByDate);
+        self.totalIntesiveCases += value.icuByDate;
+      }      
+    }); 
+    this.totalCases += self.totalIntesiveCases;
+  }
+
+  assignDischargedLineChartData(dateWiseData){
+    let self = this;    
+    _.forEach(dateWiseData, function (value, key) {
+      if(value.dischargedByDates){    
+        self.lineChartDischargeSourceLabels.push(value.confirmedAt); 
+        self.lineChartDischargeData[0].data.push(value.dischargedByDates);
+        self.totalDischargedCases += value.dischargedByDate;
+      }      
+    }); 
+    this.totalCases += self.totalDischargedCases;
+  }
+
+  dateFilterChanged(event) {
+    event[0].setHours(0, 0, 0, 0);
+    event[1].setHours(23, 59, 59, 999);
+    this.startDate = event[0].toLocaleDateString("en-US", Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
-    var filteredData = _.filter(this.patientsData,function(patient){
+    var filteredData = _.filter(this.patientsData, function (patient) {
       let patientsDate = new Date(patient.confirmedAt);
-      if(patientsDate >= event[0]   && patientsDate <= event[1]){
+      if (patientsDate >= event[0] && patientsDate <= event[1]) {
         return patient;
       }
     });
+    this.totalCases = 0;
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
   }
