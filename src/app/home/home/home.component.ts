@@ -372,9 +372,9 @@ export class HomeComponent implements OnInit {
   prepareBarChartData(patientRecords: any) {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(dateWiseData);
-    this.assigndoughnutChartData(dateWiseData);
-    this.assigndoughnutSourceChartData(dateWiseData);
-    this.assignLineChartData(dateWiseData);
+    this.assigndoughnutChartData(patientRecords);
+    this.assigndoughnutSourceChartData(patientRecords);
+    this.assignLineChartData(patientRecords);
     this.assignConfimedLineChartData(dateWiseData);
     this.assignHospitalisedLineChartData(dateWiseData);
   }
@@ -411,7 +411,7 @@ export class HomeComponent implements OnInit {
   getDataCount(data: any): any {
     let count: number = 0;
     _.forEach(data, function (p) {
-      count += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      count++;
     });
     return count;
   }
@@ -429,15 +429,10 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutSourceChartData(dateWiseData: any[]) {
-    var imported = 0; var local = 0;
-    _.forEach(dateWiseData, function (p) {
-      if (p.source == "Imported") {
-        imported += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      } else if (p.source == "Local") {
-        local += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }
-    });
-    this.doughnutSourceChartData = [[imported, local]];
+    var self = this;
+    this.doughnutSourceChartData=_.map(_.groupBy(dateWiseData, 'source'),function(val){
+      return self.getDataCount(val);
+    })
   }
 
   assignDatatoBarChart(dateWiseData) {
@@ -460,15 +455,10 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutChartData(dateWiseData: any[]) {
-    var males = 0; var females = 0;
-    _.forEach(dateWiseData, function (p) {
-      if (p.gender == "Male") {
-        males += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      } else if (p.gender == "Female") {
-        females += (p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
-      }
-    });
-    this.doughnutChartData = [[males, females]];
+    var self = this;
+    this.doughnutChartData=_.map(_.groupBy(dateWiseData, 'gender'),function(val){
+      return self.getDataCount(val);
+    })
   }
 
   assignConfimedLineChartData(dateWiseData) {
@@ -524,20 +514,16 @@ export class HomeComponent implements OnInit {
     this.totalCases += self.totalIntesiveCases;
   }
 
-  assignDischargedLineChartData(dateWiseData) {
-    let self = this;
-    if (dateWiseData.length) {
-      _.forEach(dateWiseData, function (value, key) {
-        if (value.dischargedByDates) {
-          self.lineChartDischargeSourceLabels.push(value.confirmedAt);
-          self.lineChartDischargeData[0].data.push(value.dischargedByDates);
-          self.totalDischargedCases += value.dischargedByDate;
-        }
-      });
-    } else {
-      self.lineChartDischargeSourceLabels = [];
-      self.lineChartDischargeData[0].data = [];
-    }
+  assignDischargedLineChartData(dateWiseData){
+    let self = this;    
+    _.forEach(dateWiseData, function (value, key) {
+      if(value.dischargedByDates){ 
+        debugger   
+        self.lineChartDischargeSourceLabels.push(value.confirmedAt); 
+        self.lineChartDischargeData[0].data.push(value.dischargedByDates);
+        self.totalDischargedCases += value.dischargedByDate;
+      }      
+    }); 
     this.totalCases += self.totalDischargedCases;
   }
 
