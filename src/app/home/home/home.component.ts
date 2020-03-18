@@ -379,34 +379,12 @@ export class HomeComponent implements OnInit {
   }
 
   prepareBarChartData(patientRecords: any) {
-    var dateWiseData=[];
-    var self = this;
-    _.forEach(patientRecords,function(patient){
-      let patientsDate=new Date(patient.confirmedAt);
-        var foundDAta=_.find(dateWiseData,function(x){ 
-          if(new Date(x.confirmedAt).getDate() == patientsDate.getDate()){
-            if(new Date(x.confirmedAt).getMonth() == patientsDate.getMonth()){
-              if(new Date(x.confirmedAt).getFullYear() == patientsDate.getFullYear()){
-                return true;
-              }
-            }
-          }
-        })
-        if(foundDAta){
-          foundDAta=self.filterDataByCasetype(foundDAta,patient);
-        }else{
-          let data={};
-          data["confirmedAt"]= patientsDate.getDate() + " " +  self.months[patientsDate.getMonth()] + " " +  patientsDate.getFullYear();
-          data["confirmedInMonth"] = self.months[patientsDate.getMonth()];
-          data=self.filterDataByCasetype(data,patient);
-          dateWiseData.push(data);
-        }
-    })
-    dateWiseData=_.sortBy(dateWiseData, function(x) { return new Date(x.confirmedAt); });
+    var dateWiseData=this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(dateWiseData);
     this.assigndoughnutChartData(dateWiseData);
     this.assigndoughnutSourceChartData(dateWiseData);
     this.assignLineChartData(dateWiseData);
+    
   }
 
   assignLineChartData(dateWiseData: any[]) {
@@ -490,22 +468,6 @@ export class HomeComponent implements OnInit {
     this.doughnutChartData=_.map(_.groupBy(dateWiseData, 'gender'),function(val){
       return self.getDataCount(val);
     })
-  }
-
-  filterDataByCasetype(data: {},patient:any): {} {
-    if(patient.caseType == 'confirmed'){
-      data['confirmedCasesByDates']=data['confirmedCasesByDates'] + 1 || 1 ;
-    }
-    if(patient.caseType == 'symptomatic'){
-      data['reportedSympoMaticByDates']=data['reportedSympoMaticByDates'] + 1 || 1;
-    }
-    if(patient.caseType == 'discharged'){
-      data['dischargedByDates']=data['dischargedByDates'] + 1 || 1;
-    }
-    data["gender"]=patient.gender;
-    data["source"]=patient.source;
-    data["nationality"]=patient.nationality;
-    return data;
   }
 
   dateFilterChanged(event){
