@@ -59,9 +59,10 @@ export class PatientsDataService {
     if (patient.icu_on) {
       data['icuByDate'] = data['icuByDate'] + 1 || 1;
     }
-    data["gender"] = patient.gender;
-    data["source"] = patient.source;
-    data["nationality"] = patient.nationality;
+    data["gender"]=patient.gender;
+    data["source"]=patient.source;
+    data["nationality"]=patient.nationality;
+    data["caseType"]=patient.caseType;
     return data;
   }
 }
