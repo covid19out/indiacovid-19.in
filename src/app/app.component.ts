@@ -13,4 +13,8 @@ export class AppComponent {
   constructor(private PatientsDataService:PatientsDataService){
     this.PatientsDataService.loadPatientsData();
   }
+
+  hideDropdown(){
+    this.isCollapsed = true;
+  }
 }
