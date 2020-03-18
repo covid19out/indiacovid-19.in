@@ -388,7 +388,6 @@ export class HomeComponent implements OnInit {
   }
 
   assignLineChartData(dateWiseData: any[]) {
-    var self=this;
     let chartLabels=[];
     let chartDataOfMales=[];
     let chartDataOfFemales = [];
@@ -400,12 +399,11 @@ export class HomeComponent implements OnInit {
     _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function(value, key) {
      chartLabels.push(key);
      let genderWiseData=_.groupBy(value, 'gender');
-     chartDataOfMales.push(self.getDataCount(genderWiseData.Male));
-     chartDataOfFemales.push(self.getDataCount(genderWiseData.Female));
+     chartDataOfMales.push(genderWiseData.Male? genderWiseData.Male.length : 0);
+     chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length :  0);
      let transmissionSourceWiseData=_.groupBy(value, 'source');
-     chartDataOfImported.push(self.getDataCount(transmissionSourceWiseData.Imported));
-     chartDataOfLocal.push(self.getDataCount(transmissionSourceWiseData.Local));
-
+     chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
+     chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length :  0);
     });
     this.lineChartLabels=this.lineChartInfectionSourceLabels=chartLabels;
     this.lineChartData= [
@@ -429,7 +427,8 @@ export class HomeComponent implements OnInit {
   assigndoughnutNationalityChartData(patientRecords: any[]) {
     let NationalityChartLabels=[];
     let NationalityChartData=[];
-    _.forEach(_.groupBy(patientRecords, 'nationality'), function(value, key) {
+    var data=_.groupBy(patientRecords, 'nationality');
+    _.forEach(data, function(value, key) {
       NationalityChartLabels.push(key);
       NationalityChartData.push(value.length);
     });
@@ -438,10 +437,15 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutSourceChartData(dateWiseData: any[]) {
-    var self = this;
-    this.doughnutSourceChartData=_.map(_.groupBy(dateWiseData, 'source'),function(val){
-      return self.getDataCount(val);
-    })
+     var imported = 0; var local = 0;
+    _.forEach(dateWiseData , function(p){
+      if(p.source=="Imported"){
+        imported+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }else if(p.source=="Local"){
+        local+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }
+    });
+    this.doughnutSourceChartData= [[imported,local]];
   }
 
   assignDatatoBarChart(dateWiseData){
@@ -464,10 +468,15 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutChartData(dateWiseData: any[]) {
-    var self = this;
-    this.doughnutChartData=_.map(_.groupBy(dateWiseData, 'gender'),function(val){
-      return self.getDataCount(val);
-    })
+    var males = 0; var females = 0;
+    _.forEach(dateWiseData , function(p){
+      if(p.gender=="Male"){
+        males+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }else if(p.gender=="Female"){
+        females+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }
+    });
+    this.doughnutChartData= [[males,females]];
   }
 
   dateFilterChanged(event){
