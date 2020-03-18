@@ -7,6 +7,7 @@ import {
   ApexGrid, ApexYAxis, ApexXAxis, ApexPlotOptions, ApexTooltip
 } from "ng-apexcharts";
 import * as _ from 'lodash';
+import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 export type ApexChartOptions = {
   series: ApexAxisChartSeries;
@@ -32,18 +33,14 @@ export class HomeComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public dates=['01 Feb', '02 Mar','03 Mar', '04 Mar', '05 Mar','06 Mar', '07 Mar','08 Mar', '09 Mar','10 Mar','11 Mar', '12 Mar' ,'13 Mar','14 Mar','15 Mar', '16 Mar'];
-  public reportedSympoMaticByDates=[2, 3, 5, 6, 29, 30, 31,34,39,45,50,71,76,83,95,109,119];
-  public confirmedCasesByDates=[0, 1, 40, 17, 1, 1, 2,];
-  public dischargedByDates=[1, 1, 25, 6, 0, 0, 1,];
-  public barChartLabels: Label[] =this.dates;
+  public barChartLabels: Label[] =[];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [
-    { data: this.reportedSympoMaticByDates, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-    { data: this.confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
-    { data: this.confirmedCasesByDates, label: ' DISCHARGED', stack: 'a' }
+    { data: [], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+    { data: [], label: 'CONFIRMED CASES', stack: 'a' },
+    { data: [], label: ' DISCHARGED', stack: 'a' }
   ];
 
 
@@ -52,9 +49,7 @@ export class HomeComponent implements OnInit {
 
   //Doughnut Gender
   public doughnutChartLabels: Label[] = ['Male', 'Female'];
-  public doughnutChartData: MultiDataSet = [
-    [131, 95]
-  ];
+  public doughnutChartData: MultiDataSet = [[]];
   public pieChartGenderOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -99,7 +94,7 @@ export class HomeComponent implements OnInit {
   //Doughnut Source
   public doughnutSourceChartLabels: Label[] = ['Local Transmission', 'Imported Cases'];
   public doughnutSourceChartData: MultiDataSet = [
-    [81, 38]
+    []
   ];
 
   public pieChartSourceOptions: ChartOptions = {
@@ -300,11 +295,15 @@ export class HomeComponent implements OnInit {
   public apexChartOptions: Partial<ApexChartOptions>;
   public startDate: any;
   public endDate: any;
+  public patientsData: any;
 
-
-  constructor() { }
+  constructor( private patientsDataService : PatientsDataService) { }
 
   ngOnInit() {
+    this.patientsDataService.patientsData.subscribe(data=>{
+      this.patientsData=data;
+      this.loadDataintoComponent(this.patientsData);
+    })
     this.apexChartOptions = {
       series: [
         {
@@ -378,37 +377,151 @@ export class HomeComponent implements OnInit {
       }
     };
   }
+  loadDataintoComponent(patientRecords: any) {
+    this.prepareBarChartData(patientRecords);
+    this.assigndoughnutNationalityChartData(patientRecords);
+  }
+  prepareBarChartData(patientRecords: any) {
+  const months= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var dateWiseData=[];
+    var self = this;
+    _.forEach(patientRecords,function(patient){
+      let patientsDate=new Date(patient.confirmedAt);
+        var foundDAta=_.find(dateWiseData,function(x){ 
+          if(new Date(x.confirmedAt).getDate() == patientsDate.getDate()){
+            if(new Date(x.confirmedAt).getMonth() == patientsDate.getMonth()){
+              if(new Date(x.confirmedAt).getFullYear() == patientsDate.getFullYear()){
+                return true;
+              }
+            }
+          }
+        })
+        if(foundDAta){
+          foundDAta=self.filterDataByCasetype(foundDAta,patient);
+        }else{
+          let data={};
+          data["confirmedAt"]= patientsDate.getDate() + " " +  months[patientsDate.getMonth()] + " " +  patientsDate.getFullYear();
+          data["confirmedInMonth"] = months[patientsDate.getMonth()];
+          data=self.filterDataByCasetype(data,patient);
+          dateWiseData.push(data);
+        }
+    })
+    dateWiseData=_.sortBy(dateWiseData, function(x) { return new Date(x.confirmedAt); });
+    this.assignDatatoBarChart(dateWiseData);
+    this.assigndoughnutChartData(dateWiseData);
+    this.assigndoughnutSourceChartData(dateWiseData);
+    this.assignLineChartData(dateWiseData);
+  }
 
-  dateFilterChanged(event){
-    let reportedSympoMatic=[];
-    let confirmedCases=[];
-    let discharged=[];
-    var self=this;
-    this.startDate=event[0].toLocaleDateString("en-US" , Option);
-    this.endDate=event[1].toLocaleDateString("en-US", Option);
-    event[0].setHours(0,0,0,0);
-    this.barChartLabels=_.filter(this.dates,function(d,i){
-      let date=new Date(d +  "2020");
-      if(date>=event[0]   && date<=event[1]){
-        reportedSympoMatic.push(self.reportedSympoMaticByDates[i] || 0);
-        confirmedCases.push(self.confirmedCasesByDates[i] || 0);
-        discharged.push(self.dischargedByDates[i] || 0 );
-        return d;
-      }
+  assignLineChartData(dateWiseData: any[]) {
+    let chartLabels=[];
+    let chartDataOfMales=[];
+    let chartDataOfFemales = [];
+    let chartDataOfImported=[];
+    let chartDataOfLocal =[];
+    var data=_.groupBy(dateWiseData, 'confirmedInMonth');
+    _.forEach(data, function(value, key) {
+     chartLabels.push(key);
+     let genderWiseData=_.groupBy(value, 'gender');
+     chartDataOfMales.push(genderWiseData.Male? genderWiseData.Male.length : 0);
+     chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length :  0);
+     let transmissionSourceWiseData=_.groupBy(value, 'source');
+     chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
+     chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length :  0);
     });
-    this.barChartData= [
-      { data: reportedSympoMatic, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-      { data:confirmedCases , label: 'CONFIRMED CASES', stack: 'a' },
-      { data:discharged , label: ' DISCHARGED', stack: 'a' }
+    this.lineChartLabels=this.lineChartInfectionSourceLabels=chartLabels;
+    this.lineChartData= [
+      { data: chartDataOfMales, label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+      { data: chartDataOfFemales, label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+    ];
+    this.lineChartInfectionSourceData= [
+      { data: chartDataOfImported, label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+      { data: chartDataOfLocal, label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     ];
 
-    this.lineChartInfectionSourceLabels=this.lineChartLabels= _.filter(this.months,function(month){
-      let date=new Date(month +  "2020");
-      if((event[0].getMonth()==date.getMonth()) || (event[1].getMonth()==date.getMonth()) || (date>= event[0] && date<=event[1])){
-        return month;
-      }
-      
+  }
+
+  assigndoughnutNationalityChartData(patientRecords: any[]) {
+    let NationalityChartLabels=[];
+    let NationalityChartData=[];
+    var data=_.groupBy(patientRecords, 'nationality');
+    _.forEach(data, function(value, key) {
+      NationalityChartLabels.push(key);
+      NationalityChartData.push(value.length);
     });
+    this.doughnutNationalityChartLabels=NationalityChartLabels;
+    this.doughnutNationalityChartData=[NationalityChartData];
+  }
+
+  assigndoughnutSourceChartData(dateWiseData: any[]) {
+     var imported = 0; var local = 0;
+    _.forEach(dateWiseData , function(p){
+      if(p.source=="Imported"){
+        imported+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }else if(p.source=="Local"){
+        local+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }
+    });
+    this.doughnutSourceChartData= [[imported,local]];
+  }
+
+  assignDatatoBarChart(dateWiseData){
+    let dates=[];
+    let reportedSympoMaticByDates=[];
+    let confirmedCasesByDates=[];
+    let dischargedByDates=[]
+    _.forEach(dateWiseData,function(data){
+      dates.push(data.confirmedAt.slice(0,-5));
+      reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
+      confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
+      dischargedByDates.push(data['dischargedByDates'] || 0);
+    });
+    this.barChartLabels=dates;
+    this.barChartData = [
+        { data: reportedSympoMaticByDates, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+        { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
+        { data: dischargedByDates, label: ' DISCHARGED', stack: 'a' }
+      ];
+  }
+
+  assigndoughnutChartData(dateWiseData: any[]) {
+    var males = 0; var females = 0;
+    _.forEach(dateWiseData , function(p){
+      if(p.gender=="Male"){
+        males+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }else if(p.gender=="Female"){
+        females+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+      }
+    });
+    this.doughnutChartData= [[males,females]];
+  }
+
+  filterDataByCasetype(data: {},patient:any): {} {
+    if(patient.caseType == 'confirmed'){
+      data['confirmedCasesByDates']=data['confirmedCasesByDates'] + 1 || 1 ;
+    }
+    if(patient.caseType == 'symptomatic'){
+      data['reportedSympoMaticByDates']=data['reportedSympoMaticByDates'] + 1 || 1;
+    }
+    if(patient.caseType == 'discharged'){
+      data['dischargedByDates']=data['dischargedByDates'] + 1 || 1;
+    }
+    data["gender"]=patient.gender;
+    data["source"]=patient.source;
+    data["nationalty"]=patient.nationalty;
+    return data;
+  }
+
+  dateFilterChanged(event){
+    var filteredData=_.filter(this.patientsData,function(patient){
+      let patientsDate=new Date(patient.confirmedAt);
+      event[0].setHours(0,0,0,0);
+      event[1].setHours(23,59,59,999);
+      if(patientsDate>=event[0]   && patientsDate<=event[1]){
+        return patient;
+      }
+    });
+    this.loadDataintoComponent(filteredData);
   }
 
 }
