@@ -535,7 +535,7 @@
     },
     {
         "age" : "36",
-        "caseType" : "symptomatic",
+        "caseType" : "discharged",
         "cityName" : "Lucknow",
         "confirmedAt" : "March 6,2020 8:00:00 PM ",
         "daysInHospital" : "",

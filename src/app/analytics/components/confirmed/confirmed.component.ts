@@ -43,9 +43,10 @@ export class ConfirmedComponent implements OnInit {
   prepareBarChartData(patientRecords: any) {
     var dateWiseData=this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(_.filter(dateWiseData , function(p){
-      return p.caseType == 'confirmed'
+      return p.confirmedCasesByDates != null;
     }));
     this.confirmedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'confirmedCasesByDates');
+    this.dischargedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'dischargedByDates');
   }
   getCaseCountsByCaseType(dateWiseData: any, arg1: string) {
     var count : number = 0;
@@ -61,9 +62,7 @@ export class ConfirmedComponent implements OnInit {
       let dischargedByDates=[]
       _.forEach(dateWiseData,function(data){
         dates.push(data.confirmedAt.slice(0,-5));
-        reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
         confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
-        dischargedByDates.push(data['dischargedByDates'] || 0);
       });
       this.barChartLabels=dates;
       this.barChartData = [
