@@ -11,7 +11,7 @@
 
     <div class="collapse navbar-collapse" [ngClass]="!isCollapsed?'mobile-navbar':''" id="navbarSupportedContent" [collapse]=isCollapsed>
       <ul class="navbar-nav ml-auto mr-auto justify-content-center">
-        <li class="nav-item active">
+        <li class="nav-item active" (click)="hideDropdown()">
           <a class="nav-link" href="#/dashboard">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
@@ -20,10 +20,10 @@
                     Analytics <span class="caret"></span>
                 </button>
                 <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/confirmed">Confirmed Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/recovered">Recovered Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/symptomatic">Symptomatic Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/intensive_care_cases">Intensive Care Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/confirmed" (click)="hideDropdown()">Confirmed Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/recovered" (click)="hideDropdown()">Recovered Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/symptomatic" (click)="hideDropdown()">Symptomatic Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/intensive_care_cases" (click)="hideDropdown()">Intensive Care Cases</a></li>
                 </ul>
             </div>
         </li>
@@ -33,23 +33,23 @@
                   Insight <span class="caret"></span>
               </button>
               <ul *dropdownMenu class="dropdown-menu" role="menu">
-                <li role="menuitem"><a class="dropdown-item" href="#/insight/currentCases">Current Cases In Hospital</a></li>
-                <li role="menuitem"><a class="dropdown-item" href="#/insight/dischargedCases">Discharged Cases</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#/insight/currentCases" (click)="hideDropdown()">Current Cases In Hospital</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#/insight/dischargedCases" (click)="hideDropdown()">Discharged Cases</a></li>
               </ul>
           </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" (click)="hideDropdown()">
           <a class="nav-link" href="#/cases">Cases</a>
         </li>
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#/map">Map</a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <li class="nav-item" (click)="hideDropdown()">
           <a class="nav-link" href="#/worldwide">Worldwide</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" (click)="hideDropdown()">
           <a class="nav-link" href="#/sources">Sources</a>
         </li>
         <li class="nav-item dropdown">
@@ -58,9 +58,9 @@
                   Helpline <span class="caret"></span>
               </button>
         <ul *dropdownMenu class="dropdown-menu" role="menu">
-          <li role="menuitem"><a class="dropdown-item" href="#/helpline/contact-information">Contact Information</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#/helpline/awareness">Awareness</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#/helpline/testing-center">Testing Centers</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#/helpline/contact-information" (click)="hideDropdown()">Contact Information</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#/helpline/awareness" (click)="hideDropdown()">Awareness</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#/helpline/testing-center" (click)="hideDropdown()">Testing Centers</a></li>
         </ul>
       </div>
     </li>
