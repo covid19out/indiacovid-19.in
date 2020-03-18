@@ -1,255 +1,258 @@
-<div class="d-sm-flex justify-content-between page-heading">
-  <div>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb breadcrumb-title">
-        <li class="breadcrumb-item"><a>Dashboard</a></li>
-        <!-- <li class="breadcrumb-item active" aria-current="page">Sales Monitoring</li> -->
-      </ol>
-    </nav>
-    <h5 class="mg-b-0 tx-spacing--1">Dashboard of the COVID-19 Virus Outbreak in India</h5>
-  </div>
-  <div class="d-flex justify-content-end calendar-button">
-    <input  type="text" style="width:0px; height:0px; border:0px; color: transparent; pointer-events: none;" tabindex="-1"
-      class="form-control"
-      #daterangepicker="bsDaterangepicker"
-      bsDaterangepicker
-      [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }" (bsValueChange)="dateFilterChanged($event)"
-      [minDate]="minDate" >
-    <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"  (click)="daterangepicker.toggle()"><i class="fa fa-calendar"
-      aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
-  </div>
-</div>
-
-<div class="row row-xs quick-link">
-  <div class="col-sm-6 col-lg-3 margin-top-10">
-    <div class="card card-body">
-      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
-      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">243</h3>
-        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">13<i class="icon ion-md-arrow-up"></i></span> in ICU</p>
-      </div>
-      <div style="display: block;">
-        <canvas baseChart height="60" [datasets]="lineChartConfirmedData"
-          [labels]="lineChartConfirmedSourceLabels" [options]="lineChartConfirmedSourceOptions"
-          [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
-        </canvas>
-      </div>
-    </div>
-
-  </div>
-  <div class="col-sm-6 col-lg-3 margin-top-10">
-    <div class="card card-body">
-      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
-      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">138</h3>
-        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">56.8%<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
-      </div>
-      <div style="display: block;">
-        <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
-          [labels]="lineChartSymptomaticSourceLabels" [options]="lineChartSymptomaticSourceOptions"
-          [colors]="lineChartSymptomaticSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
-        </canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-lg-3 margin-top-10">
-    <div class="card card-body">
-      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
-      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">13</h3>
-        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">125<i class="icon ion-md-arrow-up"></i></span> in stable condition</p>
-      </div>
-      <div style="display: block;">
-        <canvas baseChart height="60" [datasets]="lineChartIntensiveData"
-          [labels]="lineChartIntensiveSourceLabels" [options]="lineChartIntensiveSourceOptions"
-          [colors]="lineChartIntensiveSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
-        </canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-lg-3 margin-top-10">
-    <div class="card card-body">
-      <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
-      <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">105</h3>
-        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">43.2% <i class="icon ion-md-arrow-up"></i></span> of total cases</p>
-      </div>
-      <div style="display: block;">
-        <canvas baseChart height="60" [datasets]="lineChartDischargeData"
-          [labels]="lineChartDischargeSourceLabels" [options]="lineChartDischargeSourceOptions"
-          [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="lineChartType"
-          [plugins]="lineChartPlugins">
-        </canvas>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row row-xs">
-  <div class="col-lg-8 col-xl-9 margin-top-10">
-    <div class="card">
-      <div class="card-header">
-        Number Of Cases
-        <p>21 Jan 2020 to Today</p>
-      </div>
-      <div class="card-body">
-        <div style="display: block;" class="stacked-chart">
-          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-          </canvas>
+<div class="content content-fixed">
+  <div class="container">
+      <div class="d-sm-flex justify-content-between page-heading mg-b-20 mg-lg-b-25 mg-xl-b-30">
+        <div>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-title">
+              <li class="breadcrumb-item"><a>Dashboard</a></li>
+              <!-- <li class="breadcrumb-item active" aria-current="page">Sales Monitoring</li> -->
+            </ol>
+          </nav>
+          <h5 class="mg-b-0 tx-spacing--1">Dashboard of the COVID-19 Virus Outbreak in India</h5>
+        </div>
+        <div class="d-flex justify-content-end calendar-button">
+          <input  type="text" style="width:0px; height:0px; border:0px; color: transparent; pointer-events: none;" tabindex="-1"
+            class="form-control"
+            #daterangepicker="bsDaterangepicker"
+            bsDaterangepicker
+            [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }" (bsValueChange)="dateFilterChanged($event)"
+            [minDate]="minDate" >
+          <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"  (click)="daterangepicker.toggle()"><i class="fa fa-calendar"
+            aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="col-lg-4 col-xl-3 margin-top-10">
-    <div class="card">
-      <div class="card-header">Gender</div>
-      <div class="card-body">
-        <div style="display: block;" class="doughnut-chart">
-          <canvas height="400" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType" [options]="pieChartGenderOptions"  [colors]="pieChartGenderColors">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
+      <div class="row row-xs quick-link">
+        <div class="col-sm-6 col-lg-3 margin-top-10">
+          <div class="card card-body">
+            <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
+            <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">243</h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">13<i class="icon ion-md-arrow-up"></i></span> in ICU</p>
+            </div>
+            <div style="display: block;">
+              <canvas baseChart height="60" [datasets]="lineChartConfirmedData"
+                [labels]="lineChartConfirmedSourceLabels" [options]="lineChartConfirmedSourceOptions"
+                [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </div>
 
-  <div class="col-lg-3 margin-top-10">
-    <div class="card">
-      <div class="card-header">Nationality</div>
-      <div class="card-body">
-        <div style="display: block;" class="doughnut-chart">
-          <canvas height="500" baseChart [data]="doughnutNationalityChartData" [labels]="doughnutNationalityChartLabels"
-            [chartType]="doughnutChartType" [options]="pieChartNationalityOptions"
-            >
-          </canvas>
+        </div>
+        <div class="col-sm-6 col-lg-3 margin-top-10">
+          <div class="card card-body">
+            <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
+            <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">138</h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">56.8%<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
+            </div>
+            <div style="display: block;">
+              <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
+                [labels]="lineChartSymptomaticSourceLabels" [options]="lineChartSymptomaticSourceOptions"
+                [colors]="lineChartSymptomaticSourceColors" [legend]="false" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3 margin-top-10">
+          <div class="card card-body">
+            <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
+            <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">13</h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">125<i class="icon ion-md-arrow-up"></i></span> in stable condition</p>
+            </div>
+            <div style="display: block;">
+              <canvas baseChart height="60" [datasets]="lineChartIntensiveData"
+                [labels]="lineChartIntensiveSourceLabels" [options]="lineChartIntensiveSourceOptions"
+                [colors]="lineChartIntensiveSourceColors" [legend]="false" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3 margin-top-10">
+          <div class="card card-body">
+            <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
+            <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">105</h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">43.2% <i class="icon ion-md-arrow-up"></i></span> of total cases</p>
+            </div>
+            <div style="display: block;">
+              <canvas baseChart height="60" [datasets]="lineChartDischargeData"
+                [labels]="lineChartDischargeSourceLabels" [options]="lineChartDischargeSourceOptions"
+                [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="col-lg-6 margin-top-10">
-    <div class="card">
-      <div class="card-header">Age and Gender Distribution</div>
-      <div class="card-body">
-        <div id="chart">
-        <apx-chart
-          [series]="apexChartOptions.series"
-          [chart]="apexChartOptions.chart"
-          [dataLabels]="apexChartOptions.dataLabels"
-          [stroke]="apexChartOptions.stroke"
-          [colors]="apexChartOptions.colors"
-          [title]="apexChartOptions.title"
-          [grid]="apexChartOptions.grid"
-          [tooltip]="apexChartOptions.tooltip"
-          [plotOptions]="apexChartOptions.plotOptions"
-          [yaxis]="apexChartOptions.yaxis"
-          [xaxis]="apexChartOptions.xaxis"
-        ></apx-chart>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 margin-top-10">
-    <div class="card">
-      <div class="card-header">Source</div>
-      <div class="card-body">
-        <div style="display: block;" class="doughnut-chart">
-          <canvas height="500" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
-            [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="col-lg-6 margin-top-10">
-    <div class="card">
-      <div class="card-header">
-        Gender over Time
-        <p>Showing Male Cases vs Female Over Time.</p>
-      </div>
-      <div class="card-body">
-        <div class="row row-sm">
-          <div class="col-6">
-            <div class="media">
-              <div class="icon-male d-flex align-items-center justify-content-center">
-                <i class="fa fa-male" aria-hidden="true"></i>
-              </div>
-              <div class="media-body mg-l-10">
-                <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">140</h6>
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">MALE</p>
-              </div><!-- media-body -->
-            </div><!-- media -->
-          </div><!-- col -->
-          <div class="col-6">
-            <div class="media">
-              <div class="icon-female d-flex align-items-center justify-content-center">
-                <i class="fa fa-female" aria-hidden="true"></i>
-              </div>
-              <div class="media-body mg-l-10">
-                <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">103</h6>
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">FEMALE</p>
+      <div class="row row-xs">
+        <div class="col-lg-8 col-xl-9 margin-top-10">
+          <div class="card">
+            <div class="card-header">
+              Number Of Cases
+              <p>21 Jan 2020 to Today</p>
+            </div>
+            <div class="card-body">
+              <div style="display: block;" class="stacked-chart">
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                  [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
               </div>
             </div>
           </div>
         </div>
 
-        <div style="display: block;">
-          <canvas baseChart height="120" [datasets]="lineChartData" [labels]="lineChartLabels"
-            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-            [chartType]="lineChartType" [plugins]="lineChartPlugins">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-6 margin-top-10">
-    <div class="card">
-      <div class="card-header">
-        Infection Source over Time
-        <p>Showing Number of Imported Cases vs Local Transmission Over Time.</p>
-      </div>
-      <div class="card-body">
-
-        <div class="row row-sm">
-          <div class="col-6">
-            <div class="media">
-              <div class="icon-male d-flex align-items-center justify-content-center">
-                <i class="fa fa-wifi" aria-hidden="true"></i>
-              </div>
-              <div class="media-body mg-l-10">
-                <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">157</h6>
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">LOCAL TRANSMISSION</p>
-              </div><!-- media-body -->
-            </div><!-- media -->
-          </div><!-- col -->
-          <div class="col-6">
-            <div class="media">
-              <div class="icon-female d-flex align-items-center justify-content-center">
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-              </div>
-              <div class="media-body mg-l-10">
-                <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">86</h6>
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">IMPORTED CASE</p>
+        <div class="col-lg-4 col-xl-3 margin-top-10">
+          <div class="card">
+            <div class="card-header">Gender</div>
+            <div class="card-body">
+              <div style="display: block;" class="doughnut-chart">
+                <canvas height="400" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType" [options]="pieChartGenderOptions"  [colors]="pieChartGenderColors">
+                </canvas>
               </div>
             </div>
           </div>
         </div>
 
-        <div style="display: block;">
-          <canvas baseChart height="120" [datasets]="lineChartInfectionSourceData"
-            [labels]="lineChartInfectionSourceLabels" [options]="lineChartInfectionSourceOptions"
-            [colors]="lineChartInfectionSourceColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-            [plugins]="lineChartPlugins">
-          </canvas>
+        <div class="col-lg-3 margin-top-10">
+          <div class="card">
+            <div class="card-header">Nationality</div>
+            <div class="card-body">
+              <div style="display: block;" class="doughnut-chart">
+                <canvas height="500" baseChart [data]="doughnutNationalityChartData" [labels]="doughnutNationalityChartLabels"
+                  [chartType]="doughnutChartType" [options]="pieChartNationalityOptions"
+                  >
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 margin-top-10">
+          <div class="card">
+            <div class="card-header">Age and Gender Distribution</div>
+            <div class="card-body">
+              <div id="chart">
+              <apx-chart
+                [series]="apexChartOptions.series"
+                [chart]="apexChartOptions.chart"
+                [dataLabels]="apexChartOptions.dataLabels"
+                [stroke]="apexChartOptions.stroke"
+                [colors]="apexChartOptions.colors"
+                [title]="apexChartOptions.title"
+                [grid]="apexChartOptions.grid"
+                [tooltip]="apexChartOptions.tooltip"
+                [plotOptions]="apexChartOptions.plotOptions"
+                [yaxis]="apexChartOptions.yaxis"
+                [xaxis]="apexChartOptions.xaxis"
+              ></apx-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 margin-top-10">
+          <div class="card">
+            <div class="card-header">Source</div>
+            <div class="card-body">
+              <div style="display: block;" class="doughnut-chart">
+                <canvas height="500" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
+                  [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 margin-top-10">
+          <div class="card">
+            <div class="card-header">
+              Gender over Time
+              <p>Showing Male Cases vs Female Over Time.</p>
+            </div>
+            <div class="card-body">
+              <div class="row row-sm">
+                <div class="col-6">
+                  <div class="media">
+                    <div class="icon-male d-flex align-items-center justify-content-center">
+                      <i class="fa fa-male" aria-hidden="true"></i>
+                    </div>
+                    <div class="media-body mg-l-10">
+                      <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">140</h6>
+                      <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">MALE</p>
+                    </div><!-- media-body -->
+                  </div><!-- media -->
+                </div><!-- col -->
+                <div class="col-6">
+                  <div class="media">
+                    <div class="icon-female d-flex align-items-center justify-content-center">
+                      <i class="fa fa-female" aria-hidden="true"></i>
+                    </div>
+                    <div class="media-body mg-l-10">
+                      <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">103</h6>
+                      <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">FEMALE</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: block;">
+                <canvas baseChart height="120" [datasets]="lineChartData" [labels]="lineChartLabels"
+                  [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                  [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 margin-top-10">
+          <div class="card">
+            <div class="card-header">
+              Infection Source over Time
+              <p>Showing Number of Imported Cases vs Local Transmission Over Time.</p>
+            </div>
+            <div class="card-body">
+
+              <div class="row row-sm">
+                <div class="col-6">
+                  <div class="media">
+                    <div class="icon-male d-flex align-items-center justify-content-center">
+                      <i class="fa fa-wifi" aria-hidden="true"></i>
+                    </div>
+                    <div class="media-body mg-l-10">
+                      <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">157</h6>
+                      <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">LOCAL TRANSMISSION</p>
+                    </div><!-- media-body -->
+                  </div><!-- media -->
+                </div><!-- col -->
+                <div class="col-6">
+                  <div class="media">
+                    <div class="icon-female d-flex align-items-center justify-content-center">
+                      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </div>
+                    <div class="media-body mg-l-10">
+                      <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">86</h6>
+                      <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">IMPORTED CASE</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: block;">
+                <canvas baseChart height="120" [datasets]="lineChartInfectionSourceData"
+                  [labels]="lineChartInfectionSourceLabels" [options]="lineChartInfectionSourceOptions"
+                  [colors]="lineChartInfectionSourceColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                  [plugins]="lineChartPlugins">
+                </canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
 </div>

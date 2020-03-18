@@ -5,11 +5,11 @@
       <img src="/assets/images/covid-19-logo.png" class="covid-19-logo d-inline-block align-top" alt="">
       <!-- India Fights COVID-19 -->
     </a>
-    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler btn" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" [collapse]=isCollapsed>
+    <div class="collapse navbar-collapse" [ngClass]="!isCollapsed?'mobile-navbar':''" id="navbarSupportedContent" [collapse]=isCollapsed>
       <ul class="navbar-nav ml-auto mr-auto justify-content-center">
         <li class="nav-item active">
           <a class="nav-link" href="#/dashboard">Home <span class="sr-only">(current)</span></a>
@@ -69,22 +69,17 @@
 
     </div>
 
-    <div class="navbar-right">
+    <!-- <div class="navbar-right">
       <button class="btn my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-    </div>
+    </div> -->
 
   </nav>
 
+<router-outlet></router-outlet>
 
-<div class="content content-fixed">
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-</div>
 
 <div class="shareaholic-canvas" data-app="share_buttons" data-app-id="28824921"></div>
 <footer class="footer" style="display:block; position: fixed; bottom: 0; width: 100%; height: 45px; z-index: 100">
-  
   <div class="d-flex justify-content-between" style="margin-top: 0px !important;">
     <div>
       <span>Created by <a href="https://www.aptlogica.com" target="_blank">Aptlogica Technologies</a></span>
