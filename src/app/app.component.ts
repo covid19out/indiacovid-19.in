@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { PatientsDataService } from './services/patients-data.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { PatientsDataService } from './services/patients-data.service';
 })
 export class AppComponent {
   title = 'INDIA COVID-19 - Corona Virus Updates';
+  isCollapsed:boolean = true;
   constructor(private PatientsDataService:PatientsDataService){
     this.PatientsDataService.loadPatientsData();
   }
