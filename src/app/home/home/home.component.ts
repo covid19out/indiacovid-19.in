@@ -303,7 +303,6 @@ export class HomeComponent implements OnInit {
     this.patientsDataService.patientsData.subscribe(data=>{
       this.patientsData=data;
       this.dateFilterChanged([this.startDate,this.endDate]);
-      // this.loadDataintoComponent(this.patientsData);
     })
     this.apexChartOptions = {
       series: [
@@ -378,10 +377,7 @@ export class HomeComponent implements OnInit {
       }
     };
   }
-  loadDataintoComponent(patientRecords: any) {
-    this.prepareBarChartData(patientRecords);
-    this.assigndoughnutNationalityChartData(patientRecords);
-  }
+
   prepareBarChartData(patientRecords: any) {
     var dateWiseData=[];
     var self = this;
@@ -415,20 +411,22 @@ export class HomeComponent implements OnInit {
 
   assignLineChartData(dateWiseData: any[]) {
     var self=this;
-    let chartDataOfMales= [ 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ];
-    let chartDataOfFemales = [ 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ];
-    let chartDataOfImported= [ 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ];
-    let chartDataOfLocal = [ 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ];
-    _.forEach(_.groupBy(dateWiseData, 'confirmedInMonth'), function(value, key) {
-      let Index=_.findIndex(self.months,function(o) { return o == key; });    
-      let genderWiseData=_.groupBy(value, 'gender');
-      chartDataOfMales[Index]=self.getDataCount(genderWiseData.Male);
-      chartDataOfFemales[Index]=self.getDataCount(genderWiseData.Female);
-      let transmissionSourceWiseData=_.groupBy(value, 'source');
-      chartDataOfImported[Index]=self.getDataCount(transmissionSourceWiseData.Imported);
-      chartDataOfLocal[Index]=self.getDataCount(transmissionSourceWiseData.Local);
+    let chartLabels=[];
+    let chartDataOfMales=[];
+    let chartDataOfFemales = [];
+    let chartDataOfImported=[];
+    let chartDataOfLocal =[];
+    _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function(value, key) {
+     chartLabels.push(key);
+     let genderWiseData=_.groupBy(value, 'gender');
+     chartDataOfMales.push(self.getDataCount(genderWiseData.Male));
+     chartDataOfFemales.push(self.getDataCount(genderWiseData.Female));
+     let transmissionSourceWiseData=_.groupBy(value, 'source');
+     chartDataOfImported.push(self.getDataCount(transmissionSourceWiseData.Imported));
+     chartDataOfLocal.push(self.getDataCount(transmissionSourceWiseData.Local));
+
     });
-    this.lineChartLabels=this.lineChartInfectionSourceLabels=this.months;
+    this.lineChartLabels=this.lineChartInfectionSourceLabels=chartLabels;
     this.lineChartData= [
       { data: chartDataOfMales, label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
       { data: chartDataOfFemales, label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
@@ -437,8 +435,8 @@ export class HomeComponent implements OnInit {
       { data: chartDataOfImported, label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
       { data: chartDataOfLocal, label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     ];
-
   }
+
   getDataCount(data: any): any {
     let count : number = 0;
     _.forEach(data,function(p){
@@ -518,7 +516,8 @@ export class HomeComponent implements OnInit {
         return patient;
       }
     });
-    this.loadDataintoComponent(filteredData);
+    this.prepareBarChartData(filteredData);
+    this.assigndoughnutNationalityChartData(filteredData);
   }
 
 }
