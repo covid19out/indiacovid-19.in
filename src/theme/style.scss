@@ -40,7 +40,9 @@ body{
   display: flex;
   align-items: center;
   .btn{
-    height: 38px;
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 }
 
