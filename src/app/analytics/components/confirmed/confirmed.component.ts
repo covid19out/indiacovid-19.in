@@ -61,7 +61,7 @@ export class ConfirmedComponent implements OnInit {
       let confirmedCasesByDates=[];
       let dischargedByDates=[]
       _.forEach(dateWiseData,function(data){
-        dates.push(data.confirmedAt.slice(0,-5));
+        dates.push(data.confirmAt.slice(0,-5));
         confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
       });
       this.barChartLabels=dates;
@@ -78,7 +78,7 @@ export class ConfirmedComponent implements OnInit {
     this.startDate = event[0].toLocaleDateString("en-US" , Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData,function(patient){
-      let patientsDate = new Date(patient.confirmedAt);
+      let patientsDate = new Date(patient.confirmAt);
       if(patientsDate >= event[0]   && patientsDate <= event[1]){
         return patient;
       }
