@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CollapseModule } from 'ngx-bootstrap';
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     AppRoutingModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule,
+    CollapseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
