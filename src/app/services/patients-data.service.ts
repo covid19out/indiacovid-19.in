@@ -59,6 +59,7 @@ export class PatientsDataService {
     data["gender"]=patient.gender;
     data["source"]=patient.source;
     data["nationality"]=patient.nationality;
+    data["caseType"]=patient.caseType;
     return data;
   }
 }
