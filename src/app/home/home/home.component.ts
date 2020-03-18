@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
     { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
   ];
-  public  months= ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   public lineChartLabels: Label[] = this.months;
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
@@ -293,8 +293,8 @@ export class HomeComponent implements OnInit {
   //Apex chart
   @ViewChild("chart", { static: true }) chart: ChartComponent;
   public apexChartOptions: Partial<ApexChartOptions>;
-  public startDate: any;
-  public endDate: any;
+  public startDate: any=new Date("21 January 2020");
+  public endDate: any=new Date();
   public patientsData: any;
 
   constructor( private patientsDataService : PatientsDataService) { }
@@ -302,7 +302,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data=>{
       this.patientsData=data;
-      this.loadDataintoComponent(this.patientsData);
+      this.dateFilterChanged([this.startDate,this.endDate]);
     })
     this.apexChartOptions = {
       series: [
@@ -377,40 +377,14 @@ export class HomeComponent implements OnInit {
       }
     };
   }
-  loadDataintoComponent(patientRecords: any) {
-    this.prepareBarChartData(patientRecords);
-    this.assigndoughnutNationalityChartData(patientRecords);
-  }
+
   prepareBarChartData(patientRecords: any) {
-  const months= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    var dateWiseData=[];
-    var self = this;
-    _.forEach(patientRecords,function(patient){
-      let patientsDate=new Date(patient.confirmedAt);
-        var foundDAta=_.find(dateWiseData,function(x){ 
-          if(new Date(x.confirmedAt).getDate() == patientsDate.getDate()){
-            if(new Date(x.confirmedAt).getMonth() == patientsDate.getMonth()){
-              if(new Date(x.confirmedAt).getFullYear() == patientsDate.getFullYear()){
-                return true;
-              }
-            }
-          }
-        })
-        if(foundDAta){
-          foundDAta=self.filterDataByCasetype(foundDAta,patient);
-        }else{
-          let data={};
-          data["confirmedAt"]= patientsDate.getDate() + " " +  months[patientsDate.getMonth()] + " " +  patientsDate.getFullYear();
-          data["confirmedInMonth"] = months[patientsDate.getMonth()];
-          data=self.filterDataByCasetype(data,patient);
-          dateWiseData.push(data);
-        }
-    })
-    dateWiseData=_.sortBy(dateWiseData, function(x) { return new Date(x.confirmedAt); });
+    var dateWiseData=this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(dateWiseData);
     this.assigndoughnutChartData(dateWiseData);
     this.assigndoughnutSourceChartData(dateWiseData);
     this.assignLineChartData(dateWiseData);
+    
   }
 
   assignLineChartData(dateWiseData: any[]) {
@@ -419,8 +393,10 @@ export class HomeComponent implements OnInit {
     let chartDataOfFemales = [];
     let chartDataOfImported=[];
     let chartDataOfLocal =[];
-    var data=_.groupBy(dateWiseData, 'confirmedInMonth');
-    _.forEach(data, function(value, key) {
+    if(dateWiseData.length==1){
+      dateWiseData = _.concat( {"confirmedAt" : new Date( new Date().setDate( new Date(dateWiseData[0].confirmedAt).getDate()-1)) }, dateWiseData);
+    }
+    _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function(value, key) {
      chartLabels.push(key);
      let genderWiseData=_.groupBy(value, 'gender');
      chartDataOfMales.push(genderWiseData.Male? genderWiseData.Male.length : 0);
@@ -438,7 +414,14 @@ export class HomeComponent implements OnInit {
       { data: chartDataOfImported, label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
       { data: chartDataOfLocal, label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     ];
+  }
 
+  getDataCount(data: any): any {
+    let count : number = 0;
+    _.forEach(data,function(p){
+      count+=(p.confirmedCasesByDates || 0) + (p.reportedSympoMaticByDates || 0) + (p.dischargedByDates || 0);
+    });
+    return count;
   }
 
   assigndoughnutNationalityChartData(patientRecords: any[]) {
@@ -496,32 +479,19 @@ export class HomeComponent implements OnInit {
     this.doughnutChartData= [[males,females]];
   }
 
-  filterDataByCasetype(data: {},patient:any): {} {
-    if(patient.caseType == 'confirmed'){
-      data['confirmedCasesByDates']=data['confirmedCasesByDates'] + 1 || 1 ;
-    }
-    if(patient.caseType == 'symptomatic'){
-      data['reportedSympoMaticByDates']=data['reportedSympoMaticByDates'] + 1 || 1;
-    }
-    if(patient.caseType == 'discharged'){
-      data['dischargedByDates']=data['dischargedByDates'] + 1 || 1;
-    }
-    data["gender"]=patient.gender;
-    data["source"]=patient.source;
-    data["nationalty"]=patient.nationalty;
-    return data;
-  }
-
   dateFilterChanged(event){
-    var filteredData=_.filter(this.patientsData,function(patient){
-      let patientsDate=new Date(patient.confirmedAt);
-      event[0].setHours(0,0,0,0);
-      event[1].setHours(23,59,59,999);
-      if(patientsDate>=event[0]   && patientsDate<=event[1]){
+    event[0].setHours(0,0,0,0);
+    event[1].setHours(23,59,59,999);
+    this.startDate = event[0].toLocaleDateString("en-US" , Option);
+    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    var filteredData = _.filter(this.patientsData,function(patient){
+      let patientsDate = new Date(patient.confirmedAt);
+      if(patientsDate >= event[0]   && patientsDate <= event[1]){
         return patient;
       }
     });
-    this.loadDataintoComponent(filteredData);
+    this.prepareBarChartData(filteredData);
+    this.assigndoughnutNationalityChartData(filteredData);
   }
 
 }
