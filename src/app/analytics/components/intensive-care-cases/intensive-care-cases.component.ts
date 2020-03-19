@@ -72,7 +72,6 @@ export class IntensiveCareCasesComponent implements OnInit {
       self.lineChartData[0].data=[]
       _.forEach(dateWiseData, function (value, key) {
         if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
-          console.log(value);
           self.lineChartLabels.push(value.confirmAt);
           self.lineChartData[0].data.push(value.icuByDate);
           self.totalIcuCases += (value.icuByDate || 0);
