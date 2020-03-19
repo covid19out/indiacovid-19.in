@@ -68,7 +68,7 @@ export class IntensiveCareCasesComponent implements OnInit {
   assignDatatoLineChart(dateWiseData: any) {
     let self = this;
     if (dateWiseData.length) {
-      self.clearLineChartData;
+      self.clearLineChartData();
       _.forEach(dateWiseData, function (value, key) {
         if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
           self.lineChartLabels.push(value.confirmAt);
@@ -77,7 +77,7 @@ export class IntensiveCareCasesComponent implements OnInit {
         }
       });
     } else {
-      self.clearLineChartData;
+      self.clearLineChartData();
     }
   }
 
