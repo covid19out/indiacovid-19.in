@@ -2043,6 +2043,7 @@
         "traveledFromLocation":"" 
     },
     {
+        "age":0,
         "caseNumber": 76,
         "cityName": "Bengaluru",
         "confirmAt": "12 Mar 2020",
