@@ -38,9 +38,9 @@ export class CasesComponent implements OnInit {
     // { title: 'Infection Source', name: 'infectionSource'},
     { title: 'Symptomatic To Confirmation', name: 'symptomaticToConfirmation', sort:''},
     { title: 'Days To Recover', name: 'daysToRecover', sort:''},
-    { title: 'Symptomatic At', name: 'symtomaticAt', sort:''},
+    //{ title: 'Symptomatic At', name: 'symtomaticAt', sort:''},
     { title: 'Confirmed At', name: 'confirmAt', sort:''},
-    { title: 'Recovered At', name: 'recoveredAt', sort:''},
+    //{ title: 'Recovered At', name: 'recoveredAt', sort:''},
     // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''}   
     
   ]; 

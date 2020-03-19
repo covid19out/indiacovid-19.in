@@ -57,13 +57,13 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <!-- <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalIntesiveCases}}</h3>
-            <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">{{totalCases - totalIntesiveCases}}<i
-                  class="icon ion-md-arrow-up"></i></span> in stable condition</p>
+            <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">{{100*totalIntesiveCases/totalCases}} %<i
+                  class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
             <canvas baseChart height="60" [datasets]="lineChartIntensiveData" [labels]="lineChartIntensiveSourceLabels"
@@ -72,7 +72,7 @@
             </canvas>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
@@ -90,8 +90,23 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-6 col-lg-3 margin-top-10">
+        <div class="card card-body">
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">DEATHS</h6>
+          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalDeathCases}}</h3>
+            <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">{{(100*totalDeathCases/totalCases).toFixed(2)}} %<i
+                  class="icon ion-md-arrow-up"></i></span> of total cases</p>
+          </div>
+          <div style="display: block;">
+            <canvas baseChart height="60" [datasets]="lineChartIntensiveData" [labels]="lineChartIntensiveSourceLabels"
+              [options]="lineChartIntensiveSourceOptions" [colors]="lineChartIntensiveSourceColors" [legend]="false"
+              [chartType]="lineChartType" [plugins]="lineChartPlugins">
+            </canvas>
+          </div>
+        </div>
+      </div>
     </div>
-
     <div class="row row-xs">
       <div class="col-lg-8 col-xl-9 margin-top-10">
         <div class="card">
