@@ -29,7 +29,10 @@
     </ng-table>
   </div>
 
-  <!-- <pagination *ngIf="config.paging"
+  <!-- <pagination *ngIf="config.paging" [(ngModel)]="page" class="pagination-sm" [totalItems]="30" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize"
+  [boundaryLinks]="true" [rotate]="false" (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event"></pagination> -->
+
+  <pagination *ngIf="config.paging"
               class="pagination-sm"
               [(ngModel)]="page"
               [totalItems]="length"
@@ -39,8 +42,8 @@
               [rotate]="false"
               (pageChanged)="onChangeTable(config, $event)"
               (numPages)="numPages = $event">
-  </pagination> -->
-  <!-- <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre> -->
+  </pagination> 
+  <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
 
 
 </div>

@@ -43,7 +43,7 @@ export class SymptomaticComponent implements OnInit {
     this.startDate = event[0].toLocaleDateString("en-US" , Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData,function(patient){
-      let patientsDate = new Date(patient.confirmedAt);
+      let patientsDate = new Date(patient.confirmAt);
       if(patientsDate >= event[0]   && patientsDate <= event[1]){
         return patient;
       }
@@ -62,7 +62,7 @@ export class SymptomaticComponent implements OnInit {
     let dates=[];
     let reportedSympoMaticByDates=[];
     _.forEach(dateWiseData,function(data){
-      dates.push(data.confirmedAt.slice(0,-5));
+      dates.push(data.confirmAt.slice(0,-5));
       reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
     });
     this.barChartLabels=dates;

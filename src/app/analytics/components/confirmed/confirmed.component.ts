@@ -15,6 +15,7 @@ export class ConfirmedComponent implements OnInit {
   public confirmedCasesCount:number=0;
   public dischargedCasesCount:number=0;
   public symptomaticCasesCount:number=0;
+  public intensiveCasesCount:number=0;
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -47,6 +48,7 @@ export class ConfirmedComponent implements OnInit {
     }));
     this.confirmedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'confirmedCasesByDates');
     this.dischargedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'dischargedByDates');
+    this.intensiveCasesCount=this.getCaseCountsByCaseType(dateWiseData,'icuByDate');
   }
   getCaseCountsByCaseType(dateWiseData: any, arg1: string) {
     var count : number = 0;
@@ -61,7 +63,7 @@ export class ConfirmedComponent implements OnInit {
       let confirmedCasesByDates=[];
       let dischargedByDates=[]
       _.forEach(dateWiseData,function(data){
-        dates.push(data.confirmedAt.slice(0,-5));
+        dates.push(data.confirmAt.slice(0,-5));
         confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
       });
       this.barChartLabels=dates;
@@ -78,7 +80,7 @@ export class ConfirmedComponent implements OnInit {
     this.startDate = event[0].toLocaleDateString("en-US" , Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData,function(patient){
-      let patientsDate = new Date(patient.confirmedAt);
+      let patientsDate = new Date(patient.confirmAt);
       if(patientsDate >= event[0]   && patientsDate <= event[1]){
         return patient;
       }
