@@ -133,7 +133,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 margin-top-10">
+        <!-- <div class="col-lg-6 margin-top-10">
           <div class="card">
             <div class="card-header">Age and Gender Distribution</div>
             <div class="card-body">
@@ -151,6 +151,20 @@
                 [yaxis]="apexChartOptions.yaxis"
                 [xaxis]="apexChartOptions.xaxis"
               ></apx-chart>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-lg-6 margin-top-10">
+          <div class="card">
+            <div class="card-header">State chart</div>
+            <div class="card-body">
+              <div id="chart">
+                <div style="display: block;" class="stacked-chart">
+                  <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels" [options]="stateBarChartOptions"
+                      [plugins]="stateBarChartPlugins" [colors]="stateBarChartColor" [legend]="false" chartType="horizontalBar">
+                  </canvas>
+                </div>
               </div>
             </div>
           </div>

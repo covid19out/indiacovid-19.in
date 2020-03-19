@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 import { TableData } from './table-data';
+import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 @Component({
   selector: 'app-cases',
@@ -10,19 +11,38 @@ import { TableData } from './table-data';
 export class CasesComponent implements OnInit {
   public rows:Array<any> = [];
   public columns:Array<any> = [
-    { title: 'Case', name: 'case'},
-    { title: 'Patient', name: 'patient'},
+    // { title: 'Case', name: 'case'},
+    // { title: 'Patient', name: 'patient'},
+    // { title: 'Age', className: [''], name: 'age', sort: ''},
+    // { title: 'Gender', name: 'gender', sort: ''},
+    // { title: 'Nationality', className: '', name: 'nationality'},
+    // { title: 'Status', name: 'status'},
+    // { title: 'Infection Source', name: 'infectionSource'},
+    // { title: 'Symptomatic To Confirmation', name: 'symptomaticToConfirmation', sort:''},
+    // { title: 'Days To Recover', name: 'daysToRecover', sort:''},
+    // { title: 'Symptomatic At', name: 'symptomaticAt', sort:''},
+    // { title: 'Confirmed At', name: 'confirmedAt', sort:''},
+    // { title: 'Recovered At', name: 'recoveredAt', sort:''},
+    // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''} 
+
+//For new Data
+
+    { title: 'Case', name: 'caseNumber'},
+    // { title: 'Patient', name: 'details'},
     { title: 'Age', className: [''], name: 'age', sort: ''},
     { title: 'Gender', name: 'gender', sort: ''},
     { title: 'Nationality', className: '', name: 'nationality'},
-    { title: 'Status', name: 'status'},
-    { title: 'Infection Source', name: 'infectionSource'},
+    { title: 'State', className: '', name: 'state'},
+    { title: 'City', className: '', name: 'cityName', sort:''},
+    // { title: 'Status', name: 'status'},
+    // { title: 'Infection Source', name: 'infectionSource'},
     { title: 'Symptomatic To Confirmation', name: 'symptomaticToConfirmation', sort:''},
     { title: 'Days To Recover', name: 'daysToRecover', sort:''},
     { title: 'Symptomatic At', name: 'symptomaticAt', sort:''},
-    { title: 'Confirmed At', name: 'confirmedAt', sort:''},
+    { title: 'Confirmed At', name: 'confirmAt', sort:''},
     { title: 'Recovered At', name: 'recoveredAt', sort:''},
-    { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''}    
+    // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''}   
+    
   ]; 
   public page:number = 1;
   public itemsPerPage:number = 10;
@@ -37,13 +57,26 @@ export class CasesComponent implements OnInit {
     className: ['table-striped', 'table-bordered']
   };
 
-  private data:Array<any> = TableData;
-  constructor() {
-    this.length = this.data.length;
+  private data:Array<any>;
+  constructor(private patientsDataService: PatientsDataService) {
+    // this.length = this.data.length;
    }
 
   ngOnInit() {
-    this.onChangeTable(this.config);
+    
+    this.patientsDataService.patientsData.subscribe(data => {
+      //For firebase Data
+      data.forEach(patient => {
+        let symptomaticDiffInTime = new Date(patient.confirmAt).getTime() - new Date(patient.symptomaticAt).getTime();
+        patient.symptomaticToConfirmation = symptomaticDiffInTime / (1000 * 3600 * 24) || '-';
+        let daysRecoverDiffInTime = new Date(patient.recoveredAt).getTime() - new Date(patient.confirmAt).getTime();
+        patient.daysToRecover = daysRecoverDiffInTime / (1000 * 3600 * 24) || '-';
+      });
+
+      this.data = data;   
+      this.length = this.data.length;         
+      this.onChangeTable(this.config);
+    })
   }
 
   
@@ -136,7 +169,7 @@ export class CasesComponent implements OnInit {
   }
 
   public onCellClick(data: any): any {
-    console.log(data);
+   // console.log(data);
   }
 
 }
