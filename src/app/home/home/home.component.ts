@@ -404,13 +404,13 @@ export class HomeComponent implements OnInit {
     let chartDataOfImported = [];
     let chartDataOfLocal = [];
     if (dateWiseData.length == 1) {
-      dateWiseData = _.concat({ "confirmedAt": new Date(new Date().setDate(new Date(dateWiseData[0].confirmedAt).getDate() - 1)) }, dateWiseData);
+      dateWiseData = _.concat({ "confirmAt": new Date(new Date().setDate(new Date(dateWiseData[0].confirmAt).getDate() - 1)) }, dateWiseData);
     }
-    _.forEach(_.groupBy(dateWiseData, 'confirmedAt'), function (value, key) {
+    _.forEach(_.groupBy(dateWiseData, 'confirmAt'), function (value, key) {
       chartLabels.push(key);
       let genderWiseData = _.groupBy(value, 'gender');
-      chartDataOfMales.push(genderWiseData.Male ? genderWiseData.Male.length : 0);
-      chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length : 0);
+      chartDataOfMales.push(genderWiseData.male ? genderWiseData.male.length : 0);
+      chartDataOfFemales.push(genderWiseData.female ? genderWiseData.female.length : 0);
       let transmissionSourceWiseData = _.groupBy(value, 'source');
       chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
       chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length : 0);
@@ -459,7 +459,7 @@ export class HomeComponent implements OnInit {
     let confirmedCasesByDates = [];
     let dischargedByDates = []
     _.forEach(dateWiseData, function (data) {
-      dates.push(data.confirmedAt.slice(0, -5));
+      dates.push(data.confirmAt.slice(0, -5));
       reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
       confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
       dischargedByDates.push(data['dischargedByDates'] || 0);
@@ -476,15 +476,15 @@ export class HomeComponent implements OnInit {
     var self = this;
     this.doughnutChartData = _.map(_.groupBy(dateWiseData, 'gender'), function (val) {
       return self.getDataCount(val);
-    })
+    });
   }
 
   assignConfimedLineChartData(dateWiseData) {
     let self = this;
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
-        if (value.confirmedCasesByDates) {
-          self.lineChartConfirmedSourceLabels.push(value.confirmedAt);
+        if(value.confirmedCasesByDates){
+          self.lineChartConfirmedSourceLabels.push(value.confirmAt); 
           self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
           self.totalConfirmedCases += value.confirmedCasesByDates;
         }
@@ -502,7 +502,7 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
-          self.lineChartSymptomaticSourceLabels.push(value.confirmedAt);
+          self.lineChartSymptomaticSourceLabels.push(value.confirmAt);
           let totalHospitalisedCases = (value.confirmedCasesByDates || 0) + (value.reportedSympoMaticByDates || 0);
           self.lineChartSymptomaticData[0].data.push(totalHospitalisedCases);
           self.totalHospitalisedCases += totalHospitalisedCases;
@@ -520,7 +520,7 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.icuByDate) {
-          self.lineChartIntensiveSourceLabels.push(value.confirmedAt);
+          self.lineChartIntensiveSourceLabels.push(value.confirmAt);
           self.lineChartIntensiveData[0].data.push(value.icuByDate);
           self.totalIntesiveCases += value.icuByDate;
         }
@@ -574,7 +574,7 @@ export class HomeComponent implements OnInit {
     this.startDate = event[0].toLocaleDateString("en-US", Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData, function (patient) {
-      let patientsDate = new Date(patient.confirmedAt);
+      let patientsDate = new Date(patient.confirmAt);
       if (patientsDate >= event[0] && patientsDate <= event[1]) {
         return patient;
       }
