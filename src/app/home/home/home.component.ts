@@ -473,56 +473,77 @@ export class HomeComponent implements OnInit {
 
   assignConfimedLineChartData(dateWiseData) {
     let self = this;
-    _.forEach(dateWiseData, function (value, key) {
-      if(value.confirmedCasesByDates){
-        self.lineChartConfirmedSourceLabels.push(value.confirmedAt); 
-        self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
-        self.totalConfirmedCases += value.confirmedCasesByDates;
-      }      
-    }); 
+    if(dateWiseData.length){
+      _.forEach(dateWiseData, function (value, key) {
+        if(value.confirmedCasesByDates){
+          self.lineChartConfirmedSourceLabels.push(value.confirmedAt); 
+          self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
+          self.totalConfirmedCases += value.confirmedCasesByDates;
+        }      
+      }); 
+    } else {
+      self.lineChartConfirmedSourceLabels = [];
+      self.lineChartConfirmedData[0].data = [];
+    }
+   
     this.totalCases += self.totalConfirmedCases;
   }
 
-  assignHospitalisedLineChartData(dateWiseData){
-    let self = this; 
-    _.forEach(dateWiseData, function (value, key) {
-      if(value.confirmedCasesByDates || value.reportedSympoMaticByDates){
-        self.lineChartSymptomaticSourceLabels.push(value.confirmedAt); 
-        let totalHospitalisedCases = (value.confirmedCasesByDates || 0) + (value.reportedSympoMaticByDates || 0);
-        self.lineChartSymptomaticData[0].data.push(totalHospitalisedCases);
-        self.totalHospitalisedCases += totalHospitalisedCases;
-      }      
-    }); 
+  assignHospitalisedLineChartData(dateWiseData) {
+    let self = this;
+    if (dateWiseData.length) {
+      _.forEach(dateWiseData, function (value, key) {
+        if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
+          self.lineChartSymptomaticSourceLabels.push(value.confirmedAt);
+          let totalHospitalisedCases = (value.confirmedCasesByDates || 0) + (value.reportedSympoMaticByDates || 0);
+          self.lineChartSymptomaticData[0].data.push(totalHospitalisedCases);
+          self.totalHospitalisedCases += totalHospitalisedCases;
+        }
+      });
+    } else {
+      self.lineChartSymptomaticSourceLabels = [];
+      self.lineChartSymptomaticData[0].data = [];
+    }
     this.totalCases += self.totalHospitalisedCases;
   }
   
   assignIntensiveLineChartData(dateWiseData){
-    let self = this;    
-    _.forEach(dateWiseData, function (value, key) {
-      if(value.icuByDate){
-        self.lineChartIntensiveSourceLabels.push(value.confirmedAt); 
-        self.lineChartIntensiveData[0].data.push(value.icuByDate);
-        self.totalIntesiveCases += value.icuByDate;
-      }      
-    }); 
+    let self = this;
+    if (dateWiseData.length) {
+      _.forEach(dateWiseData, function (value, key) {
+        if (value.icuByDate) {
+          self.lineChartIntensiveSourceLabels.push(value.confirmedAt);
+          self.lineChartIntensiveData[0].data.push(value.icuByDate);
+          self.totalIntesiveCases += value.icuByDate;
+        }
+      });
+    } else {
+      self.lineChartIntensiveSourceLabels = [];
+      self.lineChartIntensiveData[0].data = [];
+    }
     this.totalCases += self.totalIntesiveCases;
   }
 
-  assignDischargedLineChartData(dateWiseData){
-    let self = this;    
-    _.forEach(dateWiseData, function (value, key) {
-      if(value.dischargedByDates){    
-        self.lineChartDischargeSourceLabels.push(value.confirmedAt); 
-        self.lineChartDischargeData[0].data.push(value.dischargedByDates);
-        self.totalDischargedCases += value.dischargedByDate;
-      }      
-    }); 
+  assignDischargedLineChartData(dateWiseData) {
+    let self = this;
+    if (dateWiseData.length) {
+      _.forEach(dateWiseData, function (value, key) {
+        if (value.dischargedByDates) {
+          self.lineChartDischargeSourceLabels.push(value.confirmedAt);
+          self.lineChartDischargeData[0].data.push(value.dischargedByDates);
+          self.totalDischargedCases += value.dischargedByDate;
+        }
+      });
+    } else {
+      self.lineChartDischargeSourceLabels = [];
+      self.lineChartDischargeData[0].data = [];
+    }
     this.totalCases += self.totalDischargedCases;
   }
 
   dateFilterChanged(event) {
     event[0].setHours(0, 0, 0, 0);
-    event[1].setHours(23, 59, 59, 999);
+    event[1].setHours(23, 59, 59, 999);    
     this.startDate = event[0].toLocaleDateString("en-US", Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData, function (patient) {
@@ -531,9 +552,17 @@ export class HomeComponent implements OnInit {
         return patient;
       }
     });
-    this.totalCases = 0;
+    this.resetChartsAndData();
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
+  }
+
+  resetChartsAndData(){
+    this.totalCases = 0;
+    this.totalConfirmedCases = 0;
+    this.totalHospitalisedCases = 0; 
+    this.totalIntesiveCases = 0; 
+    this.totalDischargedCases = 0;    
   }
 
 }
