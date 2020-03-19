@@ -56,9 +56,7 @@ export class PatientsDataService {
     if (patient.caseType == 'discharged') {
       data['dischargedByDates'] = data['dischargedByDates'] + 1 || 1;
     }
-    if (patient.icu_on) {
-      data['icuByDate'] = data['icuByDate'] + 1 || 1;
-    }
+
     data["gender"]=patient.gender;
     data["source"]=patient.source;
     data["nationality"]=patient.nationality;

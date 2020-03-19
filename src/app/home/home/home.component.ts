@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
   public minDate = new Date('jan 2020');
   public totalCases = 0;
   public totalConfirmedCases = 0;
-  public totalHospitalisedCases = 0; 
-  public totalIntesiveCases = 0; 
+  public totalHospitalisedCases = 0;
+  public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
   //stacked chart
   public barChartOptions: ChartOptions = {
@@ -46,6 +46,22 @@ export class HomeComponent implements OnInit {
     { data: [], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
     { data: [], label: 'CONFIRMED CASES', stack: 'a' },
     { data: [], label: ' DISCHARGED', stack: 'a' }
+  ];
+
+  //Statewise Bar chart
+  public stateBarChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public stateBarChartLabels: Label[] = [];
+  public stateBarChartLegend = true;
+  public stateBarChartPlugins = [];
+  public stateBarChartColor = [
+    {
+      backgroundColor: []
+    }
+  ];
+  public stateBarChartData: ChartDataSets[] = [
+    { data: [], label: 'State', stack: 'a' }
   ];
 
 
@@ -252,7 +268,7 @@ export class HomeComponent implements OnInit {
       backgroundColor: 'rgba(110,127,144,0.3)',
     }
   ];
- 
+
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
     { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
@@ -377,6 +393,8 @@ export class HomeComponent implements OnInit {
     this.assignLineChartData(patientRecords);
     this.assignConfimedLineChartData(dateWiseData);
     this.assignHospitalisedLineChartData(dateWiseData);
+    this.assignDischargedLineChartData(dateWiseData);
+    this.assignIntensiveLineChartData(dateWiseData);
   }
 
   assignLineChartData(dateWiseData: any[]) {
@@ -430,7 +448,7 @@ export class HomeComponent implements OnInit {
 
   assigndoughnutSourceChartData(dateWiseData: any[]) {
     var self = this;
-    this.doughnutSourceChartData=_.map(_.groupBy(dateWiseData, 'source'),function(val){
+    this.doughnutSourceChartData = _.map(_.groupBy(dateWiseData, 'source'), function (val) {
       return self.getDataCount(val);
     })
   }
@@ -456,26 +474,26 @@ export class HomeComponent implements OnInit {
 
   assigndoughnutChartData(dateWiseData: any[]) {
     var self = this;
-    this.doughnutChartData=_.map(_.groupBy(dateWiseData, 'gender'),function(val){
+    this.doughnutChartData = _.map(_.groupBy(dateWiseData, 'gender'), function (val) {
       return self.getDataCount(val);
     })
   }
 
   assignConfimedLineChartData(dateWiseData) {
     let self = this;
-    if(dateWiseData.length){
+    if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
-        if(value.confirmedCasesByDates){
-          self.lineChartConfirmedSourceLabels.push(value.confirmedAt); 
+        if (value.confirmedCasesByDates) {
+          self.lineChartConfirmedSourceLabels.push(value.confirmedAt);
           self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
           self.totalConfirmedCases += value.confirmedCasesByDates;
-        }      
-      }); 
+        }
+      });
     } else {
       self.lineChartConfirmedSourceLabels = [];
       self.lineChartConfirmedData[0].data = [];
     }
-   
+
     this.totalCases += self.totalConfirmedCases;
   }
 
@@ -496,8 +514,8 @@ export class HomeComponent implements OnInit {
     }
     this.totalCases += self.totalHospitalisedCases;
   }
-  
-  assignIntensiveLineChartData(dateWiseData){
+
+  assignIntensiveLineChartData(dateWiseData) {
     let self = this;
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
@@ -514,22 +532,45 @@ export class HomeComponent implements OnInit {
     this.totalCases += self.totalIntesiveCases;
   }
 
-  assignDischargedLineChartData(dateWiseData){
-    let self = this;    
-    _.forEach(dateWiseData, function (value, key) {
-      if(value.dischargedByDates){ 
-        debugger   
-        self.lineChartDischargeSourceLabels.push(value.confirmedAt); 
-        self.lineChartDischargeData[0].data.push(value.dischargedByDates);
-        self.totalDischargedCases += value.dischargedByDate;
-      }      
-    }); 
+  assignDischargedLineChartData(dateWiseData) {
+    let self = this;
+    if (dateWiseData.length) {
+      _.forEach(dateWiseData, function (value, key) {
+        if (value.dischargedByDates) {
+          self.lineChartDischargeSourceLabels.push(value.confirmedAt);
+          self.lineChartDischargeData[0].data.push(value.dischargedByDates);
+          self.totalDischargedCases += value.dischargedByDates;
+        }
+      });
+    } else {
+      self.lineChartDischargeSourceLabels = [];
+      self.lineChartDischargeData[0].data = [];
+    }
     this.totalCases += self.totalDischargedCases;
+  }
+
+  assignStateBarChartDate(dateWiseData) {
+    console.log(dateWiseData);
+    //dateWiseData.forEach();
+    if (dateWiseData.length) {
+      var states = _.groupBy(dateWiseData, 'state');
+      for (let state in states) {
+        console.log(state);
+        this.stateBarChartLabels.push(state);
+        this.stateBarChartData[0].data.push(states[state].length);
+        this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
+      };
+    }
+    else {
+      this.stateBarChartLabels = [];
+      this.stateBarChartData[0].data = [];
+    }
+    //stateBarChartLabels stateBarChartData
   }
 
   dateFilterChanged(event) {
     event[0].setHours(0, 0, 0, 0);
-    event[1].setHours(23, 59, 59, 999);    
+    event[1].setHours(23, 59, 59, 999);
     this.startDate = event[0].toLocaleDateString("en-US", Option);
     this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData, function (patient) {
@@ -541,14 +582,15 @@ export class HomeComponent implements OnInit {
     this.resetChartsAndData();
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
+    this.assignStateBarChartDate(filteredData);
   }
 
-  resetChartsAndData(){
+  resetChartsAndData() {
     this.totalCases = 0;
     this.totalConfirmedCases = 0;
-    this.totalHospitalisedCases = 0; 
-    this.totalIntesiveCases = 0; 
-    this.totalDischargedCases = 0;    
+    this.totalHospitalisedCases = 0;
+    this.totalIntesiveCases = 0;
+    this.totalDischargedCases = 0;
   }
 
 }
