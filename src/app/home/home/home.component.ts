@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
   public doughnutChartType: ChartType = 'doughnut';
 
   //Doughnut Gender
-  public doughnutChartLabels: Label[] = ['Male', 'Female'];
+  public doughnutChartLabels: Label[] = [];
   public doughnutChartData: MultiDataSet = [[]];
   public pieChartGenderOptions: ChartOptions = {
     responsive: true,
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
   };
 
   //Doughnut Source
-  public doughnutSourceChartLabels: Label[] = ['Local Transmission', 'Imported Cases'];
+  public doughnutSourceChartLabels: Label[] = [];
   public doughnutSourceChartData: MultiDataSet = [
     []
   ];
@@ -111,6 +111,14 @@ export class HomeComponent implements OnInit {
     }
   };
 
+  public doughnutSourceChartColors = [
+    {
+      backgroundColor: [
+        '#86c7f3',
+        '#ffa1b5'
+      ]
+    }
+  ];
 
   //Line charts
   public lineChartLegend = false;
@@ -308,8 +316,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data => {
-      this.patientsData = data;
-      this.dateFilterChanged([this.startDate, this.endDate]);
+      if(data){
+        this.patientsData = data;
+        this.dateFilterChanged([this.startDate, this.endDate]);        
+      }
+      // this.patientsData = data;
+      // this.dateFilterChanged([this.startDate, this.endDate]);
     })
     this.apexChartOptions = {
       series: [
@@ -409,11 +421,11 @@ export class HomeComponent implements OnInit {
     _.forEach(_.groupBy(dateWiseData, 'confirmAt'), function (value, key) {
       chartLabels.push(key);
       let genderWiseData = _.groupBy(value, 'gender');
-      chartDataOfMales.push(genderWiseData.male ? genderWiseData.male.length : 0);
-      chartDataOfFemales.push(genderWiseData.female ? genderWiseData.female.length : 0);
+      chartDataOfMales.push(genderWiseData.Male ? genderWiseData.Male.length : 0);
+      chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length : 0);
       let transmissionSourceWiseData = _.groupBy(value, 'source');
-      chartDataOfImported.push(transmissionSourceWiseData.Imported ? transmissionSourceWiseData.Imported.length : 0);
-      chartDataOfLocal.push(transmissionSourceWiseData.Local ? transmissionSourceWiseData.Local.length : 0);
+      chartDataOfImported.push(transmissionSourceWiseData["Imported Cases"] ? transmissionSourceWiseData["Imported Cases"].length : 0);
+      chartDataOfLocal.push(transmissionSourceWiseData["Local Transmission"] ? transmissionSourceWiseData["Local Transmission"].length : 0);
     });
     this.lineChartLabels = this.lineChartInfectionSourceLabels = chartLabels;
     this.lineChartData = [
@@ -427,11 +439,12 @@ export class HomeComponent implements OnInit {
   }
 
   getDataCount(data: any): any {
-    let count: number = 0;
-    _.forEach(data, function (p) {
-      count++;
-    });
-    return count;
+    // let count: number = 0;
+    // _.forEach(data, function (p) {
+    //   count++;
+    // });
+    //return count;
+    return data.length;
   }
 
   assigndoughnutNationalityChartData(patientRecords: any[]) {
@@ -448,9 +461,14 @@ export class HomeComponent implements OnInit {
 
   assigndoughnutSourceChartData(dateWiseData: any[]) {
     var self = this;
-    this.doughnutSourceChartData = _.map(_.groupBy(dateWiseData, 'source'), function (val) {
-      return self.getDataCount(val);
-    })
+    // this.doughnutSourceChartData = _.map(_.groupBy(dateWiseData, 'source'), function (val,key) {
+    //   return self.getDataCount(val);
+    // })
+    let groupBySource = _.groupBy(dateWiseData, 'source');
+    for(let source in groupBySource){       
+        this.doughnutSourceChartLabels.push(source);
+        this.doughnutSourceChartData[0].push(self.getDataCount(groupBySource[source]));
+    }
   }
 
   assignDatatoBarChart(dateWiseData) {
@@ -474,9 +492,16 @@ export class HomeComponent implements OnInit {
 
   assigndoughnutChartData(dateWiseData: any[]) {
     var self = this;
-    this.doughnutChartData = _.map(_.groupBy(dateWiseData, 'gender'), function (val) {
-      return self.getDataCount(val);
-    });
+    // this.doughnutChartData = _.map(_.groupBy(dateWiseData, 'gender'), function (val) {
+    //   return self.getDataCount(val);
+    // });
+    let groupByGender = _.groupBy(dateWiseData, 'gender');
+    for(let gender in groupByGender){ 
+      if(gender == 'Male' || gender == 'Female'){
+        this.doughnutChartLabels.push(gender);
+        this.doughnutChartData[0].push(self.getDataCount(groupByGender[gender]));
+      }
+    }
   }
 
   assignConfimedLineChartData(dateWiseData) {
