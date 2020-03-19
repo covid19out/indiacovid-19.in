@@ -38,7 +38,7 @@ export class CasesComponent implements OnInit {
     // { title: 'Infection Source', name: 'infectionSource'},
     { title: 'Symptomatic To Confirmation', name: 'symptomaticToConfirmation', sort:''},
     { title: 'Days To Recover', name: 'daysToRecover', sort:''},
-    { title: 'Symptomatic At', name: 'symptomaticAt', sort:''},
+    { title: 'Symptomatic At', name: 'symtomaticAt', sort:''},
     { title: 'Confirmed At', name: 'confirmAt', sort:''},
     { title: 'Recovered At', name: 'recoveredAt', sort:''},
     // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''}   
@@ -66,16 +66,19 @@ export class CasesComponent implements OnInit {
     
     this.patientsDataService.patientsData.subscribe(data => {
       //For firebase Data
-      data.forEach(patient => {
-        let symptomaticDiffInTime = new Date(patient.confirmAt).getTime() - new Date(patient.symptomaticAt).getTime();
-        patient.symptomaticToConfirmation = symptomaticDiffInTime / (1000 * 3600 * 24) || '-';
-        let daysRecoverDiffInTime = new Date(patient.recoveredAt).getTime() - new Date(patient.confirmAt).getTime();
-        patient.daysToRecover = daysRecoverDiffInTime / (1000 * 3600 * 24) || '-';
-      });
+      if(data){
+        data.forEach(patient => {
+          let symptomaticDiffInTime = new Date(patient.confirmAt).getTime() - new Date(patient.symptomaticAt).getTime();
+          patient.symptomaticToConfirmation = symptomaticDiffInTime / (1000 * 3600 * 24) || '-';
+          let daysRecoverDiffInTime = new Date(patient.recoveredAt).getTime() - new Date(patient.confirmAt).getTime();
+          patient.daysToRecover = daysRecoverDiffInTime / (1000 * 3600 * 24) || '-';
+        });
+  
+        this.data = data;   
+        this.length = this.data.length;         
+        this.onChangeTable(this.config);
+      }
 
-      this.data = data;   
-      this.length = this.data.length;         
-      this.onChangeTable(this.config);
     })
   }
 

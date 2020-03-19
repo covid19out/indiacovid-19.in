@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  apiURI: "http://localhost:4200/",
   firebaseConfig: {
     apiKey: "AIzaSyAM0OMduMLIiBzBGyJ0QOV32lBj4wYvf10",
     authDomain: "india-covid-19.firebaseapp.com",
