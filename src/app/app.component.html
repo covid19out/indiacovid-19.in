@@ -53,17 +53,21 @@
           <a class="nav-link" href="#/sources">Sources</a>
         </li>
         <li class="nav-item dropdown">
-          <div class="btn-group" dropdown>
-              <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
-                  Helpline <span class="caret"></span>
-              </button>
-        <ul *dropdownMenu class="dropdown-menu" role="menu">
-          <li role="menuitem"><a class="dropdown-item" href="#/helpline/contact-information" (click)="hideDropdown()">Contact Information</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#/helpline/awareness" (click)="hideDropdown()">Awareness</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#/helpline/testing-center" (click)="hideDropdown()">Testing Centers</a></li>
-        </ul>
-      </div>
-    </li>
+        <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
+                Helpline <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" href="#/helpline/contact-information" (click)="hideDropdown()">Contact Information</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#/helpline/awareness" (click)="hideDropdown()">Awareness</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#/helpline/testing-center" (click)="hideDropdown()">Testing Centers</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item" (click)="hideDropdown()">
+          <a class="nav-link" href="#/about">About</a>
+        </li>
 
       </ul>
 
