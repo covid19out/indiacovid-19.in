@@ -68,6 +68,8 @@ export class IntensiveCareCasesComponent implements OnInit {
   assignDatatoLineChart(dateWiseData: any) {
     let self = this;
     if (dateWiseData.length) {
+      self.lineChartLabels=[];
+      self.lineChartData[0].data=[]
       _.forEach(dateWiseData, function (value, key) {
         if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
           console.log(value);
