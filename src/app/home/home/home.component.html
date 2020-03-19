@@ -119,6 +119,22 @@
               </canvas>
             </div>
           </div>
+          <div class="card-footer pd-10">
+            <div class="row">
+              <div class="col-6">
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">Male</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="tx-normal tx-rubik mg-b-0">207 <small class="tx-color-04">60.0%</small></h5>
+                </div>
+              </div><!-- col -->
+              <div class="col-6">
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">Female</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="tx-normal tx-rubik mg-b-0">138 <small class="tx-color-04">40.0%</small></h5>
+                </div>
+              </div><!-- col -->
+            </div><!-- row -->
+          </div>
         </div>
       </div>
 
@@ -143,10 +159,18 @@
           <div class="card-header">Nationality</div>
           <div class="card-body">
             <div style="display: block;" class="doughnut-chart">
-              <canvas height="500" baseChart [data]="doughnutNationalityChartData"
+              <canvas height="500" baseChart [legend]="false" [data]="doughnutNationalityChartData"
                 [labels]="doughnutNationalityChartLabels" [chartType]="doughnutChartType"
                 [options]="pieChartNationalityOptions">
               </canvas>
+            </div>
+            <div class="nationality-legends">
+              <div class="nationality-lable">
+                <span>Singaporean</span>&nbsp;<span>123</span>
+              </div>
+              <div class="nationality-lable">
+                <span>Chinese</span>&nbsp;<span>20</span>
+              </div>
             </div>
           </div>
         </div>
@@ -230,6 +254,22 @@
                 [colors]="doughnutSourceChartColors">
               </canvas>
             </div>
+          </div>
+          <div class="card-footer pd-10">
+            <div class="row">
+              <div class="col-6">
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">Local</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="tx-normal tx-rubik mg-b-0">207 <small class="tx-color-04">60.0%</small></h5>
+                </div>
+              </div><!-- col -->
+              <div class="col-6">
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">Imported</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="tx-normal tx-rubik mg-b-0">138 <small class="tx-color-04">40.0%</small></h5>
+                </div>
+              </div><!-- col -->
+            </div><!-- row -->
           </div>
         </div>
       </div>
