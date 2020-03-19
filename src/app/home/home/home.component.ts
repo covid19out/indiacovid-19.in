@@ -51,7 +51,15 @@ export class HomeComponent implements OnInit {
   //Statewise Bar chart
   public stateBarChartOptions: ChartOptions = {
     responsive: true,
+    plugins: {
+      labels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+
   };
+
   public stateBarChartLabels: Label[] = [];
   public stateBarChartLegend = true;
   public stateBarChartPlugins = [];
@@ -74,7 +82,7 @@ export class HomeComponent implements OnInit {
   public pieChartGenderOptions: ChartOptions = {
     responsive: true,
     legend: {
-      position: 'bottom'
+      position: 'bottom',
     }
   };
   public pieChartGenderColors = [
@@ -508,8 +516,8 @@ export class HomeComponent implements OnInit {
     let self = this;
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
-        if(value.confirmedCasesByDates){
-          self.lineChartConfirmedSourceLabels.push(value.confirmAt); 
+        if (value.confirmedCasesByDates) {
+          self.lineChartConfirmedSourceLabels.push(value.confirmAt);
           self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
           self.totalConfirmedCases += value.confirmedCasesByDates;
         }
