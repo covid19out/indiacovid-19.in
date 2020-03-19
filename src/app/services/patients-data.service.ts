@@ -50,7 +50,7 @@ export class PatientsDataService {
     if (patient.caseType == 'HOSPITALIZED') {
       data['confirmedCasesByDates'] = data['confirmedCasesByDates'] + 1 || 1;
     }
-    if (patient.caseType == 'symptomatic') {
+    if (patient.caseType == 'SYMPTOMATIC') {
       data['reportedSympoMaticByDates'] = data['reportedSympoMaticByDates'] + 1 || 1;
     }
     if (patient.caseType == 'RECOVERED') {
