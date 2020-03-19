@@ -15,6 +15,7 @@ export class ConfirmedComponent implements OnInit {
   public confirmedCasesCount:number=0;
   public dischargedCasesCount:number=0;
   public symptomaticCasesCount:number=0;
+  public intensiveCasesCount:number=0;
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -47,6 +48,9 @@ export class ConfirmedComponent implements OnInit {
     }));
     this.confirmedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'confirmedCasesByDates');
     this.dischargedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'dischargedByDates');
+    this.intensiveCasesCount=_.filter(dateWiseData , function(p){
+      return p.icuByDate != null;
+    }).length;
   }
   getCaseCountsByCaseType(dateWiseData: any, arg1: string) {
     var count : number = 0;

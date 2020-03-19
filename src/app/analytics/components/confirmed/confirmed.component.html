@@ -28,7 +28,7 @@
               <div class="card card-body">
                   <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
                   <div>
-                      <h6>242</h6>
+                      <h6 [innerHTML]="confirmedCasesCount">242</h6>
                   </div>
               </div>
           </div>
@@ -44,7 +44,7 @@
               <div class="card card-body">
                   <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">INTENSIVE CASES</h6>
                   <div>
-                      <h6>13</h6>
+                      <h6 [innerHTML]="intensiveCasesCount">13</h6>
                   </div>
               </div>
           </div>
@@ -52,7 +52,7 @@
               <div class="card card-body">
                   <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">DISCHARGED</h6>
                   <div>
-                      <h6>105</h6>
+                      <h6 [innerHTML]="dischargedCasesCount">105</h6>
                   </div>
               </div>
           </div>
