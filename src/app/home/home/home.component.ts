@@ -550,12 +550,9 @@ export class HomeComponent implements OnInit {
   }
 
   assignStateBarChartDate(dateWiseData) {
-    console.log(dateWiseData);
-    //dateWiseData.forEach();
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       for (let state in states) {
-        console.log(state);
         this.stateBarChartLabels.push(state);
         this.stateBarChartData[0].data.push(states[state].length);
         this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
@@ -565,7 +562,6 @@ export class HomeComponent implements OnInit {
       this.stateBarChartLabels = [];
       this.stateBarChartData[0].data = [];
     }
-    //stateBarChartLabels stateBarChartData
   }
 
   dateFilterChanged(event) {
