@@ -50,7 +50,7 @@ export class PatientsDataService {
     if (patient.caseType == 'HOSPITALIZED') {
       data['confirmedCasesByDates'] = data['confirmedCasesByDates'] + 1 || 1;
     }
-    if (patient.caseType == 'symptomatic') {
+    if (patient.caseType == 'SYMPTOMATIC') {
       data['reportedSympoMaticByDates'] = data['reportedSympoMaticByDates'] + 1 || 1;
     }
     if (patient.caseType == 'RECOVERED') {
@@ -59,8 +59,8 @@ export class PatientsDataService {
     if (patient.icu_on) {
       data['icuByDate'] = data['icuByDate'] + 1 || 1;
     }
-    data["gender"]=patient.gender;
-    data["source"]=patient.source;
+    data["gender"]=patient.gender || 'male';
+    data["source"]=patient.source || 'Local';
     data["nationality"]=patient.nationality;
     data["caseType"]=patient.caseType;
     return data;
