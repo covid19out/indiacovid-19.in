@@ -149,6 +149,32 @@
             </div>
           </div>
         </div> -->
+        <div class="col-lg-6 margin-top-10">
+          <div class="card">
+            <div class="card-header">State chart</div>
+            <div class="card-body">
+              <div id="chart">
+                <div style="display: block;" class="stacked-chart">
+                  <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels" [options]="stateBarChartOptions"
+                      [plugins]="stateBarChartPlugins" [colors]="stateBarChartColor" [legend]="false" chartType="horizontalBar">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 margin-top-10">
+          <div class="card">
+            <div class="card-header">Source</div>
+            <div class="card-body">
+              <div style="display: block;" class="doughnut-chart">
+                <canvas height="500" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
+                  [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType" [colors]="doughnutSourceChartColors">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
             <div class="col-lg-9 margin-top-10">
