@@ -4,11 +4,43 @@
   height: 70px;
   background-color: #fff;
   border-bottom: 1px solid rgba(72,94,144,0.16);
+  padding: 0rem 1rem;
 
   .covid-19-logo{
     height: 60px;
   }
 
+  @media (max-width: 992px){
+    .mobile-navbar{
+      margin: 0px -1rem;
+      background-color: #f8f9fa;
+      padding: 0px 1rem;
+      &.collapse{
+        &.show{
+          border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+        }
+      }
+      .nav-item{
+        &.dropdown{
+          .btn-group{
+            width: 100%;
+            display: inline-block;
+            .btn{
+              width: 100%;
+              text-align: left;
+              padding: .375rem 0rem;
+            }
+            .dropdown-menu{
+              position: relative;
+              flex-basis: 100%;
+              flex-grow: 1;
+            }
+          }
+        }
+      }
+
+    }
+  }
 }
 
 

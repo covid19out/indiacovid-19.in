@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 @Component({
   selector: 'app-intensive-care-cases',
@@ -15,12 +16,12 @@ export class IntensiveCareCasesComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [];
   //Gender over Time line chart
-  public months=['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public dataByMonths=[10, 12, 10, 8, 15, 18, 14, 17, 21, 23];
+
+
   public lineChartData: ChartDataSets[] = [
-    { data: this.dataByMonths, label: 'Male' }
+    { data: [], label: 'Male' }
   ];
-  public lineChartLabels: Label[] = this.months;
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     annotation: false
@@ -31,27 +32,58 @@ export class IntensiveCareCasesComponent implements OnInit {
       backgroundColor: 'rgba(0,0,0,0)',
     },
   ];
-  public startDate: any;
-  public endDate: any;
+  public startDate: any=new Date("21 January 2020");
+  public endDate: any=new Date();
+   patientsData: any;
+  totalIcuCases: any;
 
-  constructor() { }
+  constructor(private patientsDataService : PatientsDataService) { }
 
   ngOnInit() {
+    this.patientsDataService.patientsData.subscribe(data => {
+      this.patientsData = data;
+      this.dateFilterChanged([this.startDate, this.endDate]);
+    });
   }
   dateFilterChanged(event){
-    let data=[];
-    var self=this;
-    this.startDate=event[0].toLocaleDateString("en-US" , Option);
-    this.endDate=event[1].toLocaleDateString("en-US", Option);
     event[0].setHours(0,0,0,0);
-    this.lineChartLabels=_.filter(this.months,function(month,i){
-      let date=new Date(month +  "2020");
-      if((event[0].getMonth()==date.getMonth()) || (event[1].getMonth()==date.getMonth()) || (date>= event[0] && date<=event[1])){
-        data.push(self.dataByMonths[i]);
-        return month;
+    event[1].setHours(23,59,59,999);
+    this.startDate = event[0].toLocaleDateString("en-US" , Option);
+    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    var filteredData = _.filter(this.patientsData,function(patient){
+      let patientsDate = new Date(patient.confirmAt);
+      if(patientsDate >= event[0]   && patientsDate <= event[1]){
+        return patient;
       }
     });
-    this.lineChartData= [{ data:data , label: 'DISCHARGED / RECOVERED CASES', stack: 'a' }];
+    this.prepareLineChartData(filteredData);
+  }
+  prepareLineChartData(patientRecords: any) {
+    var dateWiseData=this.patientsDataService.filterDataByDates(patientRecords);
+    this.assignDatatoLineChart(_.filter(dateWiseData , function(p){
+      return p.icuByDate != null;
+    }));
+  }
+
+  assignDatatoLineChart(dateWiseData: any) {
+    let self = this;
+    if (dateWiseData.length) {
+      self.clearLineChartData;
+      _.forEach(dateWiseData, function (value, key) {
+        if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
+          self.lineChartLabels.push(value.confirmAt);
+          self.lineChartData[0].data.push(value.icuByDate);
+          self.totalIcuCases += (value.icuByDate || 0);
+        }
+      });
+    } else {
+      self.clearLineChartData;
+    }
+  }
+
+  clearLineChartData(){
+    this.lineChartLabels=[];
+    this.lineChartData[0].data=[]
   }
 
 }
