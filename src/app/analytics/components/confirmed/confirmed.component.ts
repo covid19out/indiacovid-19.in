@@ -14,7 +14,7 @@ export class ConfirmedComponent implements OnInit {
   public minDate=new Date('jan 2020');
   public confirmedCasesCount:number=0;
   public dischargedCasesCount:number=0;
-  public symptomaticCasesCount:number=0;
+  public growthRate:string;
   public intensiveCasesCount:number=0;
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -49,6 +49,13 @@ export class ConfirmedComponent implements OnInit {
     this.confirmedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'confirmedCasesByDates');
     this.dischargedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'dischargedByDates');
     this.intensiveCasesCount=this.getCaseCountsByCaseType(dateWiseData,'icuByDate');
+    this.growthRate=this.calculateGrowthRate(dateWiseData);
+  }
+  calculateGrowthRate(dateWiseData: any) {
+    let patientsCount=0;
+    _.each(dateWiseData,(patient) => patientsCount += patient.confirmedCasesByDates || 0 );
+    if(!(dateWiseData.length-1)) { return "Inf"; }
+    return (patientsCount/ (dateWiseData.length-1)).toFixed(2);
   }
   getCaseCountsByCaseType(dateWiseData: any, arg1: string) {
     var count : number = 0;
