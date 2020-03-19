@@ -28,7 +28,6 @@ export class PatientsDataService {
         data.id = item.payload.doc.id;
         return data;
       });
-      console.log("Data",covidCases);
       this.patientsData.next(covidCases);
     });
   }
