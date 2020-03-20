@@ -526,6 +526,11 @@ export class HomeComponent implements OnInit {
     let confirmedCasesByDates = [];
     let dischargedByDates = []
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    dateWiseData.sort((a,b)=>{
+      let dateA = new Date(a.confirmAt);
+      let dateB =new Date(b.confirmAt);
+      return dateA.getTime() - dateB.getTime();
+    });
     let dateWiseCases = _.groupBy(dateWiseData, 'confirmAt');
     for(let cases in dateWiseCases){
       dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
