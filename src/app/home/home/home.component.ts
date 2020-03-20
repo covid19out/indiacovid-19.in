@@ -483,12 +483,15 @@ export class HomeComponent implements OnInit {
   }
 
   assignDatatoBarChart(dateWiseData) {
+    var self =this;
     let dates = [];
     let reportedSympoMaticByDates = [];
     let confirmedCasesByDates = [];
     let dischargedByDates = []
     _.forEach(dateWiseData, function (data) {
-      dates.push(data.confirmAt.slice(0, -5));
+      let confirmdeDate=new Date(data.confirmAt);
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+      dates.push(confirmdeDate.getDate() + " " + months[confirmdeDate.getMonth()] );
       reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
       confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
       dischargedByDates.push(data['dischargedByDates'] || 0);
@@ -603,8 +606,8 @@ export class HomeComponent implements OnInit {
   dateFilterChanged(event) {
     event[0].setHours(0, 0, 0, 0);
     event[1].setHours(23, 59, 59, 999);
-    this.startDate = event[0].toLocaleDateString("en-US", Option);
-    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    this.startDate = event[0];
+    this.endDate = event[1];
     var filteredData = _.filter(this.patientsData, function (patient) {
       let patientsDate = new Date(patient.confirmAt);
       if (patientsDate >= event[0] && patientsDate <= event[1]) {
