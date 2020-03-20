@@ -34,6 +34,7 @@ export class PatientsDataService {
 
   filterDataByDates(patientRecords: any) {
     var self = this;
+    console.log(_.filter(patientRecords,{"caseNumber" : 176}));
     var dateWiseData=[];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     _.forEach(patientRecords, function (patient) {
@@ -70,7 +71,7 @@ export class PatientsDataService {
     if (patient.status == 'RECOVERED') {
       data['dischargedByDates'] = data['dischargedByDates'] + 1 || 1;
     }
-    if (patient.icu_on) {
+    if (patient.caseType == "Intensive Care") {
       data['icuByDate'] = data['icuByDate'] + 1 || 1;
     }
     data["gender"]=patient.gender;
