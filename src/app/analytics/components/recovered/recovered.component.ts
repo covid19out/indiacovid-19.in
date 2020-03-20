@@ -24,7 +24,7 @@ export class RecoveredComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: this.dataByDates, label: 'DISCHARGED / RECOVERED CASES', stack: 'a' }
   ];
-  public startDate: any=new Date("21 January 2020");
+  public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();
   patientsData: any;
 

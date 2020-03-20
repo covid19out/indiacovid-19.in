@@ -29,7 +29,7 @@ export class ConfirmedComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: this.dataByDates, label: 'CONFIRMED CASES', stack: 'a' }
   ];
-  public startDate: any=new Date("21 January 2020");
+  public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();
   public patientsData: any;
 

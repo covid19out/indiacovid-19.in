@@ -33,7 +33,7 @@ export class IntensiveCareCasesComponent implements OnInit {
       backgroundColor: 'rgba(0,0,0,0)',
     },
   ];
-  public startDate: any=new Date("21 January 2020");
+  public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();
    patientsData: any;
   totalIcuCases: any;
