@@ -34,7 +34,6 @@ export class PatientsDataService {
 
   filterDataByDates(patientRecords: any) {
     var self = this;
-    console.log(_.filter(patientRecords,{"caseNumber" : 176}));
     var dateWiseData=[];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     _.forEach(patientRecords, function (patient) {
