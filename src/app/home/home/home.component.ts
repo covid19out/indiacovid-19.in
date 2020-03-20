@@ -35,6 +35,13 @@ export class HomeComponent implements OnInit {
   public totalHospitalisedCases = 0;
   public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
+  public totalDeathCases = 0;
+  public maleCount =0 ;
+  public femaleCount = 0;
+  public totalImportedTransmission = 0;
+  public totalLocalTransmission = 0;
+  public totalFemaleCases = 0;
+  public totalMaleCases = 0;
   //stacked chart
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -79,7 +86,9 @@ export class HomeComponent implements OnInit {
 
   //Doughnut Gender
   public doughnutChartLabels: Label[] = [];
-  public doughnutChartData: MultiDataSet = [[]];
+  public doughnutChartData: MultiDataSet = [
+    []
+  ];
   public pieChartGenderOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -107,7 +116,7 @@ export class HomeComponent implements OnInit {
     }
   };
 
-  //Doughnut Source
+  //Doughnut Source  
   public doughnutSourceChartLabels: Label[] = [];
   public doughnutSourceChartData: MultiDataSet = [
     []
@@ -286,6 +295,34 @@ export class HomeComponent implements OnInit {
     }
   ];
 
+  //Intensive card line chart 
+  public lineChartDeathData: ChartDataSets[] = [
+    { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+  ];
+  public lineChartDeathLabels: Label[] = [];
+  public lineChartDeathOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    annotation: false,
+    scales: {
+      xAxes: [
+        {
+          display: false
+        }
+      ],
+      yAxes: [
+        {
+          display: false
+        }
+      ]
+    }
+  };
+  public lineChartDeathColors: Color[] = [
+    {
+      borderColor: '#6e7f90',
+      backgroundColor: 'rgba(110,127,144,0.3)',
+    }
+  ];
+
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
     { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
@@ -331,8 +368,6 @@ export class HomeComponent implements OnInit {
           this.dateFilterChanged([this.startDate,this.endDate]);
         }        
       }
-      // this.patientsData = data;
-      // this.dateFilterChanged([this.startDate, this.endDate]);
     })
     this.apexChartOptions = {
       series: [
@@ -438,6 +473,12 @@ export class HomeComponent implements OnInit {
       chartDataOfImported.push(transmissionSourceWiseData["Imported Cases"] ? transmissionSourceWiseData["Imported Cases"].length : 0);
       chartDataOfLocal.push(transmissionSourceWiseData["Local Transmission"] ? transmissionSourceWiseData["Local Transmission"].length : 0);
     });
+
+    chartDataOfImported.map(x=>this.totalImportedTransmission += x);
+    chartDataOfLocal.map(x=>this.totalLocalTransmission += x);
+    chartDataOfMales.map(x=>this.totalMaleCases += x);
+    chartDataOfFemales.map(x=>this.totalFemaleCases += x);
+
     this.lineChartLabels = this.lineChartInfectionSourceLabels = chartLabels;
     this.lineChartData = [
       { data: chartDataOfMales, label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
@@ -450,11 +491,6 @@ export class HomeComponent implements OnInit {
   }
 
   getDataCount(data: any): any {
-    // let count: number = 0;
-    // _.forEach(data, function (p) {
-    //   count++;
-    // });
-    //return count;
     return data.length;
   }
 
@@ -472,9 +508,8 @@ export class HomeComponent implements OnInit {
 
   assigndoughnutSourceChartData(dateWiseData: any[]) {
     var self = this;
-    // this.doughnutSourceChartData = _.map(_.groupBy(dateWiseData, 'source'), function (val,key) {
-    //   return self.getDataCount(val);
-    // })
+    this.doughnutSourceChartLabels = []; 
+    this.doughnutSourceChartData = [[]];
     let groupBySource = _.groupBy(dateWiseData, 'source');
     for(let source in groupBySource){       
         this.doughnutSourceChartLabels.push(source);
@@ -505,15 +540,14 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutChartData(dateWiseData: any[]) {
-    var self = this;
-    // this.doughnutChartData = _.map(_.groupBy(dateWiseData, 'gender'), function (val) {
-    //   return self.getDataCount(val);
-    // });
+    this.doughnutChartLabels = [];
+    this.doughnutChartData = [[]];
     let groupByGender = _.groupBy(dateWiseData, 'gender');
     for(let gender in groupByGender){ 
       if(gender == 'Male' || gender == 'Female'){
+        gender == 'Male' ? this.maleCount = this.getDataCount(groupByGender['Male']) : this.femaleCount = this.getDataCount(groupByGender['Female']);
         this.doughnutChartLabels.push(gender);
-        this.doughnutChartData[0].push(self.getDataCount(groupByGender[gender]));
+        this.doughnutChartData[0].push(this.getDataCount(groupByGender[gender]));
       }
     }
   }
@@ -525,15 +559,12 @@ export class HomeComponent implements OnInit {
         if (value.confirmedCasesByDates) {
           self.lineChartConfirmedSourceLabels.push(value.confirmAt);
           self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
-          self.totalConfirmedCases += value.confirmedCasesByDates;
         }
       });
     } else {
       self.lineChartConfirmedSourceLabels = [];
       self.lineChartConfirmedData[0].data = [];
     }
-
-    this.totalCases += self.totalConfirmedCases;
   }
 
   assignHospitalisedLineChartData(dateWiseData) {
@@ -544,14 +575,12 @@ export class HomeComponent implements OnInit {
           self.lineChartSymptomaticSourceLabels.push(value.confirmAt);
           let totalHospitalisedCases = (value.confirmedCasesByDates || 0) + (value.reportedSympoMaticByDates || 0);
           self.lineChartSymptomaticData[0].data.push(totalHospitalisedCases);
-          self.totalHospitalisedCases += totalHospitalisedCases;
         }
       });
     } else {
       self.lineChartSymptomaticSourceLabels = [];
       self.lineChartSymptomaticData[0].data = [];
     }
-    this.totalCases += self.totalHospitalisedCases;
   }
 
   assignIntensiveLineChartData(dateWiseData) {
@@ -568,7 +597,22 @@ export class HomeComponent implements OnInit {
       self.lineChartIntensiveSourceLabels = [];
       self.lineChartIntensiveData[0].data = [];
     }
-    this.totalCases += self.totalIntesiveCases;
+  }
+
+  assignDeathLineChartData(dateWiseData) {
+    let self = this;
+    self.lineChartDeathLabels = [];
+    self.lineChartDeathData[0].data = [];
+    if (dateWiseData.length) {
+     let deathCases =  _.groupBy(dateWiseData,'status').DIED;
+      if(deathCases){
+        let dateWiseCases = _.groupBy(deathCases,'confirmAt');
+        for(let dateCase in dateWiseCases){
+          self.lineChartDeathLabels.push(dateCase);
+          self.lineChartDeathData[0].data.push(dateWiseCases[dateCase].length);
+        }
+      }
+    } 
   }
 
   assignDischargedLineChartData(dateWiseData) {
@@ -585,10 +629,12 @@ export class HomeComponent implements OnInit {
       self.lineChartDischargeSourceLabels = [];
       self.lineChartDischargeData[0].data = [];
     }
-    this.totalCases += self.totalDischargedCases;
+    //this.totalCases += self.totalDischargedCases;
   }
 
   assignStateBarChartDate(dateWiseData) {
+    this.stateBarChartLabels = [];
+    this.stateBarChartData[0].data = [];
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       for (let state in states) {
@@ -597,10 +643,10 @@ export class HomeComponent implements OnInit {
         this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
       };
     }
-    else {
-      this.stateBarChartLabels = [];
-      this.stateBarChartData[0].data = [];
-    }
+    // else {
+    //   this.stateBarChartLabels = [];
+    //   this.stateBarChartData[0].data = [];
+    // }
   }
 
   dateFilterChanged(event) {
@@ -614,15 +660,24 @@ export class HomeComponent implements OnInit {
         return patient;
       }
     });
-    this.resetChartsAndData();
+    this.setCasesAnalytics(filteredData);
+    //this.resetChartsAndData();
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
+    this.assignDeathLineChartData(filteredData);
+  }
+
+  setCasesAnalytics(filteredData){
+    this.totalCases = this.totalConfirmedCases = filteredData.length;
+    this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED").length;
+    this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
+    this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
   }
 
   resetChartsAndData() {
-    this.totalCases = 0;
-    this.totalConfirmedCases = 0;
+    // this.totalCases = 0;
+    // this.totalConfirmedCases = 0;
     this.totalHospitalisedCases = 0;
     this.totalIntesiveCases = 0;
     this.totalDischargedCases = 0;
