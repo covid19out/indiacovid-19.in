@@ -62,7 +62,9 @@ export class RecoveredComponent implements OnInit {
     let dates=[];
     let dischargedByDates=[]
     _.forEach(dateWiseData,function(data){
-      dates.push(data.confirmAt.slice(0,-5));
+      let confirmdeDate=new Date(data.confirmAt);
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+      dates.push(confirmdeDate.getDate() + " " + months[confirmdeDate.getMonth()] );
       dischargedByDates.push(data['dischargedByDates'] || 0);
     });
     this.barChartLabels=dates;
