@@ -103,8 +103,8 @@ export class HomeComponent implements OnInit {
   public pieChartGenderColors = [
     {
       backgroundColor: [
-        '#86c7f3',
-        '#ffa1b5'
+        '#ffa1b5',
+        '#86c7f3'        
       ]
     }
   ];
@@ -448,7 +448,7 @@ export class HomeComponent implements OnInit {
 
   prepareBarChartData(patientRecords: any) {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
-    this.assignDatatoBarChart(dateWiseData);
+    this.assignDatatoBarChart(patientRecords);
     this.assigndoughnutChartData(patientRecords);
     this.assigndoughnutSourceChartData(patientRecords);
     this.assignLineChartData(patientRecords);
@@ -522,20 +522,21 @@ export class HomeComponent implements OnInit {
 
   assignDatatoBarChart(dateWiseData) {
     let dates = [];
-    let reportedSympoMaticByDates = [];
+    let intensiveCasesByDates = [];
     let confirmedCasesByDates = [];
     let dischargedByDates = []
-    _.forEach(dateWiseData, function (data) {
-      let confirmdeDate=new Date(data.confirmAt);
-      let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-      dates.push(confirmdeDate.getDate() + " " + months[confirmdeDate.getMonth()] );
-      reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
-      confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
-      dischargedByDates.push(data['dischargedByDates'] || 0);
-    });
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    let dateWiseCases = _.groupBy(dateWiseData, 'confirmAt');
+    for(let cases in dateWiseCases){
+      dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
+      intensiveCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x=>x.caseType == "Intensive Care").length);
+      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x=>x.caseType == "Confirmed").length);
+      dischargedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x=>x.caseType == "Recovered/Discharged").length);
+    }
+
     this.barChartLabels = dates;
     this.barChartData = [
-      { data: reportedSympoMaticByDates, label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+      { data: intensiveCasesByDates, label: 'INTENSIVE CARE CASES', stack: 'a' },
       { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
       { data: dischargedByDates, label: ' DISCHARGED', stack: 'a' }
     ];
@@ -585,17 +586,15 @@ export class HomeComponent implements OnInit {
 
   assignIntensiveLineChartData(dateWiseData) {
     let self = this;
+    this.lineChartIntensiveSourceLabels = [];
+    this.lineChartIntensiveData[0].data = [];
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.icuByDate) {
           self.lineChartIntensiveSourceLabels.push(value.confirmAt);
           self.lineChartIntensiveData[0].data.push(value.icuByDate);
-          self.totalIntesiveCases += value.icuByDate;
         }
       });
-    } else {
-      self.lineChartIntensiveSourceLabels = [];
-      self.lineChartIntensiveData[0].data = [];
     }
   }
 
@@ -617,6 +616,8 @@ export class HomeComponent implements OnInit {
 
   assignDischargedLineChartData(dateWiseData) {
     let self = this;
+    self.lineChartDischargeSourceLabels = [];
+    self.lineChartDischargeData[0].data = [];
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.dischargedByDates) {
@@ -624,11 +625,7 @@ export class HomeComponent implements OnInit {
           self.lineChartDischargeData[0].data.push(value.dischargedByDates);
         }
       });
-    } else {
-      self.lineChartDischargeSourceLabels = [];
-      self.lineChartDischargeData[0].data = [];
-    }
-    //this.totalCases += self.totalDischargedCases;
+    } 
   }
 
   assignStateBarChartDate(dateWiseData) {
@@ -642,10 +639,6 @@ export class HomeComponent implements OnInit {
         this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
       };
     }
-    // else {
-    //   this.stateBarChartLabels = [];
-    //   this.stateBarChartData[0].data = [];
-    // }
   }
 
   dateFilterChanged(event) {
@@ -673,6 +666,7 @@ export class HomeComponent implements OnInit {
     this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED").length;
     this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
     this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
+    this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
     this.maleCount =0 ;
     this.femaleCount = 0;
     this.totalImportedTransmission = 0;
