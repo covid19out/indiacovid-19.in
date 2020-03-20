@@ -1,19 +1,34 @@
 import { Injectable  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
+
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientsDataService {
-  constructor( protected http: HttpClient ) { }
+  apiUrl: string;
+  constructor( private firestore: AngularFirestore,protected http: HttpClient ) { 
+  }
   public patientsData=new BehaviorSubject(null);
 
   loadPatientsData(){
-    let url="assets/data/patientsData.json";
-    this.http.get(url).subscribe(data=>{
-      this.patientsData.next(data);
+    // let url="assets/data/patientsData.json";
+    // this.http.get(url).subscribe(data=>{
+    //   this.patientsData.next(data);
+    // });
+    return this.firestore.collection<any>('Cases').snapshotChanges().subscribe(data =>{
+     
+       let covidCases = data.map(item => {
+        var data = item.payload.doc.data();
+        //var cc: any = this.dataMapperService.ToCovidCase(data);
+        data.id = item.payload.doc.id;
+        return data;
+      });
+      this.patientsData.next(covidCases);
     });
   }
 
@@ -47,13 +62,13 @@ export class PatientsDataService {
   }
 
   filterDataByCasetype(data: {},patient:any): {} {
-    if (patient.caseType == 'HOSPITALIZED') {
+    if (patient.status == 'HOSPITALIZED') {
       data['confirmedCasesByDates'] = data['confirmedCasesByDates'] + 1 || 1;
     }
-    if (patient.caseType == 'SYMPTOMATIC') {
+    if (patient.status == 'SYMPTOMATIC') {
       data['reportedSympoMaticByDates'] = data['reportedSympoMaticByDates'] + 1 || 1;
     }
-    if (patient.caseType == 'RECOVERED') {
+    if (patient.status == 'RECOVERED') {
       data['dischargedByDates'] = data['dischargedByDates'] + 1 || 1;
     }
     if (patient.icu_on) {
