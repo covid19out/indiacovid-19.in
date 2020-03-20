@@ -19,6 +19,10 @@
 }
 
 .card-footer{
+  .tx-uppercase{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
   p,h5{
     margin-bottom: 0px;
   }
@@ -26,6 +30,18 @@
     small{
       color: rgba(0,0,0,0.5);
     }
+  }
+}
+
+.nationality-legends{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  .nationality-lable{
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
   }
 }
 
