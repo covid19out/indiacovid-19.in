@@ -1,6 +1,6 @@
 <div class="content content-fixed">
   <div class="container">
-    <div class="d-sm-flex justify-content-between page-heading mg-b-20 mg-lg-b-25 mg-xl-b-30">
+    <div class="d-md-flex justify-content-between page-heading mg-b-20 mg-lg-b-25 mg-xl-b-30">
       <div>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-title">
@@ -11,14 +11,23 @@
         <h5 class="mg-b-0 tx-spacing--1">Dashboard of the COVID-19 Virus Outbreak in India</h5>
       </div>
       <div class="d-flex justify-content-end calendar-button">
-        <input type="text" style="width:0px; height:0px; border:0px; color: transparent; pointer-events: none;"
+        <!-- <input type="text" style="width:0px; height:0px; border:0px; color: transparent; pointer-events: none;"
           tabindex="-1" class="form-control" #daterangepicker="bsDaterangepicker" bsDaterangepicker
           [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }"
           (bsValueChange)="dateFilterChanged($event)" [minDate]="minDate">
         <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"
           (click)="daterangepicker.toggle()"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;
-          {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
+          {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button> -->
+        
+              <input class="form-control date-range-select" #daterangepicker="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue"
+              [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY', dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false }"
+              (bsValueChange)="dateFilterChanged($event)" [minDate]="minDate" readonly>
+
+              <!-- <button class="btn btn-success" (click)="daterangepicker.toggle()" [attr.aria-expanded]="daterangepicker.isOpen" type="button">Date Range Picker</button> -->
+
+
       </div>
+
     </div>
 
     <div class="row row-xs quick-link">

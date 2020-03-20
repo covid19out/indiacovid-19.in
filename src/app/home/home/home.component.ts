@@ -41,6 +41,11 @@ export class HomeComponent implements OnInit {
   public totalLocalTransmission = 0;
   public totalFemaleCases = 0;
   public totalMaleCases = 0;
+
+  bsRangeValue: Date[];
+  public startDate: any = new Date("21 January 2020");
+  public endDate: any = new Date();
+
   //stacked chart
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -353,13 +358,13 @@ export class HomeComponent implements OnInit {
   //Apex chart
   @ViewChild("chart", { static: true }) chart: ChartComponent;
   public apexChartOptions: Partial<ApexChartOptions>;
-  public startDate: any = new Date("21 January 2020");
-  public endDate: any = new Date();
   public patientsData: any;
 
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
+    this.bsRangeValue = [this.startDate, this.endDate];
+
     this.patientsDataService.patientsData.subscribe(data => {
       if(data){
         this.patientsData = data;
@@ -548,6 +553,8 @@ export class HomeComponent implements OnInit {
 
   assignConfimedLineChartData(dateWiseData) {
     let self = this;
+    self.lineChartConfirmedSourceLabels = [];
+    self.lineChartConfirmedData[0].data = [];
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.confirmedCasesByDates) {
@@ -555,14 +562,13 @@ export class HomeComponent implements OnInit {
           self.lineChartConfirmedData[0].data.push(value.confirmedCasesByDates);
         }
       });
-    } else {
-      self.lineChartConfirmedSourceLabels = [];
-      self.lineChartConfirmedData[0].data = [];
-    }
+    } 
   }
 
   assignHospitalisedLineChartData(dateWiseData) {
     let self = this;
+    self.lineChartSymptomaticSourceLabels = [];
+    self.lineChartSymptomaticData[0].data = [];
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.confirmedCasesByDates || value.reportedSympoMaticByDates) {
@@ -571,10 +577,7 @@ export class HomeComponent implements OnInit {
           self.lineChartSymptomaticData[0].data.push(totalHospitalisedCases);
         }
       });
-    } else {
-      self.lineChartSymptomaticSourceLabels = [];
-      self.lineChartSymptomaticData[0].data = [];
-    }
+    } 
   }
 
   assignIntensiveLineChartData(dateWiseData) {
@@ -616,7 +619,6 @@ export class HomeComponent implements OnInit {
         if (value.dischargedByDates) {
           self.lineChartDischargeSourceLabels.push(value.confirmedAt);
           self.lineChartDischargeData[0].data.push(value.dischargedByDates);
-          self.totalDischargedCases += value.dischargedByDates;
         }
       });
     } else {
@@ -644,10 +646,12 @@ export class HomeComponent implements OnInit {
   }
 
   dateFilterChanged(event) {
+    if(!event) return;
+
     event[0].setHours(0, 0, 0, 0);
     event[1].setHours(23, 59, 59, 999);
-    this.startDate = event[0].toLocaleDateString("en-US", Option);
-    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    // this.startDate = event[0].toLocaleDateString("en-US", Option);
+    // this.endDate = event[1].toLocaleDateString("en-US", Option);
     var filteredData = _.filter(this.patientsData, function (patient) {
       let patientsDate = new Date(patient.confirmAt);
       if (patientsDate >= event[0] && patientsDate <= event[1]) {
@@ -655,7 +659,6 @@ export class HomeComponent implements OnInit {
       }
     });
     this.setCasesAnalytics(filteredData);
-    //this.resetChartsAndData();
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
@@ -667,14 +670,12 @@ export class HomeComponent implements OnInit {
     this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED").length;
     this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
     this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
-  }
-
-  resetChartsAndData() {
-    // this.totalCases = 0;
-    // this.totalConfirmedCases = 0;
-    this.totalHospitalisedCases = 0;
-    this.totalIntesiveCases = 0;
-    this.totalDischargedCases = 0;
+    this.maleCount =0 ;
+    this.femaleCount = 0;
+    this.totalImportedTransmission = 0;
+    this.totalLocalTransmission = 0;
+    this.totalFemaleCases = 0;
+    this.totalMaleCases = 0;
   }
 
 }
