@@ -12,6 +12,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
 })
 export class ConfirmedComponent implements OnInit {
   public minDate=new Date('jan 2020');
+  public maxDate = new Date();
   public confirmedCasesCount:number=0;
   public dischargedCasesCount:number=0;
   public growthRate:string;
@@ -37,7 +38,9 @@ export class ConfirmedComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data=>{
       this.patientsData=data;
-      this.dateFilterChanged([this.startDate,this.endDate]);
+      if(typeof this.startDate == "object" && typeof this.endDate == "object" ){
+        this.dateFilterChanged([this.startDate,this.endDate]);
+      }
     })
   }
 
@@ -54,8 +57,14 @@ export class ConfirmedComponent implements OnInit {
   calculateGrowthRate(dateWiseData: any) {
     let patientsCount=0;
     _.each(dateWiseData,(patient) => patientsCount += patient.confirmedCasesByDates || 0 );
-    if(!(dateWiseData.length-1)) { return "Inf"; }
-    return (patientsCount/ (dateWiseData.length-1)).toFixed(2);
+    let startDt=new Date(this.startDate); let endDt=new Date(this.endDate);
+    var count=0;
+    while(startDt<=endDt){
+      count++;
+      startDt.setDate(startDt.getDate()+1);
+    }
+    if(!(count-1)) { return "Inf"; }
+    return (patientsCount/ (count-1)).toFixed(2);
   }
   getCaseCountsByCaseType(dateWiseData: any, arg1: string) {
     var count : number = 0;

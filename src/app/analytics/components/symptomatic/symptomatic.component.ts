@@ -12,6 +12,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
 })
 export class SymptomaticComponent implements OnInit {
   public minDate=new Date('jan 2020');
+  public maxDate = new Date();
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -33,7 +34,9 @@ export class SymptomaticComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data=>{
       this.patientsData=data;
-      this.dateFilterChanged([this.startDate,this.endDate]);
+      if(typeof this.startDate == "object" && typeof this.endDate == "object" ){
+        this.dateFilterChanged([this.startDate,this.endDate]);
+      }
     })
   }
   

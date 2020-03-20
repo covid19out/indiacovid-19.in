@@ -29,6 +29,7 @@ export type ApexChartOptions = {
 })
 export class HomeComponent implements OnInit {
   public minDate = new Date('jan 2020');
+  public maxDate = new Date();
   public totalCases = 0;
   public totalConfirmedCases = 0;
   public totalHospitalisedCases = 0;
@@ -326,7 +327,9 @@ export class HomeComponent implements OnInit {
     this.patientsDataService.patientsData.subscribe(data => {
       if(data){
         this.patientsData = data;
-        this.dateFilterChanged([this.startDate, this.endDate]);        
+        if(typeof this.startDate == "object" && typeof this.endDate == "object" ){
+          this.dateFilterChanged([this.startDate,this.endDate]);
+        }        
       }
       // this.patientsData = data;
       // this.dateFilterChanged([this.startDate, this.endDate]);
@@ -570,7 +573,7 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.dischargedByDates) {
-          self.lineChartDischargeSourceLabels.push(value.confirmedAt);
+          self.lineChartDischargeSourceLabels.push(value.confirmAt);
           self.lineChartDischargeData[0].data.push(value.dischargedByDates);
           self.totalDischargedCases += value.dischargedByDates;
         }

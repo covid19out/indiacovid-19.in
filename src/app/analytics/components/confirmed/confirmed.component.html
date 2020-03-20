@@ -17,7 +17,8 @@
           #daterangepicker="bsDaterangepicker"
           bsDaterangepicker
           [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }" (bsValueChange)="dateFilterChanged($event)"
-          [minDate]="minDate" >
+          [minDate]="minDate"
+          [maxDate]="maxDate" >
           <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"  (click)="daterangepicker.toggle()"><i class="fa fa-calendar"
               aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
       </div>
