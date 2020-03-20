@@ -11,7 +11,8 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./symptomatic.component.scss']
 })
 export class SymptomaticComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
+  public maxDate = new Date();
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -24,7 +25,7 @@ export class SymptomaticComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: this.dataByDates, label: 'DISCHARGED / RECOVERED CASES', stack: 'a' }
   ];
-  public startDate: any=new Date("21 January 2020");
+  public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();
   patientsData: any;
   
@@ -40,8 +41,8 @@ export class SymptomaticComponent implements OnInit {
   dateFilterChanged(event){
     event[0].setHours(0,0,0,0);
     event[1].setHours(23,59,59,999);
-    this.startDate = event[0].toLocaleDateString("en-US" , Option);
-    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    this.startDate = event[0];
+    this.endDate = event[1];
     var filteredData = _.filter(this.patientsData,function(patient){
       let patientsDate = new Date(patient.confirmAt);
       if(patientsDate >= event[0]   && patientsDate <= event[1]){

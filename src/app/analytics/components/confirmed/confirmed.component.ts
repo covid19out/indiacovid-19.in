@@ -11,10 +11,11 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./confirmed.component.scss']
 })
 export class ConfirmedComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
+  public maxDate = new Date();
   public confirmedCasesCount:number=0;
   public dischargedCasesCount:number=0;
-  public symptomaticCasesCount:number=0;
+  public growthRate:string;
   public intensiveCasesCount:number=0;
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -28,7 +29,7 @@ export class ConfirmedComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: this.dataByDates, label: 'CONFIRMED CASES', stack: 'a' }
   ];
-  public startDate: any=new Date("21 January 2020");
+  public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();
   public patientsData: any;
 
@@ -46,9 +47,22 @@ export class ConfirmedComponent implements OnInit {
     this.assignDatatoBarChart(_.filter(dateWiseData , function(p){
       return p.confirmedCasesByDates != null;
     }));
-    this.confirmedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'confirmedCasesByDates');
+
     this.dischargedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'dischargedByDates');
     this.intensiveCasesCount=this.getCaseCountsByCaseType(dateWiseData,'icuByDate');
+    this.growthRate=this.calculateGrowthRate(dateWiseData);
+  }
+  calculateGrowthRate(dateWiseData: any) {
+    let patientsCount=0;
+    _.each(dateWiseData,(patient) => patientsCount += patient.confirmedCasesByDates || 0 );
+    let startDt=new Date(this.startDate); let endDt=new Date(this.endDate);
+    var count=0;
+    while(startDt<=endDt){
+      count++;
+      startDt.setDate(startDt.getDate()+1);
+    }
+    if(!(count-1)) { return "Inf"; }
+    return (patientsCount/ (count-1)).toFixed(2);
   }
   getCaseCountsByCaseType(dateWiseData: any, arg1: string) {
     var count : number = 0;
@@ -77,14 +91,15 @@ export class ConfirmedComponent implements OnInit {
   dateFilterChanged(event){
     event[0].setHours(0,0,0,0);
     event[1].setHours(23,59,59,999);
-    this.startDate = event[0].toLocaleDateString("en-US" , Option);
-    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    this.startDate = event[0];
+    this.endDate = event[1];
     var filteredData = _.filter(this.patientsData,function(patient){
       let patientsDate = new Date(patient.confirmAt);
       if(patientsDate >= event[0]   && patientsDate <= event[1]){
         return patient;
       }
     });
+    this.confirmedCasesCount=filteredData.length;
     this.prepareBarChartData(filteredData);
   }
 }
