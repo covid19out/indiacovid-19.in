@@ -20,7 +20,7 @@
           [minDate]="minDate"
           [maxDate]="maxDate" >
         <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;" (click)="daterangepicker.toggle()" ><i class="fa fa-calendar"
-            aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate.toLocaleDateString("en-US" , Option)}} to {{endDate.toLocaleDateString("en-US" , Option)}}</button>
+            aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate.toLocaleDateString("en-US" , "Option")}} to {{endDate.toLocaleDateString("en-US" , "Option")}}</button>
     </div>
 </div>
 
@@ -29,7 +29,7 @@
       <div class="card">
           <div class="card-header">
               Intensive Care Cases
-              <span>{{ startDate.toLocaleDateString("en-US" , Option)}} to {{endDate.toLocaleDateString("en-US" , Option)}}</span>
+              <span>{{ startDate.toLocaleDateString("en-US" , "Option")}} to {{endDate.toLocaleDateString("en-US" , "Option")}}</span>
           </div>
           <div class="card-body">
               <div style="display: block;">
