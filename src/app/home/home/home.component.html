@@ -148,13 +148,13 @@
               <div class="col-6">
                 <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">Male</p>
                 <div class="d-flex align-items-center">
-                  <h5 class="tx-normal tx-rubik mg-b-0">{{maleCount}} <small class="tx-color-04">{{(maleCount*100/totalCases).toFixed(2)}}%</small></h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0"><small class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</small></h5>
                 </div>
               </div><!-- col -->
               <div class="col-6">
                 <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">Female</p>
                 <div class="d-flex align-items-center">
-                  <h5 class="tx-normal tx-rubik mg-b-0">{{femaleCount}} <small class="tx-color-04">{{(femaleCount*100/totalCases).toFixed(2)}}%</small></h5>
+                  <h5 class="tx-normal tx-rubik mg-b-0"><small class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</small></h5>
                 </div>
               </div><!-- col -->
             </div><!-- row -->
