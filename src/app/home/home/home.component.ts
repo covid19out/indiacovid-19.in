@@ -216,12 +216,43 @@ export class HomeComponent implements OnInit {
     },
   ];
 
+  //Cumulate confirm cases line chart
+  //
+  public cumulativeChartConfirmData: ChartDataSets[] = [
+    { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+  ];
+  public cumulativeChartConfirmLabels: Label[] = [];
+  public cumulativeChartConfirmOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    annotation: true,
+    scales: {
+      xAxes: [
+        {
+          display: true
+        }
+      ],
+      yAxes: [
+        {
+          display: true
+        }
+      ]
+    }
+  };
+  public cumulativeChartConfirmColors: Color[] = [
+    {
+      borderColor: '#ffa1b5',
+      backgroundColor: 'rgba(0,0,0,0)',
+      pointBackgroundColor: '#FF0000',
+      pointBorderColor: '#fff',
+    }
+  ];
   //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
     { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = [];
   public lineChartConfirmedSourceOptions: (ChartOptions & { annotation: any }) = {
+    tooltips: { enabled: false },
     responsive: true,
     annotation: false,
     scales: {
@@ -250,6 +281,7 @@ export class HomeComponent implements OnInit {
   ];
   public lineChartSymptomaticSourceLabels: Label[] = [];
   public lineChartSymptomaticSourceOptions: (ChartOptions & { annotation: any }) = {
+    tooltips: { enabled: false },
     responsive: true,
     annotation: false,
     scales: {
@@ -278,6 +310,7 @@ export class HomeComponent implements OnInit {
   ];
   public lineChartIntensiveSourceLabels: Label[] = [];
   public lineChartIntensiveSourceOptions: (ChartOptions & { annotation: any }) = {
+    tooltips: { enabled: false },
     responsive: true,
     annotation: false,
     scales: {
@@ -300,12 +333,13 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  //Intensive card line chart 
+  //Death card line chart 
   public lineChartDeathData: ChartDataSets[] = [
     { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDeathLabels: Label[] = [];
   public lineChartDeathOptions: (ChartOptions & { annotation: any }) = {
+    tooltips: { enabled: false },
     responsive: true,
     annotation: false,
     scales: {
@@ -334,6 +368,7 @@ export class HomeComponent implements OnInit {
   ];
   public lineChartDischargeSourceLabels: Label[] = [];
   public lineChartDischargeSourceOptions: (ChartOptions & { annotation: any }) = {
+    tooltips: { enabled: false },
     responsive: true,
     annotation: false,
     scales: {
@@ -491,6 +526,29 @@ export class HomeComponent implements OnInit {
       { data: chartDataOfImported, label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
       { data: chartDataOfLocal, label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
     ];
+  }
+
+  assignCumulativeConfirmChartData(filteredData){
+    let dateWiseData = filteredData.sort((a,b)=>{
+      let dateA = new Date(a.confirmAt);
+      let dateB =new Date(b.confirmAt);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    this.cumulativeChartConfirmLabels = [];
+    this.cumulativeChartConfirmData[0].data = [];
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    let dateWiseConfirm = _.groupBy(dateWiseData,'confirmAt');
+    let count = 0;
+
+    for(let confirmdate in dateWiseConfirm){
+      count += dateWiseConfirm[confirmdate].length;
+      let label = `${new Date(confirmdate).getDate()} ${months[new Date(confirmdate).getMonth()]} ${new Date(confirmdate).getFullYear()}`;
+      this.cumulativeChartConfirmLabels.push(label);
+      this.cumulativeChartConfirmData[0].data.push(count);
+    }
+     
+    
   }
 
   getDataCount(data: any): any {
@@ -664,6 +722,7 @@ export class HomeComponent implements OnInit {
     this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
     this.assignDeathLineChartData(filteredData);
+    this.assignCumulativeConfirmChartData(filteredData);
   }
 
   setCasesAnalytics(filteredData){
