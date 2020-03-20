@@ -211,7 +211,7 @@
                     <i class="fa fa-male" aria-hidden="true"></i>
                   </div>
                   <div class="media-body mg-l-10">
-                    <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5" [innerHTML]="totalMaleCases"></h6>
+                    <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</h6>
                     <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">MALE</p>
                   </div>
                   <!-- media-body -->
@@ -225,7 +225,7 @@
                     <i class="fa fa-female" aria-hidden="true"></i>
                   </div>
                   <div class="media-body mg-l-10">
-                    <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5" [innerHTML]="totalFemaleCases"></h6>
+                    <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</h6>
                     <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">FEMALE</p>
                   </div>
                 </div>
