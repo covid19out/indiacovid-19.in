@@ -19,14 +19,14 @@
               [minDate]="minDate"
               [maxDate] = "maxDate" >
             <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;" (click)="daterangepicker.toggle()"><i class="fa fa-calendar"
-                aria-hidden="true"></i>&nbsp;&nbsp;{{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
+                aria-hidden="true"></i>&nbsp;&nbsp;{{ startDate.toLocaleDateString("en-US" , Option)}} to {{endDate.toLocaleDateString("en-US" , Option)}}</button>
         </div>
     </div>
 
     <div class="row row-xs">
       <div class="col-lg-12 margin-top-10">
           <div class="card">
-              <div class="card-header">Cases Discharged from Hospital <span>21 Jan 2020 to Today</span></div>
+              <div class="card-header">Cases Discharged from Hospital <span>{{ startDate.toLocaleDateString("en-US" , Option)}} to {{endDate.toLocaleDateString("en-US" , Option)}}</span></div>
               <div class="card-body">
                   <div style="display: block;" class="stacked-chart">
                       <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
