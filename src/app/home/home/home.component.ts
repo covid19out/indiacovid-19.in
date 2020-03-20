@@ -28,7 +28,7 @@ export type ApexChartOptions = {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public minDate = new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
   public maxDate = new Date();
   public totalCases = 0;
   public totalConfirmedCases = 0;

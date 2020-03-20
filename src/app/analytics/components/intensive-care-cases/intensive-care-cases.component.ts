@@ -11,7 +11,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./intensive-care-cases.component.scss']
 })
 export class IntensiveCareCasesComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
   public maxDate = new Date();
   public lineChartLegend = false;
   public lineChartType = 'line';

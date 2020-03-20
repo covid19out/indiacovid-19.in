@@ -11,7 +11,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./confirmed.component.scss']
 })
 export class ConfirmedComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
   public maxDate = new Date();
   public confirmedCasesCount:number=0;
   public dischargedCasesCount:number=0;

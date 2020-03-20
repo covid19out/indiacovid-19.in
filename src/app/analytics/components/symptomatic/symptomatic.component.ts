@@ -11,7 +11,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./symptomatic.component.scss']
 })
 export class SymptomaticComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
   public maxDate = new Date();
   public barChartOptions: ChartOptions = {
     responsive: true,
