@@ -73,7 +73,7 @@ export class CasesComponent implements OnInit {
           let daysRecoverDiffInTime = new Date(patient.recoveredAt).getTime() - new Date(patient.confirmAt).getTime();
           patient.daysToRecover = daysRecoverDiffInTime / (1000 * 3600 * 24) || '-';
         });
-  
+        data.sort((a,b)=>b.caseNumber - a.caseNumber);
         this.data = data;   
         this.length = this.data.length;         
         this.onChangeTable(this.config);

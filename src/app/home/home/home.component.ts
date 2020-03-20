@@ -35,6 +35,12 @@ export class HomeComponent implements OnInit {
   public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
   public totalDeathCases = 0;
+  public maleCount =0 ;
+  public femaleCount = 0;
+  public totalImportedTransmission = 0;
+  public totalLocalTransmission = 0;
+  public totalFemaleCases = 0;
+  public totalMaleCases = 0;
   //stacked chart
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -288,6 +294,34 @@ export class HomeComponent implements OnInit {
     }
   ];
 
+  //Intensive card line chart 
+  public lineChartDeathData: ChartDataSets[] = [
+    { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+  ];
+  public lineChartDeathLabels: Label[] = [];
+  public lineChartDeathOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    annotation: false,
+    scales: {
+      xAxes: [
+        {
+          display: false
+        }
+      ],
+      yAxes: [
+        {
+          display: false
+        }
+      ]
+    }
+  };
+  public lineChartDeathColors: Color[] = [
+    {
+      borderColor: '#6e7f90',
+      backgroundColor: 'rgba(110,127,144,0.3)',
+    }
+  ];
+
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
     { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
@@ -436,6 +470,12 @@ export class HomeComponent implements OnInit {
       chartDataOfImported.push(transmissionSourceWiseData["Imported Cases"] ? transmissionSourceWiseData["Imported Cases"].length : 0);
       chartDataOfLocal.push(transmissionSourceWiseData["Local Transmission"] ? transmissionSourceWiseData["Local Transmission"].length : 0);
     });
+
+    chartDataOfImported.map(x=>this.totalImportedTransmission += x);
+    chartDataOfLocal.map(x=>this.totalLocalTransmission += x);
+    chartDataOfMales.map(x=>this.totalMaleCases += x);
+    chartDataOfFemales.map(x=>this.totalFemaleCases += x);
+
     this.lineChartLabels = this.lineChartInfectionSourceLabels = chartLabels;
     this.lineChartData = [
       { data: chartDataOfMales, label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
@@ -494,14 +534,14 @@ export class HomeComponent implements OnInit {
   }
 
   assigndoughnutChartData(dateWiseData: any[]) {
-    var self = this;
     this.doughnutChartLabels = [];
     this.doughnutChartData = [[]];
     let groupByGender = _.groupBy(dateWiseData, 'gender');
     for(let gender in groupByGender){ 
       if(gender == 'Male' || gender == 'Female'){
+        gender == 'Male' ? this.maleCount = this.getDataCount(groupByGender['Male']) : this.femaleCount = this.getDataCount(groupByGender['Female']);
         this.doughnutChartLabels.push(gender);
-        this.doughnutChartData[0].push(self.getDataCount(groupByGender[gender]));
+        this.doughnutChartData[0].push(this.getDataCount(groupByGender[gender]));
       }
     }
   }
@@ -551,6 +591,22 @@ export class HomeComponent implements OnInit {
       self.lineChartIntensiveSourceLabels = [];
       self.lineChartIntensiveData[0].data = [];
     }
+  }
+
+  assignDeathLineChartData(dateWiseData) {
+    let self = this;
+    self.lineChartDeathLabels = [];
+    self.lineChartDeathData[0].data = [];
+    if (dateWiseData.length) {
+     let deathCases =  _.groupBy(dateWiseData,'status').DIED;
+      if(deathCases){
+        let dateWiseCases = _.groupBy(deathCases,'confirmAt');
+        for(let dateCase in dateWiseCases){
+          self.lineChartDeathLabels.push(dateCase);
+          self.lineChartDeathData[0].data.push(dateWiseCases[dateCase].length);
+        }
+      }
+    } 
   }
 
   assignDischargedLineChartData(dateWiseData) {
@@ -603,6 +659,7 @@ export class HomeComponent implements OnInit {
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
+    this.assignDeathLineChartData(filteredData);
   }
 
   setCasesAnalytics(filteredData){
