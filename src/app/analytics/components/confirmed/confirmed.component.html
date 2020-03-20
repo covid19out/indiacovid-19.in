@@ -17,9 +17,10 @@
           #daterangepicker="bsDaterangepicker"
           bsDaterangepicker
           [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }" (bsValueChange)="dateFilterChanged($event)"
-          [minDate]="minDate" >
+          [minDate]="minDate"
+          [maxDate]="maxDate" >
           <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"  (click)="daterangepicker.toggle()"><i class="fa fa-calendar"
-              aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button>
+              aria-hidden="true"></i>&nbsp;&nbsp; {{ startDate.toLocaleDateString("en-US" , Option)}} to {{endDate.toLocaleDateString("en-US" , Option)}}</button>
       </div>
     </div>
   
@@ -36,7 +37,7 @@
               <div class="card card-body">
                   <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> GROWTH RATE</h6>
                   <div>
-                      <h6>4.40</h6>
+                      <h6 [innerHTML]="growthRate">4.40</h6>
                   </div>
               </div>
           </div>
@@ -59,7 +60,7 @@
   
           <div class="col-lg-12 margin-top-10">
               <div class="card">
-                  <div class="card-header">New Cases <span>21 Jan 2020 to Today</span></div>
+                  <div class="card-header">New Cases <span>{{ startDate.toLocaleDateString("en-US" , Option)}} to {{endDate.toLocaleDateString("en-US" , Option)}}</span></div>
                   <div class="card-body">
                       <div style="display: block;" class="stacked-chart">
                           <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"

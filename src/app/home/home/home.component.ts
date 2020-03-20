@@ -28,7 +28,8 @@ export type ApexChartOptions = {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public minDate = new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
+  public maxDate = new Date();
   public totalCases = 0;
   public totalConfirmedCases = 0;
   public totalHospitalisedCases = 0;
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit {
   public totalMaleCases = 0;
 
   bsRangeValue: Date[];
-  public startDate: any = new Date("21 January 2020");
+  public startDate: any = new Date("30 January 2020");
   public endDate: any = new Date();
 
   //stacked chart
@@ -525,7 +526,9 @@ export class HomeComponent implements OnInit {
     let confirmedCasesByDates = [];
     let dischargedByDates = []
     _.forEach(dateWiseData, function (data) {
-      dates.push(data.confirmAt.slice(0, -5));
+      let confirmdeDate=new Date(data.confirmAt);
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+      dates.push(confirmdeDate.getDate() + " " + months[confirmdeDate.getMonth()] );
       reportedSympoMaticByDates.push(data['reportedSympoMaticByDates'] || 0);
       confirmedCasesByDates.push(data['confirmedCasesByDates'] || 0);
       dischargedByDates.push(data['dischargedByDates'] || 0);
@@ -617,7 +620,7 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       _.forEach(dateWiseData, function (value, key) {
         if (value.dischargedByDates) {
-          self.lineChartDischargeSourceLabels.push(value.confirmedAt);
+          self.lineChartDischargeSourceLabels.push(value.confirmAt);
           self.lineChartDischargeData[0].data.push(value.dischargedByDates);
         }
       });
@@ -650,8 +653,8 @@ export class HomeComponent implements OnInit {
 
     event[0].setHours(0, 0, 0, 0);
     event[1].setHours(23, 59, 59, 999);
-    // this.startDate = event[0].toLocaleDateString("en-US", Option);
-    // this.endDate = event[1].toLocaleDateString("en-US", Option);
+    this.startDate = event[0];
+    this.endDate = event[1];
     var filteredData = _.filter(this.patientsData, function (patient) {
       let patientsDate = new Date(patient.confirmAt);
       if (patientsDate >= event[0] && patientsDate <= event[1]) {
