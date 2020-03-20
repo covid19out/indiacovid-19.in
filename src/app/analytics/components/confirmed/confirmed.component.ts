@@ -47,7 +47,7 @@ export class ConfirmedComponent implements OnInit {
     this.assignDatatoBarChart(_.filter(dateWiseData , function(p){
       return p.confirmedCasesByDates != null;
     }));
-    this.confirmedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'confirmedCasesByDates');
+
     this.dischargedCasesCount=this.getCaseCountsByCaseType(dateWiseData,'dischargedByDates');
     this.intensiveCasesCount=this.getCaseCountsByCaseType(dateWiseData,'icuByDate');
     this.growthRate=this.calculateGrowthRate(dateWiseData);
@@ -99,6 +99,7 @@ export class ConfirmedComponent implements OnInit {
         return patient;
       }
     });
+    this.confirmedCasesCount=filteredData.length;
     this.prepareBarChartData(filteredData);
   }
 }
