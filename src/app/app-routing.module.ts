@@ -4,6 +4,7 @@ import { SelectivePreloadingStrategyService } from './selective-preloading.servi
 
 const routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full' },
+  //{ path: '', redirectTo:'', pathMatch:'full' },
   { path: 'dashboard', loadChildren: './home/home.module#HomeModule'},
   { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsModule'},
   { path: 'cases', loadChildren: './cases/cases.module#CasesModule'},
@@ -19,8 +20,9 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes,{
     scrollPositionRestoration: 'top',
-    preloadingStrategy: SelectivePreloadingStrategyService
+    preloadingStrategy: SelectivePreloadingStrategyService,
   })],
   exports: [RouterModule]
+  
 })
 export class AppRoutingModule { }
