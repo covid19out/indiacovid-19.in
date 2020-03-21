@@ -12,10 +12,7 @@ const routes: Routes = [
   { path: 'worldwide', loadChildren: './worldwide/worldwide.module#WorldwideModule'},
   { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
   { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'},
-  { path: 'about', loadChildren: './about/about.module#AboutModule'},
-  { path: 'sitemap.xml', loadChildren: './sitemap.xml'},
-  { path: 'Robots.txt', loadChildren: './Robots.txt'}
-
+  { path: 'about', loadChildren: './about/about.module#AboutModule'}
 ];
 
 
