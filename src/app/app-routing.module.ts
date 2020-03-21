@@ -12,15 +12,16 @@ const routes: Routes = [
   { path: 'worldwide', loadChildren: './worldwide/worldwide.module#WorldwideModule'},
   { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
   { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'},
-  { path: 'about', loadChildren: './about/about.module#AboutModule'}
+  { path: 'about', loadChildren: './about/about.module#AboutModule'},
+  { path: 'sitemap.xml', loadChildren: './sitemap.xml'},
+  { path: 'Robots.txt', loadChildren: './Robots.txt'}
+
 ];
 
 
 @NgModule({
-
-  imports: [RouterModule.forRoot(routes, {
+  imports: [RouterModule.forRoot(routes,{
     scrollPositionRestoration: 'top',
-    useHash: true
   })],
   exports: [RouterModule]
 })
