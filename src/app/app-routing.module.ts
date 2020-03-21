@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { SelectivePreloadingStrategyService } from './selective-preloading.service';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+//import { SelectivePreloadingStrategyService } from './selective-preloading.service';
 
 const routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full' },
@@ -20,7 +20,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes,{
     scrollPositionRestoration: 'top',
-    preloadingStrategy: SelectivePreloadingStrategyService,
+    preloadingStrategy: PreloadAllModules,
   })],
   exports: [RouterModule]
   
