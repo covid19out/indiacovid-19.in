@@ -1,0 +1,27 @@
+<!-- Temporary append data to div for reading as DOM-->
+<div [innerHTML]="htmlString" style="display:none"></div>
+
+<div class="row row-xs quick-link">
+    <div class="col-sm-3 margin-top-10" *ngFor="let state of stateWiseData">
+
+        <div class="card card-body" ><!--- [ngStyle]="{'background-color': getRandomColor(), 'color':'white'}"-->
+
+            <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+                <h3 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h3>
+            </div>
+            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Confirmed Indian Cases :
+                <app-counter [maxValue]="state.totalIndianConfirmCases"></app-counter>
+            </h6>
+            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Confirmed Foreign Nationals :
+                <app-counter [maxValue]="state.totalForeignConfirmCases"></app-counter>
+            </h6>
+            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Recovered :
+                <app-counter [maxValue]="state.totalDischargedCases"></app-counter>
+            </h6>
+            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Deceased :
+                <app-counter [maxValue]="state.totalDeathCases"></app-counter>
+            </h6>
+        </div>
+
+    </div>
+</div>

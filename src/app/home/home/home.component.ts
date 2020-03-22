@@ -378,7 +378,8 @@ export class HomeComponent implements OnInit {
 
   public patientsData: any;
 
-  constructor(private patientsDataService: PatientsDataService) { }
+  constructor(private patientsDataService: PatientsDataService,
+    ) { }
 
   ngOnInit() {
     this.bsRangeValue = [this.startDate, this.endDate];
@@ -388,7 +389,7 @@ export class HomeComponent implements OnInit {
         this.patientsData = data;
         this.dateFilterChanged([this.startDate, this.endDate]);
       }
-    })
+    });
   }
 
   prepareBarChartData(patientRecords: any) {
