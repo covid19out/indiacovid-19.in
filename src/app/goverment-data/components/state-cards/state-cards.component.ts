@@ -28,7 +28,6 @@ export class StateCardsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('state component');
     this.patientsDataService.loadGovtData().subscribe(data => {
       this.prepareData(data)
     });
