@@ -141,7 +141,7 @@
           <div class="card-header">Gender</div>
           <div class="card-body">
             <div style="display: block;" class="doughnut-chart">
-              <canvas height="400" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+              <canvas height="400" baseChart [data]="doughnutChartData" [legend]="false" [labels]="doughnutChartLabels"
                 [chartType]="doughnutChartType" [options]="pieChartGenderOptions" [colors]="pieChartGenderColors">
               </canvas>
             </div>
@@ -149,14 +149,20 @@
           <div class="card-footer pd-10">
             <div class="row">
               <div class="col-6">
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">Male</p>
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">
+                  <span class="legend-label-color" style="background-color: #86c7f3;"></span>
+                  Male
+                </p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0"><small
                       class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
                 </div>
               </div><!-- col -->
               <div class="col-6">
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">Female</p>
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">
+                  <span class="legend-label-color" style="background-color: #ffa1b5;"></span>
+                  Female
+                </p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0"><small
                       class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
@@ -207,7 +213,7 @@
             </div>
             <div class="nationality-legends">
               <div class="nationality-lable" *ngFor="let lable of doughnutNationalityChartLabels;let i = index">
-                <span>{{lable}}</span>&nbsp;<span>{{doughnutNationalityChartData[0][i]}}</span>
+                <span><span class="legend-label-color"></span> {{lable}}</span>&nbsp;<span>{{doughnutNationalityChartData[0][i]}}</span>
               </div>
             </div>
           </div>
@@ -289,7 +295,7 @@
           <div class="card-header">Source</div>
           <div class="card-body">
             <div style="display: block;" class="doughnut-chart">
-              <canvas height="300" baseChart [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
+              <canvas height="300" baseChart [legend]="false" [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
                 [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType"
                 [colors]="doughnutSourceChartColors">
               </canvas>
@@ -299,7 +305,10 @@
             <div class="row">
               <ng-container *ngIf="doughnutSourceChartLabels.length > 0">
                 <div class="col-6" *ngFor="let label of doughnutSourceChartLabels; let i = index">
-                  <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">{{label}}</p>
+                  <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">
+                    <span class="legend-label-color"></span>
+                    {{label}}
+                  </p>
                   <div class="d-flex align-items-center">
                     <h5 class="tx-normal tx-rubik mg-b-0">{{doughnutSourceChartData[0][i]}} </h5>
                     <!-- <small class="tx-color-04"> {{doughnutSourceChartData[0][i] * 100 / totalCases}}%</small> -->
