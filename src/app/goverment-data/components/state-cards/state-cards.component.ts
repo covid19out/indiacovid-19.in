@@ -77,9 +77,9 @@ export class StateCardsComponent implements OnInit {
   }
 
   setDataDate(){
-    let headingTitleDiv = myJQuery('.contribution')[0];
+    let headingTitleDiv = myJQuery('.newtab')[0];
     let headingText = myJQuery(headingTitleDiv).find('p')[0].innerHTML;
-    this.dataDate = headingText.substring(69,83);
+    this.dataDate = headingText;
   }
 
   getRandomColor() {
