@@ -13,6 +13,7 @@ import { NotifyingPersonsComponent } from './components/notifying-persons/notify
 import { PreventiveMeasuresComponent } from './components/preventive-measures/preventive-measures.component';
 import { ProcedureForPassengerComponent } from './components/procedure-for-passenger/procedure-for-passenger.component';
 import { StrategyCovid19Component } from './components/strategy-covid19/strategy-covid19.component';
+import { EmergencyComponent } from './components/emergency/emergency.component';
 
 const routes: Routes = [
   { path: 'awareness',  component: AwarenessComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'notifying-persons',  component: NotifyingPersonsComponent },
   { path: 'preventive-measures',  component: PreventiveMeasuresComponent },
   { path: 'procedure-for-passenger',  component: ProcedureForPassengerComponent },
-  { path: 'strategy-covid19',  component: StrategyCovid19Component }
+  { path: 'strategy-covid19',  component: StrategyCovid19Component },
+  { path: 'emergency',  component: EmergencyComponent }
 ];
 
 @NgModule({
