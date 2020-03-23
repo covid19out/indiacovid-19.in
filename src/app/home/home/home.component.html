@@ -36,8 +36,8 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalConfirmedCases}}</h3>
-            <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">{{totalIntesiveCases}}<i
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalConfirmedCases | number}}</h3>
+            <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-danger">{{totalIntesiveCases | number}}<i
                   class="icon ion-md-arrow-up"></i></span> in ICU</p>
           </div>
           <div style="display: block;">
@@ -55,7 +55,7 @@
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalHospitalisedCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0"><span
-                class="tx-medium tx-success">{{(100*totalHospitalisedCases/totalCases).toFixed(2)}} %<i
+                class="tx-medium tx-success">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}} %<i
                   class="icon ion-md-arrow-down"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
@@ -89,7 +89,7 @@
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalDischargedCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0"><span
-                class="tx-medium tx-success">{{(100*totalDischargedCases/totalCases).toFixed(2)}} %<i
+                class="tx-medium tx-success">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
                   class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
@@ -106,7 +106,7 @@
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalDeathCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0"><span
-                class="tx-medium tx-success">{{(100*totalDeathCases/totalCases).toFixed(2)}} %<i
+                class="tx-medium tx-success">{{(100*totalDeathCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
                   class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
@@ -152,14 +152,14 @@
                 <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">Male</p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0"><small
-                      class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</small></h5>
+                      class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
                 </div>
               </div><!-- col -->
               <div class="col-6">
                 <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">Female</p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0"><small
-                      class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</small></h5>
+                      class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
                 </div>
               </div><!-- col -->
             </div><!-- row -->
@@ -169,7 +169,7 @@
       <div class="col-lg-12 margin-top-10">
 
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirm Cases</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirmed Codiv-19 Cases in India</h6>
           <div style="display: block;">
             <canvas baseChart [datasets]="cumulativeChartConfirmData" [legend]="false" [labels]="cumulativeChartConfirmLabels"
               [options]="cumulativeChartConfirmOptions" [colors]="cumulativeChartConfirmColors"
@@ -229,7 +229,7 @@
                   </div>
                   <div class="media-body mg-l-10">
                     <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">
-                      {{(maleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</h6>
+                      {{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</h6>
                     <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">MALE</p>
                   </div>
                   <!-- media-body -->
@@ -244,7 +244,7 @@
                   </div>
                   <div class="media-body mg-l-10">
                     <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">
-                      {{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)}}%</h6>
+                      {{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</h6>
                     <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">FEMALE</p>
                   </div>
                 </div>
