@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
   { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'},
   { path: 'about', loadChildren: './about/about.module#AboutModule'},
-  { path: 'statewisecases', loadChildren: './goverment-data/goverment-data.module#GovermentDataModule'},
+  { path: 'MOHFWIndia', loadChildren: './goverment-data/goverment-data.module#GovermentDataModule'},
 ];
 
 
