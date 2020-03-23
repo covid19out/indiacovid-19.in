@@ -2,6 +2,15 @@
     margin-top: 10px;
 }
 
+.legend-label-color{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.1);
+  margin-right: 4px;
+}
+
 .date-range-select{
   width: 300px;
   text-align: center;

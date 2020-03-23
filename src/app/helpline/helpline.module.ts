@@ -13,10 +13,11 @@ import { PreventiveMeasuresComponent } from './components/preventive-measures/pr
 import { StrategyCovid19Component } from './components/strategy-covid19/strategy-covid19.component';
 import { NotifyingPersonsComponent } from './components/notifying-persons/notifying-persons.component';
 import { ProcedureForPassengerComponent } from './components/procedure-for-passenger/procedure-for-passenger.component';
+import { EmergencyComponent } from './components/emergency/emergency.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule

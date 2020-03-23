@@ -48,3 +48,4 @@ Thumbs.db
 *.cache
 src/.gitlab-ci.yml
 package-lock.json
+package-lock.json
