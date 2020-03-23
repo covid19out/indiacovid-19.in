@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img src="/assets/images/covid-19-logo.png" class="covid-19-logo d-inline-block align-top" alt="">
       <!-- India Fights COVID-19 -->
     </a>
@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" [ngClass]="!isCollapsed?'mobile-navbar':''" id="navbarSupportedContent" [collapse]=isCollapsed>
       <ul class="navbar-nav ml-auto mr-auto justify-content-center">
         <li class="nav-item active" (click)="hideDropdown()">
-          <a class="nav-link" href="#/dashboard">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
             <div class="btn-group" dropdown>
@@ -20,10 +20,10 @@
                     Analytics <span class="caret"></span>
                 </button>
                 <ul *dropdownMenu class="dropdown-menu" role="menu">
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/confirmed" (click)="hideDropdown()">Confirmed Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/recovered" (click)="hideDropdown()">Recovered Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/symptomatic" (click)="hideDropdown()">Symptomatic Cases</a></li>
-                  <li role="menuitem"><a class="dropdown-item" href="#/analytics/intensive_care_cases" (click)="hideDropdown()">Intensive Care Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/confirmed" (click)="hideDropdown()">Confirmed Cases</a></li>
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/recovered" (click)="hideDropdown()">Recovered Cases</a></li>
+                  <!-- <li role="menuitem"><a class="dropdown-item" href="#/analytics/symptomatic" (click)="hideDropdown()">Symptomatic Cases</a></li> -->
+                  <li role="menuitem"><a class="dropdown-item" href="/analytics/intensive_care_cases" (click)="hideDropdown()">Intensive Care Cases</a></li>
                 </ul>
             </div>
         </li>
@@ -39,18 +39,18 @@
           </div>
         </li> -->
 
-        <li class="nav-item" (click)="hideDropdown()">
+        <!-- <li class="nav-item" (click)="hideDropdown()">
           <a class="nav-link" href="#/cases">Cases</a>
-        </li>
+        </li> -->
 
         <!-- <li class="nav-item">
           <a class="nav-link" href="#/map">Map</a>
         </li> -->
-        <!-- <li class="nav-item" (click)="hideDropdown()">
-          <a class="nav-link" href="#/worldwide">Worldwide</a>
-        </li> -->
         <li class="nav-item" (click)="hideDropdown()">
-          <a class="nav-link" href="#/sources">Sources</a>
+          <a class="nav-link" href="/worldwide">Worldwide</a>
+        </li>
+        <li class="nav-item" (click)="hideDropdown()">
+          <a class="nav-link" href="/sources">Sources</a>
         </li>
         <li class="nav-item dropdown">
         <div class="btn-group" dropdown>
@@ -58,22 +58,24 @@
                 Helpline <span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" href="#/helpline/contact-information" (click)="hideDropdown()">Contact Information</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#/helpline/awareness" (click)="hideDropdown()">Awareness</a></li>
-              <li role="menuitem"><a class="dropdown-item" href="#/helpline/testing-center" (click)="hideDropdown()">Testing Centers</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="/helpline/contact-information" (click)="hideDropdown()">Contact Information</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="/helpline/awareness" (click)="hideDropdown()">Awareness</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="/helpline/testing-center" (click)="hideDropdown()">Testing Centers</a></li>
             </ul>
           </div>
         </li>
 
         <li class="nav-item" (click)="hideDropdown()">
-          <a class="nav-link" href="#/about">About</a>
+          <a class="nav-link" href="/about">About</a>
         </li>
 
       </ul>
 
-    </div>
-
-    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" target="_blank" href="https://admin.indiacovid-19.in/">Sign In</a>
+    </div> 
+    <li class="nav-item" (click)="hideDropdown()">
+      <a class="nav-link" href="#/statewisecases"> MOHFW GOV Data</a>
+    </li>
+    <!-- <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"></a> -->
 
     <!-- <div class="navbar-right">
       <button class="btn my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>

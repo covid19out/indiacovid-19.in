@@ -11,7 +11,8 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./intensive-care-cases.component.scss']
 })
 export class IntensiveCareCasesComponent implements OnInit {
-  public minDate=new Date('jan 2020');
+  public minDate=new Date('30 jan 2020');
+  public maxDate = new Date();
   public lineChartLegend = false;
   public lineChartType = 'line';
   public lineChartPlugins = [];
@@ -32,7 +33,7 @@ export class IntensiveCareCasesComponent implements OnInit {
       backgroundColor: 'rgba(0,0,0,0)',
     },
   ];
-  public startDate: any=new Date("21 January 2020");
+  public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();
    patientsData: any;
   totalIcuCases: any;
@@ -42,14 +43,14 @@ export class IntensiveCareCasesComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data => {
       this.patientsData = data;
-      this.dateFilterChanged([this.startDate, this.endDate]);
+      this.dateFilterChanged([this.startDate,this.endDate]);
     });
   }
   dateFilterChanged(event){
     event[0].setHours(0,0,0,0);
     event[1].setHours(23,59,59,999);
-    this.startDate = event[0].toLocaleDateString("en-US" , Option);
-    this.endDate = event[1].toLocaleDateString("en-US", Option);
+    this.startDate = event[0];
+    this.endDate = event[1];
     var filteredData = _.filter(this.patientsData,function(patient){
       let patientsDate = new Date(patient.confirmAt);
       if(patientsDate >= event[0]   && patientsDate <= event[1]){

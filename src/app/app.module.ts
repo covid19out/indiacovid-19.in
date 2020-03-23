@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { environment } from '../environments/environment';
     AngularFireAuthModule,
     CollapseModule
   ],
-  providers: [AngularFireDatabase, AngularFirestore],
+  providers: [AngularFireDatabase, AngularFirestore, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
