@@ -38,8 +38,13 @@
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">{{totalConfirmedCases | number}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
-              <span class="tx-medium tx-danger" *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}<i
-                  class="icon ion-md-arrow-up"></i></span> in ICU</p>
+              <span class="tx-medium tx-danger" *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
+                <i class="icon ion-md-arrow-up"></i>
+              </span>
+              <span class="tx-medium tx-danger" *ngIf="!totalIntesiveCases"> 0
+                <i class="icon ion-md-arrow-up"></i>
+              </span>  in ICU
+            </p>
           </div>
           <div style="display: block;">
             <canvas baseChart height="60" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
@@ -193,7 +198,7 @@
             <div id="chart">
               <div style="display: block;" class="stacked-chart">
                 <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
-                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="stateBarChartColor"
+                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
                   [legend]="false" chartType="horizontalBar">
                 </canvas>
               </div>
@@ -209,12 +214,15 @@
             <div style="display: block;" class="doughnut-chart">
               <canvas height="300" baseChart [legend]="false" [data]="doughnutNationalityChartData"
                 [labels]="doughnutNationalityChartLabels" [chartType]="doughnutChartType"
-                [options]="pieChartNationalityOptions">
+                [options]="pieChartNationalityOptions" [colors]="chartColors">
               </canvas>
             </div>
             <div class="nationality-legends">
               <div class="nationality-lable" *ngFor="let lable of doughnutNationalityChartLabels;let i = index">
-                <div class="nationality-lable-text"><span class="legend-label-color"></span> {{lable}}</div>&nbsp;<div class="nationality-value">{{doughnutNationalityChartData[0][i]}}</div>
+                <div class="nationality-lable-text">
+                  <span class="legend-label-color" [ngStyle]="{'background-color': getNationalityChartLabelColor(i)}"></span> {{lable}}
+                </div>&nbsp;                       
+                <div class="nationality-value">{{doughnutNationalityChartData[0][i]}}</div>
               </div>
             </div>
           </div>
@@ -307,7 +315,7 @@
               <ng-container *ngIf="doughnutSourceChartLabels.length > 0">
                 <div class="col-6" *ngFor="let label of doughnutSourceChartLabels; let i = index">
                   <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">
-                    <span class="legend-label-color"></span>
+                    <span class="legend-label-color" [ngStyle]="{'background-color': getSourceChartLabelColor(i)}" ></span>
                     {{label}}
                   </p>
                   <div class="d-flex align-items-center">
