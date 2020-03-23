@@ -46,7 +46,9 @@ export class StateCardsComponent implements OnInit {
     let stateWiseCases: StateData[] = [];
     setTimeout(function () {
       self.setDataDate();
-      var rows = myJQuery('table')[1].tBodies[0].rows;
+      //console.log(myJQuery('table'));
+      var rows = myJQuery('table')[7].tBodies[0].rows;
+      
       for (let i = 0; i < rows.length - 1; i++) { //Don't  process last row of statistics
         let $tds = myJQuery(rows[i]).find('td');
         let stateData: StateData = {
@@ -80,7 +82,7 @@ export class StateCardsComponent implements OnInit {
   }
 
   setDataDate(){
-    let headingTitleDiv = myJQuery('.newtab')[0];
+    let headingTitleDiv = myJQuery('.contribution')[0];
     let headingText = myJQuery(headingTitleDiv).find('p')[0].innerHTML;
     this.dataDate = headingText.substring(69,95);
   }
