@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/core';
-
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
