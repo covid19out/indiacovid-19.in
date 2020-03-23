@@ -120,8 +120,8 @@ export class HomeComponent implements OnInit {
   public doughnutSourceChartColors = [
     {
       backgroundColor: [
-        '#86c7f3',
-        '#ffa1b5'
+        '#ffa1b5',
+        '#86c7f3',        
       ]
     }
   ];
