@@ -190,13 +190,13 @@ export class HomeComponent implements OnInit {
   };
   public lineChartInfectionSourceColors: Color[] = [
     {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
-    },
-    {
       borderColor: '#ffa1b5',
       backgroundColor: 'rgba(255,161,181,0.3)',
     },
+    {
+      borderColor: '#86c7f3',
+      backgroundColor: 'rgba(134,199,243,0.3)',
+    },    
   ];
 
   //Cumulate confirm cases line chart
