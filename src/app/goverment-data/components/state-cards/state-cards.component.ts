@@ -71,7 +71,7 @@ export class StateCardsComponent implements OnInit {
     // console.log(colors[Math.floor(Math.random()*4)]);
     // return colors[Math.floor(Math.random()*4)];
 
-    return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`;   
+    return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.20)`;   
     // var color = Math.floor(0x1000000 * Math.random()).toString(16);
     // return '#' + ('000000' + color).slice(-6);
 

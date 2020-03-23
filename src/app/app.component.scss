@@ -19,7 +19,16 @@
     height: 60px;
   }
 
+  .gov-data-link{
+    font-size: 0.8rem;
+  }
+
+
   @media (max-width: 992px){
+    .gov-data-link{
+      position: absolute;
+      right: 70px;
+    }
     .mobile-navbar{
       margin: 0px -1rem;
       background-color: #f8f9fa;

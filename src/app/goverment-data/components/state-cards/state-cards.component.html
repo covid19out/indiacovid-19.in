@@ -1,27 +1,41 @@
-<!-- Temporary append data to div for reading as DOM-->
-<div [innerHTML]="htmlString" style="display:none;"></div>
+<div class="content content-fixed">
+    <div class="container">
+        <br/>
+        <!-- Temporary append data to div for reading as DOM-->
+        <div [innerHTML]="htmlString" style="display:none"></div>
 
-<div class="row row-xs quick-link">
-    <div class="col-sm-3 margin-top-10" *ngFor="let state of stateWiseData">
+        <div class="row row-xs quick-link">
+            <div class="col-md-4 col-sm-6 margin-top-10" *ngFor="let state of stateWiseData">
 
-        <div class="card card-body state-card" [ngStyle]="{'background-color': state.backgroundColor}"><!--- [ngStyle]="{'background-color': getRandomColor(), 'color':'white'}"-->
+                <div class="card" [ngStyle]="{'border-color': state.backgroundColor}">
+                    <div class="card-text-stats">
+                    <div class="card-text-stat">
+                        <h5><app-counter [maxValue]="state.totalIndianConfirmCases"></app-counter></h5>
+                        <p>Confirmed</p>
+                    </div>
+                    <div class="card-text-stat">
+                        <h5><app-counter [maxValue]="state.totalForeignConfirmCases"></app-counter></h5>
+                        <p>Foreign</p>
+                    </div>
+                    <div class="card-text-stat">
+                        <h5><app-counter [maxValue]="state.totalDischargedCases"></app-counter></h5>
+                        <p>Recovered</p>
+                    </div>
+                    <div class="card-text-stat">
+                        <h5><app-counter [maxValue]="state.totalDeathCases"></app-counter></h5>
+                        <p>Deaths</p>
+                    </div>
+            
+                    </div>
+                    <div class="card-stats" [ngStyle]="{'background-color': state.backgroundColor}">
+                      <div class="stat">
+                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                
 
-            <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-                <h3 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h3>
             </div>
-            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Confirmed Indian Cases :
-                <app-counter [maxValue]="state.totalIndianConfirmCases"></app-counter>
-            </h6>
-            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Confirmed Foreign Nationals :
-                <app-counter [maxValue]="state.totalForeignConfirmCases"></app-counter>
-            </h6>
-            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Recovered :
-                <app-counter [maxValue]="state.totalDischargedCases"></app-counter>
-            </h6>
-            <h6 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Deceased :
-                <app-counter [maxValue]="state.totalDeathCases"></app-counter>
-            </h6>
         </div>
-
-    </div>
+</div>
 </div>
