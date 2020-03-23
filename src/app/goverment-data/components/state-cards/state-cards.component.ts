@@ -11,6 +11,7 @@ export interface StateData {
   totalForeignConfirmCases: number;
   totalDischargedCases: number;
   totalDeathCases: number;
+  backgroundColor:string;
 }
 
 @Component({
@@ -51,7 +52,8 @@ export class StateCardsComponent implements OnInit {
           totalIndianConfirmCases: $tds.eq(2).text(),
           totalForeignConfirmCases: $tds.eq(3).text(),
           totalDischargedCases: $tds.eq(4).text(),
-          totalDeathCases: $tds.eq(5).text()
+          totalDeathCases: $tds.eq(5).text(),
+          backgroundColor: self.getRandomColor()
         };
         stateWiseCases.push(stateData);
       }
@@ -65,16 +67,13 @@ export class StateCardsComponent implements OnInit {
   }
 
   getRandomColor() {
-     let colors = ['Beige','CadetBlue','DarkCyan','DarkGrey', 'DarkSeaGreen' ]
+     //let colors = ['Beige','CadetBlue','DarkCyan','DarkGrey', 'DarkSeaGreen' ]
     // console.log(colors[Math.floor(Math.random()*4)]);
     // return colors[Math.floor(Math.random()*4)];
 
-    //return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`;
-    // #6e7f90
-    // rgba(110,127,144,0.3) {'background-color': getRandomColor()}
-
-    var color = Math.floor(0x1000000 * Math.random()).toString(16);
-    return '#' + ('000000' + color).slice(-6);
+    return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`;   
+    // var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    // return '#' + ('000000' + color).slice(-6);
 
   }
 }

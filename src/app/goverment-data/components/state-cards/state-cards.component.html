@@ -4,7 +4,7 @@
 <div class="row row-xs quick-link">
     <div class="col-sm-3 margin-top-10" *ngFor="let state of stateWiseData">
 
-        <div class="card card-body" ><!--- [ngStyle]="{'background-color': getRandomColor(), 'color':'white'}"-->
+        <div class="card card-body state-card" [ngStyle]="{'background-color': state.backgroundColor}"><!--- [ngStyle]="{'background-color': getRandomColor(), 'color':'white'}"-->
 
             <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
                 <h3 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h3>
