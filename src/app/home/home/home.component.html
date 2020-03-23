@@ -8,7 +8,7 @@
             <!-- <li class="breadcrumb-item active" aria-current="page">Sales Monitoring</li> -->
           </ol>
         </nav>
-        <h5 class="mg-b-0 tx-spacing--1">Dashboard of the COVID-19 Virus Outbreak in India</h5>
+        <h1 class="mg-b-0 tx-spacing--1 text-font-size-h5">Dashboard of the COVID-19 Virus Outbreak in India</h1>
       </div>
       <div class="d-flex justify-content-end calendar-button">
         <!-- <input type="text" style="width:0px; height:0px; border:0px; color: transparent; pointer-events: none;"
@@ -214,7 +214,7 @@
             </div>
             <div class="nationality-legends">
               <div class="nationality-lable" *ngFor="let lable of doughnutNationalityChartLabels;let i = index">
-                <span><span class="legend-label-color"></span> {{lable}}</span>&nbsp;<span>{{doughnutNationalityChartData[0][i]}}</span>
+                <div class="nationality-lable-text"><span class="legend-label-color"></span> {{lable}}</div>&nbsp;<div class="nationality-value">{{doughnutNationalityChartData[0][i]}}</div>
               </div>
             </div>
           </div>
@@ -227,7 +227,7 @@
             Gender over Time
             <p>Showing Male Cases vs Female Over Time.</p>
           </div>
-          <div class="card-body">
+          <div class="card-body gender-over-time-body">
             <div class="row row-sm">
               <div class="col-6">
                 <div class="media">
@@ -258,8 +258,8 @@
               </div>
             </div>
 
-            <div style="display: block;">
-              <canvas baseChart height="120" [datasets]="lineChartData" [labels]="lineChartLabels"
+            <div class="canvas-wrapper">
+              <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
                 [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
                 [chartType]="lineChartType" [plugins]="lineChartPlugins">
               </canvas>
