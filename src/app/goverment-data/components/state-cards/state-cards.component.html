@@ -6,26 +6,6 @@
 
         <div class="row row-xs quick-link">
             <div class="col-md-4 col-sm-6 margin-top-10" *ngFor="let state of stateWiseData">
-                <!-- [ngStyle]="{'background-color': getRandomColor(), 'color':'white'}"-->
-                <!--div class="card card-body state-card" [ngStyle]="{'background-color': state.backgroundColor}">
-                    
-
-                    <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-                        <h5 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h5>
-                    </div>
-                    <p class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Confirmed Indian Cases :
-                        <strong><app-counter [maxValue]="state.totalIndianConfirmCases"></app-counter></strong>
-                    </p>
-                    <p class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Confirmed Foreign Nationals :
-                        <strong><app-counter [maxValue]="state.totalForeignConfirmCases"></app-counter></strong>
-                    </p>
-                    <p class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Recovered :
-                        <strong><app-counter [maxValue]="state.totalDischargedCases"></app-counter></strong>
-                    </p>
-                    <p class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">Deceased :
-                        <strong><app-counter [maxValue]="state.totalDeathCases"></app-counter></strong>
-                    </p>
-                </div-->
 
                 <div class="card" [ngStyle]="{'border-color': state.backgroundColor}">
                     <div class="card-text-stats">
@@ -45,22 +25,12 @@
                         <h5><app-counter [maxValue]="state.totalDeathCases"></app-counter></h5>
                         <p>Deaths</p>
                     </div>
-                      <!-- <h2>Post One</h2>
-                      <span class="date">4 days ago</span> -->
-                      <!-- <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p> -->
+            
                     </div>
                     <div class="card-stats" [ngStyle]="{'background-color': state.backgroundColor}">
                       <div class="stat">
                         <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h6>
                       </div>
-                       <!--<div class="stat border">
-                        <div class="value">5123</div>
-                        <div class="type">views</div>
-                      </div>
-                      <div class="stat">
-                        <div class="value">32</div>
-                        <div class="type">comments</div>
-                      </div> -->
                     </div>
                   </div>
                 
