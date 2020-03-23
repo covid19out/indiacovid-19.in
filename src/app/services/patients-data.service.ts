@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -30,6 +31,15 @@ export class PatientsDataService {
       });
       this.patientsData.next(covidCases);
     });
+  }
+
+  loadGovtData(){
+    return this.http.get('https://www.mohfw.gov.in/', {responseType: 'text'})
+    .pipe(
+      map((html:any) => {
+        return html;
+      })
+    );
   }
 
   filterDataByDates(patientRecords: any) {
