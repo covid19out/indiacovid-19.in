@@ -50,14 +50,40 @@
 }
 
 .nationality-legends{
+  margin-top: 20px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  //align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   font-size: 0.8rem;
+  max-width: 180px;
+  margin:auto;
+  margin-top: 10px;
   .nationality-lable{
+    display: flex;
     margin-left: 0.3rem;
     margin-right: 0.3rem;
+  }
+  .nationality-lable-text{
+    flex: auto;
+  }
+  .nationality-value{
+    text-align: right;
+    flex: 1;
+  }
+}
+
+.gender-over-time-body{
+  display: flex;
+  flex-direction: column;
+  .canvas-wrapper{
+    flex: auto;
+    display: flex;
+    align-items: flex-end;
+    canvas{
+      height: 100%;
+    }
   }
 }
 
