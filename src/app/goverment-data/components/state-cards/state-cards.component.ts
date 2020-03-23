@@ -40,6 +40,9 @@ export class StateCardsComponent implements OnInit {
     let parsedHtml = parser.parseFromString(data, 'text/html');
     let body = parsedHtml.getElementsByTagName("body")[0];
     this.htmlString = body.innerHTML;
+    // let body = parsedHtml.getElementsByTagName("strong")[15];
+    // this.htmlString = body;
+    
     let stateWiseCases: StateData[] = [];
     setTimeout(function () {
       self.setDataDate();
@@ -79,7 +82,7 @@ export class StateCardsComponent implements OnInit {
   setDataDate(){
     let headingTitleDiv = myJQuery('.contribution')[0];
     let headingText = myJQuery(headingTitleDiv).find('p')[0].innerHTML;
-    this.dataDate = headingText.substring(69,83);
+    this.dataDate = headingText.substring(69,95);
   }
 
   getRandomColor() {
