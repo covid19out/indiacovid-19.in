@@ -16,10 +16,12 @@ import { ProcedureForPassengerComponent } from './components/procedure-for-passe
 import { EmergencyComponent } from './components/emergency/emergency.component';
 import { RevisedStrategyComponent } from './components/revised-strategy/revised-strategy.component';
 import { OrderComponent } from './components/order/order.component';
+import { InfectionComponent } from './components/infection/infection.component';
+import { DefeatComponent } from './components/defeat/defeat.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule
