@@ -66,11 +66,6 @@ export class HomeComponent implements OnInit {
   public stateBarChartLabels: Label[] = [];
   public stateBarChartLegend = true;
   public stateBarChartPlugins = [];
-  // public stateBarChartColor = [
-  //   {
-  //     backgroundColor: []
-  //   }
-  // ];
   public stateBarChartData: ChartDataSets[] = [
     { data: [], label: 'State', stack: 'a' }
   ];
@@ -661,7 +656,6 @@ export class HomeComponent implements OnInit {
   assignStateBarChartDate(dateWiseData) {
     this.stateBarChartLabels = [];
     this.stateBarChartData[0].data = [];
-    //var sortedStates=[];
 
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
@@ -671,7 +665,6 @@ export class HomeComponent implements OnInit {
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
         this.stateBarChartData[0].data.push(sortedStates[state].length);
-       // this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
       };
 
     }
