@@ -33,6 +33,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script" />
     <meta name="shareaholic:site_id" content="737e7e4f89dab6621aa96a0fc02df8f9" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-analytics.js"></script>
@@ -43,105 +46,134 @@
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
     <style>
         .navbar {
-	 height: 70px;
-	 background-color: #fff;
-	 border-bottom: 1px solid rgba(72, 94, 144, 0.16);
-	 padding: 0rem 1rem;
-}
- .navbar .nav-item {
-	 display: flex;
-	 align-items: center;
-}
- .navbar .nav-item .dropdown-toggle {
-	 padding-left: 0px;
-	 padding-right: 0px;
-}
- .navbar .covid-19-logo {
-	 height: 60px;
-}
- .navbar .gov-data-link {
-	 font-size: 0.8rem;
-}
- @media (max-width: 992px) {
-	 .navbar .gov-data-link {
-		 position: absolute;
-		 right: 70px;
-	}
-	 .navbar .mobile-navbar {
-		 margin: 0px -1rem;
-		 background-color: #f8f9fa;
-		 padding: 0px 1rem;
-	}
-	 .navbar .mobile-navbar.collapse.show {
-		 border-bottom: 1px solid rgba(72, 94, 144, 0.16);
-	}
-	 .navbar .mobile-navbar .nav-item.dropdown .btn-group {
-		 width: 100%;
-		 display: inline-block;
-	}
-	 .navbar .mobile-navbar .nav-item.dropdown .btn-group .btn {
-		 width: 100%;
-		 text-align: left;
-		 padding: 0.375rem 0rem;
-	}
-	 .navbar .mobile-navbar .nav-item.dropdown .btn-group .dropdown-menu {
-		 position: relative;
-		 flex-basis: 100%;
-		 flex-grow: 1;
-	}
-}
- .shareaholic-canvas {
-	 margin-top: 40px;
-}
- .footer {
-	 font-size: 10px;
-	 letter-spacing: 0.3px;
-	 padding: 15px 25px;
-	 background-color: #fafbfc;
-	 color: #637388;
-	 border-top: 1px solid rgba(72, 94, 144, 0.16);
-	 text-transform: uppercase;
-}
- 
+            height: 70px;
+            background-color: #fff;
+            border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+            padding: 0rem 1rem;
+        }
+
+        .navbar .nav-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .nav-item .dropdown-toggle {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .navbar .covid-19-logo {
+            height: 60px;
+        }
+
+        .navbar .gov-data-link {
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 992px) {
+            .navbar .gov-data-link {
+                position: absolute;
+                right: 70px;
+            }
+
+            .navbar .mobile-navbar {
+                margin: 0px -1rem;
+                background-color: #f8f9fa;
+                padding: 0px 1rem;
+            }
+
+            .navbar .mobile-navbar.collapse.show {
+                border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+            }
+
+            .navbar .mobile-navbar .nav-item.dropdown .btn-group {
+                width: 100%;
+                display: inline-block;
+            }
+
+            .navbar .mobile-navbar .nav-item.dropdown .btn-group .btn {
+                width: 100%;
+                text-align: left;
+                padding: 0.375rem 0rem;
+            }
+
+            .navbar .mobile-navbar .nav-item.dropdown .btn-group .dropdown-menu {
+                position: relative;
+                flex-basis: 100%;
+                flex-grow: 1;
+            }
+        }
+
+        .shareaholic-canvas {
+            margin-top: 40px;
+        }
+
+        .footer {
+            font-size: 10px;
+            letter-spacing: 0.3px;
+            padding: 15px 25px;
+            background-color: #fafbfc;
+            color: #637388;
+            border-top: 1px solid rgba(72, 94, 144, 0.16);
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
 <body>
-
+    <script>
+        var isCollapsed = true;
+    </script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
         <a class="navbar-brand" href="/">
             <img src="/assets/images/covid-19-logo.png" class="covid-19-logo d-inline-block align-top" alt="">
             <!-- India Fights COVID-19 -->
         </a>
-        <button class="navbar-toggler btn" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse"
+        <button class="navbar-toggler btn" type="button" onclick="toggleNavbarMobile()" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" [ngClass]="!isCollapsed?'mobile-navbar':''" id="navbarSupportedContent"
-            [collapse]=isCollapsed>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [collapse]=isCollapsed>
             <ul class="navbar-nav ml-auto mr-auto justify-content-center">
                 <li class="nav-item active" onclick="hideDropdown()">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
+
                 <li class="nav-item dropdown">
-                    <div class="btn-group" dropdown>
+                    <div class="dropdown btn-group">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Analytics <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/analytics/confirmed" onclick="hideDropdown()">Confirmed
+                                Cases</a>
+                            <a class="dropdown-item" href="/analytics/recovered" onclick="hideDropdown()">Recovered
+                                Cases</a>
+                            <a class="dropdown-item" href="/analytics/intensive_care_cases"
+                                onclick="hideDropdown()">Intensive Care Cases</a>
+                        </div>
+                    </div>
+                    <!-- <div class="btn-group" dropdown>
                         <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
                             Analytics <span class="caret"></span>
                         </button>
                         <ul *dropdownMenu class="dropdown-menu" role="menu">
                             <li role="menuitem"><a class="dropdown-item" href="/analytics/confirmed"
-                                onclick="hideDropdown()">Confirmed Cases</a></li>
+                                    onclick="hideDropdown()">Confirmed Cases</a></li>
                             <li role="menuitem"><a class="dropdown-item" href="/analytics/recovered"
-                                onclick="hideDropdown()">Recovered Cases</a></li>
-                            <!-- <li role="menuitem"><a class="dropdown-item" href="#/analytics/symptomatic" (click)="hideDropdown()">Symptomatic Cases</a></li> -->
+                                    onclick="hideDropdown()">Recovered Cases</a></li>                           
                             <li role="menuitem"><a class="dropdown-item" href="/analytics/intensive_care_cases"
-                                onclick="hideDropdown()">Intensive Care Cases</a></li>
+                                    onclick="hideDropdown()">Intensive Care Cases</a></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </li>
+
+
+
                 <!-- <li class="nav-item dropdown">
                   <div class="btn-group" dropdown>
                       <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
@@ -168,19 +200,34 @@
                     <a class="nav-link" href="/sources">Sources</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <div class="btn-group" dropdown>
+
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Helpline <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/helpline/contact-information"
+                                onclick="hideDropdown()">Contact Information</a>
+                            <a class="dropdown-item" href="/helpline/awareness" onclick="hideDropdown()">Awareness</a>
+                            <a class="dropdown-item" href="/helpline/testing-center" onclick="hideDropdown()">Testing
+                                Centers</a>
+                        </div>
+                    </div>
+
+                    <!-- <div class="btn-group" dropdown>
                         <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
                             Helpline <span class="caret"></span>
                         </button>
                         <ul *dropdownMenu class="dropdown-menu" role="menu">
                             <li role="menuitem"><a class="dropdown-item" href="/helpline/contact-information"
-                                onclick="hideDropdown()">Contact Information</a></li>
+                                    onclick="hideDropdown()">Contact Information</a></li>
                             <li role="menuitem"><a class="dropdown-item" href="/helpline/awareness"
-                                onclick="hideDropdown()">Awareness</a></li>
+                                    onclick="hideDropdown()">Awareness</a></li>
                             <li role="menuitem"><a class="dropdown-item" href="/helpline/testing-center"
-                                onclick="hideDropdown()">Testing Centers</a></li>
+                                    onclick="hideDropdown()">Testing Centers</a></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </li>
 
                 <li class="nav-item" onclick="hideDropdown()">
@@ -203,7 +250,7 @@
 
     <app-root></app-root>
 
-    
+
     <div class="shareaholic-canvas" data-app="share_buttons" data-app-id="28824921"></div>
     <footer class="footer" style="display:block; position: fixed; bottom: 0; width: 100%; height: 45px; z-index: 100">
         <div class="d-flex justify-content-between" style="margin-top: 0px !important;">
@@ -212,15 +259,22 @@
             </div>
         </div>
     </footer>
-    
+
     <script type="text/javascript">
 
-var isCollapsed = true;
-function hideDropdown(){
-  console.log(isCollapsed);
-  isCollapsed = true;
-}
-        
+        function toggleNavbarMobile() {
+            isCollapsed = !isCollapsed;
+            if (!isCollapsed) {
+                $(".navbar-collapse").addClass("mobile-navbar");
+            } else {
+                $(".navbar-collapse").removeClass("mobile-navbar");
+            }
+
+        }
+        function hideDropdown() {
+            isCollapsed = true;
+        }
+
         var _paq = window._paq || [];
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
@@ -241,7 +295,6 @@ function hideDropdown(){
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131358040-4"></script>
     <script>
         // document.addEventListener('contextmenu', event => event.preventDefault());
-       
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
