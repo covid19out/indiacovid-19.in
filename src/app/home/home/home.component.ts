@@ -66,11 +66,6 @@ export class HomeComponent implements OnInit {
   public stateBarChartLabels: Label[] = [];
   public stateBarChartLegend = true;
   public stateBarChartPlugins = [];
-  // public stateBarChartColor = [
-  //   {
-  //     backgroundColor: []
-  //   }
-  // ];
   public stateBarChartData: ChartDataSets[] = [
     { data: [], label: 'State', stack: 'a' }
   ];
@@ -88,6 +83,25 @@ export class HomeComponent implements OnInit {
     responsive: true,
     legend: {
       position: 'bottom',
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          let tooltipLabel = data.datasets[tooltipItem.datasetIndex].label || ''
+          let tooltipValue = parseInt(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toString());
+          let total = 0;
+          tooltipLabel = data.labels[tooltipItem.index].toString();
+          data.datasets[tooltipItem.datasetIndex].data.forEach(function (dataValue) {
+            total += dataValue;
+          });
+          tooltipValue = tooltipValue >= 0 ? tooltipValue : 0;
+          let percentageValue = ((tooltipValue * 100) / total).toFixed(0);
+          if (tooltipLabel) {
+            tooltipLabel += ': ' + percentageValue;
+          }
+          return tooltipLabel + "%";
+        }
+      }
     }
   };
   public pieChartGenderColors = [
@@ -642,7 +656,6 @@ export class HomeComponent implements OnInit {
   assignStateBarChartDate(dateWiseData) {
     this.stateBarChartLabels = [];
     this.stateBarChartData[0].data = [];
-    //var sortedStates=[];
 
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
@@ -652,7 +665,6 @@ export class HomeComponent implements OnInit {
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
         this.stateBarChartData[0].data.push(sortedStates[state].length);
-       // this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
       };
 
     }
