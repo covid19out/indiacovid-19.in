@@ -11,10 +11,11 @@ import { SymptomaticComponent } from './components/symptomatic/symptomatic.compo
 import { IntensiveCareCasesComponent } from './components/intensive-care-cases/intensive-care-cases.component';
 import { CityWiseCardsComponent } from './components/city-wise-cards/city-wise-cards.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StateWiseCardsComponent } from './components/state-wise-cards/state-wise-cards.component';
 
 
 @NgModule({
-  declarations: [AnalyticsComponent, ConfirmedComponent, RecoveredComponent, SymptomaticComponent, IntensiveCareCasesComponent, CityWiseCardsComponent],
+  declarations: [AnalyticsComponent, ConfirmedComponent, RecoveredComponent, SymptomaticComponent, IntensiveCareCasesComponent, CityWiseCardsComponent, StateWiseCardsComponent],
   imports: [
     CommonModule,
     AnalyticsRoutingModule,

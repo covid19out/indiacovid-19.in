@@ -42,13 +42,17 @@ export class CityWiseCardsComponent implements OnInit {
     let cityWisePatients = _.groupBy(this.patientsData, 'cityName');
 
     for (let city in cityWisePatients) {
-      if (city !== "") {
+      if (city) {
         var patientData: CityData = this.getCityStats(city,cityWisePatients);
         cityWiseStat.push(patientData);
       }
     }
 
-    cityWiseStat.unshift(this.getCityUnconfirmedRecord(cityWisePatients));
+    //If city is unknown add records at first place
+    if(cityWisePatients.hasOwnProperty("") || cityWisePatients.hasOwnProperty(undefined)){
+      cityWiseStat.unshift(this.getCityUnconfirmedRecord(cityWisePatients));
+    }
+
     this.cityWiseData = this.getSortedData(cityWiseStat);
   }
 
