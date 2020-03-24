@@ -14,19 +14,27 @@ import { PreventiveMeasuresComponent } from './components/preventive-measures/pr
 import { ProcedureForPassengerComponent } from './components/procedure-for-passenger/procedure-for-passenger.component';
 import { StrategyCovid19Component } from './components/strategy-covid19/strategy-covid19.component';
 import { EmergencyComponent } from './components/emergency/emergency.component';
+import { RevisedStrategyComponent } from './components/revised-strategy/revised-strategy.component';
+import { OrderComponent } from './components/order/order.component';
+import { InfectionComponent } from './components/infection/infection.component';
+import { DefeatComponent } from './components/defeat/defeat.component';
 
 const routes: Routes = [
   { path: 'awareness',  component: AwarenessComponent },
   { path: 'contact-information',  component: ContactInformationComponent },
   { path: 'testing-center',  component: TestingCenterComponent },
-  { path: 'advisor',  component: AdvisorComponent },
-  { path: 'guidelines',  component: GuidelinesComponent },
-  { path: 'additional-advisory',  component: AdditionalAdvisoryComponent },
-  { path: 'notifying-persons',  component: NotifyingPersonsComponent },
-  { path: 'preventive-measures',  component: PreventiveMeasuresComponent },
-  { path: 'procedure-for-passenger',  component: ProcedureForPassengerComponent },
-  { path: 'strategy-covid19',  component: StrategyCovid19Component },
-  { path: 'emergency',  component: EmergencyComponent }
+  { path: 'awareness/advisor',  component: AdvisorComponent },
+  { path: 'awareness/guidelines',  component: GuidelinesComponent },
+  { path: 'awareness/additional-advisory',  component: AdditionalAdvisoryComponent },
+  { path: 'awareness/notifying-persons',  component: NotifyingPersonsComponent },
+  { path: 'awareness/preventive-measures',  component: PreventiveMeasuresComponent },
+  { path: 'awareness/procedure-for-passenger',  component: ProcedureForPassengerComponent },
+  { path: 'awareness/strategy-covid19',  component: StrategyCovid19Component },
+  { path: 'awareness/emergency',  component: EmergencyComponent },
+  { path: 'awareness/revised-strategy',  component: RevisedStrategyComponent },
+  { path: 'awareness/order',  component: OrderComponent },
+  { path: 'awareness/infection',  component: InfectionComponent },
+  { path: 'awareness/defeat',  component: DefeatComponent }
 ];
 
 @NgModule({
