@@ -8,8 +8,8 @@ import { PatientsDataService } from './services/patients-data.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'INDIA COVID-19 - Corona Virus Updates';
-  isCollapsed:boolean = true;
+  //title = 'INDIA COVID-19 - Corona Virus Updates';
+  
   constructor(private PatientsDataService:PatientsDataService,private router: Router){
     this.PatientsDataService.loadPatientsData();
   }
@@ -22,8 +22,4 @@ export class AppComponent {
         }
       });
     }
-
-  hideDropdown(){
-    this.isCollapsed = true;
-  }
 }
