@@ -3,8 +3,8 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 //import { SelectivePreloadingStrategyService } from './selective-preloading.service';
 
 const routes: Routes = [
-  { path: '', redirectTo:'dashboard', pathMatch:'full' },
   //{ path: '', redirectTo:'', pathMatch:'full' },
+  { path: '', loadChildren: './home/home.module#HomeModule'},
   { path: 'dashboard', loadChildren: './home/home.module#HomeModule'},
   { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsModule'},
   { path: 'cases', loadChildren: './cases/cases.module#CasesModule'},
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
   { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'},
   { path: 'about', loadChildren: './about/about.module#AboutModule'},
-  { path: 'statewisecases', loadChildren: './goverment-data/goverment-data.module#GovermentDataModule'},
+  { path: 'MOHFWIndia', loadChildren: './goverment-data/goverment-data.module#GovermentDataModule'},
 ];
 
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/core';
-
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
@@ -25,6 +24,14 @@ export class HomeComponent implements OnInit {
   public totalLocalTransmission = 0;
   public totalFemaleCases = 0;
   public totalMaleCases = 0;
+  public chartColors = [
+    {
+      backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
+        "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
+        "#C39797", "#A3C7C5", "#E8DAD0", "#E0B9BB", "#CCD89D", "#AF9AAF", "#9E9ED6", "#AC72E2", "#A7A2A2",
+        "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF"]
+    }
+  ];
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -59,11 +66,11 @@ export class HomeComponent implements OnInit {
   public stateBarChartLabels: Label[] = [];
   public stateBarChartLegend = true;
   public stateBarChartPlugins = [];
-  public stateBarChartColor = [
-    {
-      backgroundColor: []
-    }
-  ];
+  // public stateBarChartColor = [
+  //   {
+  //     backgroundColor: []
+  //   }
+  // ];
   public stateBarChartData: ChartDataSets[] = [
     { data: [], label: 'State', stack: 'a' }
   ];
@@ -478,6 +485,10 @@ export class HomeComponent implements OnInit {
     this.doughnutNationalityChartData = [NationalityChartData];
   }
 
+  getNationalityChartLabelColor(i){
+    return this.chartColors[0].backgroundColor[i];
+  }
+
   assigndoughnutSourceChartData(dateWiseData: any[]) {
     var self = this;
     this.doughnutSourceChartLabels = [];
@@ -487,6 +498,10 @@ export class HomeComponent implements OnInit {
       this.doughnutSourceChartLabels.push(source);
       this.doughnutSourceChartData[0].push(self.getDataCount(groupBySource[source]));
     }
+  }
+
+  getSourceChartLabelColor(i){
+    return this.doughnutSourceChartColors[0].backgroundColor[i];
   }
 
   assignDatatoBarChart(dateWiseData) {
@@ -637,9 +652,7 @@ export class HomeComponent implements OnInit {
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
         this.stateBarChartData[0].data.push(sortedStates[state].length);
-        this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
-
-
+       // this.stateBarChartColor[0].backgroundColor.push(`rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.50)`);
       };
 
     }

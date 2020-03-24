@@ -3,7 +3,9 @@
         <br/>
         <!-- Temporary append data to div for reading as DOM-->
         <div [innerHTML]="htmlString" style="display:none"></div>
-
+        
+        <div><h6>Live Data from MOHFW India Website as on: {{dataDate}}</h6></div>
+        
         <div class="row row-xs quick-link">
             <div class="col-md-4 col-sm-6 margin-top-10" *ngFor="let state of stateWiseData">
 
