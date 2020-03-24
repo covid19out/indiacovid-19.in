@@ -9,6 +9,7 @@ export interface StateData {
   totalForeignConfirmCases: number;
   totalDischargedCases: number;
   totalDeathCases: number;
+  totalCount: number;
   backgroundColor:string;
 }
 
@@ -57,6 +58,8 @@ export class StateCardsComponent implements OnInit {
           totalForeignConfirmCases: $tds.eq(3).text(),
           totalDischargedCases: $tds.eq(4).text(),
           totalDeathCases: $tds.eq(5).text(),
+          totalCount : parseInt($tds.eq(2).text()) + parseInt($tds.eq(3).text()) + 
+                       parseInt($tds.eq(4).text()) + parseInt($tds.eq(5).text()),
           backgroundColor: self.getRandomColor()
         };
         stateWiseCases.push(stateData);
@@ -73,6 +76,8 @@ export class StateCardsComponent implements OnInit {
         totalForeignConfirmCases: parseInt($statColumns.eq(2).text()),
         totalDischargedCases: parseInt($statColumns.eq(3).text()),
         totalDeathCases: parseInt($statColumns.eq(4).text()),
+        totalCount: parseInt($statColumns.eq(1).text()) + parseInt($statColumns.eq(2).text()) + 
+                    parseInt($statColumns.eq(3).text()) + parseInt($statColumns.eq(4).text()),
         backgroundColor: self.getRandomColor()
       }
       self.stateWiseData.unshift(totalStat);
