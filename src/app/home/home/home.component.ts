@@ -88,6 +88,25 @@ export class HomeComponent implements OnInit {
     responsive: true,
     legend: {
       position: 'bottom',
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          let tooltipLabel = data.datasets[tooltipItem.datasetIndex].label || ''
+          let tooltipValue = parseInt(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toString());
+          let total = 0;
+          tooltipLabel = data.labels[tooltipItem.index].toString();
+          data.datasets[tooltipItem.datasetIndex].data.forEach(function (dataValue) {
+            total += dataValue;
+          });
+          tooltipValue = tooltipValue >= 0 ? tooltipValue : 0;
+          let percentageValue = ((tooltipValue * 100) / total).toFixed(0);
+          if (tooltipLabel) {
+            tooltipLabel += ': ' + percentageValue;
+          }
+          return tooltipLabel + "%";
+        }
+      }
     }
   };
   public pieChartGenderColors = [
