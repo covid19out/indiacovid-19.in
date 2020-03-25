@@ -18,10 +18,13 @@ import { RevisedStrategyComponent } from './components/revised-strategy/revised-
 import { OrderComponent } from './components/order/order.component';
 import { InfectionComponent } from './components/infection/infection.component';
 import { DefeatComponent } from './components/defeat/defeat.component';
+import { SecretaryComponent } from './components/secretary/secretary.component';
+import { OfficeOrderComponent } from './components/office-order/office-order.component';
+import { OfficeMemorandumComponent } from './components/office-memorandum/office-memorandum.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule
