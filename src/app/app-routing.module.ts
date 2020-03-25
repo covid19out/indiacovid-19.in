@@ -4,8 +4,8 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   //{ path: '', redirectTo:'', pathMatch:'full' },
-  { path: '', loadChildren: './home/home.module#HomeModule',data : { title: 'dashboard'}},
-  { path: 'dashboard', loadChildren: './home/home.module#HomeModule',data : { title: 'dashboard'}},
+  { path: '', loadChildren: './home/home.module#HomeModule'},
+  { path: 'dashboard', loadChildren: './home/home.module#HomeModule'},
   { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsModule'},
   { path: 'cases', loadChildren: './cases/cases.module#CasesModule'},
   { path: 'insight', loadChildren: './insights/insights.module#InsightsModule'},
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
   { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'},
   { path: 'about', loadChildren: './about/about.module#AboutModule'},
-  { path: 'MOHFWIndia', loadChildren: './goverment-data/goverment-data.module#GovermentDataModule',data : { title: 'MOHFW India - Covid-19 Data Live'}},
+  { path: 'MOHFWIndia', loadChildren: './goverment-data/goverment-data.module#GovermentDataModule'},
 ];
 
 
