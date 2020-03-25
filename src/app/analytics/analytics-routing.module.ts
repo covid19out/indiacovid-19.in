@@ -10,13 +10,13 @@ import { StateWiseCardsComponent } from './components/state-wise-cards/state-wis
 //import { AnalyticsComponent } from './components/analytics/analytics.component';
 
 const routes: Routes = [
-  { path: '',  component: StateWiseCardsComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
-  { path: 'confirmed',  component: ConfirmedComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
-  { path: 'recovered',  component: RecoveredComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
-  { path: 'symptomatic',  component: SymptomaticComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
-  { path: 'intensive_care_cases',  component: IntensiveCareCasesComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
-  { path: 'city_wise_cases',  component: CityWiseCardsComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
-  { path: 'state_wise_cases',  component: StateWiseCardsComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} }
+  { path: '',  component: StateWiseCardsComponent },
+  { path: 'confirmed',  component: ConfirmedComponent },
+  { path: 'recovered',  component: RecoveredComponent },
+  //{ path: 'symptomatic',  component: SymptomaticComponent },
+  //{ path: 'intensive_care_cases',  component: IntensiveCareCasesComponent },
+  { path: 'city_wise_cases',  component: CityWiseCardsComponent },
+  { path: 'state_wise_cases',  component: StateWiseCardsComponent}
 ];
 
 @NgModule({

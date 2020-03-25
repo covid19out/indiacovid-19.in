@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router,NavigationStart,NavigationEnd, ActivatedRoute} from '@angular/router';
 import { PatientsDataService } from './services/patients-data.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { PatientsDataService } from './services/patients-data.service';
 export class AppComponent {
   //title = 'INDIA COVID-19 - Corona Virus Updates';
   
-  constructor(private PatientsDataService:PatientsDataService,private router: Router,private activatedRoute:ActivatedRoute){
+  constructor(private PatientsDataService:PatientsDataService,private router: Router,private activatedRoute:ActivatedRoute,private metaTag:Meta){
     this.PatientsDataService.loadPatientsData();
   }
   ngOnInit() {
@@ -20,7 +21,13 @@ export class AppComponent {
         var title=document.getElementsByTagName("title")[0];
         title.innerText=data;
       }
-    })
+    });
+
+    this.PatientsDataService.metaData.subscribe((data:any)=>{
+      if(data){
+      this.metaTag.updateTag(data);
+      }
+    });
 
       this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
