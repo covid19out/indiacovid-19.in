@@ -1,0 +1,50 @@
+<div class="content content-fixed">
+    <div class="container">
+        <!-- <div>
+            <h6>Live Data from MOHFW India Website as on: {{dataDate}}</h6>
+        </div> -->
+
+        <div class="row row-xs quick-link">
+            <div class="col-md-4 col-sm-6 margin-top-10" *ngFor="let city of cityWiseData">
+
+                <div class="card" [ngStyle]="{'border-color': city.backgroundColor}">
+                    <div class="card-text-stats">
+                        <div class="card-text-stat">
+                            <h5>
+                                <app-counter [maxValue]="city.totalIndianConfirmCases"></app-counter>
+                            </h5>
+                            <p>Confirmed</p>
+                        </div>
+                        <div class="card-text-stat">
+                            <h5>
+                                <app-counter [maxValue]="city.totalForeignConfirmCases"></app-counter>
+                            </h5>
+                            <p>Foreign</p>
+                        </div>
+                        <div class="card-text-stat">
+                            <h5>
+                                <app-counter [maxValue]="city.totalDischargedCases"></app-counter>
+                            </h5>
+                            <p>Recovered</p>
+                        </div>
+                        <div class="card-text-stat">
+                            <h5>
+                                <app-counter [maxValue]="city.totalDeathCases"></app-counter>
+                            </h5>
+                            <p>Deaths</p>
+                        </div>
+
+                    </div>
+                    <div class="card-stats" [ngStyle]="{'background-color': city.backgroundColor}">
+                        <div class="stat">
+                            <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{city.cityName}} :
+                                <app-counter [maxValue]="city.totalCount"></app-counter>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
