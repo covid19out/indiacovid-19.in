@@ -37,7 +37,8 @@ export class StateCardsComponent implements OnInit {
   ngDoCheck() {
     this.patientsDataService.titleSubject.next("India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak");
     this.patientsDataService.metaData.next({name:"twitter:card" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
-    this.patientsDataService.metaData.next({name:"og:title" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
+    this.patientsDataService.metaData.next({name:"twitter:title" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
+    this.patientsDataService.metaData.next({property:"og:title" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
     this.patientsDataService.metaData.next({name:"og:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
     this.patientsDataService.metaData.next({name:"twitter:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
     this.patientsDataService.metaData.next({name:"og:site_name" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
