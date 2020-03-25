@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/cor
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
         "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF"]
     }
   ];
+  public dateWisePateintData:any;
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -699,6 +701,8 @@ export class HomeComponent implements OnInit {
         return patient;
       }
     });
+    this.dateWisePateintData = filteredData;
+
     this.setCasesAnalytics(filteredData);
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
