@@ -28,7 +28,8 @@
               "src/assets",
               "src/Robots.txt",
               "src/sitemap.xml",
-              "src/theme/main.css"
+              "src/theme/main.css",
+              "src/theme/maincovid-19.js"
             ],
             "styles": [
               "src/styles.scss"
@@ -98,7 +99,9 @@
               "src/assets",
               "src/Robots.txt",
               "src/sitemap.xml",
-              "src/theme/main.css"
+              "src/theme/main.css",
+              "src/theme/maincovid-19.js"
+              
             ],
             "styles": [
               "src/styles.scss"
