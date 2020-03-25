@@ -66,7 +66,7 @@ export class StateCardsComponent implements OnInit {
       }
 
       self.stateWiseData = stateWiseCases.sort((a, b) => {
-        return b.totalIndianConfirmCases - a.totalIndianConfirmCases;
+        return b.totalCount - a.totalCount;
       });
 
       let $statColumns = myJQuery(rows[rows.length - 1]).find('td');
