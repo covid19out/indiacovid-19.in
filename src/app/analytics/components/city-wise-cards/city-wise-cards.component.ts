@@ -74,7 +74,7 @@ export class CityWiseCardsComponent implements OnInit {
 
   getSortedData(cityWiseStat) {
     return cityWiseStat.sort((a, b) => {
-      return b.totalIndianConfirmCases - a.totalIndianConfirmCases;
+      return b.totalCount - a.totalCount;
     });
   }
 

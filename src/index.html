@@ -2,342 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <link href="https://indiacovid-19.in/" rel="canonical" />
-    <meta name="description"
-        content="A collection of useful data visualisation and aggregation regarding the COVID-19 aka Corona virus outbreak in INDIA.">
-    <title>INDIA COVID-19 - Corona Virus Updates by Aptlogica</title>
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
-    <meta name="keywords"
-        content="COVID-19, Corona Virus,Outbreak in India, India COVID-19, India, India Corona Virus, Dashboard, Aggregator">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta property="og:title" content="COVID-19 aka Corona Virus India Dashboard">
-    <meta property="og:url" content="https://indiacovid-19.in/">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="/assets/images/in-dashboard.png">
-    <meta property="og:description"
-        content="A collection of useful data visualisation regarding the COVID-19 aka Corona virus outbreak in India.">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@indiacovid-19.in">
-    <meta name="twitter:creator" content="@aptlogica">
-    <meta name="twitter:title" content="COVID-19 aka Corona Virus Indian Dashboard | Visual Data Reports.">
-    <meta name="twitter:description"
-        content="A collection of useful data visualisation regarding the COVID-19 aka Corona virus outbreak in India.">
-    <meta name="twitter:image" content="/assets/images/in-dashboard.png">
-    <meta name="author" content="aptlogica">
-    <meta name="author" content="Aptlogica Technologies">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script" />
-    <meta name="shareaholic:site_id" content="737e7e4f89dab6621aa96a0fc02df8f9" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-performance.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="MobileOptimized" content="width">
+  <link href="https://indiacovid-19.in/" rel="canonical" />
+  <meta name="description" content="Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates">
+  <title>India Covid-19 - Corona Virus Dashboard India (Live) - confirmed cases and deaths in India from Covid-19 Virus Outbreak</title>
+  <base href="/">
+  <meta name="keywords" content="MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Corona Virus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <script type="text/javascript" src="https://www.amcharts.com/lib/3/ammap.js"></script>
-    <script type="text/javascript" src="https://www.amcharts.com/lib/3/maps/js/indiaLow.js"></script>
-        
-    <script type="text/javascript">
-        AmCharts.makeChart("map",{
-            "type": "map",
-            "pathToImages": "http://www.amcharts.com/lib/3/images/",
-            "addClassNames": true,
-            "fontSize": 15,
-            "color": "#FFFFFF",
-            "projection": "mercator",
-            "backgroundAlpha": 1,
-            "backgroundColor": "rgba(255,255,255,1)",
-            "dataProvider": {
-              "map": "indiaLow",
-              "getAreasFromMap": true,
-              "images": [
-                {
-                  "top": 40,
-                  "left": 60,
-                  "width": 0,
-                  "height": 0,
-                  "pixelMapperLogo": false
-                  // "imageURL": "http://pixelmap.amcharts.com/static/img/logo.svg",
-                  // "url": "http://www.amcharts.com"
-                }
-              ],
-              "areas": [
-                {
-                  "id": "IN-AP",
-                  "title": "Andhra Pradesh - Confirmed 7",
-                  "color": "rgba(210,226,226,1)"
-                },
-                {
-                  "id": "IN-BR",
-                  "title": "Bihar -  Confirmed 3",
-                  "color": "rgba(232,218,208,1)"
-                },
-                {
-                  "id": "IN-CH",
-                  "title": "Chandigarh - Confirmed 6",
-                  "color": "rgba(168,255,168,1)"
-                },
-                {
-                  "id": "IN-CT",
-                  "title": "Chhattisgarh - Confirmed 1",
-                  "color": "rgba(175,154,175,1)"
-                },
-                {
-                  "id": "IN-DL",
-                  "title": "Delhi - Confirmed 38",
-                  "color": "rgba(228,255,144,1)"
-                },
-                {
-                  "id": "IN-GJ",
-                  "title": "Gujarat - Confirmed 30",
-                  "color": "rgba(184,253,225,1)"
-                },
-                {
-                  "id": "IN-HP",
-                  "title": "Himachal Pradesh - Confirmed 3",
-                  "color": "rgba(163,199,197,1)"
-                },
-                {
-                  "id": "IN-HR",
-                  "title": "Haryana - Confirmed 26",
-                  "color": "rgba(220,237,193,1)"
-                },
-                {
-                  "id": "IN-JH",
-                  "title": "Jharkhand - Confirmed 0",
-                  "color": "rgba(172,114,226,1)"
-                },
-                {
-                  "id": "IN-JK",
-                  "title": "Jammu and Kashmir - Confirmed 5",
-                  "color": "rgba(255,195,160,1)"
-                },
-                {
-                  "id": "IN-KA",
-                  "title": "Karnataka - Confirmed 40",
-                  "color": "rgba(255,199,247,1)"
-                },
-                {
-                  "id": "IN-KL",
-                  "title": "Kerala - Confirmed 99",
-                  "color": "rgba(255,161,181,1)"
-                },
-                {
-                  "id": "IN-MH",
-                  "title": "Maharashtra- Confirmed 100",
-                  "color": "rgba(134,199,243,1)"
-                },
-                {
-                  "id": "IN-MN",
-                  "title": "Manipur - Confirmed 1",
-                  "color": "rgba(158,158,214,1)"
-                },
-                {
-                  "id": "IN-MP",
-                  "title": "Madhya Pradesh - Confirmed  6",
-                  "color": "rgba(255,255,137,1)"
-                },
-                {
-                  "id": "IN-OR",
-                  "title": "Odisha - Confirmed 2",
-                  "color": "rgba(224,185,187,1)"
-                },
-                {
-                  "id": "IN-PB",
-                  "title": "Punjab - Confirmed 24",
-                  "color": "rgba(226,207,216,1)"
-                },
-                {
-                  "id": "IN-PY",
-                  "title": "Puducherry - Confirmed 1",
-                  "color": "rgba(204,216,157,1)"
-                },
-                {
-                  "id": "IN-RJ",
-                  "title": "Rajasthan - Confirmed 36",
-                  "color": "rgba(255,178,178,1)"
-                },
-                {
-                  "id": "IN-TG",
-                  "title": "Telangana - Confirmed 33",
-                  "color": "rgba(197,208,210,1)"
-                },
-                {
-                  "id": "IN-TN",
-                  "title": "Tamil Nadu - Confirmed 9",
-                  "color": "rgba(230,230,250,1)"
-                },
-                {
-                  "id": "IN-UP",
-                  "title": "Uttar Pradesh - Confirmed 42",
-                  "color": "rgba(255,226,154,1)"
-                },
-                {
-                  "id": "IN-UT",
-                  "title": "Uttarakhand - Confirmed 4",
-                  "color": "rgba(195,151,151,1)"
-                },
-                {
-                  "id": "IN-WB",
-                  "title": "West Bengal - Confirmed 8",
-                  "color": "rgba(239,224,198,1)"
-                }
-              ]
-            },
-            "balloon": {
-              "horizontalPadding": 15,
-              "borderAlpha": 0,
-              "borderThickness": 1,
-              "verticalPadding": 15
-            },
-            "areasSettings": {
-              "color": "rgba(129,129,129,1)",
-              "outlineColor": "rgba(80,80,80,1)",
-              "rollOverOutlineColor": "rgba(80,80,80,1)",
-              "rollOverBrightness": 20,
-              "selectedBrightness": 20,
-              "selectable": true,
-              "unlistedAreasAlpha": 0,
-              "unlistedAreasOutlineAlpha": 0
-            },
-            "imagesSettings": {
-              "alpha": 1,
-              "color": "rgba(129,129,129,1)",
-              "outlineAlpha": 0,
-              "rollOverOutlineAlpha": 0,
-              "outlineColor": "rgba(80,80,80,1)",
-              "rollOverBrightness": 20,
-              "selectedBrightness": 20,
-              "selectable": true
-            },
-            "linesSettings": {
-              "color": "rgba(129,129,129,1)",
-              "selectable": true,
-              "rollOverBrightness": 20,
-              "selectedBrightness": 20
-            },
-            "zoomControl": {
-              "zoomControlEnabled": false,
-              "homeButtonEnabled": false,
-              "panControlEnabled": false,
-              "right": 38,
-              "bottom": 30,
-              "minZoomLevel": 0.1,
-              "gridHeight": 100,
-              "gridAlpha": 1,
-              "gridBackgroundAlpha": 0,
-              "gridColor": "#f8f9fa",
-              "draggerAlpha": 1,
-              "buttonCornerRadius": 2
-            }
-          });
-      </script>
-
-
-    <style>
-        .navbar .covid-19-logo {
-            height: 60px;
-        }
-        .navbar {
-            height: 70px;
-            background-color: #fff;
-            border-bottom: 1px solid rgba(72, 94, 144, 0.16);
-            padding: 0rem 1rem;
-        }
-        .navbar .nav-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-nav{
-            font-size: 0.9rem;
-        }
-
-        .navbar-nav .nav-item{
-            margin-right: 10px;
-        }
-
-        .navbar-nav .nav-item .btn-link{
-            text-decoration: none;
-            font-size: 0.9rem;
-            color: rgba(0,0,0,.5);
-        }
-
-        .navbar-nav .nav-item .btn-link:hover{
-            color: rgba(0,0,0,.7);
-        }
-
-        .navbar .nav-item .dropdown-toggle {
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-
-        .navbar .gov-data-link {
-            font-size: 0.8rem;
-        }
-        @media (max-width: 992px) {
-        .navbar .gov-data-link {
-            position: absolute;
-            right: 70px;
-        }
-
-        .navbar .mobile-navbar {
-            margin: 0px -1rem;
-            background-color: #f8f9fa;
-            padding: 0px 1rem;
-        }
-
-        .navbar .mobile-navbar.collapse.show {
-            border-bottom: 1px solid rgba(72, 94, 144, 0.16);
-        }
-
-        .navbar .mobile-navbar .nav-item.dropdown .btn-group {
-            width: 100%;
-            display: inline-block;
-        }
-
-        .navbar .mobile-navbar .nav-item.dropdown .btn-group .btn {
-            width: 100%;
-            text-align: left;
-            padding: 0.375rem 0rem;
-        }
-
-        .navbar-nav .dropdown-menu {
-            position: relative;
-            flex-basis: 100%;
-            flex-grow: 1;
-        }
-        .dropdown.show{
-            width: 100%;
-        }
-    }
-    </style>
+  <meta property="og:site_name" content="India Covid-19 - Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates">
+  <meta property="og:title" content="India Covid-19 - Corona Virus Dashboard India (Live) - confirmed cases and deaths in India from Covid-19 Virus Outbreak">
+  <meta property="og:url" content="https://indiacovid-19.in/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/in-dashboard.png">
+  <meta property="og:description" content="India Covid-19 - Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@indiacovid-19.in">
+  <meta name="twitter:creator" content="@aptlogica">
+  <meta name="twitter:title" content="India Covid-19 - Corona Virus Dashboard India (Live) - confirmed cases and deaths in India from Covid-19 Virus Outbreak">
+  <meta name="twitter:description" content="India Covid-19 - Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates">
+  <meta name="twitter:image" content="/assets/images/in-dashboard.png">
+  <meta name="author" content="aptlogica">
+  <meta name="author" content="Aptlogica Technologies">
+  <link rel="stylesheet" href="theme/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script async src="theme/maincovid-19.js"></script>
+  <link rel="stylesheet" href="styles.86c1a61ce13b97d75eba.css"></head>
+  <meta name="revisit-after" content="1 days">
+  <meta name="distribution" content="web">
+  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 </head>
 
 <body>
-    <script>
-        var isCollapsed = true;
-    </script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
         <a class="navbar-brand" href="/">
             <img src="/assets/images/covid-19-logo.png" class="covid-19-logo d-inline-block align-top" alt="">
-            <!-- India Fights COVID-19 -->
         </a>
-        <button class="navbar-toggler btn" type="button" onclick="toggleNavbarMobile()" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
+        <button class="navbar-toggler btn" type="button" onclick="toggleNavbarMobile()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -349,8 +59,7 @@
 
                 <li class="nav-item dropdown">
                     <div class="dropdown btn-group">
-                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Analytics <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -360,40 +69,97 @@
                             <a class="dropdown-item" href="/analytics/recovered" onclick="hideDropdown()">
                               Recovered Cases
                             </a>
-                            <a class="dropdown-item" href="/analytics/intensive_care_cases" onclick="hideDropdown()">
+                            <!-- <a class="dropdown-item" href="/analytics/intensive_care_cases" onclick="hideDropdown()">
                               Intensive Care Cases
+                            </a> -->
+                            <a class="dropdown-item" href="/analytics/state_wise_cases" onclick="hideDropdown()">
+                              State-wise Cases
                             </a>
                             <a class="dropdown-item" href="/analytics/city_wise_cases" onclick="hideDropdown()">
-                              City Wise Cases
+                              City-wise Cases
                             </a>
-                            <a class="dropdown-item" href="/analytics/state_wise_cases" onclick="hideDropdown()">
-                              State Wise Cases
-                            </a>
+                           
                         </div>
                     </div>
-                    
+
                 </li>
 
-
-
-              
                 <li class="nav-item" onclick="hideDropdown()">
                     <a class="nav-link" href="/worldwide">Worldwide</a>
                 </li>
                 <li class="nav-item" onclick="hideDropdown()">
                     <a class="nav-link" href="/sources">Sources</a>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <div class="dropdown btn-group">
+
+                        <a href="/helpline/awareness" type="button" class="btn nav-link awareness-button" onclick="hideDropdown()">
+                      Awareness
+                    </a>
+                        <button type="button" class="btn dropdown-toggle awareness-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropright</span>
+                        </button>
+
+                        <div class="dropdown-menu awareness-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/helpline/awareness/office-memorandum" onclick="hideDropdown()">
+                            Closing of Immigration Check Posts (ICPs) for all incoming passenger traffic.
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/office-order" onclick="hideDropdown()">
+                            Government of India Ministry of Shipping (Ports Wing)
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/infection" onclick="hideDropdown()">
+                            Advisory on the use of hydroxy-chloroquine as prophylaxis for SARS-CoV-2 infection
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/defeat" onclick="hideDropdown()">
+                            Kids, Vaayu & Corona2: Pandemic Defeated (A comic series for COVID-19 Prevention)
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/secretary" onclick="hideDropdown()">
+                            Cabinet secretary government of india
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/order" onclick="hideDropdown()">
+                            The test to be conducted by a laboratory which has NABL accreditation for real-time PCR assay for RNA virus
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/revised-strategy" onclick="hideDropdown()">
+                            Revised Strategy of COVID19 testing in India (Version 3, dated 20/03/2020)
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/emergency" onclick="hideDropdown()">
+                            Mock Drill for Emergency Response for Handling COVID -19 cases in Govt Hospitals
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/advisor" onclick="hideDropdown()">
+                            Advisory on Social Distancing Measure in view of spread of COVID-19 disease
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/guidelines" onclick="hideDropdown()">
+                            Covid-19: guidelines on dead body management
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/additional-advisory" onclick="hideDropdown()">
+                            Additional Travel Advisory for Novel Coronavirus Disease (COVID-19)
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/notifying-persons" onclick="hideDropdown()">
+                            Guidelines for notifying COVID-19 affected persons by Private Institutions
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/procedure-for-passenger" onclick="hideDropdown()">
+                            Standard Operating Procedure for Passenger Movement post Disembarkation
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/preventive-measures" onclick="hideDropdown()">
+                            Preventive measures to be taken to contain the spread of Novel Coronavirus (COVID-19)
+                          </a>
+                            <a class="dropdown-item" href="/helpline/awareness/strategy-covid19" onclick="hideDropdown()">
+                            Indian council of medical research department of health research
+                          </a>
+                        </div>
+                    </div>
+                </li>
+
                 <li class="nav-item dropdown">
 
                     <div class="dropdown">
-                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Helpline <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/helpline/contact-information"
-                                onclick="hideDropdown()">Contact Information</a>
-                            <a class="dropdown-item" href="/helpline/awareness" onclick="hideDropdown()">Awareness</a>
+                            <a class="dropdown-item" href="/helpline/contact-information" onclick="hideDropdown()">Contact Information</a>
+
                             <a class="dropdown-item" href="/helpline/testing-center" onclick="hideDropdown()">Testing
                                 Centers</a>
                         </div>
@@ -414,12 +180,7 @@
 
     </nav>
 
-
-
-
-
     <app-root></app-root>
-
 
     <div class="shareaholic-canvas" data-app="share_buttons" data-app-id="28824921"></div>
     <footer class="footer" style="display:block; position: fixed; bottom: 0; width: 100%; height: 45px; z-index: 100">
@@ -429,50 +190,10 @@
             </div>
         </div>
     </footer>
-
-    <script type="text/javascript">
-
-        function toggleNavbarMobile() {
-            isCollapsed = !isCollapsed;
-            if (!isCollapsed) {
-                $(".navbar-collapse").addClass("mobile-navbar");
-            } else {
-                $(".navbar-collapse").removeClass("mobile-navbar");
-            }
-
-        }
-        function hideDropdown() {
-            isCollapsed = true;
-        }
-
-        var _paq = window._paq || [];
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function () {
-            var u = "//matomo.aptlogica.com/";
-            _paq.push(['setTrackerUrl', u + 'matomo.php']);
-            _paq.push(['setSiteId', '1']);
-            var d = document,
-                g = d.createElement('script'),
-                s = d.getElementsByTagName('script')[0];
-            g.type = 'text/javascript';
-            g.async = true;
-            g.defer = true;
-            g.src = u + 'matomo.js';
-            s.parentNode.insertBefore(g, s);
-        })();
-    </script>
+    <meta name="shareaholic:site_id" content="737e7e4f89dab6621aa96a0fc02df8f9" />
+    <script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131358040-4"></script>
-    <script>
-        // document.addEventListener('contextmenu', event => event.preventDefault());
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-131358040-4');
-    </script>
+   
 </body>
 
 </html>

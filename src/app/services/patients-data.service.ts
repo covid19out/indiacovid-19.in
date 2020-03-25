@@ -1,9 +1,11 @@
 import { Injectable  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
 import { map } from 'rxjs/operators';
+import { Meta } from '@angular/platform-browser';
+
 
 import { environment } from '../../environments/environment';
 
@@ -12,7 +14,13 @@ import { environment } from '../../environments/environment';
 })
 export class PatientsDataService {
   apiUrl: string;
-  constructor( private firestore: AngularFirestore,protected http: HttpClient ) { 
+  titleSubject = new Subject();
+  metaData=new Subject();
+  public covid19TotalConfirmedCases=new BehaviorSubject(null);
+  public covid19TotalDeaths=new BehaviorSubject(null);
+
+
+  constructor( private firestore: AngularFirestore,protected http: HttpClient, private metadata:Meta ) { 
   }
   public patientsData=new BehaviorSubject(null);
 
