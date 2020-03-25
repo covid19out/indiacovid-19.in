@@ -7,16 +7,16 @@ import { SymptomaticComponent } from './components/symptomatic/symptomatic.compo
 import { IntensiveCareCasesComponent } from './components/intensive-care-cases/intensive-care-cases.component';
 import { CityWiseCardsComponent } from './components/city-wise-cards/city-wise-cards.component';
 import { StateWiseCardsComponent } from './components/state-wise-cards/state-wise-cards.component';
-import { AnalyticsComponent } from './components/analytics/analytics.component';
+//import { AnalyticsComponent } from './components/analytics/analytics.component';
 
 const routes: Routes = [
-  { path: '',  component: AnalyticsComponent },
-  { path: 'confirmed',  component: ConfirmedComponent },
-  { path: 'recovered',  component: RecoveredComponent },
-  { path: 'symptomatic',  component: SymptomaticComponent },
-  { path: 'intensive_care_cases',  component: IntensiveCareCasesComponent },
-  { path: 'city_wise_cases',  component: CityWiseCardsComponent },
-  { path: 'state_wise_cases',  component: StateWiseCardsComponent }
+  { path: '',  component: StateWiseCardsComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'confirmed',  component: ConfirmedComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'recovered',  component: RecoveredComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'symptomatic',  component: SymptomaticComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'intensive_care_cases',  component: IntensiveCareCasesComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'city_wise_cases',  component: CityWiseCardsComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'state_wise_cases',  component: StateWiseCardsComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} }
 ];
 
 @NgModule({

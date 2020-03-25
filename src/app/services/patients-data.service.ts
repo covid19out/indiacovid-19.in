@@ -1,6 +1,6 @@
 import { Injectable  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
 import { map } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 })
 export class PatientsDataService {
   apiUrl: string;
+  titleSubject = new Subject();
   constructor( private firestore: AngularFirestore,protected http: HttpClient ) { 
   }
   public patientsData=new BehaviorSubject(null);

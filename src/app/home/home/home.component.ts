@@ -413,6 +413,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  ngDoCheck() {
+    this.patientsDataService.titleSubject.next("Covid-19 aka Corona Virus India Dashboard-confirmed cases:" + this.totalConfirmedCases + ", Death cases: " + this.totalDeathCases);
+  }
+
   prepareBarChartData(patientRecords: any) {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(patientRecords);
