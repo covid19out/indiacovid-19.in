@@ -31,7 +31,9 @@
                     </div>
                     <div class="card-stats" [ngStyle]="{'background-color': state.backgroundColor}">
                       <div class="stat">
-                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}}</h6>
+                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}} : 
+                            <app-counter [maxValue]="state.totalCount"></app-counter>
+                        </h6>
                       </div>
                     </div>
                   </div>
