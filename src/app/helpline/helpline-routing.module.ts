@@ -18,6 +18,9 @@ import { RevisedStrategyComponent } from './components/revised-strategy/revised-
 import { OrderComponent } from './components/order/order.component';
 import { InfectionComponent } from './components/infection/infection.component';
 import { DefeatComponent } from './components/defeat/defeat.component';
+import { SecretaryComponent } from './components/secretary/secretary.component';
+import { OfficeOrderComponent } from './components/office-order/office-order.component';
+import { OfficeMemorandumComponent } from './components/office-memorandum/office-memorandum.component';
 
 const routes: Routes = [
   { path: 'awareness',  component: AwarenessComponent },
@@ -34,7 +37,10 @@ const routes: Routes = [
   { path: 'awareness/revised-strategy',  component: RevisedStrategyComponent },
   { path: 'awareness/order',  component: OrderComponent },
   { path: 'awareness/infection',  component: InfectionComponent },
-  { path: 'awareness/defeat',  component: DefeatComponent }
+  { path: 'awareness/defeat',  component: DefeatComponent },
+  { path: 'awareness/secretary',  component: SecretaryComponent },
+  { path: 'awareness/office-order',  component: OfficeOrderComponent },
+  { path: 'awareness/office-memorandum',  component: OfficeMemorandumComponent }
 ];
 
 @NgModule({
