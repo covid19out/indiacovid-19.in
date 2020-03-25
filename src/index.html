@@ -286,6 +286,42 @@
         .navbar .gov-data-link {
             font-size: 0.8rem;
         }
+
+        .awareness-button{
+          padding-left: 0px !important;
+          padding-right: 4px !important;
+          font-size: 0.8rem;
+        }
+
+        .awareness-button:focus{
+            outline: 0px !important;
+            box-shadow: none !important;
+        }
+
+        .awareness-dropdown-toggle{
+          background-color: transparent !important;
+          font-size: 0.8rem;
+        }
+        
+        .awareness-dropdown-toggle:focus{
+            outline: 0px !important;
+            box-shadow: none !important;
+        }
+
+        .awareness-dropdown-toggle .dropdown-toggle::after{
+            margin-left: 0px !important;
+        }
+
+        .awareness-dropdown-menu{
+          width: 300px;
+        }
+      
+        .awareness-dropdown-menu .dropdown-item{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis; 
+        }
+
         @media (max-width: 992px) {
         .navbar .gov-data-link {
             position: absolute;
@@ -321,6 +357,28 @@
         .dropdown.show{
             width: 100%;
         }
+
+        /* .btn-group{
+          display: flex !important;
+        } */
+
+        .awareness-button{
+          width: 64px !important;
+          display: inline;
+        }
+        .awareness-dropdown-toggle{
+          width: auto !important;
+        }
+        .awareness-dropdown-menu{
+          width: 100%;
+          max-height: 200px;
+          overflow-y: auto;
+        }
+
+        .awareness-dropdown-menu .dropdown-item{
+          max-width: 90vw; 
+        }
+
     }
     </style>
 </head>
@@ -413,6 +471,68 @@
                 <li class="nav-item" onclick="hideDropdown()">
                     <a class="nav-link" href="/sources">Sources</a>
                 </li>
+
+                <li class="nav-item dropdown">
+                  <div class="dropdown btn-group">
+
+                    <a href="/helpline/awareness" type="button" class="btn nav-link awareness-button" onclick="hideDropdown()">
+                      Awareness
+                    </a>
+                    <button type="button" class="btn dropdown-toggle awareness-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropright</span>
+                    </button>
+
+                      <div class="dropdown-menu awareness-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="/helpline/awareness/office-memorandum" onclick="hideDropdown()">
+                            Closing of Immigration Check Posts (ICPs) for all incoming passenger traffic.
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/office-order" onclick="hideDropdown()">
+                            Government of India Ministry of Shipping (Ports Wing)
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/infection" onclick="hideDropdown()">
+                            Advisory on the use of hydroxy-chloroquine as prophylaxis for SARS-CoV-2 infection
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/defeat" onclick="hideDropdown()">
+                            Kids, Vaayu & Corona2: Pandemic Defeated (A comic series for COVID-19 Prevention)
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/secretary" onclick="hideDropdown()">
+                            Cabinet secretary government of india
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/order" onclick="hideDropdown()">
+                            The test to be conducted by a laboratory which has NABL accreditation for real-time PCR assay for RNA virus
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/revised-strategy" onclick="hideDropdown()">
+                            Revised Strategy of COVID19 testing in India (Version 3, dated 20/03/2020)
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/emergency" onclick="hideDropdown()">
+                            Mock Drill for Emergency Response for Handling COVID -19 cases in Govt Hospitals
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/advisor" onclick="hideDropdown()">
+                            Advisory on Social Distancing Measure in view of spread of COVID-19 disease
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/guidelines" onclick="hideDropdown()">
+                            Covid-19: guidelines on dead body management
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/additional-advisory" onclick="hideDropdown()">
+                            Additional Travel Advisory for Novel Coronavirus Disease (COVID-19)
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/notifying-persons" onclick="hideDropdown()">
+                            Guidelines for notifying COVID-19 affected persons by Private Institutions
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/procedure-for-passenger" onclick="hideDropdown()">
+                            Standard Operating Procedure for Passenger Movement post Disembarkation
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/preventive-measures" onclick="hideDropdown()">
+                            Preventive measures to be taken to contain the spread of Novel Coronavirus (COVID-19)
+                          </a>
+                          <a class="dropdown-item" href="/helpline/awareness/strategy-covid19" onclick="hideDropdown()">
+                            Indian council of medical research department of health research
+                          </a>
+                      </div>
+                  </div>
+                </li>
+
+
                 <li class="nav-item dropdown">
 
                     <div class="dropdown">
