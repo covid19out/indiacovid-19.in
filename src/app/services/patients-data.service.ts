@@ -4,6 +4,7 @@ import { BehaviorSubject,Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
 import { map } from 'rxjs/operators';
+import { Meta } from '@angular/platform-browser';
 
 import { environment } from '../../environments/environment';
 
@@ -13,7 +14,8 @@ import { environment } from '../../environments/environment';
 export class PatientsDataService {
   apiUrl: string;
   titleSubject = new Subject();
-  constructor( private firestore: AngularFirestore,protected http: HttpClient ) { 
+  metaData=new Subject();
+  constructor( private firestore: AngularFirestore,protected http: HttpClient, private metadata:Meta ) { 
   }
   public patientsData=new BehaviorSubject(null);
 

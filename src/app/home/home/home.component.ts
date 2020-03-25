@@ -4,6 +4,7 @@ import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -399,8 +400,7 @@ export class HomeComponent implements OnInit {
 
   public patientsData: any;
 
-  constructor(private patientsDataService: PatientsDataService,
-    ) { }
+  constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
     this.bsRangeValue = [this.startDate, this.endDate];
@@ -414,7 +414,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngDoCheck() {
-    this.patientsDataService.titleSubject.next("Covid-19 aka Corona Virus India Dashboard-confirmed cases:" + this.totalConfirmedCases + ", Death cases: " + this.totalDeathCases);
+    this.patientsDataService.titleSubject.next("Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak");
+    this.patientsDataService.metaData.next({name:"twitter:card" , content:"Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
+
+    //this.patientsDataService.metaData.updateTag({name:"twitter:card" , content:"Corona Virus India Dashboard (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
+    //this.meta.updateTag({property:"og:description" ,content:"new_description"});
   }
 
   prepareBarChartData(patientRecords: any) {
