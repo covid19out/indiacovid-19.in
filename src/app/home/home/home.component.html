@@ -35,7 +35,7 @@
     <div class="row row-xs quick-link">
       <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed Cases</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">{{totalConfirmedCases | number}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
@@ -58,7 +58,7 @@
       </div>
       <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8"> Cases Currently In Hospital</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalHospitalisedCases">{{totalHospitalisedCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
@@ -77,7 +77,7 @@
       
       <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalDischargedCases">{{totalDischargedCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
@@ -94,7 +94,7 @@
       </div>
       <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">DEATHS</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalDeathCases">{{totalDeathCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
