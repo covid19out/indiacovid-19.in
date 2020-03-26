@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/cor
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 
@@ -31,9 +32,10 @@ export class HomeComponent implements OnInit {
       backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
         "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
         "#C39797", "#A3C7C5", "#E8DAD0", "#E0B9BB", "#CCD89D", "#AF9AAF", "#9E9ED6", "#AC72E2", "#A7A2A2",
-        "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF"]
+        "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF","#F5FCC1","#84A9AC","#698474","#F8DC88","#CC0E74"]
     }
   ];
+  public dateWisePateintData:any;
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -416,14 +418,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngDoCheck() {
-    this.patientsDataService.titleSubject.next("India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak");
-    this.patientsDataService.metaData.next({name:"twitter:card" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    this.patientsDataService.metaData.next({name:"twitter:title" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    this.patientsDataService.metaData.next({property:"og:title" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    this.patientsDataService.metaData.next({name:"og:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
-    this.patientsDataService.metaData.next({name:"twitter:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
-    this.patientsDataService.metaData.next({name:"og:site_name" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    this.patientsDataService.metaData.next({name:"keywords" , content:"MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Corona Virus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates"});
+    // this.patientsDataService.titleSubject.next("India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak");
+    // this.patientsDataService.metaData.next({name:"twitter:card" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
+    // this.patientsDataService.metaData.next({name:"twitter:title" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
+    // this.patientsDataService.metaData.next({property:"og:title" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
+    // this.patientsDataService.metaData.next({name:"og:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
+    // this.patientsDataService.metaData.next({name:"twitter:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
+    // this.patientsDataService.metaData.next({name:"og:site_name" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
+    // this.patientsDataService.metaData.next({name:"keywords" , content:"MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Corona Virus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates"});
     // this.patientsDataService.covid19TotalConfirmedCases.next({'totalCases':this.totalConfirmedCases});
     // this.patientsDataService.covid19TotalDeaths.next({'totalDeaths':this.totalDeathCases});
     // console.log(this.patientsDataService.covid19TotalDeaths);
@@ -699,6 +701,8 @@ export class HomeComponent implements OnInit {
         return patient;
       }
     });
+    this.dateWisePateintData = filteredData;
+
     this.setCasesAnalytics(filteredData);
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
