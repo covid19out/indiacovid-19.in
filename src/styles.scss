@@ -8,7 +8,7 @@
 .footer {
     font-size: 10px;
     letter-spacing: 0.3px;
-    padding: 15px 25px;
+    padding: 10px 25px;
     color: #637388;
     border-top: 1px solid rgba(72, 94, 144, 0.16);
     text-transform: uppercase;
@@ -19,6 +19,15 @@
     //height: 45px; 
     z-index: 100;
     background-color: #f6f6f6;
+    //margin-bottom: 0px;
+}
+
+@media (max-width: 768px){
+    .footer {
+        .created-by-link{
+            margin-bottom: 6px;
+        }
+    }
 }
 
 
