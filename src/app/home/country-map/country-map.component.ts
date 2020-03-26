@@ -26,16 +26,16 @@ export class CountryMapComponent implements OnInit {
 
   assignMapData(dateWiseCases){
     //console.log('assign map data',dateWiseCases)
-    let states = this.countryMap.dataProvider.areas;    
+    let states = this.countryMap.dataProvider.areas;
     let stateWiseCases = _.groupBy(dateWiseCases,'state');
-    
+
     states.forEach((state,i) => {
       if(stateWiseCases[state.name]){
          state.title = `${state.name} <br/>
-          Confirm Cases : ${stateWiseCases[state.name].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
+          Confirmed Cases : ${stateWiseCases[state.name].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
           Foreign Cases : ${stateWiseCases[state.name].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length} <br/>
-          Discharged Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Recovered/Discharged").length} <br/> 
-          Death Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Deceased").length} <br/>
+          Recovered Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
+          Deceased Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Deceased").length} <br/>
           Total Cases : ${stateWiseCases[state.name].length}`;
       } else {
         state.title = `${state.name}  - Total Cases 0`;
@@ -48,7 +48,7 @@ export class CountryMapComponent implements OnInit {
     //     states[index].title = `${states[index].name} <br/>
     //     Confirm Cases : ${stateWiseCases[state].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
     //     Foreign Cases : ${stateWiseCases[state].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length} <br/>
-    //     Discharged Cases : ${stateWiseCases[state].filter(x => x.caseType == "Recovered/Discharged").length} <br/> 
+    //     Discharged Cases : ${stateWiseCases[state].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
     //     Death Cases : ${stateWiseCases[state].filter(x => x.caseType == "Deceased").length} <br/>
     //     Total Cases : ${stateWiseCases[state].length}`;
     //   }
