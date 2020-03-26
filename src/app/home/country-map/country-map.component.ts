@@ -142,8 +142,8 @@ export class CountryMapComponent implements OnInit {
       },
       {
         "id": "IN-TG",
-        "title": "Rajasthan - Total Cases 0",
-        "name": "Rajasthan",
+        "title": "Telangana - Total Cases 0",
+        "name": "Telangana",
         "color": "rgba(197,208,210,1)"
       },
       {
@@ -169,6 +169,60 @@ export class CountryMapComponent implements OnInit {
         "title": "West Bengal - Total Cases 0",
         "name": "West Bengal",
         "color": "rgba(239,224,198,1)"
+      },
+      {
+        "id": "IN-AN",
+        "title": "Andaman and Nicobar Islands - Total Cases 0",
+        "name": "Andaman and Nicobar Islands",
+        "color": "rgba(248,220,136,1)"
+      },
+      {
+        "id": "IN-AR",
+        "title": "Arunachal Pradesh - Total Cases 0",
+        "name": "Arunachal Pradesh",
+        "color": "rgba(208,168,146,1)"
+      },
+      {
+        "id": "IN-AS",
+        "title": "Assam - Total Cases 0",
+        "name": "Assam",
+        "color": "rgba(255,201,103,1)"
+      },
+      {
+        "id": "IN-GA",
+        "title": "Goa - Total Cases 0",
+        "name": "Goa",
+        "color": "rgba(204,14,116,1)"
+      },
+      {
+        "id": "IN-ML",
+        "title": "Meghalaya - Total Cases 0",
+        "name": "Meghalaya",
+        "color": "rgba(194,201,180,1)"
+      },
+      {
+        "id": "IN-MZ",
+        "title": "Mizoram - Total Cases 0",
+        "name": "Mizoram",
+        "color": "rgba(132,169,172,1)"
+      },
+      {
+        "id": "IN-NL",
+        "title": "Nagaland - Total Cases 0",
+        "name": "Nagaland",
+        "color": "rgba(216,244,175,1)"
+      },
+      {
+        "id": "IN-SK",
+        "title": "Sikkim - Total Cases 0",
+        "name": "Sikkim",
+        "color": "rgba(167,162,162,1)"
+      },
+      {
+        "id": "IN-TR",
+        "title": "Tripura - Total Cases 0",
+        "name": "Tripura",
+        "color": "rgba(245,252,193,1)"
       }
     ];
     
@@ -176,10 +230,15 @@ export class CountryMapComponent implements OnInit {
     for(let state in stateWiseCases){
       let index = states.findIndex(x => x.name == state);
       if(index !== -1){
-        states[index].title = `${states[index].name} - Total Cases ${stateWiseCases[state].length}`;
+        states[index].title = `${states[index].name} <br/>
+        Confirm Cases : ${stateWiseCases[state].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
+        Foreign Cases : ${stateWiseCases[state].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length} <br/>
+        Discharged Cases : ${stateWiseCases[state].filter(x => x.caseType == "Recovered/Discharged").length} <br/> 
+        Death Cases : ${stateWiseCases[state].filter(x => x.caseType == "Deceased").length} <br/>
+        Total Cases : ${stateWiseCases[state].length}`;
       }
     }
-
+    this.countryMap.dataProvider.areas = [];
     this.countryMap.dataProvider.areas = states;
   }
 

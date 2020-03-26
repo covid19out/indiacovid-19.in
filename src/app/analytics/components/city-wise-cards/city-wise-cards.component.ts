@@ -24,7 +24,7 @@ export class CityWiseCardsComponent implements OnInit {
   backgroundColor = ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
     "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
     "#C39797", "#A3C7C5", "#E8DAD0", "#E0B9BB", "#CCD89D", "#AF9AAF", "#9E9ED6", "#AC72E2", "#A7A2A2",
-    "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF"];
+    "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF","#F5FCC1","#84A9AC","#698474","#F8DC88","#CC0E74"];
 
   constructor(private patientsDataService: PatientsDataService) { }
 
@@ -80,7 +80,7 @@ export class CityWiseCardsComponent implements OnInit {
 
 
   getRandomColor() {
-    let number = Math.floor(Math.random() * 30);
+    let number = Math.floor(Math.random() * 35);
     return this.backgroundColor[number];
   }
 
