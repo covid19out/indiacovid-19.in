@@ -278,8 +278,8 @@ export class HomeComponent implements OnInit {
   };
   public lineChartConfirmedSourceColors: Color[] = [
     {
-      borderColor: '#6e7f90',
-      backgroundColor: 'rgba(110,127,144,0.2)',
+      borderColor: '#9399ff',
+      backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 
@@ -307,8 +307,8 @@ export class HomeComponent implements OnInit {
   };
   public lineChartSymptomaticSourceColors: Color[] = [
     {
-      borderColor: '#6e7f90',
-      backgroundColor: 'rgba(110,127,144,0.3)',
+      borderColor: '#fdd365',
+      backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 
@@ -365,8 +365,8 @@ export class HomeComponent implements OnInit {
   };
   public lineChartDeathColors: Color[] = [
     {
-      borderColor: '#6e7f90',
-      backgroundColor: 'rgba(110,127,144,0.3)',
+      borderColor: '#fd5e53',
+      backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 
@@ -394,8 +394,8 @@ export class HomeComponent implements OnInit {
   };
   public lineChartDischargeSourceColors: Color[] = [
     {
-      borderColor: '#6e7f90',
-      backgroundColor: 'rgba(110,127,144,0.3)',
+      borderColor: '#21bf73',
+      backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 

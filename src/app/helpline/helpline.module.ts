@@ -24,10 +24,13 @@ import { OfficeMemorandumComponent } from './components/office-memorandum/office
 import { OutbreakComponent } from './components/outbreak/outbreak.component';
 import { GuidelineMeasuresComponent } from './components/guideline-measures/guideline-measures.component';
 import { RoleComponent } from './components/role/role.component';
+import { TelemedicineComponent } from './components/telemedicine/telemedicine.component';
+import { GazetteComponent } from './components/gazette/gazette.component';
+import { PressInformationComponent } from './components/press-information/press-information.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent, TelemedicineComponent, GazetteComponent, PressInformationComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule
