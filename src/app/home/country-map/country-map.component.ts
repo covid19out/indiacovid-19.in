@@ -34,8 +34,8 @@ export class CountryMapComponent implements OnInit {
          state.title = `${state.name} <br/>
           Confirmed Cases : ${stateWiseCases[state.name].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
           Foreign Cases : ${stateWiseCases[state.name].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length} <br/>
-          Discharged Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
-          Death Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Deceased").length} <br/>
+          Recovered Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
+          Deceased Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Deceased").length} <br/>
           Total Cases : ${stateWiseCases[state.name].length}`;
       } else {
         state.title = `${state.name}  - Total Cases 0`;

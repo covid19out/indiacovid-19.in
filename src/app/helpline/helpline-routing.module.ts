@@ -26,9 +26,9 @@ import { GuidelineMeasuresComponent } from './components/guideline-measures/guid
 import { RoleComponent } from './components/role/role.component';
 
 const routes: Routes = [
-  { path: 'awareness',  component: AwarenessComponent,data : { title: 'Awareness'}},
-  { path: 'contact-information',  component: ContactInformationComponent,data : { title: 'Contact Information'} },
-  { path: 'testing-center',  component: TestingCenterComponent ,data : { title: 'Testing centers'}},
+  { path: 'awareness',  component: AwarenessComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
+  { path: 'contact-information',  component: ContactInformationComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'testing-center',  component: TestingCenterComponent ,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
   { path: 'awareness/advisor',  component: AdvisorComponent,data : { title: 'Advisory on Social Distancing Measure'} },
   { path: 'awareness/guidelines',  component: GuidelinesComponent,data : { title: 'Guidelines on dead body management'} },
   { path: 'awareness/additional-advisory',  component: AdditionalAdvisoryComponent,data : { title: 'Advisory on Social Distancing Measure'} },
