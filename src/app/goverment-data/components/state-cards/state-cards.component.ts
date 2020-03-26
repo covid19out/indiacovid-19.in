@@ -23,7 +23,10 @@ export class StateCardsComponent implements OnInit {
   stateWiseData: StateData[] = [];
   colorCounter: number = 0;
   dataDate: string;
- 
+  backgroundColors = ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
+  "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
+  "#C39797", "#A3C7C5", "#E8DAD0", "#E0B9BB", "#CCD89D", "#AF9AAF", "#9E9ED6", "#AC72E2", "#A7A2A2",
+  "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF","#F5FCC1","#84A9AC","#698474","#F8DC88","#CC0E74"];
   constructor(
     private patientsDataService: PatientsDataService
   ) { }
@@ -59,7 +62,7 @@ export class StateCardsComponent implements OnInit {
       
       var rows = myJQuery('table')[7].tBodies[0].rows;
       
-      for (let i = 0; i < rows.length - 1; i++) { //Don't  process last row of statistics
+      for (let i = 0; i < rows.length - 2; i++) { //Don't  process last two row of statistics and instruction
         let $tds = myJQuery(rows[i]).find('td');
         let stateData: StateData = {
           name: $tds.eq(1).text(),
@@ -82,7 +85,7 @@ export class StateCardsComponent implements OnInit {
 
       
 
-      let $statColumns = myJQuery(rows[rows.length - 1]).find('td');
+      let $statColumns = myJQuery(rows[rows.length - 2]).find('td'); //Second Last column of total counts
       let totalStat: StateData = {
         name: 'Total Cases',
         totalIndianConfirmCases: parseInt($statColumns.eq(1).text()),
@@ -106,14 +109,19 @@ export class StateCardsComponent implements OnInit {
     this.dataDate = headingText;//.substring(69,95);
   }
 
-  getRandomColor() {
-    return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.20)`;   
-    //let colors = ['Beige','CadetBlue','DarkCyan','DarkGrey', 'DarkSeaGreen' ]
-    // console.log(colors[Math.floor(Math.random()*4)]);
-    // return colors[Math.floor(Math.random()*4)];
+  // getRandomColor() {
+  //   return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.20)`;   
+  //   //let colors = ['Beige','CadetBlue','DarkCyan','DarkGrey', 'DarkSeaGreen' ]
+  //   // console.log(colors[Math.floor(Math.random()*4)]);
+  //   // return colors[Math.floor(Math.random()*4)];
     
-    // var color = Math.floor(0x1000000 * Math.random()).toString(16);
-    // return '#' + ('000000' + color).slice(-6);
+  //   // var color = Math.floor(0x1000000 * Math.random()).toString(16);
+  //   // return '#' + ('000000' + color).slice(-6);
 
+  // }
+
+  getRandomColor() {
+    let number = Math.floor(Math.random() * 35);
+    return this.backgroundColors[number];
   }
 }
