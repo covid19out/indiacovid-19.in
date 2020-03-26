@@ -6,9 +6,10 @@ import { ChartsModule } from 'ng2-charts';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { CountryMapComponent } from './country-map/country-map.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, CountryMapComponent],
   imports: [
     CommonModule,
     FormsModule,
