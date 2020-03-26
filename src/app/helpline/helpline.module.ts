@@ -21,10 +21,13 @@ import { DefeatComponent } from './components/defeat/defeat.component';
 import { SecretaryComponent } from './components/secretary/secretary.component';
 import { OfficeOrderComponent } from './components/office-order/office-order.component';
 import { OfficeMemorandumComponent } from './components/office-memorandum/office-memorandum.component';
+import { OutbreakComponent } from './components/outbreak/outbreak.component';
+import { GuidelineMeasuresComponent } from './components/guideline-measures/guideline-measures.component';
+import { RoleComponent } from './components/role/role.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule
