@@ -5,26 +5,20 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-title">
             <li class="breadcrumb-item"><a>Dashboard</a></li>
-            <!-- <li class="breadcrumb-item active" aria-current="page">Sales Monitoring</li> -->
+            
           </ol>
         </nav>
         <h1 class="mg-b-0 tx-spacing--1 text-font-size-h5">Dashboard of the COVID-19 Virus Outbreak in India</h1>
       </div>
       <div class="d-flex justify-content-end calendar-button">
-        <!-- <input type="text" style="width:0px; height:0px; border:0px; color: transparent; pointer-events: none;"
-          tabindex="-1" class="form-control" #daterangepicker="bsDaterangepicker" bsDaterangepicker
-          [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a', showWeekNumbers: false }"
-          (bsValueChange)="dateFilterChanged($event)" [minDate]="minDate" [maxDate]="maxDate">
-        <button class="btn btn-sm btn-outline-dark" style="text-transform: uppercase;"
-          (click)="daterangepicker.toggle()"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;
-          {{ startDate || "21 January 2020"}} to {{endDate || "15 March 2020"}}</button> -->
+        
 
         <input class="form-control date-range-select" #daterangepicker="bsDaterangepicker" bsDaterangepicker
           [(ngModel)]="bsRangeValue"
           [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY', dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false }"
           (bsValueChange)="dateFilterChanged($event)" [minDate]="minDate" readonly>
 
-        <!-- <button class="btn btn-success" (click)="daterangepicker.toggle()" [attr.aria-expanded]="daterangepicker.isOpen" type="button">Date Range Picker</button> -->
+       
 
 
       </div>
@@ -80,22 +74,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-sm-6 col-lg-3 margin-top-10">
-        <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cases in Intensive Care</h6>
-          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{totalIntesiveCases}}</h3>
-            <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">{{100*totalIntesiveCases/totalCases}} %<i
-                  class="icon ion-md-arrow-up"></i></span> of total cases</p>
-          </div>
-          <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartIntensiveData" [labels]="lineChartIntensiveSourceLabels"
-              [options]="lineChartIntensiveSourceOptions" [colors]="lineChartIntensiveSourceColors" [legend]="false"
-              [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
-          </div>
-        </div>
-      </div> -->
+      
       <div class="col-sm-6 col-lg-3 margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Discharged</h6>
@@ -131,6 +110,18 @@
         </div>
       </div>
     </div>
+    
+    <div class="col-lg-12 margin-top-10">
+      <div class="card">
+        <div class="card-header">
+          Map
+        </div>
+        <div class="card-body">
+          <app-country-map [cases]="dateWisePateintData"></app-country-map>
+        </div>
+      </div>
+    </div>
+    
     <div class="row row-xs">
       <div class="col-lg-8 col-xl-9 margin-top-10">
         <div class="card">
@@ -283,28 +274,7 @@
         </div>
       </div>
 
-      <!-- <div class="col-lg-6 margin-top-10">
-          <div class="card">
-            <div class="card-header">Age and Gender Distribution</div>
-            <div class="card-body">
-              <div id="chart">
-              <apx-chart
-                [series]="apexChartOptions.series"
-                [chart]="apexChartOptions.chart"
-                [dataLabels]="apexChartOptions.dataLabels"
-                [stroke]="apexChartOptions.stroke"
-                [colors]="apexChartOptions.colors"
-                [title]="apexChartOptions.title"
-                [grid]="apexChartOptions.grid"
-                [tooltip]="apexChartOptions.tooltip"
-                [plotOptions]="apexChartOptions.plotOptions"
-                [yaxis]="apexChartOptions.yaxis"
-                [xaxis]="apexChartOptions.xaxis"
-              ></apx-chart>
-              </div>
-            </div>
-          </div>
-        </div> -->
+    
 
       <div class="col-lg-4 margin-top-10">
         <div class="card">
@@ -327,19 +297,12 @@
                   </p>
                   <div class="d-flex align-items-center">
                     <h5 class="tx-normal tx-rubik mg-b-0">{{doughnutSourceChartData[0][i]}} </h5>
-                    <!-- <small class="tx-color-04"> {{doughnutSourceChartData[0][i] * 100 / totalCases}}%</small> -->
+                    
                   </div>
                 </div>
               </ng-container>
 
-              <!-- col -->
-              <!-- <div class="col-6">
-                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">Imported</p>
-                <div class="d-flex align-items-center">
-                  <h5 class="tx-normal tx-rubik mg-b-0">138 <small class="tx-color-04">40.0%</small></h5>
-                </div>
-              </div> -->
-              <!-- col -->
+  
             </div><!-- row -->
           </div>
         </div>
@@ -399,16 +362,7 @@
 
 
 
-      <div class="col-lg-12 margin-top-10">
-        <div class="card">
-          <div class="card-header">
-            Map
-          </div>
-          <div class="card-body">
-            <div id="map" style="width: 100%; height: 657px;"></div>
-          </div>
-        </div>
-      </div>
+
 
 
     </div>

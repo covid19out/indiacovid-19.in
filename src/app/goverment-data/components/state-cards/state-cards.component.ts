@@ -22,8 +22,8 @@ export class StateCardsComponent implements OnInit {
   htmlString: any;
   stateWiseData: StateData[] = [];
   colorCounter: number = 0;
-  dataDate: string; 
-  
+  dataDate: string;
+ 
   constructor(
     private patientsDataService: PatientsDataService
   ) { }
@@ -34,6 +34,17 @@ export class StateCardsComponent implements OnInit {
     });
   }
 
+  ngDoCheck() {
+    this.patientsDataService.titleSubject.next("India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak");
+    this.patientsDataService.metaData.next({name:"twitter:card" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
+    this.patientsDataService.metaData.next({name:"twitter:title" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
+    this.patientsDataService.metaData.next({property:"og:title" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
+    this.patientsDataService.metaData.next({name:"og:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
+    this.patientsDataService.metaData.next({name:"twitter:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
+    this.patientsDataService.metaData.next({name:"og:site_name" , content:"India Covid-19 - Corona Virus MOHFW India Data (Live) - with confirmed cases and deaths in India from Covid-19 Virus Outbreak"});
+    this.patientsDataService.metaData.next({name:"keywords" , content:"MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Corona Virus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates"});   
+  }
+
   prepareData(data) {
 
     let self = this;
@@ -41,13 +52,11 @@ export class StateCardsComponent implements OnInit {
     let parsedHtml = parser.parseFromString(data, 'text/html');
     let body = parsedHtml.getElementsByTagName("body")[0];
     this.htmlString = body.innerHTML;
-    // let body = parsedHtml.getElementsByTagName("strong")[15];
-    // this.htmlString = body;
-    
+  
     let stateWiseCases: StateData[] = [];
     setTimeout(function () {
       self.setDataDate();
-      //console.log(myJQuery('table'));
+      
       var rows = myJQuery('table')[7].tBodies[0].rows;
       
       for (let i = 0; i < rows.length - 1; i++) { //Don't  process last row of statistics
@@ -62,12 +71,16 @@ export class StateCardsComponent implements OnInit {
                        parseInt($tds.eq(4).text()) + parseInt($tds.eq(5).text()),
           backgroundColor: self.getRandomColor()
         };
+        
         stateWiseCases.push(stateData);
+        
       }
 
       self.stateWiseData = stateWiseCases.sort((a, b) => {
-        return b.totalIndianConfirmCases - a.totalIndianConfirmCases;
+        return b.totalCount - a.totalCount;
       });
+
+      
 
       let $statColumns = myJQuery(rows[rows.length - 1]).find('td');
       let totalStat: StateData = {
@@ -81,6 +94,7 @@ export class StateCardsComponent implements OnInit {
         backgroundColor: self.getRandomColor()
       }
       self.stateWiseData.unshift(totalStat);
+      
 
     }, 0);
 

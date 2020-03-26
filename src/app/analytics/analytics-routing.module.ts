@@ -7,16 +7,16 @@ import { SymptomaticComponent } from './components/symptomatic/symptomatic.compo
 import { IntensiveCareCasesComponent } from './components/intensive-care-cases/intensive-care-cases.component';
 import { CityWiseCardsComponent } from './components/city-wise-cards/city-wise-cards.component';
 import { StateWiseCardsComponent } from './components/state-wise-cards/state-wise-cards.component';
-import { AnalyticsComponent } from './components/analytics/analytics.component';
+//import { AnalyticsComponent } from './components/analytics/analytics.component';
 
 const routes: Routes = [
-  { path: '',  component: AnalyticsComponent },
+  { path: '',  component: StateWiseCardsComponent },
   { path: 'confirmed',  component: ConfirmedComponent },
   { path: 'recovered',  component: RecoveredComponent },
-  { path: 'symptomatic',  component: SymptomaticComponent },
-  { path: 'intensive_care_cases',  component: IntensiveCareCasesComponent },
+  //{ path: 'symptomatic',  component: SymptomaticComponent },
+  //{ path: 'intensive_care_cases',  component: IntensiveCareCasesComponent },
   { path: 'city_wise_cases',  component: CityWiseCardsComponent },
-  { path: 'state_wise_cases',  component: StateWiseCardsComponent }
+  { path: 'state_wise_cases',  component: StateWiseCardsComponent}
 ];
 
 @NgModule({
