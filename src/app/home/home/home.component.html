@@ -33,8 +33,9 @@
     </div>
 
     <div class="row row-xs quick-link">
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
+          
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">{{totalConfirmedCases | number}}</h3>
@@ -46,17 +47,31 @@
                 <i class="icon ion-md-arrow-up"></i>
               </span>  in ICU
             </p>
+            <div class="deltas-container">
+              <ng-container>
+                <span class="deltas deltas-up">
+                  <i class="fa fa-arrow-up" aria-hidden="true"></i>12
+                </span>
+                Up from yesterday
+              </ng-container>
+              <!-- <ng-container>
+                <span class="deltas deltas-down">
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>12
+                </span>
+                Down from yesterday
+              </ng-container> -->
+            </div>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
               [options]="lineChartConfirmedSourceOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false"
               [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
           </div>
         </div>
 
       </div>
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
@@ -66,16 +81,16 @@
                   class="icon ion-md-arrow-down"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
               [labels]="lineChartSymptomaticSourceLabels" [options]="lineChartSymptomaticSourceOptions"
               [colors]="lineChartSymptomaticSourceColors" [legend]="false" [chartType]="lineChartType"
               [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
           </div>
         </div>
       </div>
       
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
@@ -85,14 +100,14 @@
                   class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
               [options]="lineChartDischargeSourceOptions" [colors]="lineChartDischargeSourceColors" [legend]="false"
               [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
@@ -102,10 +117,23 @@
                   class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
               [options]="lineChartDeathOptions" [colors]="lineChartDeathColors" [legend]="false"
               [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-quick-link margin-top-10">
+        <div class="card card-body">
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Tests Conducted</h6>
+          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">3400</h3>
+            <p class="tx-11 tx-color-03 mg-b-0">
+              <span class="tx-medium tx-danger">806</span> Positives
+            </p>
+          </div>
+          <div style="display: block;">
           </div>
         </div>
       </div>
@@ -137,7 +165,7 @@
               <thead>
                 <tr>
                   <th width="10px">&nbsp;</th>
-                  <th>State</th>
+                  <th width="300px">State</th>
                   <th class="text-right">Confirmed</th>
                   <!-- <th class="text-right">Active</th> -->
                   <th class="text-right">Recovered</th>
@@ -148,7 +176,7 @@
                 <ng-container>
                   <tr>
                     <td><i class="fa fa-chevron-down" aria-hidden="true"></i></td>
-                    <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">madhya pradesh</td>
+                    <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">Maharashtra</td>
                     <td class="text-right">
                       <span class="deltas deltas-danger">
                         <i class="fa fa-arrow-up" aria-hidden="true"></i>12
@@ -177,25 +205,26 @@
                   <ng-container>
                     <tr class="cities-row">
                       <td>&nbsp;</td>
-                      <td colspan="2" style="padding:0px;">
+                      <td colspan="4" style="padding:0px;">
                         <table style="width: 100%;">
                           <thead>
                             <tr>
-                              <th>City</th>
+                              <th width="300px">City</th>
                               <th class="text-right">Confirmed</th>
+                              <th class="text-right">Recovered</th>
+                              <th class="text-right">Deceased</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
                               <td class="text-left">Pune</td>
                               <td class="text-right">18</td>
+                              <td class="text-right">18</td>
+                              <td class="text-right">18</td>
                             </tr>
                           </tbody>
                         </table>
                       </td>
-                      <td>&nbsp;</td>
-                      <!-- <td>&nbsp;</td> -->
-                      <td>&nbsp;</td>
                     </tr>
                   </ng-container>
                 </ng-container>
