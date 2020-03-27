@@ -14,7 +14,6 @@ export class NetworkGraphComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsdummyData.subscribe(data =>{
       if(data){
-        console.log(data);
         this.prepareDataForNetwork(data)
       }
     });
