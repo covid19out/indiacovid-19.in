@@ -65,13 +65,13 @@ export class NetworkGraphComponent implements OnInit {
       nodeData["id"]=element.caseNumber;
       nodeData["label"]="case " + element.caseNumber;
       nodeData["shape"]="circularImage";
+      nodeData["color"]={ inherit: "id" };
       if(element.gender=="female"){
         nodeData["image"]="/assets/images/female.jpg";
       }else{
         nodeData["image"]="/assets/images/male.jpg";
       }
       nodeData["group"]=element.related ?  element.related : 0;
-      console.log(nodeData["group"]);
       nodesArray.push(nodeData);
       if(element.related){
       let edgeData={};
