@@ -24,12 +24,6 @@ export class PatientsDataService {
   }
   public patientsData=new BehaviorSubject(null);
   public patientsdummyData=new BehaviorSubject(null);
-  loadDummyPatientsData(){
-    let url="assets/data/patientsData.json";
-    this.http.get(url).subscribe(data=>{
-      this.patientsdummyData.next(data);
-    });
-  }
   loadPatientsData(){
     // let url="assets/data/patientsData.json";
     // this.http.get(url).subscribe(data=>{
