@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~8.2.5",
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
+    "@types/vis": "^4.21.19",
     "apexcharts": "^3.16.1",
     "chart.js": "^2.9.3",
     "firebase": "^7.11.0",

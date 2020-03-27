@@ -67,9 +67,17 @@ export class NetworkGraphComponent implements OnInit {
       nodeData["shape"]="circularImage";
       nodeData["color"]={ inherit: "id" };
       if(element.gender=="female"){
-        nodeData["image"]="/assets/images/female.jpg";
+        if(element.source=="Imported"){
+          nodeData["image"]="/assets/images/importedFemale.png";
+        }else{
+          nodeData["image"]="/assets/images/female.jpg";
+        }
       }else{
-        nodeData["image"]="/assets/images/male.jpg";
+        if(element.source=="Imported"){
+          nodeData["image"]="/assets/images/importedMale.png";
+        }else{
+          nodeData["image"]="/assets/images/male.jpg";
+        }
       }
       nodeData["group"]=element.related ?  element.related : 0;
       nodesArray.push(nodeData);
@@ -107,7 +115,7 @@ export class NetworkGraphComponent implements OnInit {
           forceAtlas2Based: {
             gravitationalConstant: -26,
             centralGravity: 0.005,
-            springLength: 230,
+            springLength: 170,
             springConstant: 0.18
           },
           maxVelocity: 146,
