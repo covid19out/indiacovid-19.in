@@ -714,7 +714,7 @@
         "state": "Uttar Pradesh",
         "caseType": "RECOVERED",
         "source": "Local",
-        "gender": "male",
+        "gender": "female",
         "travel_city_country": "India",
         "symptomaticAt": "22 Jan 2020",
         "homeQuarantineStartDate": "30 Jan 2020",

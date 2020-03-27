@@ -14,6 +14,7 @@ export class NetworkGraphComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsdummyData.subscribe(data =>{
       if(data){
+        console.log(data);
         this.prepareDataForNetwork(data)
       }
     });
@@ -67,9 +68,17 @@ export class NetworkGraphComponent implements OnInit {
       nodeData["shape"]="circularImage";
       nodeData["color"]={ inherit: "id" };
       if(element.gender=="female"){
-        nodeData["image"]="/assets/images/female.jpg";
+        if(element.source=="Imported"){
+          nodeData["image"]="/assets/images/importedFemale.png";
+        }else{
+          nodeData["image"]="/assets/images/female.jpg";
+        }
       }else{
-        nodeData["image"]="/assets/images/male.jpg";
+        if(element.source=="Imported"){
+          nodeData["image"]="/assets/images/importedMale.png";
+        }else{
+          nodeData["image"]="/assets/images/male.jpg";
+        }
       }
       nodeData["group"]=element.related ?  element.related : 0;
       nodesArray.push(nodeData);
