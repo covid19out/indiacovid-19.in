@@ -7,10 +7,11 @@ import { FormsModule } from '@angular/forms';
 
 import { CasesRoutingModule } from './cases-routing.module';
 import { CasesComponent } from './components/cases/cases.component';
+import { NetworkGraphComponent } from './components/network-graph/network-graph.component';
 
 
 @NgModule({
-  declarations: [CasesComponent],
+  declarations: [CasesComponent, NetworkGraphComponent],
   imports: [
     CommonModule,
     CasesRoutingModule,

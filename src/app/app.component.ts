@@ -10,9 +10,10 @@ import { Meta } from '@angular/platform-browser';
 })
 export class AppComponent {
   //title = 'INDIA COVID-19 - Corona Virus Updates';
-  
+
   constructor(private PatientsDataService:PatientsDataService,private router: Router,private activatedRoute:ActivatedRoute,private metaTag:Meta){
     this.PatientsDataService.loadPatientsData();
+    this.PatientsDataService.loadDummyPatientsData();
   }
   ngOnInit() {
     this.PatientsDataService.titleSubject.subscribe((data:string) =>{

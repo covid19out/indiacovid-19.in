@@ -20,17 +20,23 @@ export class PatientsDataService {
   public covid19TotalDeaths=new BehaviorSubject(null);
 
 
-  constructor( private firestore: AngularFirestore,protected http: HttpClient, private metadata:Meta ) { 
+  constructor( private firestore: AngularFirestore,protected http: HttpClient, private metadata:Meta ) {
   }
   public patientsData=new BehaviorSubject(null);
-
+  public patientsdummyData=new BehaviorSubject(null);
+  loadDummyPatientsData(){
+    let url="assets/data/patientsData.json";
+    this.http.get(url).subscribe(data=>{
+      this.patientsdummyData.next(data);
+    });
+  }
   loadPatientsData(){
     // let url="assets/data/patientsData.json";
     // this.http.get(url).subscribe(data=>{
     //   this.patientsData.next(data);
     // });
     return this.firestore.collection<any>('Cases').snapshotChanges().subscribe(data =>{
-     
+
        let covidCases = data.map(item => {
         var data = item.payload.doc.data();
         //var cc: any = this.dataMapperService.ToCovidCase(data);
@@ -81,7 +87,7 @@ export class PatientsDataService {
   filterDataByCasetype(data: {},patient:any): {} {
     if (patient.status == 'HOSPITALIZED') {
       data['confirmedCasesByDates'] = data['confirmedCasesByDates'] + 1 || 1;
-    }    
+    }
     if (patient.status == 'SYMPTOMATIC') {
       data['reportedSympoMaticByDates'] = data['reportedSympoMaticByDates'] + 1 || 1;
     }
