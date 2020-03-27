@@ -107,7 +107,7 @@ export class NetworkGraphComponent implements OnInit {
           forceAtlas2Based: {
             gravitationalConstant: -26,
             centralGravity: 0.005,
-            springLength: 230,
+            springLength: 170,
             springConstant: 0.18
           },
           maxVelocity: 146,
