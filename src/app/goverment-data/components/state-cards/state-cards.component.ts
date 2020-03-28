@@ -59,8 +59,8 @@ export class StateCardsComponent implements OnInit {
     let stateWiseCases: StateData[] = [];
     setTimeout(function () {
       self.setDataDate();
-      
-      var rows = myJQuery('table')[7].tBodies[0].rows;
+      //console.log(myJQuery('table'));
+      var rows = myJQuery('table')[9].tBodies[0].rows;
       
       for (let i = 0; i < rows.length - 2; i++) { //Don't  process last two row of statistics and instruction
         let $tds = myJQuery(rows[i]).find('td');
