@@ -1,26 +1,23 @@
 <div class="content content-fixed">
   <div class="container">
-    <div class="d-md-flex justify-content-between page-heading mg-b-10 mg-lg-b-25 mg-xl-b-30" style="margin-bottom: 20px;">
+    <div class="d-md-flex justify-content-between page-heading mg-b-10 mg-lg-b-25 mg-xl-b-30"
+      style="margin-bottom: 20px;">
+      
       <div>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-title">
             <li class="breadcrumb-item"><a>Dashboard</a></li>
-            
+
           </ol>
         </nav>
         <h1 class="mg-b-0 tx-spacing--1 text-font-size-h5">Dashboard of the COVID-19 Virus Outbreak in India</h1>
       </div>
+      
       <div class="d-flex justify-content-end calendar-button">
-        
-
         <input class="form-control date-range-select" #daterangepicker="bsDaterangepicker" bsDaterangepicker
           [(ngModel)]="bsRangeValue"
           [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY', dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false }"
           (bsValueChange)="dateFilterChanged($event)" [minDate]="minDate" readonly>
-
-       
-
-
       </div>
 
     </div>
@@ -35,31 +32,32 @@
     <div class="row row-xs quick-link">
       <div class="col-quick-link margin-top-10">
         <div class="card card-body">
-          
+
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">{{totalConfirmedCases | number}}</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">
+              {{totalConfirmedCases | number}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
               <span class="tx-medium tx-danger" *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
                 <i class="icon ion-md-arrow-up"></i>
               </span>
               <span class="tx-medium tx-danger" *ngIf="!totalIntesiveCases"> 0
                 <i class="icon ion-md-arrow-up"></i>
-              </span>  in ICU
+              </span> in ICU
             </p>
             <div class="deltas-container">
-              <ng-container>
+              <ng-container *ngIf="totalConfirmUpCasesCount">
                 <span class="deltas deltas-up">
-                  <i class="fa fa-arrow-up" aria-hidden="true"></i>12
+                  <i class="fa fa-arrow-up" aria-hidden="true"></i>{{totalConfirmUpCasesCount}}
                 </span>
-                Up from yesterday
+                more than yesterday
               </ng-container>
-              <!-- <ng-container>
+              <ng-container *ngIf="totalConfirmDownCasesCount">
                 <span class="deltas deltas-down">
-                  <i class="fa fa-arrow-down" aria-hidden="true"></i>12
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>{{totalConfirmDownCasesCount}}
                 </span>
-                Down from yesterday
-              </ng-container> -->
+                less than yesterday
+              </ng-container>
             </div>
           </div>
           <div style="display: block;">
@@ -75,10 +73,12 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalHospitalisedCases">{{totalHospitalisedCases}}</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalHospitalisedCases">{{totalHospitalisedCases}}
+            </h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
-              <span class="tx-medium tx-success">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}} %<i
-                  class="icon ion-md-arrow-down"></i></span> of total cases</p>
+              <span
+                class="tx-medium tx-success">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}}
+                %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
             <!-- <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
@@ -89,15 +89,15 @@
           </div>
         </div>
       </div>
-      
+
       <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalDischargedCases">{{totalDischargedCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
-              <span class="tx-medium tx-success">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
-                  class="icon ion-md-arrow-up"></i></span> of total cases</p>
+              <span class="tx-medium tx-success">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}}
+                %<i class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
             <!-- <canvas baseChart height="60" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
@@ -138,9 +138,9 @@
         </div>
       </div>
     </div>
-    
 
-    
+
+
     <div class="row row-xs">
       <div class="col-lg-12 margin-top-10">
         <div class="card">
@@ -160,7 +160,7 @@
           </div>
           <!-- <div class="card-body">
           </div> -->
-          <div class="table-responsive">
+          <div class="table-responsive" *ngIf = "topFiveStatesData && topFiveStatesData.length">
             <table class="table table-dashboard mg-b-0 states-table">
               <thead>
                 <tr>
@@ -173,15 +173,18 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container>
-                  <tr>
-                    <td><i class="fa fa-chevron-down" aria-hidden="true"></i></td>
-                    <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">Maharashtra</td>
+                <ng-container *ngFor="let state of topFiveStatesData; let i = index;">
+                  <tr (click)="showCityTable[i] = !showCityTable[i]">
+                    <td>
+                      <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="showCityTable[i]"></i>
+                      <i class="fas fa-chevron-right" aria-hidden="true" *ngIf="!showCityTable[i]"></i>
+                    </td>
+                    <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">{{state.name}}</td>
                     <td class="text-right">
                       <span class="deltas deltas-danger">
                         <i class="fa fa-arrow-up" aria-hidden="true"></i>12
                       </span>
-                      138
+                      {{state.confirmCases}}
                     </td>
                     <!-- <td class="text-right">
                       <span class="deltas deltas-warning">
@@ -193,16 +196,16 @@
                       <span class="deltas deltas-success">
                         <i class="fa fa-arrow-up" aria-hidden="true"></i>4
                       </span>
-                      14
+                      {{state.recoveredCases}}
                     </td>
                     <td class="text-right">
                       <span class="deltas deltas-danger">
                         <i class="fa fa-arrow-up" aria-hidden="true"></i>2
                       </span>
-                      3
+                      {{state.deceasedCases}}
                     </td>
                   </tr>
-                  <ng-container>
+                  <ng-container *ngIf="showCityTable[i] && state.topFiveCities && state.topFiveCities.length">
                     <tr class="cities-row">
                       <td>&nbsp;</td>
                       <td colspan="4" style="padding:0px;">
@@ -216,11 +219,11 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td class="text-left">Pune</td>
-                              <td class="text-right">18</td>
-                              <td class="text-right">18</td>
-                              <td class="text-right">18</td>
+                            <tr *ngFor="let city of state.topFiveCities"> 
+                              <td class="text-left">{{city.name}}</td>
+                              <td class="text-right">{{city.confirmCases}}</td>
+                              <td class="text-right">{{city.recoveredCases}}</td>
+                              <td class="text-right">{{city.deceasedCases}}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -270,7 +273,9 @@
                 </p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0" *ngIf="maleCount && femaleCount">
-                    <small class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
+                    <small
+                      class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small>
+                  </h5>
                 </div>
               </div><!-- col -->
               <div class="col-6">
@@ -280,7 +285,9 @@
                 </p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0" *ngIf="maleCount && femaleCount">
-                    <small class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
+                    <small
+                      class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small>
+                  </h5>
                 </div>
               </div><!-- col -->
             </div><!-- row -->
@@ -290,11 +297,12 @@
       <div class="col-lg-12 margin-top-10">
 
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirmed Codiv-19 Cases in India</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirmed Codiv-19 Cases
+            in India</h6>
           <div style="display: block;">
-            <canvas baseChart [datasets]="cumulativeChartConfirmData" [legend]="false" [labels]="cumulativeChartConfirmLabels"
-              [options]="cumulativeChartConfirmOptions" [colors]="cumulativeChartConfirmColors"
-              [chartType]="lineChartType" [plugins]="lineChartPlugins">
+            <canvas baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
+              [labels]="cumulativeChartConfirmLabels" [options]="cumulativeChartConfirmOptions"
+              [colors]="cumulativeChartConfirmColors" [chartType]="lineChartType" [plugins]="lineChartPlugins">
             </canvas>
           </div>
         </div>
@@ -329,8 +337,9 @@
             <div class="nationality-legends">
               <div class="nationality-lable" *ngFor="let lable of doughnutNationalityChartLabels;let i = index">
                 <div class="nationality-lable-text">
-                  <span class="legend-label-color" [ngStyle]="{'background-color': getNationalityChartLabelColor(i)}"></span> {{lable}}
-                </div>&nbsp;                       
+                  <span class="legend-label-color"
+                    [ngStyle]="{'background-color': getNationalityChartLabelColor(i)}"></span> {{lable}}
+                </div>&nbsp;
                 <div class="nationality-value">{{doughnutNationalityChartData[0][i]}}</div>
               </div>
             </div>
@@ -376,24 +385,24 @@
             </div>
 
             <div class="canvas-wrapper">
-              <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
-                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-                [chartType]="lineChartType" [plugins]="lineChartPlugins">
+              <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
               </canvas>
             </div>
           </div>
         </div>
       </div>
 
-    
+
 
       <div class="col-lg-4 margin-top-10">
         <div class="card">
           <div class="card-header">Source</div>
           <div class="card-body">
             <div style="display: block;" class="doughnut-chart">
-              <canvas height="300" baseChart [legend]="false" [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
-                [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType"
+              <canvas height="300" baseChart [legend]="false" [data]="doughnutSourceChartData"
+                [options]="pieChartSourceOptions" [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType"
                 [colors]="doughnutSourceChartColors">
               </canvas>
             </div>
@@ -403,17 +412,18 @@
               <ng-container *ngIf="doughnutSourceChartLabels.length > 0">
                 <div class="col-6" *ngFor="let label of doughnutSourceChartLabels; let i = index">
                   <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">
-                    <span class="legend-label-color" [ngStyle]="{'background-color': getSourceChartLabelColor(i)}" ></span>
+                    <span class="legend-label-color"
+                      [ngStyle]="{'background-color': getSourceChartLabelColor(i)}"></span>
                     {{label}}
                   </p>
                   <div class="d-flex align-items-center">
                     <h5 class="tx-normal tx-rubik mg-b-0">{{doughnutSourceChartData[0][i]}} </h5>
-                    
+
                   </div>
                 </div>
               </ng-container>
 
-  
+
             </div><!-- row -->
           </div>
         </div>

@@ -5,7 +5,20 @@ import * as _ from 'lodash';
 
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
+export interface StateStatistics {
+  name: string,
+  confirmCases: number,
+  recoveredCases: number,
+  deceasedCases: number,
+  topFiveCities: any[],
+}
 
+export interface CityStatistics {
+  name: string,
+  confirmCases: number,
+  recoveredCases: number,
+  deceasedCases: number
+}
 
 @Component({
   selector: 'app-home',
@@ -27,6 +40,8 @@ export class HomeComponent implements OnInit {
   public totalLocalTransmission = 0;
   public totalFemaleCases = 0;
   public totalMaleCases = 0;
+  public totalConfirmUpCasesCount = 0;
+  public totalConfirmDownCasesCount = 0;
   public chartColors = [
     {
       backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
@@ -36,7 +51,8 @@ export class HomeComponent implements OnInit {
     }
   ];
   public dateWisePateintData:any;
-
+  public topFiveStatesData:any[] = []; 
+  public showCityTable:boolean[] = [];
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
   public endDate: any = new Date();
@@ -498,7 +514,6 @@ export class HomeComponent implements OnInit {
       this.cumulativeChartConfirmData[0].data.push(count);
     }
 
-
   }
 
   getDataCount(data: any): any {
@@ -669,8 +684,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-
-
   assignStateBarChartDate(dateWiseData) {
     this.stateBarChartLabels = [];
     this.stateBarChartData[0].data = [];
@@ -678,7 +691,6 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       var sortedStates = this.getSortedObject(states);
-
 
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
@@ -704,6 +716,7 @@ export class HomeComponent implements OnInit {
     this.dateWisePateintData = filteredData;
 
     this.setCasesAnalytics(filteredData);
+    this.setTableStatistics(filteredData);
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
@@ -723,6 +736,75 @@ export class HomeComponent implements OnInit {
     this.totalLocalTransmission = 0;
     this.totalFemaleCases = 0;
     this.totalMaleCases = 0;
+    
+    this.setConfirmCountDaviation(filteredData);
+    
+  }
+
+  setConfirmCountDaviation(filteredData){
+    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    let yesterday = new Date(lastDate);
+    yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
+    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth()+1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
+    console.log("Diff",difference);
+    if(difference >= 0){
+      this.totalConfirmUpCasesCount = difference;
+      this.totalConfirmDownCasesCount = 0;
+    } else {
+      this.totalConfirmUpCasesCount = 0;
+      this.totalConfirmDownCasesCount = difference;
+    }
+  }
+
+  setTableStatistics(filteredData){
+    var stateWiseData = _.groupBy(filteredData, 'state');
+    let topFiveStates = this.getTopFiveCasesCount(stateWiseData);
+    for(let state in topFiveStates){
+      let stateData: StateStatistics = {
+        name: state,
+        confirmCases: topFiveStates[state].length,
+        recoveredCases: topFiveStates[state].filter(x => x.caseType == "Recovered/Discharged").length,
+        deceasedCases: topFiveStates[state].filter(x => x.caseType == "Deceased").length,
+        topFiveCities: this.getTopFiveCities(topFiveStates[state]),
+
+      };
+      this.topFiveStatesData.push(stateData);
+    }    
+  }
+
+  getTopFiveCities(cases){
+    let cityWiseData = _.groupBy(cases, 'cityName');
+    let topFiveCities = this.getTopFiveCasesCount(cityWiseData);
+    let topFiveCitiesData = [];
+    for(let city in topFiveCities){
+      let cityData: CityStatistics = {
+        name: city,
+        confirmCases: topFiveCities[city].length,
+        recoveredCases: topFiveCities[city].filter(x => x.caseType == "Recovered/Discharged").length,
+        deceasedCases: topFiveCities[city].filter(x => x.caseType == "Deceased").length,
+      };
+      topFiveCitiesData.push(cityData);
+    } 
+    return topFiveCitiesData;
+  }
+
+  getTopFiveCasesCount(data){
+    let sortedObj = this.getSortedObject(data);
+    let topFiveCases:any = {};
+    for(let obj in sortedObj){
+      if(obj!== ""){
+        topFiveCases[obj] = sortedObj[obj];
+      }
+    }
+    return _.chain(topFiveCases)
+    .keys()
+    .take(5)
+    .reduce(function(memo, current) {
+      memo[current] = topFiveCases[current];
+      return memo;
+    }, {})
+    .value();    
   }
 
 }
