@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
-import { CountryMapComponent } from './country-map/country-map.component';
+import { CountryMapComponent } from './components/country-map/country-map.component';
+import { TopStateTableComponent } from './components/top-state-table/top-state-table.component';
 
 @NgModule({
-  declarations: [HomeComponent, CountryMapComponent],
+  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent],
   imports: [
     CommonModule,
     FormsModule,
