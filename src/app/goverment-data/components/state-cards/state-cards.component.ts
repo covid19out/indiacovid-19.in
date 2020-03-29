@@ -6,7 +6,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
 export interface StateData {
   name: string;
   totalIndianConfirmCases: number;
-  totalForeignConfirmCases: number;
+  // totalForeignConfirmCases: number;
   totalDischargedCases: number;
   totalDeathCases: number;
   totalCount: number;
@@ -60,18 +60,18 @@ export class StateCardsComponent implements OnInit {
     setTimeout(function () {
       self.setDataDate();
       
-      var rows = myJQuery('table')[7].tBodies[0].rows;
+      var rows = myJQuery('table')[9].tBodies[0].rows;
       
-      for (let i = 0; i < rows.length - 2; i++) { //Don't  process last two row of statistics and instruction
+      for (let i = 0; i < rows.length - 1; i++) { //Don't  process last two row of statistics and instruction
         let $tds = myJQuery(rows[i]).find('td');
         let stateData: StateData = {
           name: $tds.eq(1).text(),
           totalIndianConfirmCases: $tds.eq(2).text(),
-          totalForeignConfirmCases: $tds.eq(3).text(),
-          totalDischargedCases: $tds.eq(4).text(),
-          totalDeathCases: $tds.eq(5).text(),
+          // totalForeignConfirmCases: $tds.eq(3).text(),
+          totalDischargedCases: $tds.eq(3).text(),
+          totalDeathCases: $tds.eq(4).text(),
           totalCount : parseInt($tds.eq(2).text()) + parseInt($tds.eq(3).text()) + 
-                       parseInt($tds.eq(4).text()) + parseInt($tds.eq(5).text()),
+                       parseInt($tds.eq(4).text()),
           backgroundColor: self.getRandomColor()
         };
         
@@ -85,15 +85,15 @@ export class StateCardsComponent implements OnInit {
 
       
 
-      let $statColumns = myJQuery(rows[rows.length - 2]).find('td'); //Second Last column of total counts
+      let $statColumns = myJQuery(rows[rows.length - 1]).find('td'); //Second Last column of total counts
       let totalStat: StateData = {
         name: 'Total Cases',
         totalIndianConfirmCases: parseInt($statColumns.eq(1).text()),
-        totalForeignConfirmCases: parseInt($statColumns.eq(2).text()),
-        totalDischargedCases: parseInt($statColumns.eq(3).text()),
-        totalDeathCases: parseInt($statColumns.eq(4).text()),
+        // totalForeignConfirmCases: parseInt($statColumns.eq(2).text()),
+        totalDischargedCases: parseInt($statColumns.eq(2).text()),
+        totalDeathCases: parseInt($statColumns.eq(3).text()),
         totalCount: parseInt($statColumns.eq(1).text()) + parseInt($statColumns.eq(2).text()) + 
-                    parseInt($statColumns.eq(3).text()) + parseInt($statColumns.eq(4).text()),
+                    parseInt($statColumns.eq(3).text()),
         backgroundColor: self.getRandomColor()
       }
       self.stateWiseData.unshift(totalStat);
