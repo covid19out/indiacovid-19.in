@@ -59,10 +59,10 @@ export class StateCardsComponent implements OnInit {
     let stateWiseCases: StateData[] = [];
     setTimeout(function () {
       self.setDataDate();
-      //console.log(myJQuery('table'));
+      console.log(myJQuery('table'));
       var rows = myJQuery('table')[9].tBodies[0].rows;
       
-      for (let i = 0; i < rows.length - 2; i++) { //Don't  process last two row of statistics and instruction
+      for (let i = 0; i < rows.length-1; i++) { //Don't  process last two row of statistics and instruction
         let $tds = myJQuery(rows[i]).find('td');
         let stateData: StateData = {
           name: $tds.eq(1).text(),
@@ -85,7 +85,7 @@ export class StateCardsComponent implements OnInit {
 
       
 
-      let $statColumns = myJQuery(rows[rows.length - 2]).find('td'); //Second Last column of total counts
+      let $statColumns = myJQuery(rows[rows.length - 1]).find('td'); //Second Last column of total counts
       let totalStat: StateData = {
         name: 'Total Cases',
         totalIndianConfirmCases: parseInt($statColumns.eq(1).text()),
