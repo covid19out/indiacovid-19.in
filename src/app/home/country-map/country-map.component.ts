@@ -137,8 +137,8 @@ export class CountryMapComponent implements OnInit {
           },
           {
             "id": "IN-JK",
-            "title": "J&K - Total Cases 0",
-            "name": "J&K",
+            "title": "Jammu & Kashmir - Total Cases 0",
+            "name": "Jammu & Kashmir",
             "color": "rgba(255,195,160,1)"
           },
           {
