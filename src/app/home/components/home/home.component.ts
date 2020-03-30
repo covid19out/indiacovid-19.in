@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
     }
   ];
   public dateWisePateintData:any;
+  public endDateConfirmCount:number;
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -724,6 +725,7 @@ export class HomeComponent implements OnInit {
     this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
     this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
+    
     this.maleCount = 0;
     this.femaleCount = 0;
     this.totalImportedTransmission = 0;
@@ -732,7 +734,13 @@ export class HomeComponent implements OnInit {
     this.totalMaleCases = 0;
     
     this.setConfirmCountDaviation(filteredData);
+    this.setEndDateConfirmCount(filteredData);
     
+  }
+
+  setEndDateConfirmCount(filteredData){
+    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    this.endDateConfirmCount =  filteredData.filter(x => x.confirmAt == lastDate).length;
   }
 
   setConfirmCountDaviation(filteredData){
