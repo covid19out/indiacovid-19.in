@@ -4,10 +4,19 @@
         <tr>
           <th width="10px">&nbsp;</th>
           <th width="300px">State</th>
-          <th class="text-right">Confirmed</th>
+          <th class="text-right" (click)="toggleStateConfimSort()">Confirmed
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
+          </th>
           <!-- <th class="text-right">Active</th> -->
-          <th class="text-right">Recovered</th>
-          <th class="text-right">Deceased</th>
+          <th class="text-right" (click)="toggleStateRecoveredSort()">Recovered
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateRecovered"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateRecovered"></i>
+          </th>
+          <th class="text-right" (click)="toggleStateDeceasedSort()">Deceased
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateDeceased"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateDeceased"></i>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -19,12 +28,12 @@
             </td>
             <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">{{state.name}}</td>
             <td class="text-right">
-              <span class="deltas deltas-danger" *ngIf="state.confirmUpCount">
+              <span class="deltas deltas-danger">
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.confirmUpCount}}
               </span>
-              <span class="deltas deltas-success" *ngIf="state.confirmDownCount">
+              <!-- <span class="deltas deltas-success" *ngIf="state.confirmDownCount">
                 <i class="fa fa-arrow-down" aria-hidden="true"></i>{{state.confirmDownCount}}
-              </span>
+              </span> -->
               {{state.confirmCases}}
             </td>
             <!-- <td class="text-right">
@@ -54,9 +63,18 @@
                   <thead>
                     <tr>
                       <th width="300px">City</th>
-                      <th class="text-right">Confirmed</th>
-                      <th class="text-right">Recovered</th>
-                      <th class="text-right">Deceased</th>
+                      <th class="text-right" (click)="toggleCityConfimSort(state.topFiveCities, i)">Confirmed
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityConfim[i]"></i>
+                      </th>
+                      <th class="text-right" (click)="toggleCityRecoveredSort(state.topFiveCities, i)">Recovered
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityRecovered[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityRecovered[i]"></i>
+                      </th>
+                      <th class="text-right" (click)="toggleCityDeceasedSort(state.topFiveCities, i)">Deceased
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityDeceased[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityDeceased[i]"></i>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>

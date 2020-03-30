@@ -156,7 +156,7 @@
       <div class="col-lg-12 margin-top-10">
         <div class="card">
           <div class="card-header">
-            Top 5 states Statistics
+            States Statistics
           </div>
           <!-- <div class="card-body">
           </div> -->
@@ -173,7 +173,7 @@
           </div>
           <div class="card-body">
             <div style="display: block;" class="stacked-chart">
-              <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+              <canvas width="500px" height="340px" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                 [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
               </canvas>
             </div>
@@ -227,7 +227,7 @@
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirmed Codiv-19 Cases
             in India</h6>
           <div style="display: block;">
-            <canvas baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
+            <canvas width="500px" height="340px" baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
               [labels]="cumulativeChartConfirmLabels" [options]="cumulativeChartConfirmOptions"
               [colors]="cumulativeChartConfirmColors" [chartType]="lineChartType" [plugins]="lineChartPlugins">
             </canvas>

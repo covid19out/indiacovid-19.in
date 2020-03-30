@@ -27,7 +27,13 @@ export class TopStateTableComponent implements OnInit {
   @Input() cases: any;
   @Input() endDate: any;
   topFiveStatesData:any[] = []; 
-  showCityTable:boolean[] = [];
+  showCityTable:Boolean[] = [];
+  toggleStateConfim: Boolean = false;
+  toggleStateDeceased: Boolean = false;
+  toggleStateRecovered: Boolean = false;
+  toggleCityConfim: Boolean[] = [];
+  toggleCityDeceased: Boolean[] = [];
+  toggleCityRecovered: Boolean[] = [];
 
   constructor() { }
 
@@ -66,24 +72,25 @@ export class TopStateTableComponent implements OnInit {
     });
 
     //Sort by confirmUpCount
-    statesData = statesData.sort((a, b) => {
-      return b.confirmUpCount - a.confirmUpCount;
-    });
+    // statesData = statesData.sort((a, b) => {
+    //   return b.confirmUpCount - a.confirmUpCount;
+    // });
     
     //Select first five states
-    this.topFiveStatesData = statesData.slice(0,5);    
+    //this.topFiveStatesData = statesData.slice(0,5);    
+    this.topFiveStatesData = statesData;    
   }
 
   getTopFiveCities(cases){
     let cityWiseData = _.groupBy(cases, 'cityName');
-    let topFiveCities = this.getTopFiveCasesCount(cityWiseData);
+    // let topFiveCities = this.getTopFiveCasesCount(cityWiseData);
     let topFiveCitiesData = [];
-    for(let city in topFiveCities){
+    for(let city in cityWiseData){
       let cityData: CityStatistics = {
-        name: city,
-        confirmCases: topFiveCities[city].length,
-        recoveredCases: topFiveCities[city].filter(x => x.caseType == "Recovered/Discharged").length,
-        deceasedCases: topFiveCities[city].filter(x => x.caseType == "Deceased").length,
+        name: city == "" ? "Not confirmed" : city,
+        confirmCases: cityWiseData[city].length,
+        recoveredCases: cityWiseData[city].filter(x => x.caseType == "Recovered/Discharged").length,
+        deceasedCases: cityWiseData[city].filter(x => x.caseType == "Deceased").length,
       };
       topFiveCitiesData.push(cityData);
     } 
@@ -142,6 +149,84 @@ export class TopStateTableComponent implements OnInit {
     //   this.totalConfirmUpCasesCount = 0;
     //   this.totalConfirmDownCasesCount = difference;
     // }
+  }
+
+  toggleStateConfimSort(){
+    this.toggleStateConfim = !this.toggleStateConfim;
+    if(this.toggleStateConfim){
+      this.topFiveStatesData = this.topFiveStatesData.sort((a, b) => {
+        return a.confirmCases - b.confirmCases;
+      });
+    } else {
+      this.topFiveStatesData = this.topFiveStatesData.sort((a, b) => {
+        return b.confirmCases - a.confirmCases;
+      });      
+    }    
+  }
+
+  toggleStateRecoveredSort(){
+    this.toggleStateRecovered = !this.toggleStateRecovered;
+    if(this.toggleStateRecovered){
+      this.topFiveStatesData = this.topFiveStatesData.sort((a, b) => {
+        return a.recoveredCases - b.recoveredCases;
+      });
+    } else {
+      this.topFiveStatesData = this.topFiveStatesData.sort((a, b) => {
+        return b.recoveredCases - a.recoveredCases;
+      });      
+    }    
+  }
+
+  toggleStateDeceasedSort(){
+    this.toggleStateDeceased = !this.toggleStateDeceased;
+    if(this.toggleStateDeceased){
+      this.topFiveStatesData = this.topFiveStatesData.sort((a, b) => {
+        return a.deceasedCases - b.deceasedCases;
+      });
+    } else {
+      this.topFiveStatesData = this.topFiveStatesData.sort((a, b) => {
+        return b.deceasedCases - a.deceasedCases;
+      });      
+    }    
+  }
+
+  toggleCityConfimSort(cities,index){
+    this.toggleCityConfim[index] = !this.toggleCityConfim[index];
+    if(this.toggleCityConfim[index]){
+      cities = cities.sort((a, b) => {
+        return a.confirmCases - b.confirmCases;
+      });
+    } else {
+      cities = cities.sort((a, b) => {
+        return b.confirmCases - a.confirmCases;
+      });      
+    }    
+  }
+
+  toggleCityRecoveredSort(cities,index){
+    this.toggleCityRecovered[index] = !this.toggleCityRecovered[index];
+    if(this.toggleCityRecovered[index]){
+      cities = cities.sort((a, b) => {
+        return a.recoveredCases - b.recoveredCases;
+      });
+    } else {
+      cities = cities.sort((a, b) => {
+        return b.recoveredCases - a.recoveredCases;
+      });      
+    }   
+  }
+
+  toggleCityDeceasedSort(cities,index){
+    this.toggleCityDeceased[index] = !this.toggleCityDeceased[index];
+    if(this.toggleCityDeceased[index]){
+      cities = cities.sort((a, b) => {
+        return a.deceasedCases - b.deceasedCases;
+      });
+    } else {
+      cities = cities.sort((a, b) => {
+        return b.deceasedCases - a.deceasedCases;
+      });      
+    }  
   }
 
 }
