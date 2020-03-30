@@ -59,6 +59,8 @@ export class StateCardsComponent implements OnInit {
     let stateWiseCases: StateData[] = [];
     setTimeout(function () {
       self.setDataDate();
+      console.log(myJQuery('table'));
+      var rows = myJQuery('table')[9].tBodies[0].rows;
       
       var rows = myJQuery('table')[9].tBodies[0].rows;
       
