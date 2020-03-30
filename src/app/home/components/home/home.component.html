@@ -224,10 +224,21 @@
       <div class="col-lg-12 margin-top-10">
 
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirmed Codiv-19 Cases
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mb-4">Cumulative Confirmed Codiv-19 Cases
             in India</h6>
-          <div style="display: block;">
-            <canvas width="500px" height="340px" baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
+          <div style="display: block; position: relative;">
+            <div class="cumulative-chart-confirm-count">
+              <div class="media">
+                <div class="media-body mg-l-10">
+                  <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">
+                    806 <small style="font-size: 0.7rem; color: red;">[ +10 ]</small>
+                  </h6>
+                  <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">CONFIRMED</p>
+                </div>
+                <!-- media-body -->
+              </div>
+            </div>
+            <canvas width="500px" height="300px" baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
               [labels]="cumulativeChartConfirmLabels" [options]="cumulativeChartConfirmOptions"
               [colors]="cumulativeChartConfirmColors" [chartType]="lineChartType" [plugins]="lineChartPlugins">
             </canvas>
@@ -241,7 +252,15 @@
           <div class="card-body">
             <div id="chart">
               <div style="display: block;" class="stacked-chart">
-                <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                <!-- <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
+                  [legend]="false" chartType="horizontalBar">
+                </canvas> -->
+                <canvas class="for-desktop" width="500px" height="300px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
+                  [legend]="false" chartType="horizontalBar">
+                </canvas>
+                <canvas class="for-mobile" width="600px" height="800px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
                   [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
                   [legend]="false" chartType="horizontalBar">
                 </canvas>
@@ -408,7 +427,18 @@
       </div>
 
 
+      <div class="col-lg-12 margin-top-10">
+        <div class="card">
+          <div class="card-header">Tests Conducted</div>
+          <div class="card-body">
+            <div id="chart">
+              <div style="display: block;">
 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 

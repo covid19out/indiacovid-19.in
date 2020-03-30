@@ -63,8 +63,15 @@ export class HomeComponent implements OnInit {
         anchor: 'end',
         align: 'end',
       }
-    }
-
+    },
+    scales: {
+      yAxes: [{
+          ticks: {
+              autoSkip: false,
+              fontSize: 11
+          }
+      }]
+  }
   };
 
   public stateBarChartLabels: Label[] = [];
@@ -236,12 +243,16 @@ export class HomeComponent implements OnInit {
     scales: {
       xAxes: [
         {
-          display: true
+          gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
         }
       ],
       yAxes: [
         {
-          display: true
+          gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
         }
       ]
     }
