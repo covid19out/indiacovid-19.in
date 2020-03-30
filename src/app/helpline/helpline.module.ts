@@ -27,10 +27,13 @@ import { RoleComponent } from './components/role/role.component';
 import { TelemedicineComponent } from './components/telemedicine/telemedicine.component';
 import { GazetteComponent } from './components/gazette/gazette.component';
 import { PressInformationComponent } from './components/press-information/press-information.component';
+import { TestingComponent } from './components/testing/testing.component';
+import { HealthAdvisoryComponent } from './components/health-advisory/health-advisory.component';
+import { DisinfectionComponent } from './components/disinfection/disinfection.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent, TelemedicineComponent, GazetteComponent, PressInformationComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent, TelemedicineComponent, GazetteComponent, PressInformationComponent, TestingComponent, HealthAdvisoryComponent, DisinfectionComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule

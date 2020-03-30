@@ -27,6 +27,9 @@ import { RoleComponent } from './components/role/role.component';
 import { TelemedicineComponent } from './components/telemedicine/telemedicine.component';
 import { GazetteComponent } from './components/gazette/gazette.component';
 import { PressInformationComponent } from './components/press-information/press-information.component';
+import { TestingComponent } from './components/testing/testing.component';
+import { HealthAdvisoryComponent } from './components/health-advisory/health-advisory.component';
+import { DisinfectionComponent } from './components/disinfection/disinfection.component';
 
 const routes: Routes = [
   { path: 'awareness',  component: AwarenessComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
@@ -52,7 +55,10 @@ const routes: Routes = [
   { path: 'awareness/role',  component: RoleComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
   { path: 'awareness/telemedicine',  component: TelemedicineComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
   { path: 'awareness/gazette',  component: GazetteComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
-  { path: 'awareness/press-information',  component: PressInformationComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} }
+  { path: 'awareness/press-information',  component: PressInformationComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/testing',  component: TestingComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/health-advisory',  component: HealthAdvisoryComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/disinfection',  component: DisinfectionComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} }
 ];
 
 @NgModule({
