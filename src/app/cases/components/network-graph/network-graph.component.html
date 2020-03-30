@@ -1,3 +1,19 @@
+<div class="filter-containeer">
+  <select class="states" id="state" (change)="onStateChange($event.currentTarget.value);applyFilters();">
+    <option value="" >"please select"</option>
+    <option *ngFor="let state of states" [value]="state" innerHtml="{{state}}"></option>
+  </select>
+  <select class="cities" id="city" (change)="applyFilters()">
+    <option value="" >"please select"</option>
+    <option *ngFor="let city of cities" value="{{city}}" innerHtml="{{city}}"></option>
+  </select>
+  <select id="caseType" (change)="applyFilters()">
+    <option value="" >"please select"</option>
+    <option  value="Confirmed">Confirmed</option>
+    <option  value="Deceased">Deceased</option>
+    <option  value="Recovered/Discharged">Recovered/Discharged</option>
+  </select>
+</div>
 <div id="wrapper">
   <div id="mynetwork"></div>
   <div id="loadingBar">
