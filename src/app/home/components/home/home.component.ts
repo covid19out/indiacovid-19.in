@@ -736,7 +736,7 @@ export class HomeComponent implements OnInit {
       this.totalConfirmDownCasesCount = 0;
     } else {
       this.totalConfirmUpCasesCount = 0;
-      this.totalConfirmDownCasesCount = difference;
+      this.totalConfirmDownCasesCount = -difference;
     }
   }
 

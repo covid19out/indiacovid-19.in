@@ -28,7 +28,7 @@
             </td>
             <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">{{state.name}}</td>
             <td class="text-right">
-              <span class="deltas deltas-danger">
+              <span class="deltas deltas-danger" *ngIf="state.confirmUpCount">
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.confirmUpCount}}
               </span>
               <!-- <span class="deltas deltas-success" *ngIf="state.confirmDownCount">
