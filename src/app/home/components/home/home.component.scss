@@ -2,9 +2,62 @@
     margin-top: 10px;
 }
 
+.quick-link{
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media(max-width: 960px){
+  .quick-link{
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
 .text-font-size-h5{
   font-size: 1.25rem;
 }
+
+.deltas-container{
+  position: absolute;
+  bottom: 2px;
+  right: 7px;
+  font-size: 0.7rem;
+  .deltas{
+    &.deltas-up{
+      color: #fd5e53;
+    }
+    &.deltas-down{
+      color: #21bf73;
+    }
+  }
+  
+}
+
+.cumulative-chart-confirm-count{
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.for-desktop{
+  display: block !important;
+}
+
+.for-mobile{
+  display: none !important;
+}
+
+@media(max-width: 760px){
+  .for-desktop{
+    display: none !important;
+  }
+  
+  .for-mobile{
+    display: block !important;
+  }
+}
+
 
 .legend-label-color{
   width: 8px;

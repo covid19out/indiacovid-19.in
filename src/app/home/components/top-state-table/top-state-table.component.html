@@ -1,0 +1,95 @@
+<div class="table-responsive" *ngIf = "topFiveStatesData && topFiveStatesData.length">
+    <table class="table table-dashboard mg-b-0 states-table">
+      <thead>
+        <tr>
+          <th width="10px">&nbsp;</th>
+          <th width="300px">State</th>
+          <th class="text-right" (click)="toggleStateConfimSort()">Confirmed
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
+          </th>
+          <!-- <th class="text-right">Active</th> -->
+          <th class="text-right" (click)="toggleStateRecoveredSort()">Recovered
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateRecovered"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateRecovered"></i>
+          </th>
+          <th class="text-right" (click)="toggleStateDeceasedSort()">Deceased
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateDeceased"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateDeceased"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let state of topFiveStatesData; let i = index;">
+          <tr (click)="showCityTable[i] = !showCityTable[i]">
+            <td>
+              <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="showCityTable[i]"></i>
+              <i class="fas fa-chevron-right" aria-hidden="true" *ngIf="!showCityTable[i]"></i>
+            </td>
+            <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">{{state.name}}</td>
+            <td class="text-right">
+              <span class="deltas deltas-danger" *ngIf="state.confirmUpCount">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.confirmUpCount}}
+              </span>
+              <!-- <span class="deltas deltas-success" *ngIf="state.confirmDownCount">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>{{state.confirmDownCount}}
+              </span> -->
+              {{state.confirmCases}}
+            </td>
+            <!-- <td class="text-right">
+              <span class="deltas deltas-warning">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>6
+              </span>
+              64
+            </td> -->
+            <td class="text-right">
+              <!-- <span class="deltas deltas-success">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>4
+              </span> -->
+              {{state.recoveredCases}}
+            </td>
+            <td class="text-right">
+              <!-- <span class="deltas deltas-danger">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>2
+              </span> -->
+              {{state.deceasedCases}}
+            </td>
+          </tr>
+          <ng-container *ngIf="showCityTable[i] && state.topFiveCities && state.topFiveCities.length">
+            <tr class="cities-row">
+              <td>&nbsp;</td>
+              <td colspan="4" style="padding:0px;">
+                <table style="width: 100%;">
+                  <thead>
+                    <tr>
+                      <th width="300px">City</th>
+                      <th class="text-right" (click)="toggleCityConfimSort(state.topFiveCities, i)">Confirmed
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityConfim[i]"></i>
+                      </th>
+                      <th class="text-right" (click)="toggleCityRecoveredSort(state.topFiveCities, i)">Recovered
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityRecovered[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityRecovered[i]"></i>
+                      </th>
+                      <th class="text-right" (click)="toggleCityDeceasedSort(state.topFiveCities, i)">Deceased
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityDeceased[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityDeceased[i]"></i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let city of state.topFiveCities"> 
+                      <td class="text-left">{{city.name}}</td>
+                      <td class="text-right">{{city.confirmCases}}</td>
+                      <td class="text-right">{{city.recoveredCases}}</td>
+                      <td class="text-right">{{city.deceasedCases}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>

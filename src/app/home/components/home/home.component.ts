@@ -5,8 +5,6 @@ import * as _ from 'lodash';
 
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,6 +25,8 @@ export class HomeComponent implements OnInit {
   public totalLocalTransmission = 0;
   public totalFemaleCases = 0;
   public totalMaleCases = 0;
+  public totalConfirmUpCasesCount = 0;
+  public totalConfirmDownCasesCount = 0;
   public chartColors = [
     {
       backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
     }
   ];
   public dateWisePateintData:any;
+  public endDateConfirmCount:number;
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -63,8 +64,15 @@ export class HomeComponent implements OnInit {
         anchor: 'end',
         align: 'end',
       }
-    }
-
+    },
+    scales: {
+      yAxes: [{
+          ticks: {
+              autoSkip: false,
+              fontSize: 11
+          }
+      }]
+  }
   };
 
   public stateBarChartLabels: Label[] = [];
@@ -236,12 +244,16 @@ export class HomeComponent implements OnInit {
     scales: {
       xAxes: [
         {
-          display: true
+          gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
         }
       ],
       yAxes: [
         {
-          display: true
+          gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
         }
       ]
     }
@@ -498,7 +510,6 @@ export class HomeComponent implements OnInit {
       this.cumulativeChartConfirmData[0].data.push(count);
     }
 
-
   }
 
   getDataCount(data: any): any {
@@ -669,8 +680,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-
-
   assignStateBarChartDate(dateWiseData) {
     this.stateBarChartLabels = [];
     this.stateBarChartData[0].data = [];
@@ -678,7 +687,6 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       var sortedStates = this.getSortedObject(states);
-
 
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
@@ -717,12 +725,38 @@ export class HomeComponent implements OnInit {
     this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
     this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
+    
     this.maleCount = 0;
     this.femaleCount = 0;
     this.totalImportedTransmission = 0;
     this.totalLocalTransmission = 0;
     this.totalFemaleCases = 0;
     this.totalMaleCases = 0;
+    
+    this.setConfirmCountDaviation(filteredData);
+    this.setEndDateConfirmCount(filteredData);
+    
+  }
+
+  setEndDateConfirmCount(filteredData){
+    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    this.endDateConfirmCount =  filteredData.filter(x => x.confirmAt == lastDate).length;
+  }
+
+  setConfirmCountDaviation(filteredData){
+    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    let yesterday = new Date(lastDate);
+    yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
+    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth()+1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
+
+    if(difference >= 0){
+      this.totalConfirmUpCasesCount = difference;
+      this.totalConfirmDownCasesCount = 0;
+    } else {
+      this.totalConfirmUpCasesCount = 0;
+      this.totalConfirmDownCasesCount = -difference;
+    }
   }
 
 }
