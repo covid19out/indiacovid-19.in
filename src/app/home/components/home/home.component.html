@@ -1,26 +1,23 @@
 <div class="content content-fixed">
   <div class="container">
-    <div class="d-md-flex justify-content-between page-heading mg-b-10 mg-lg-b-25 mg-xl-b-30" style="margin-bottom: 20px;">
+    <div class="d-md-flex justify-content-between page-heading mg-b-10 mg-lg-b-25 mg-xl-b-30"
+      style="margin-bottom: 20px;">
+      
       <div>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-title">
-            <li class="breadcrumb-item"><a>Coronavirus Statistics India</a></li>
+            <li class="breadcrumb-item"><a>Coronavirus Tracker India</a></li>
             
           </ol>
         </nav>
-        <h1 class="mg-b-0 tx-spacing--1 text-font-size-h5">Coronavirus Live Updates - Dashboard for the COVID-19 Virus Outbreak in India</h1>
+        <h1 class="mg-b-0 tx-spacing--1 text-font-size-h5">Coronavirus Live Tracker - Dashboard for the COVID-19 Virus Outbreak in India</h1>
       </div>
+      
       <div class="d-flex justify-content-end calendar-button">
-        
-
         <input class="form-control date-range-select" #daterangepicker="bsDaterangepicker" bsDaterangepicker
           [(ngModel)]="bsRangeValue"
           [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY', dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: false }"
           (bsValueChange)="dateFilterChanged($event)" [minDate]="minDate" readonly>
-
-       
-
-
       </div>
 
     </div>
@@ -33,66 +30,84 @@
     </div>
 
     <div class="row row-xs quick-link">
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
+
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">{{totalConfirmedCases | number}}</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">
+              {{totalConfirmedCases | number}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
               <span class="tx-medium tx-danger" *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
                 <i class="icon ion-md-arrow-up"></i>
               </span>
               <span class="tx-medium tx-danger" *ngIf="!totalIntesiveCases"> 0
                 <i class="icon ion-md-arrow-up"></i>
-              </span>  in ICU
+              </span> in ICU
             </p>
+            <div class="deltas-container">
+              <ng-container *ngIf="totalConfirmUpCasesCount">
+                <span class="deltas deltas-up">
+                  <i class="fa fa-arrow-up" aria-hidden="true"></i>{{totalConfirmUpCasesCount}}
+                </span>
+                more than yesterday
+              </ng-container>
+              <ng-container *ngIf="totalConfirmDownCasesCount">
+                <span class="deltas deltas-down">
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>{{totalConfirmDownCasesCount}}
+                </span>
+                less than yesterday
+              </ng-container>
+            </div>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
               [options]="lineChartConfirmedSourceOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false"
               [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
           </div>
         </div>
 
       </div>
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalHospitalisedCases">{{totalHospitalisedCases}}</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalHospitalisedCases">{{totalHospitalisedCases}}
+            </h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
-              <span class="tx-medium tx-success">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}} %<i
-                  class="icon ion-md-arrow-down"></i></span> of total cases</p>
+              <span
+                class="tx-medium tx-success">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}}
+                %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartSymptomaticData"
               [labels]="lineChartSymptomaticSourceLabels" [options]="lineChartSymptomaticSourceOptions"
               [colors]="lineChartSymptomaticSourceColors" [legend]="false" [chartType]="lineChartType"
               [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
           </div>
         </div>
       </div>
-      
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalDischargedCases">{{totalDischargedCases}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
-              <span class="tx-medium tx-success">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
-                  class="icon ion-md-arrow-up"></i></span> of total cases</p>
+              <span class="tx-medium tx-success">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}}
+                %<i class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
               [options]="lineChartDischargeSourceOptions" [colors]="lineChartDischargeSourceColors" [legend]="false"
               [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-lg-3 margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
@@ -102,17 +117,30 @@
                   class="icon ion-md-arrow-up"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
-            <canvas baseChart height="60" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
+            <!-- <canvas baseChart height="60" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
               [options]="lineChartDeathOptions" [colors]="lineChartDeathColors" [legend]="false"
               [chartType]="lineChartType" [plugins]="lineChartPlugins">
-            </canvas>
+            </canvas> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-quick-link margin-top-10">
+        <div class="card card-body">
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Tests Conducted</h6>
+          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">38,442</h3>
+            <p class="tx-11 tx-color-03 mg-b-0">
+              <span class="tx-medium tx-danger">1385</span> Positives
+            </p>
+          </div>
+          <div style="display: block;">
           </div>
         </div>
       </div>
     </div>
-    
 
-    
+
+
     <div class="row row-xs">
       <div class="col-lg-12 margin-top-10">
         <div class="card">
@@ -125,7 +153,18 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 col-xl-9 margin-top-10">
+      <div class="col-lg-12 margin-top-10">
+        <div class="card">
+          <div class="card-header">
+            States Statistics
+          </div>
+          <!-- <div class="card-body">
+          </div> -->
+          <app-top-state-table [cases]="dateWisePateintData" [endDate]="endDate"></app-top-state-table>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-xl-8 margin-top-10">
         <div class="card">
           <div class="card-header">
             Number Of Cases
@@ -134,7 +173,7 @@
           </div>
           <div class="card-body">
             <div style="display: block;" class="stacked-chart">
-              <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+              <canvas width="500px" height="340px" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                 [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
               </canvas>
             </div>
@@ -142,17 +181,19 @@
         </div>
       </div>
 
-      <div class="col-lg-4 col-xl-3 margin-top-10">
+      <div class="col-lg-6 col-xl-4 margin-top-10">
         <div class="card">
-          <div class="card-header">Gender</div>
+          <div class="card-header">Follow us on Twitter</div>
           <div class="card-body">
-            <div style="display: block;" class="doughnut-chart">
+            <!-- <div style="display: block;" class="doughnut-chart">
               <canvas height="400" baseChart [data]="doughnutChartData" [legend]="false" [labels]="doughnutChartLabels"
                 [chartType]="doughnutChartType" [options]="pieChartGenderOptions" [colors]="pieChartGenderColors">
               </canvas>
-            </div>
+            </div> -->
+            <a class="twitter-timeline" data-dnt="true" data-theme="light" href="https://twitter.com/covid_19_India?ref_src=twsrc%5Etfw">Tweets by covid_19_India</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <!-- <a class="twitter-timeline" href="https://twitter.com/covid_19_India?ref_src=twsrc%5Etfw">Tweets by @covid_19_India</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
           </div>
-          <div class="card-footer pd-10">
+          <!-- <div class="card-footer pd-10">
             <div class="row">
               <div class="col-6">
                 <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">
@@ -161,9 +202,11 @@
                 </p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0" *ngIf="maleCount && femaleCount">
-                    <small class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
+                    <small
+                      class="tx-color-04">{{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small>
+                  </h5>
                 </div>
-              </div><!-- col -->
+              </div>
               <div class="col-6">
                 <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-5">
                   <span class="legend-label-color" style="background-color: #ffa1b5;"></span>
@@ -171,21 +214,35 @@
                 </p>
                 <div class="d-flex align-items-center">
                   <h5 class="tx-normal tx-rubik mg-b-0" *ngIf="maleCount && femaleCount">
-                    <small class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small></h5>
+                    <small
+                      class="tx-color-04">{{(femaleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</small>
+                  </h5>
                 </div>
-              </div><!-- col -->
-            </div><!-- row -->
-          </div>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-12 margin-top-10">
 
         <div class="card card-body">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Cumulative Confirmed Codiv-19 Cases in India</h6>
-          <div style="display: block;">
-            <canvas baseChart [datasets]="cumulativeChartConfirmData" [legend]="false" [labels]="cumulativeChartConfirmLabels"
-              [options]="cumulativeChartConfirmOptions" [colors]="cumulativeChartConfirmColors"
-              [chartType]="lineChartType" [plugins]="lineChartPlugins">
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mb-4">Cumulative Confirmed Codiv-19 Cases
+            in India</h6>
+          <div style="display: block; position: relative;">
+            <div class="cumulative-chart-confirm-count">
+              <div class="media">
+                <div class="media-body mg-l-10">
+                  <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">
+                    {{totalConfirmedCases}} <small style="font-size: 0.7rem; color: red;">[ +{{endDateConfirmCount}} ]</small>
+                  </h6>
+                  <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">CONFIRMED</p>
+                </div>
+                <!-- media-body -->
+              </div>
+            </div>
+            <canvas width="500px" height="300px" baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
+              [labels]="cumulativeChartConfirmLabels" [options]="cumulativeChartConfirmOptions"
+              [colors]="cumulativeChartConfirmColors" [chartType]="lineChartType" [plugins]="lineChartPlugins">
             </canvas>
           </div>
         </div>
@@ -197,7 +254,15 @@
           <div class="card-body">
             <div id="chart">
               <div style="display: block;" class="stacked-chart">
-                <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                <!-- <canvas baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
+                  [legend]="false" chartType="horizontalBar">
+                </canvas> -->
+                <canvas class="for-desktop" width="500px" height="300px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
+                  [legend]="false" chartType="horizontalBar">
+                </canvas>
+                <canvas class="for-mobile" width="600px" height="800px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
                   [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
                   [legend]="false" chartType="horizontalBar">
                 </canvas>
@@ -207,7 +272,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 margin-top-10">
+      <!-- <div class="col-lg-4 margin-top-10">
         <div class="card">
           <div class="card-header">Nationality</div>
           <div class="card-body">
@@ -220,16 +285,17 @@
             <div class="nationality-legends">
               <div class="nationality-lable" *ngFor="let lable of doughnutNationalityChartLabels;let i = index">
                 <div class="nationality-lable-text">
-                  <span class="legend-label-color" [ngStyle]="{'background-color': getNationalityChartLabelColor(i)}"></span> {{lable}}
-                </div>&nbsp;                       
+                  <span class="legend-label-color"
+                    [ngStyle]="{'background-color': getNationalityChartLabelColor(i)}"></span> {{lable}}
+                </div>&nbsp;
                 <div class="nationality-value">{{doughnutNationalityChartData[0][i]}}</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-lg-8 margin-top-10">
+      <!-- <div class="col-lg-8 margin-top-10">
         <div class="card">
           <div class="card-header">
             Gender over Time
@@ -247,11 +313,11 @@
                       {{(maleCount*100/(femaleCount+maleCount)).toFixed(2)| number: '1.0-0'}}%</h6>
                     <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">MALE</p>
                   </div>
-                  <!-- media-body -->
+                  //media-body
                 </div>
-                <!-- media -->
+                //media
               </div>
-              <!-- col -->
+              // col
               <div class="col-6">
                 <div class="media">
                   <div class="icon-female d-flex align-items-center justify-content-center">
@@ -267,24 +333,24 @@
             </div>
 
             <div class="canvas-wrapper">
-              <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
-                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-                [chartType]="lineChartType" [plugins]="lineChartPlugins">
+              <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
               </canvas>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-    
 
-      <div class="col-lg-4 margin-top-10">
+
+      <!-- <div class="col-lg-4 margin-top-10">
         <div class="card">
           <div class="card-header">Source</div>
           <div class="card-body">
             <div style="display: block;" class="doughnut-chart">
-              <canvas height="300" baseChart [legend]="false" [data]="doughnutSourceChartData" [options]="pieChartSourceOptions"
-                [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType"
+              <canvas height="300" baseChart [legend]="false" [data]="doughnutSourceChartData"
+                [options]="pieChartSourceOptions" [labels]="doughnutSourceChartLabels" [chartType]="doughnutChartType"
                 [colors]="doughnutSourceChartColors">
               </canvas>
             </div>
@@ -294,24 +360,25 @@
               <ng-container *ngIf="doughnutSourceChartLabels.length > 0">
                 <div class="col-6" *ngFor="let label of doughnutSourceChartLabels; let i = index">
                   <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 mg-b-5">
-                    <span class="legend-label-color" [ngStyle]="{'background-color': getSourceChartLabelColor(i)}" ></span>
+                    <span class="legend-label-color"
+                      [ngStyle]="{'background-color': getSourceChartLabelColor(i)}"></span>
                     {{label}}
                   </p>
                   <div class="d-flex align-items-center">
                     <h5 class="tx-normal tx-rubik mg-b-0">{{doughnutSourceChartData[0][i]}} </h5>
-                    
+
                   </div>
                 </div>
               </ng-container>
 
-  
-            </div><!-- row -->
+
+            </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
-      <div class="col-lg-8 margin-top-10">
+      <!-- <div class="col-lg-8 margin-top-10">
         <div class="card">
           <div class="card-header">
             Infection Source over Time
@@ -331,11 +398,11 @@
                     <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">LOCAL TRANSMISSION
                     </p>
                   </div>
-                  <!-- media-body -->
+                  // media-body 
                 </div>
-                <!-- media -->
+                // media 
               </div>
-              <!-- col -->
+              // col 
               <div class="col-6">
                 <div class="media">
                   <div class="icon-female d-flex align-items-center justify-content-center">
@@ -359,10 +426,21 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
+      <!-- <div class="col-lg-12 margin-top-10">
+        <div class="card">
+          <div class="card-header">Tests Conducted</div>
+          <div class="card-body">
+            <div id="chart">
+              <div style="display: block;">
 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
 
 
 
