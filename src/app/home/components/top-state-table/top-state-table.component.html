@@ -80,7 +80,12 @@
                   <tbody>
                     <tr *ngFor="let city of state.topFiveCities"> 
                       <td class="text-left">{{city.name}}</td>
-                      <td class="text-right">{{city.confirmCases}}</td>
+                      <td class="text-right">
+                        <span class="deltas deltas-danger" *ngIf="city.confirmUpCount">
+                          <i class="fa fa-arrow-up" aria-hidden="true"></i>{{city.confirmUpCount}}
+                        </span>
+                        {{city.confirmCases}}
+                      </td>
                       <td class="text-right">{{city.recoveredCases}}</td>
                       <td class="text-right">{{city.deceasedCases}}</td>
                     </tr>
