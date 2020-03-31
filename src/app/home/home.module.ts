@@ -8,9 +8,10 @@ import { HomeComponent } from './components/home/home.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CountryMapComponent } from './components/country-map/country-map.component';
 import { TopStateTableComponent } from './components/top-state-table/top-state-table.component';
+import { TestConductedCumulativeChartComponent } from './components/test-conducted-cumulative-chart/test-conducted-cumulative-chart.component';
 
 @NgModule({
-  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent],
+  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent],
   imports: [
     CommonModule,
     FormsModule,
