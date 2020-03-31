@@ -21,10 +21,6 @@ export class HomeComponent implements OnInit {
   public totalDeathCases = 0;
   public maleCount = 0;
   public femaleCount = 0;
-  public totalImportedTransmission = 0;
-  public totalLocalTransmission = 0;
-  public totalFemaleCases = 0;
-  public totalMaleCases = 0;
   public totalConfirmUpCasesCount = 0;
   public totalConfirmDownCasesCount = 0;
   public chartColors = [
@@ -32,10 +28,10 @@ export class HomeComponent implements OnInit {
       backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
         "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
         "#C39797", "#A3C7C5", "#E8DAD0", "#E0B9BB", "#CCD89D", "#AF9AAF", "#9E9ED6", "#AC72E2", "#A7A2A2",
-        "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF","#F5FCC1","#84A9AC","#698474","#F8DC88","#CC0E74"]
+        "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF", "#F5FCC1", "#84A9AC", "#698474", "#F8DC88", "#CC0E74"]
     }
   ];
-  public dateWisePateintData:any;
+  public dateWisePateintData: any;
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -66,12 +62,12 @@ export class HomeComponent implements OnInit {
     },
     scales: {
       yAxes: [{
-          ticks: {
-              autoSkip: false,
-              fontSize: 11
-          }
+        ticks: {
+          autoSkip: false,
+          fontSize: 11
+        }
       }]
-  }
+    }
   };
 
   public stateBarChartLabels: Label[] = [];
@@ -294,7 +290,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.patientsDataService.testsConductedData.subscribe(tests => {
-      if(tests){
+      if (tests) {
         this.testsConducatedData = tests;
         this.setTestConductedData();
       }
@@ -303,17 +299,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngDoCheck() {
-    // this.patientsDataService.titleSubject.next("India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak");
-    // this.patientsDataService.metaData.next({name:"twitter:card" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    // this.patientsDataService.metaData.next({name:"twitter:title" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    // this.patientsDataService.metaData.next({property:"og:title" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    // this.patientsDataService.metaData.next({name:"og:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
-    // this.patientsDataService.metaData.next({name:"twitter:description" , content:"Live statistics and coronavirus tracking the number of confirmed cases, recovered patients, and death toll in India due to the COVID 19 coronavirus from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
-    // this.patientsDataService.metaData.next({name:"og:site_name" , content:"India Covid-19 - Corona Virus Dashboard India (Live) - " + this.totalConfirmedCases + " confirmed cases and " + this.totalDeathCases +" deaths in India from Covid-19 Virus Outbreak"});
-    // this.patientsDataService.metaData.next({name:"keywords" , content:"MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Corona Virus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates"});
-    // this.patientsDataService.covid19TotalConfirmedCases.next({'totalCases':this.totalConfirmedCases});
-    // this.patientsDataService.covid19TotalDeaths.next({'totalDeaths':this.totalDeathCases});
-    // console.log(this.patientsDataService.covid19TotalDeaths);
   }
 
   prepareBarChartData(patientRecords: any) {
@@ -330,7 +315,7 @@ export class HomeComponent implements OnInit {
     return data.length;
   }
 
-  getNationalityChartLabelColor(i){
+  getNationalityChartLabelColor(i) {
     return this.chartColors[0].backgroundColor[i];
   }
 
@@ -510,44 +495,38 @@ export class HomeComponent implements OnInit {
     this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
     this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
-    
     this.maleCount = 0;
     this.femaleCount = 0;
-    this.totalImportedTransmission = 0;
-    this.totalLocalTransmission = 0;
-    this.totalFemaleCases = 0;
-    this.totalMaleCases = 0;
-    
-    this.setConfirmCountDaviation(filteredData);    
+    this.setConfirmCountDaviation(filteredData);
   }
 
-  setTestConductedData(){
+  setTestConductedData() {
     let self = this;
-    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {      
-      if(tests.ConductedOn){
+    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
+      if (tests.ConductedOn) {
         let testDate = new Date(tests.ConductedOn);
         if (testDate <= self.endDate) {
           return tests;
         }
-      }      
+      }
     });
 
-    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function(tests) {    
+    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
       return new Date(tests.ConductedOn);
     })));
 
-    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth()+1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
-    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);    
+    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth() + 1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
+    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);
   }
 
-  setConfirmCountDaviation(filteredData){
-    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+  setConfirmCountDaviation(filteredData) {
+    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
     let yesterday = new Date(lastDate);
     yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
-    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth()+1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
     let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
 
-    if(difference >= 0){
+    if (difference >= 0) {
       this.totalConfirmUpCasesCount = difference;
       this.totalConfirmDownCasesCount = 0;
     } else {
