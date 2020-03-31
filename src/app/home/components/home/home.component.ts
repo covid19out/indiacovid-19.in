@@ -124,29 +124,25 @@ export class HomeComponent implements OnInit {
   public lineChartLegend = false;
   public lineChartType = 'line';
   public lineChartPlugins = [];
-
+  //card charts
+  public cardLineChartOptions: (ChartOptions & { annotation: any }) = {
+    tooltips: { enabled: false },
+    responsive: true,
+    annotation: false,
+    scales: {
+      xAxes: [{
+        display: false
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  };
   //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
     { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = [];
-  public lineChartConfirmedSourceOptions: (ChartOptions & { annotation: any }) = {
-    tooltips: { enabled: false },
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
   public lineChartConfirmedSourceColors: Color[] = [
     {
       borderColor: '#9399ff',
@@ -159,23 +155,6 @@ export class HomeComponent implements OnInit {
     { data: [], label: 'Hospitalised CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartSymptomaticSourceLabels: Label[] = [];
-  public lineChartSymptomaticSourceOptions: (ChartOptions & { annotation: any }) = {
-    tooltips: { enabled: false },
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
   public lineChartSymptomaticSourceColors: Color[] = [
     {
       borderColor: '#fdd365',
@@ -188,23 +167,6 @@ export class HomeComponent implements OnInit {
     { data: [], label: 'INTENSIVE CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartIntensiveSourceLabels: Label[] = [];
-  public lineChartIntensiveSourceOptions: (ChartOptions & { annotation: any }) = {
-    tooltips: { enabled: false },
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
   public lineChartIntensiveSourceColors: Color[] = [
     {
       borderColor: '#6e7f90',
@@ -217,23 +179,6 @@ export class HomeComponent implements OnInit {
     { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDeathLabels: Label[] = [];
-  public lineChartDeathOptions: (ChartOptions & { annotation: any }) = {
-    tooltips: { enabled: false },
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
   public lineChartDeathColors: Color[] = [
     {
       borderColor: '#fd5e53',
@@ -246,31 +191,12 @@ export class HomeComponent implements OnInit {
     { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDischargeSourceLabels: Label[] = [];
-  public lineChartDischargeSourceOptions: (ChartOptions & { annotation: any }) = {
-    tooltips: { enabled: false },
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
   public lineChartDischargeSourceColors: Color[] = [
     {
       borderColor: '#21bf73',
       backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
-
-
 
   public patientsData: any;
   public testsConducatedData: any;
@@ -305,10 +231,10 @@ export class HomeComponent implements OnInit {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(patientRecords);
     this.assigndoughnutChartData(patientRecords);
-    this.assignConfimedLineChartData(dateWiseData);
-    this.assignHospitalisedLineChartData(dateWiseData);
-    this.assignDischargedLineChartData(dateWiseData);
-    this.assignIntensiveLineChartData(dateWiseData);
+    // this.assignConfimedLineChartData(dateWiseData);
+    // this.assignHospitalisedLineChartData(dateWiseData);
+    // this.assignDischargedLineChartData(dateWiseData);
+    // this.assignIntensiveLineChartData(dateWiseData);
   }
 
   getDataCount(data: any): any {
@@ -359,6 +285,110 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  getSortedObject(objectToSort) {
+    var sortedObject = {};
+    var arraysToSort = [];
+    var obj: any;
+    for (var o in objectToSort) {
+      obj = {
+        "state": o,
+        "objects": objectToSort[o]
+      }
+      arraysToSort.push(obj);
+    }
+    arraysToSort.sort((a, b) => b.objects.length - a.objects.length);
+    for (var i = 0; i < arraysToSort.length; i++) {
+      obj = arraysToSort[i];
+      sortedObject[obj.state] = obj.objects;
+    }
+    return sortedObject;
+
+  }
+
+  assignStateBarChartDate(dateWiseData) {
+    this.stateBarChartLabels = [];
+    this.stateBarChartData[0].data = [];
+
+    if (dateWiseData.length) {
+      var states = _.groupBy(dateWiseData, 'state');
+      var sortedStates = this.getSortedObject(states);
+
+      for (let state in sortedStates) {
+        this.stateBarChartLabels.push(state);
+        this.stateBarChartData[0].data.push(sortedStates[state].length);
+      };
+
+    }
+  }
+
+  dateFilterChanged(event) {
+    if (!event) return;
+
+    event[0].setHours(0, 0, 0, 0);
+    event[1].setHours(23, 59, 59, 999);
+    this.startDate = event[0];
+    this.endDate = event[1];
+    var filteredData = _.filter(this.patientsData, function (patient) {
+      let patientsDate = new Date(patient.confirmAt);
+      if (patientsDate >= event[0] && patientsDate <= event[1]) {
+        return patient;
+      }
+    });
+    this.dateWisePateintData = filteredData;
+    this.setTestConductedData();
+    this.setCasesAnalytics(filteredData);
+    this.prepareBarChartData(filteredData);
+    this.assignStateBarChartDate(filteredData);
+    // this.assignDeathLineChartData(filteredData);
+  }
+
+  setCasesAnalytics(filteredData) {
+    this.totalCases = this.totalConfirmedCases = filteredData.length;
+    this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED").length;
+    this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
+    this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
+    this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
+    this.maleCount = 0;
+    this.femaleCount = 0;
+    this.setConfirmCountDaviation(filteredData);
+  }
+
+  setTestConductedData() {
+    let self = this;
+    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
+      if (tests.ConductedOn) {
+        let testDate = new Date(tests.ConductedOn);
+        if (testDate <= self.endDate) {
+          return tests;
+        }
+      }
+    });
+
+    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
+      return new Date(tests.ConductedOn);
+    })));
+
+    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth() + 1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
+    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);
+  }
+
+  setConfirmCountDaviation(filteredData) {
+    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    let yesterday = new Date(lastDate);
+    yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
+    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
+
+    if (difference >= 0) {
+      this.totalConfirmUpCasesCount = difference;
+      this.totalConfirmDownCasesCount = 0;
+    } else {
+      this.totalConfirmUpCasesCount = 0;
+      this.totalConfirmDownCasesCount = -difference;
+    }
+  }
+
+  /** card charts
   assignConfimedLineChartData(dateWiseData) {
     let self = this;
     self.lineChartConfirmedSourceLabels = [];
@@ -431,108 +461,5 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-
-  getSortedObject(objectToSort) {
-    var sortedObject = {};
-    var arraysToSort = [];
-    var obj: any;
-    for (var o in objectToSort) {
-      obj = {
-        "state": o,
-        "objects": objectToSort[o]
-      }
-      arraysToSort.push(obj);
-    }
-    arraysToSort.sort((a, b) => b.objects.length - a.objects.length);
-    for (var i = 0; i < arraysToSort.length; i++) {
-      obj = arraysToSort[i];
-      sortedObject[obj.state] = obj.objects;
-    }
-    return sortedObject;
-
-  }
-
-  assignStateBarChartDate(dateWiseData) {
-    this.stateBarChartLabels = [];
-    this.stateBarChartData[0].data = [];
-
-    if (dateWiseData.length) {
-      var states = _.groupBy(dateWiseData, 'state');
-      var sortedStates = this.getSortedObject(states);
-
-      for (let state in sortedStates) {
-        this.stateBarChartLabels.push(state);
-        this.stateBarChartData[0].data.push(sortedStates[state].length);
-      };
-
-    }
-  }
-
-  dateFilterChanged(event) {
-    if (!event) return;
-
-    event[0].setHours(0, 0, 0, 0);
-    event[1].setHours(23, 59, 59, 999);
-    this.startDate = event[0];
-    this.endDate = event[1];
-    var filteredData = _.filter(this.patientsData, function (patient) {
-      let patientsDate = new Date(patient.confirmAt);
-      if (patientsDate >= event[0] && patientsDate <= event[1]) {
-        return patient;
-      }
-    });
-    this.dateWisePateintData = filteredData;
-    this.setTestConductedData();
-    this.setCasesAnalytics(filteredData);
-    this.prepareBarChartData(filteredData);
-    this.assignStateBarChartDate(filteredData);
-    this.assignDeathLineChartData(filteredData);
-  }
-
-  setCasesAnalytics(filteredData) {
-    this.totalCases = this.totalConfirmedCases = filteredData.length;
-    this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED").length;
-    this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
-    this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
-    this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
-    this.maleCount = 0;
-    this.femaleCount = 0;
-    this.setConfirmCountDaviation(filteredData);
-  }
-
-  setTestConductedData() {
-    let self = this;
-    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
-      if (tests.ConductedOn) {
-        let testDate = new Date(tests.ConductedOn);
-        if (testDate <= self.endDate) {
-          return tests;
-        }
-      }
-    });
-
-    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
-      return new Date(tests.ConductedOn);
-    })));
-
-    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth() + 1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
-    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);
-  }
-
-  setConfirmCountDaviation(filteredData) {
-    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
-    let yesterday = new Date(lastDate);
-    yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
-    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
-    let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
-
-    if (difference >= 0) {
-      this.totalConfirmUpCasesCount = difference;
-      this.totalConfirmDownCasesCount = 0;
-    } else {
-      this.totalConfirmUpCasesCount = 0;
-      this.totalConfirmDownCasesCount = -difference;
-    }
-  }
-
+ */
 }
