@@ -128,74 +128,6 @@ export class HomeComponent implements OnInit {
   public lineChartLegend = false;
   public lineChartType = 'line';
   public lineChartPlugins = [];
-  //Gender over Time line chart
-  public lineChartData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    { data: [7, 8, 9, 6, 10, 14, 12, 14, 19, 20], label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-  ];
-  public months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  public lineChartLabels: Label[] = this.months;
-  public lineChartOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-
-  };
-  public lineChartColors: Color[] = [
-    {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
-    },
-    {
-      borderColor: '#ffa1b5',
-      backgroundColor: 'rgba(255,161,181,0.3)',
-    }
-  ];
-
-
-  //Infection Source over Time
-  public lineChartInfectionSourceData: ChartDataSets[] = [
-    { data: [10, 12, 10, 8, 15, 18, 14, 17, 21, 23], label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    { data: [0, 0, 0, 6, 10, 20, 17, 22, 35, 40], label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-  ];
-  public lineChartInfectionSourceLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartInfectionSourceOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    annotation: false,
-    scales: {
-      xAxes: [
-        {
-          display: false
-        }
-      ],
-      yAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
-  public lineChartInfectionSourceColors: Color[] = [
-    {
-      borderColor: '#ffa1b5',
-      backgroundColor: 'rgba(255,161,181,0.3)',
-    },
-    {
-      borderColor: '#86c7f3',
-      backgroundColor: 'rgba(134,199,243,0.3)',
-    },    
-  ];
 
   //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
@@ -388,46 +320,10 @@ export class HomeComponent implements OnInit {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(patientRecords);
     this.assigndoughnutChartData(patientRecords);
-    this.assignLineChartData(patientRecords);
     this.assignConfimedLineChartData(dateWiseData);
     this.assignHospitalisedLineChartData(dateWiseData);
     this.assignDischargedLineChartData(dateWiseData);
     this.assignIntensiveLineChartData(dateWiseData);
-  }
-
-  assignLineChartData(dateWiseData: any[]) {
-    let chartLabels = [];
-    let chartDataOfMales = [];
-    let chartDataOfFemales = [];
-    let chartDataOfImported = [];
-    let chartDataOfLocal = [];
-    if (dateWiseData.length == 1) {
-      dateWiseData = _.concat({ "confirmAt": new Date(new Date().setDate(new Date(dateWiseData[0].confirmAt).getDate() - 1)) }, dateWiseData);
-    }
-    _.forEach(_.groupBy(dateWiseData, 'confirmAt'), function (value, key) {
-      chartLabels.push(key);
-      let genderWiseData = _.groupBy(value, 'gender');
-      chartDataOfMales.push(genderWiseData.Male ? genderWiseData.Male.length : 0);
-      chartDataOfFemales.push(genderWiseData.Female ? genderWiseData.Female.length : 0);
-      let transmissionSourceWiseData = _.groupBy(value, 'source');
-      chartDataOfImported.push(transmissionSourceWiseData["Imported Cases"] ? transmissionSourceWiseData["Imported Cases"].length : 0);
-      chartDataOfLocal.push(transmissionSourceWiseData["Local Transmission"] ? transmissionSourceWiseData["Local Transmission"].length : 0);
-    });
-
-    chartDataOfImported.map(x => this.totalImportedTransmission += x);
-    chartDataOfLocal.map(x => this.totalLocalTransmission += x);
-    chartDataOfMales.map(x => this.totalMaleCases += x);
-    chartDataOfFemales.map(x => this.totalFemaleCases += x);
-
-    this.lineChartLabels = this.lineChartInfectionSourceLabels = chartLabels;
-    this.lineChartData = [
-      { data: chartDataOfMales, label: 'Male', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-      { data: chartDataOfFemales, label: 'Female', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    ];
-    this.lineChartInfectionSourceData = [
-      { data: chartDataOfImported, label: 'IMPORTED CASE', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-      { data: chartDataOfLocal, label: 'LOCAL TRANSMISSION', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    ];
   }
 
   getDataCount(data: any): any {
