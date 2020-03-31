@@ -35,13 +35,13 @@
 
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalConfirmedCases">
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalConfirmedCases">
               {{totalConfirmedCases | number}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
-              <span class="tx-medium tx-danger" *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
+              <span class="tx-medium " *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
                 <i class="icon ion-md-arrow-up"></i>
               </span>
-              <span class="tx-medium tx-danger" *ngIf="!totalIntesiveCases"> 0
+              <span class="tx-medium" *ngIf="!totalIntesiveCases"> 0
                 <i class="icon ion-md-arrow-up"></i>
               </span> in ICU
             </p>
@@ -73,12 +73,12 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalHospitalisedCases">1219
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-warning" *ngIf="totalHospitalisedCases">1219
               <!-- {{totalHospitalisedCases}} -->
             </h3>
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
               <span
-                class="tx-medium tx-success">{{(100*1219/totalCases).toFixed(2) | number: '1.0-0'}}
+                class="tx-medium">{{(100*1219/totalCases).toFixed(2) | number: '1.0-0'}}
                 %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
           </div>
           <div style="display: block;">
@@ -95,10 +95,10 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalDischargedCases">102</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">102</h3>
               <!-- {{totalDischargedCases}}-->
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
-              <span class="tx-medium tx-success">{{(100*102/totalCases).toFixed(2)| number: '1.0-0'}}
+              <span class="tx-medium">{{(100*102/totalCases).toFixed(2)| number: '1.0-0'}}
                 %<i class="icon ion-md-arrow-up"></i></span> of total cases</p> 
           </div>
           <div style="display: block;">
@@ -113,10 +113,10 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" *ngIf="totalDeathCases">32</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalDeathCases">32</h3>
               <!-- {{totalDeathCases}}-->
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
-              <span class="tx-medium tx-success">{{(100*32/totalCases).toFixed(2)| number: '1.0-0'}} %<i
+              <span class="tx-medium">{{(100*32/totalCases).toFixed(2)| number: '1.0-0'}} %<i
                   class="icon ion-md-arrow-up"></i></span> of total cases</p> 
           </div>
           <div style="display: block;">
@@ -131,9 +131,9 @@
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Tests Conducted</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">38,442</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-info">1385</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
-              <span class="tx-medium tx-danger">1385</span> Positives
+              <span class="tx-medium">Positives out of 38,442 tests</span> 
             </p>
           </div>
           <div style="display: block;">
