@@ -414,6 +414,9 @@ export class HomeComponent implements OnInit {
 
 
   public patientsData: any;
+  public testsConducatedData: any;
+  public filteredTestConductedData: any;
+  public lastDateTestConductedData: any;
 
   constructor(private patientsDataService: PatientsDataService) { }
 
@@ -424,6 +427,13 @@ export class HomeComponent implements OnInit {
       if (data) {
         this.patientsData = data;
         this.dateFilterChanged([this.startDate, this.endDate]);
+      }
+    });
+
+    this.patientsDataService.testsConductedData.subscribe(tests => {
+      if(tests){
+        this.testsConducatedData = tests;
+        this.setTestConductedData();
       }
     });
 
@@ -492,9 +502,7 @@ export class HomeComponent implements OnInit {
 
   assignCumulativeConfirmChartData(filteredData) {
     let dateWiseData = filteredData.sort((a, b) => {
-      let dateA = new Date(a.confirmAt);
-      let dateB = new Date(b.confirmAt);
-      return dateA.getTime() - dateB.getTime();
+      return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
     });
 
     this.cumulativeChartConfirmLabels = [];
@@ -710,7 +718,7 @@ export class HomeComponent implements OnInit {
       }
     });
     this.dateWisePateintData = filteredData;
-
+    this.setTestConductedData();
     this.setCasesAnalytics(filteredData);
     this.prepareBarChartData(filteredData);
     this.assigndoughnutNationalityChartData(filteredData);
@@ -736,6 +744,25 @@ export class HomeComponent implements OnInit {
     this.setConfirmCountDaviation(filteredData);
     this.setEndDateConfirmCount(filteredData);
     
+  }
+
+  setTestConductedData(){
+    let self = this;
+    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {      
+      if(tests.ConductedOn){
+        let testDate = new Date(tests.ConductedOn);
+        if (testDate <= self.endDate) {
+          return tests;
+        }
+      }      
+    });
+
+    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function(tests) {    
+      return new Date(tests.ConductedOn);
+    })));
+
+    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth()+1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
+    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);    
   }
 
   setEndDateConfirmCount(filteredData){
