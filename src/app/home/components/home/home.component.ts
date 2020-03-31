@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
     }
   ];
   public dateWisePateintData:any;
-  public endDateConfirmCount:number;
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -232,40 +231,6 @@ export class HomeComponent implements OnInit {
     },    
   ];
 
-  //Cumulate confirm cases line chart
-  //
-  public cumulativeChartConfirmData: ChartDataSets[] = [
-    { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
-  ];
-  public cumulativeChartConfirmLabels: Label[] = [];
-  public cumulativeChartConfirmOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    annotation: true,
-    scales: {
-      xAxes: [
-        {
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          }
-        }
-      ],
-      yAxes: [
-        {
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          }
-        }
-      ]
-    }
-  };
-  public cumulativeChartConfirmColors: Color[] = [
-    {
-      borderColor: '#ffa1b5',
-      backgroundColor: 'rgba(0,0,0,0)',
-      pointBackgroundColor: '#FF0000',
-      pointBorderColor: '#fff',
-    }
-  ];
   //Confirmed card Line chart
   public lineChartConfirmedData: ChartDataSets[] = [
     { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
@@ -500,26 +465,6 @@ export class HomeComponent implements OnInit {
     ];
   }
 
-  assignCumulativeConfirmChartData(filteredData) {
-    let dateWiseData = filteredData.sort((a, b) => {
-      return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
-    });
-
-    this.cumulativeChartConfirmLabels = [];
-    this.cumulativeChartConfirmData[0].data = [];
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    let dateWiseConfirm = _.groupBy(dateWiseData, 'confirmAt');
-    let count = 0;
-
-    for (let confirmdate in dateWiseConfirm) {
-      count += dateWiseConfirm[confirmdate].length;
-      let label = `${new Date(confirmdate).getDate()} ${months[new Date(confirmdate).getMonth()]} ${new Date(confirmdate).getFullYear()}`;
-      this.cumulativeChartConfirmLabels.push(label);
-      this.cumulativeChartConfirmData[0].data.push(count);
-    }
-
-  }
-
   getDataCount(data: any): any {
     return data.length;
   }
@@ -724,7 +669,6 @@ export class HomeComponent implements OnInit {
     this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
     this.assignDeathLineChartData(filteredData);
-    this.assignCumulativeConfirmChartData(filteredData);
   }
 
   setCasesAnalytics(filteredData) {
@@ -741,9 +685,7 @@ export class HomeComponent implements OnInit {
     this.totalFemaleCases = 0;
     this.totalMaleCases = 0;
     
-    this.setConfirmCountDaviation(filteredData);
-    this.setEndDateConfirmCount(filteredData);
-    
+    this.setConfirmCountDaviation(filteredData);    
   }
 
   setTestConductedData(){
@@ -763,11 +705,6 @@ export class HomeComponent implements OnInit {
 
     let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth()+1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
     this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);    
-  }
-
-  setEndDateConfirmCount(filteredData){
-    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
-    this.endDateConfirmCount =  filteredData.filter(x => x.confirmAt == lastDate).length;
   }
 
   setConfirmCountDaviation(filteredData){
