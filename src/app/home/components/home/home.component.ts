@@ -124,18 +124,6 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  //Doughnut Nationality
-  public doughnutNationalityChartLabels: Label[] = ['Singaporean', 'Chinese', 'Filipino', 'Indonesian', 'Bangladeshi', 'Malaysian', 'Others'];
-  public doughnutNationalityChartData: MultiDataSet = [
-    [167, 19, 9, 8, 5, 5, 11]
-  ];
-  public pieChartNationalityOptions: ChartOptions = {
-    responsive: true,
-    legend: {
-      position: 'bottom'
-    }
-  };
-
   //Doughnut Source  
   public doughnutSourceChartLabels: Label[] = [];
   public doughnutSourceChartData: MultiDataSet = [
@@ -469,18 +457,6 @@ export class HomeComponent implements OnInit {
     return data.length;
   }
 
-  assigndoughnutNationalityChartData(patientRecords: any[]) {
-    let NationalityChartLabels = [];
-    let NationalityChartData = [];
-    var data = _.groupBy(patientRecords, 'nationality');
-    _.forEach(data, function (value, key) {
-      NationalityChartLabels.push(key);
-      NationalityChartData.push(value.length);
-    });
-    this.doughnutNationalityChartLabels = NationalityChartLabels;
-    this.doughnutNationalityChartData = [NationalityChartData];
-  }
-
   getNationalityChartLabelColor(i){
     return this.chartColors[0].backgroundColor[i];
   }
@@ -666,7 +642,6 @@ export class HomeComponent implements OnInit {
     this.setTestConductedData();
     this.setCasesAnalytics(filteredData);
     this.prepareBarChartData(filteredData);
-    this.assigndoughnutNationalityChartData(filteredData);
     this.assignStateBarChartDate(filteredData);
     this.assignDeathLineChartData(filteredData);
   }
