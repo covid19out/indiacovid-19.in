@@ -124,28 +124,6 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  //Doughnut Source  
-  public doughnutSourceChartLabels: Label[] = [];
-  public doughnutSourceChartData: MultiDataSet = [
-    []
-  ];
-
-  public pieChartSourceOptions: ChartOptions = {
-    responsive: true,
-    legend: {
-      position: 'bottom'
-    }
-  };
-
-  public doughnutSourceChartColors = [
-    {
-      backgroundColor: [
-        '#ffa1b5',
-        '#86c7f3',        
-      ]
-    }
-  ];
-
   //Line charts
   public lineChartLegend = false;
   public lineChartType = 'line';
@@ -410,7 +388,6 @@ export class HomeComponent implements OnInit {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(patientRecords);
     this.assigndoughnutChartData(patientRecords);
-    this.assigndoughnutSourceChartData(patientRecords);
     this.assignLineChartData(patientRecords);
     this.assignConfimedLineChartData(dateWiseData);
     this.assignHospitalisedLineChartData(dateWiseData);
@@ -459,21 +436,6 @@ export class HomeComponent implements OnInit {
 
   getNationalityChartLabelColor(i){
     return this.chartColors[0].backgroundColor[i];
-  }
-
-  assigndoughnutSourceChartData(dateWiseData: any[]) {
-    var self = this;
-    this.doughnutSourceChartLabels = [];
-    this.doughnutSourceChartData = [[]];
-    let groupBySource = _.groupBy(dateWiseData, 'source');
-    for (let source in groupBySource) {
-      this.doughnutSourceChartLabels.push(source);
-      this.doughnutSourceChartData[0].push(self.getDataCount(groupBySource[source]));
-    }
-  }
-
-  getSourceChartLabelColor(i){
-    return this.doughnutSourceChartColors[0].backgroundColor[i];
   }
 
   assignDatatoBarChart(dateWiseData) {
