@@ -185,6 +185,12 @@
   }
 }
 
+.twitter-timeline-body{
+  max-height: 500px;
+  //max-height: -webkit-fill-available;
+  overflow-y: auto;
+}
+
 @media (max-width: 768px) {
   .date-range-select{
     width: 100%;
