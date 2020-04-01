@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/cor
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+declare var twttr:any;
 
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
@@ -82,43 +83,43 @@ export class HomeComponent implements OnInit {
   public doughnutChartType: ChartType = 'doughnut';
 
   //Doughnut Gender
-  public doughnutChartLabels: Label[] = [];
-  public doughnutChartData: MultiDataSet = [
-    []
-  ];
-  public pieChartGenderOptions: ChartOptions = {
-    responsive: true,
-    legend: {
-      position: 'bottom',
-    },
-    tooltips: {
-      callbacks: {
-        label: function (tooltipItem, data) {
-          let tooltipLabel = data.datasets[tooltipItem.datasetIndex].label || ''
-          let tooltipValue = parseInt(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toString());
-          let total = 0;
-          tooltipLabel = data.labels[tooltipItem.index].toString();
-          data.datasets[tooltipItem.datasetIndex].data.forEach(function (dataValue) {
-            total += dataValue;
-          });
-          tooltipValue = tooltipValue >= 0 ? tooltipValue : 0;
-          let percentageValue = ((tooltipValue * 100) / total).toFixed(0);
-          if (tooltipLabel) {
-            tooltipLabel += ': ' + percentageValue;
-          }
-          return tooltipLabel + "%";
-        }
-      }
-    }
-  };
-  public pieChartGenderColors = [
-    {
-      backgroundColor: [
-        '#ffa1b5',
-        '#86c7f3'
-      ]
-    }
-  ];
+  // public doughnutChartLabels: Label[] = [];
+  // public doughnutChartData: MultiDataSet = [
+  //   []
+  // ];
+  // public pieChartGenderOptions: ChartOptions = {
+  //   responsive: true,
+  //   legend: {
+  //     position: 'bottom',
+  //   },
+  //   tooltips: {
+  //     callbacks: {
+  //       label: function (tooltipItem, data) {
+  //         let tooltipLabel = data.datasets[tooltipItem.datasetIndex].label || ''
+  //         let tooltipValue = parseInt(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toString());
+  //         let total = 0;
+  //         tooltipLabel = data.labels[tooltipItem.index].toString();
+  //         data.datasets[tooltipItem.datasetIndex].data.forEach(function (dataValue) {
+  //           total += dataValue;
+  //         });
+  //         tooltipValue = tooltipValue >= 0 ? tooltipValue : 0;
+  //         let percentageValue = ((tooltipValue * 100) / total).toFixed(0);
+  //         if (tooltipLabel) {
+  //           tooltipLabel += ': ' + percentageValue;
+  //         }
+  //         return tooltipLabel + "%";
+  //       }
+  //     }
+  //   }
+  // };
+  // public pieChartGenderColors = [
+  //   {
+  //     backgroundColor: [
+  //       '#ffa1b5',
+  //       '#86c7f3'
+  //     ]
+  //   }
+  // ];
 
   //Line charts
   public lineChartLegend = false;
@@ -222,6 +223,15 @@ export class HomeComponent implements OnInit {
       }
     });
 
+    twttr.widgets.createTimeline(
+      {
+        sourceType: "list",
+        ownerScreenName: "TwitterDev",
+        slug: "covid_19_India"
+      },
+      document.getElementById("twitterTimelineWrapper")
+    );
+
   }
 
   ngDoCheck() {
@@ -230,7 +240,7 @@ export class HomeComponent implements OnInit {
   prepareBarChartData(patientRecords: any) {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignDatatoBarChart(patientRecords);
-    this.assigndoughnutChartData(patientRecords);
+    //this.assigndoughnutChartData(patientRecords);
     // this.assignConfimedLineChartData(dateWiseData);
     // this.assignHospitalisedLineChartData(dateWiseData);
     // this.assignDischargedLineChartData(dateWiseData);
@@ -270,19 +280,6 @@ export class HomeComponent implements OnInit {
       { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
       { data: dischargedByDates, label: ' DISCHARGED', stack: 'a' }
     ];
-  }
-
-  assigndoughnutChartData(dateWiseData: any[]) {
-    this.doughnutChartLabels = [];
-    this.doughnutChartData = [[]];
-    let groupByGender = _.groupBy(dateWiseData, 'gender');
-    for (let gender in groupByGender) {
-      if (gender == 'Male' || gender == 'Female') {
-        gender == 'Male' ? this.maleCount = this.getDataCount(groupByGender['Male']) : this.femaleCount = this.getDataCount(groupByGender['Female']);
-        this.doughnutChartLabels.push(gender);
-        this.doughnutChartData[0].push(this.getDataCount(groupByGender[gender]));
-      }
-    }
   }
 
   getSortedObject(objectToSort) {
@@ -462,5 +459,19 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+
+  // Gender breakup doghunt chart
+  // assigndoughnutChartData(dateWiseData: any[]) {
+  //   this.doughnutChartLabels = [];
+  //   this.doughnutChartData = [[]];
+  //   let groupByGender = _.groupBy(dateWiseData, 'gender');
+  //   for (let gender in groupByGender) {
+  //     if (gender == 'Male' || gender == 'Female') {
+  //       gender == 'Male' ? this.maleCount = this.getDataCount(groupByGender['Male']) : this.femaleCount = this.getDataCount(groupByGender['Female']);
+  //       this.doughnutChartLabels.push(gender);
+  //       this.doughnutChartData[0].push(this.getDataCount(groupByGender[gender]));
+  //     }
+  //   }
+  // }
  */
 }
