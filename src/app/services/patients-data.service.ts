@@ -26,7 +26,7 @@ export class PatientsDataService {
   public testsConductedData = new BehaviorSubject(null);
 
   loadPatientsData() {
-    return this.firestore.collection<any>('Cases').snapshotChanges().subscribe(data => {
+    return this.firestore.collection<any>('newCases').snapshotChanges().subscribe(data => {
       let covidCases = data.map(item => {
         var data = item.payload.doc.data();
         data.id = item.payload.doc.id;

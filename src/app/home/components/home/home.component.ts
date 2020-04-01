@@ -305,13 +305,14 @@ export class HomeComponent implements OnInit {
   assignStateBarChartDate(dateWiseData) {
     this.stateBarChartLabels = [];
     this.stateBarChartData[0].data = [];
-
+    
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       var sortedStates = this.getSortedObject(states);
-
+      console.log(sortedStates);
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
+        
         this.stateBarChartData[0].data.push(sortedStates[state].length);
       };
 
@@ -342,8 +343,8 @@ export class HomeComponent implements OnInit {
   setCasesAnalytics(filteredData) {
     this.totalCases = this.totalConfirmedCases = filteredData.length;
     this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED").length;
-    this.totalDeathCases = filteredData.filter(x => x.status == "DIED").length;
-    this.totalDischargedCases = filteredData.filter(x => x.status == "RECOVERED").length;
+    this.totalDeathCases = filteredData.filter(x => x.status == "Died").length;
+    this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
     this.maleCount = 0;
     this.femaleCount = 0;
