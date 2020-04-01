@@ -32,8 +32,7 @@ export class CountryMapComponent implements OnInit {
     states.forEach((state,i) => {
       if(stateWiseCases[state.name]){
          state.title = `${state.name} <br/>
-          Confirmed Cases : ${stateWiseCases[state.name].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
-          Foreign Cases : ${stateWiseCases[state.name].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length} <br/>
+          Confirmed Cases : ${stateWiseCases[state.name].filter( x => x.caseType == "Confirmed").length} <br/>
           Recovered Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
           Deceased Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Deceased").length} <br/>
           Total Cases : ${stateWiseCases[state.name].length}`;
@@ -137,8 +136,8 @@ export class CountryMapComponent implements OnInit {
           },
           {
             "id": "IN-JK",
-            "title": "Jammu & Kashmir - Total Cases 0",
-            "name": "Jammu & Kashmir",
+            "title": "Jammu and Kashmir - Total Cases 0",
+            "name": "Jammu and Kashmir",
             "color": "rgba(255,195,160,1)"
           },
           {

@@ -9,9 +9,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CountryMapComponent } from './components/country-map/country-map.component';
 import { TopStateTableComponent } from './components/top-state-table/top-state-table.component';
 import { TestConductedCumulativeChartComponent } from './components/test-conducted-cumulative-chart/test-conducted-cumulative-chart.component';
+import { ConfirmCumulativeChartComponent } from './components/confirm-cumulative-chart/confirm-cumulative-chart.component';
 
 @NgModule({
-  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent],
+  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent, ConfirmCumulativeChartComponent],
   imports: [
     CommonModule,
     FormsModule,
