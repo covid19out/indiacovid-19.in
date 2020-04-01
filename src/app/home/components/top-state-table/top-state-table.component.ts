@@ -9,6 +9,7 @@ export interface StateStatistics {
   confirmUpCount: number,
   //confirmDownCount: number,
   topFiveCities: any[],
+  activeCases: number
 }
 
 export interface CityStatistics {
@@ -16,7 +17,8 @@ export interface CityStatistics {
   confirmCases: number,
   recoveredCases: number,
   deceasedCases: number,
-  confirmUpCount: number
+  confirmUpCount: number,
+  activeCases: number
 }
 
 @Component({
@@ -59,10 +61,12 @@ export class TopStateTableComponent implements OnInit {
       let stateData: StateStatistics = {
         name: state,
         confirmCases: stateWiseData[state].length,
+        activeCases: stateWiseData[state].filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length,
         recoveredCases: stateWiseData[state].filter(x => x.caseType == "Recovered/Discharged").length,
         deceasedCases: stateWiseData[state].filter(x => x.caseType == "Deceased").length,
+        
         topFiveCities: this.getTopFiveCities(stateWiseData[state]),
-        confirmUpCount: confirmCount || 0,
+        confirmUpCount: confirmCount || 0
         //confirmDownCount: confirmCount < 0 ? -confirmCount : 0,
       };
       statesData.push(stateData);
@@ -88,11 +92,13 @@ export class TopStateTableComponent implements OnInit {
     let topFiveCitiesData = [];
     for(let city in cityWiseData){
       let cityData: CityStatistics = {
-        name: city == "" ? "Not confirmed" : city,
+        name: city == "" ? "Unknown" : city,
         confirmCases: cityWiseData[city].length,
+        activeCases: cityWiseData[city].filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length,
         recoveredCases: cityWiseData[city].filter(x => x.caseType == "Recovered/Discharged").length,
         deceasedCases: cityWiseData[city].filter(x => x.caseType == "Deceased").length,
-        confirmUpCount: this.getEndDatesConfirmCounts(city,cityWiseData)
+        confirmUpCount: this.getEndDatesConfirmCounts(city,cityWiseData),
+        
       };
       topFiveCitiesData.push(cityData);
     } 
