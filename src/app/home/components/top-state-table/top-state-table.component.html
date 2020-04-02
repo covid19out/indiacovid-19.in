@@ -35,37 +35,22 @@
               <span class="deltas deltas-danger" *ngIf="state.confirmUpCount">
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.confirmUpCount}}
               </span>
-              <!-- <span class="deltas deltas-success" *ngIf="state.confirmDownCount">
-                <i class="fa fa-arrow-down" aria-hidden="true"></i>{{state.confirmDownCount}}
-              </span> -->
               {{state.confirmCases}}
             </td>
             <td class="text-right">
               {{state.activeCases}}
             </td>
-            <!-- <td class="text-right">
-              <span class="deltas deltas-warning">
-                <i class="fa fa-arrow-up" aria-hidden="true"></i>6
-              </span>
-              64
-            </td> -->
             <td class="text-right">
-              <!-- <span class="deltas deltas-success">
-                <i class="fa fa-arrow-up" aria-hidden="true"></i>4
-              </span> -->
               {{state.recoveredCases}}
             </td>
             <td class="text-right">
-              <!-- <span class="deltas deltas-danger">
-                <i class="fa fa-arrow-up" aria-hidden="true"></i>2
-              </span> -->
               {{state.deceasedCases}}
             </td>
           </tr>
           <ng-container *ngIf="showCityTable[i] && state.topFiveCities && state.topFiveCities.length">
             <tr class="cities-row">
               <td>&nbsp;</td>
-              <td colspan="4" style="padding:0px;">
+              <td colspan="5" style="padding:0px;">
                 <table style="width: 100%;">
                   <thead>
                     <tr>

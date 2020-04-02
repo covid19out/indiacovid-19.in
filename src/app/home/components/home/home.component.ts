@@ -309,7 +309,6 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       var sortedStates = this.getSortedObject(states);
-      console.log(sortedStates);
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
         
