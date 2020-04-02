@@ -25,7 +25,6 @@ export class CountryMapComponent implements OnInit {
   }
 
   assignMapData(dateWiseCases){
-    //console.log('assign map data',dateWiseCases)
     let states = this.countryMap.dataProvider.areas;
     let stateWiseCases = _.groupBy(dateWiseCases,'state');
 
@@ -40,18 +39,6 @@ export class CountryMapComponent implements OnInit {
         state.title = `${state.name}  - Total Cases 0`;
       }
     });
-
-    // for(let state in stateWiseCases){
-    //   let index = states.findIndex(x => x.name == state);
-    //   if(index !== -1){
-    //     states[index].title = `${states[index].name} <br/>
-    //     Confirm Cases : ${stateWiseCases[state].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length} <br/>
-    //     Foreign Cases : ${stateWiseCases[state].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length} <br/>
-    //     Discharged Cases : ${stateWiseCases[state].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
-    //     Death Cases : ${stateWiseCases[state].filter(x => x.caseType == "Deceased").length} <br/>
-    //     Total Cases : ${stateWiseCases[state].length}`;
-    //   }
-    // }
     this.countryMap.dataProvider.areas = states;
   }
 
