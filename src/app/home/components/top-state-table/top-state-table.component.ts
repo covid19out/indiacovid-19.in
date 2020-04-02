@@ -7,7 +7,6 @@ export interface StateStatistics {
   recoveredCases: number,
   deceasedCases: number,
   confirmUpCount: number,
-  //confirmDownCount: number,
   topFiveCities: any[],
   activeCases: number
 }
@@ -54,7 +53,6 @@ export class TopStateTableComponent implements OnInit {
 
   setTableStatistics(filteredData){
     var stateWiseData = _.groupBy(filteredData, 'state');
-    //let topFiveStates = this.getTopFiveCasesCount(stateWiseData);
     let statesData: StateStatistics[] = [];
     for(let state in stateWiseData){
       let confirmCount = this.getEndDatesConfirmCounts(state,stateWiseData);
@@ -67,28 +65,21 @@ export class TopStateTableComponent implements OnInit {
         
         topFiveCities: this.getTopFiveCities(stateWiseData[state]),
         confirmUpCount: confirmCount || 0
-        //confirmDownCount: confirmCount < 0 ? -confirmCount : 0,
       };
       statesData.push(stateData);
     }
+    //sort by state name
+    statesData.sort((a,b) => a.name.localeCompare(b.name));
     //First sort by confirm cases in cases no confirm up count
     statesData = statesData.sort((a, b) => {
       return b.confirmCases - a.confirmCases;
     });
-
-    //Sort by confirmUpCount
-    // statesData = statesData.sort((a, b) => {
-    //   return b.confirmUpCount - a.confirmUpCount;
-    // });
     
-    //Select first five states
-    //this.topFiveStatesData = statesData.slice(0,5);    
     this.topFiveStatesData = statesData;    
   }
 
   getTopFiveCities(cases){
     let cityWiseData = _.groupBy(cases, 'cityName');
-    // let topFiveCities = this.getTopFiveCasesCount(cityWiseData);
     let topFiveCitiesData = [];
     for(let city in cityWiseData){
       let cityData: CityStatistics = {
@@ -125,32 +116,9 @@ export class TopStateTableComponent implements OnInit {
 
   }
 
-  getTopFiveCasesCount(data){
-    let sortedObj = this.getSortedObject(data);
-    let topFiveCases:any = {};
-    for(let obj in sortedObj){
-      if(obj!== ""){
-        topFiveCases[obj] = sortedObj[obj];
-      }
-    }
-    return _.chain(topFiveCases)
-    .keys()
-    .take(5)
-    .reduce(function(memo, current) {
-      memo[current] = topFiveCases[current];
-      return memo;
-    }, {})
-    .value();    
-  }
-
   getEndDatesConfirmCounts(state,topFiveStates){
     let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
     return topFiveStates[state].filter(x => x.confirmAt == lastDate).length;
-    // let yesterday = new Date(lastDate);
-    // yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
-    // let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth()+1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
-    // let difference = topFiveStates[state].filter(x => x.confirmAt == lastDate).length - topFiveStates[state].filter(x => x.confirmAt == secondLastDate).length;
-    //return difference;
   }
 
   toggleStateConfimSort(){
