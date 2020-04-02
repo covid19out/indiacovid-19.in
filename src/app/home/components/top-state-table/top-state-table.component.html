@@ -8,6 +8,10 @@
             <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
             <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
           </th>
+          <th class="text-right" (click)="toggleStateConfimSort()">Active
+            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
+            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
+          </th>
           <!-- <th class="text-right">Active</th> -->
           <th class="text-right" (click)="toggleStateRecoveredSort()">Recovered
             <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateRecovered"></i>
@@ -35,6 +39,9 @@
                 <i class="fa fa-arrow-down" aria-hidden="true"></i>{{state.confirmDownCount}}
               </span> -->
               {{state.confirmCases}}
+            </td>
+            <td class="text-right">
+              {{state.activeCases}}
             </td>
             <!-- <td class="text-right">
               <span class="deltas deltas-warning">
@@ -67,6 +74,10 @@
                         <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>
                         <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityConfim[i]"></i>
                       </th>
+                      <th class="text-right" (click)="toggleCityConfimSort(state.topFiveCities, i)">Active
+                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>
+                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityConfim[i]"></i>
+                      </th>
                       <th class="text-right" (click)="toggleCityRecoveredSort(state.topFiveCities, i)">Recovered
                         <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityRecovered[i]"></i>
                         <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityRecovered[i]"></i>
@@ -86,6 +97,7 @@
                         </span>
                         {{city.confirmCases}}
                       </td>
+                      <td class="text-right">{{city.activeCases}}</td>
                       <td class="text-right">{{city.recoveredCases}}</td>
                       <td class="text-right">{{city.deceasedCases}}</td>
                     </tr>
