@@ -111,17 +111,6 @@ export class StateCardsComponent implements OnInit {
     this.dataDate = headingText;//.substring(69,95);
   }
 
-  // getRandomColor() {
-  //   return `rgba(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},0.20)`;   
-  //   //let colors = ['Beige','CadetBlue','DarkCyan','DarkGrey', 'DarkSeaGreen' ]
-  //   // console.log(colors[Math.floor(Math.random()*4)]);
-  //   // return colors[Math.floor(Math.random()*4)];
-    
-  //   // var color = Math.floor(0x1000000 * Math.random()).toString(16);
-  //   // return '#' + ('000000' + color).slice(-6);
-
-  // }
-
   getRandomColor() {
     let number = Math.floor(Math.random() * 35);
     return this.backgroundColors[number];
