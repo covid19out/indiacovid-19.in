@@ -62,7 +62,6 @@ export class TopStateTableComponent implements OnInit {
         activeCases: stateWiseData[state].filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length,
         recoveredCases: stateWiseData[state].filter(x => x.caseType == "Recovered/Discharged").length,
         deceasedCases: stateWiseData[state].filter(x => x.caseType == "Deceased").length,
-        
         topFiveCities: this.getTopFiveCities(stateWiseData[state]),
         confirmUpCount: confirmCount || 0
       };
@@ -92,7 +91,10 @@ export class TopStateTableComponent implements OnInit {
         
       };
       topFiveCitiesData.push(cityData);
-    } 
+    }
+    //topFiveCitiesData.sort((a,b) => a.confirmCases.localeCompare(b.confirmCases));
+    //topFiveCitiesData.sort((a, b) => b.confirmCases - a.confirmCases);
+    topFiveCitiesData.sort((a,b) => a.name.localeCompare(b.name));
     return topFiveCitiesData;
   }
 
