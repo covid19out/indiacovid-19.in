@@ -31,7 +31,7 @@ export class CasesComponent implements OnInit {
     // { title: 'Patient', name: 'details'},
     { title: 'Age', className: [''], name: 'age', sort: ''},
     { title: 'Gender', name: 'gender', sort: ''},
-    { title: 'Nationality', className: '', name: 'nationality'},
+    //{ title: 'Nationality', className: '', name: 'nationality'},
     { title: 'State', className: '', name: 'state'},
     { title: 'City', className: '', name: 'cityName', sort:''},
     // { title: 'Status', name: 'status'},
@@ -73,7 +73,8 @@ export class CasesComponent implements OnInit {
           let daysRecoverDiffInTime = new Date(patient.recoveredAt).getTime() - new Date(patient.confirmAt).getTime();
           patient.daysToRecover = daysRecoverDiffInTime / (1000 * 3600 * 24) || '-';
         });
-        data.sort((a,b)=>b.caseNumber - a.caseNumber);
+       // data.sort((a,b)=>b.caseNumber - a.caseNumber);
+       data.sort((a, b) => b.caseNumber.split("P")[1] - a.caseNumber.split("P")[1]);
         this.data = data;   
         this.length = this.data.length;         
         this.onChangeTable(this.config);

@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule'},
   { path: 'dashboard', loadChildren: './home/home.module#HomeModule'},
   { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsModule'},
-  { path: 'cases', loadChildren: './cases/cases.module#CasesModule'},
+  { path: 'cases', loadChildren: './home/home.module#HomeModule'},
   { path: 'insight', loadChildren: './insights/insights.module#InsightsModule'},
   { path: 'map', loadChildren: './map/map.module#MapModule'},
   { path: 'worldwide', loadChildren: './worldwide/worldwide.module#WorldwideModule'},
