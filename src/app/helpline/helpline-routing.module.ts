@@ -33,6 +33,10 @@ import { DisinfectionComponent } from './components/disinfection/disinfection.co
 import { OwnersComponent } from './components/owners/owners.component';
 import { MindComponent } from './components/mind/mind.component';
 import { VentilatorComponent } from './components/ventilator/ventilator.component';
+import { IssuesComponent } from './components/issues/issues.component';
+import { OpdMedicinesComponent } from './components/opd-medicines/opd-medicines.component';
+import { ManagementComponent } from './components/management/management.component';
+import { DialysisComponent } from './components/dialysis/dialysis.component';
 
 const routes: Routes = [
   { path: 'awareness',  component: AwarenessComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}},
@@ -64,7 +68,11 @@ const routes: Routes = [
   { path: 'awareness/disinfection',  component: DisinfectionComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
   { path: 'awareness/owners',  component: OwnersComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
   { path: 'awareness/mind',  component: MindComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
-  { path: 'awareness/ventilator',  component: VentilatorComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} }
+  { path: 'awareness/ventilator',  component: VentilatorComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/issues',  component: IssuesComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/opd-medicines',  component: OpdMedicinesComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/management',  component: ManagementComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} },
+  { path: 'awareness/dialysis',  component: DialysisComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'} }
 ];
 
 @NgModule({

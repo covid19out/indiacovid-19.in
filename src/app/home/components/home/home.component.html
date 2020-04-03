@@ -22,12 +22,12 @@
 
     </div>
 
-    <!-- <div class="row" style="margin-bottom: 10px;">
+    <div class="row" style="margin-bottom: 10px;">
       <div class="col-lg-12">
         <a href="/analytics/state_wise_cases" class="btn btn-link link-button">State wise cases</a>
         <a href="/analytics/city_wise_cases" class="btn btn-link link-button">City wise cases</a>
       </div>
-    </div> -->
+    </div>
 
     <div class="row row-xs quick-link">
       <div class="col-quick-link margin-top-10">
@@ -127,19 +127,29 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-quick-link margin-top-10">
+      <div class="col-quick-link margin-top-10">
         <div class="card card-body">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Tests Conducted</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state" *ngIf="lastDateTestConductedData">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-info">{{lastDateTestConductedData.PositiveCount}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
-              <span class="tx-medium">Positives out of {{lastDateTestConductedData.IndividualTestCount}} tests</span> 
+              <span class="tx-medium">Positives out of {{lastDateTestConductedData.IndividualTestCount}} tests</span>
             </p>
+            <div class="deltas-container">
+              <ng-container>
+                <span class="deltas">
+                  {{lastDateTestConductedData.ConductedOn}}
+                </span>
+              </ng-container>
+              
+            </div>
+            
           </div>
+          
           <div style="display: block;">
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
 
 
