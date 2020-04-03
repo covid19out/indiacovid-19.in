@@ -53,7 +53,9 @@
 	margin-left: 0!important
 }
 .awareness-dropdown-menu {
-	width: 300px
+	width: 300px;
+	max-height: calc(100vh - 120px);
+	overflow-y: auto;
 }
 .awareness-dropdown-menu .dropdown-item {
 	white-space: nowrap;
