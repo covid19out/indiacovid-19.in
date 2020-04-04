@@ -270,7 +270,7 @@ export class HomeComponent implements OnInit {
     for (let cases in dateWiseCases) {
       dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
       intensiveCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Intensive Care").length);
-      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed").length);
+      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed" || x.caseType == "CONFIRMED").length);
       dischargedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Recovered/Discharged").length);
     }
 
