@@ -17,7 +17,7 @@
       </div>
     </div>
     <div>
-      <div class="table-wrapper">
+      <!-- <div class="table-wrapper">
         <ng-table [config]="config" (tableChanged)="onChangeTable(config)" (cellClicked)="onCellClick($event)"
           [rows]="rows" [columns]="columns">
         </ng-table>
@@ -26,7 +26,32 @@
       <pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page" [totalItems]="length"
         [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false"
         (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event">
-      </pagination>
+      </pagination> -->
       <!-- <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre> -->
+    </div>
+
+
+    <div class="case-number-container">
+      <div class="row row-xs quick-link">
+        <div class="col-md-1 col-sm-6 margin-top-10" *ngFor="let patient of data">
+          <div class="card" [ngStyle]="{'border-color': 'green'}" [popover]="popTemplate"
+          [popoverTitle]="patient.caseNumber" [adaptivePosition]="false" placement="top"
+          [triggers]="'focus'" tabindex="1">
+            <!-- <div class="card-text-stats"></div> -->
+            <div class="card-stats" [style.background-color]="getBackgroundColor(patient)">
+              {{patient.caseNumber.split('P')[1]}}
+            </div>
+          </div>
+
+          <ng-template #popTemplate>
+            <div>Status: {{patient.status}}</div>
+            <div>State: {{patient.state}}</div>
+            <div *ngIf="patient.cityName">City: {{patient.cityName}}</div>
+            <div>Confirm On: {{patient.confirmAt}}</div>
+          </ng-template>
+
+        </div>
+      </div>
+
     </div>
   </div>

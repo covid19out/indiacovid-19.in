@@ -57,7 +57,7 @@ export class CasesComponent implements OnInit {
     className: ['table-striped', 'table-bordered']
   };
 
-  private data:Array<any>;
+  public data:Array<any>;
   constructor(private patientsDataService: PatientsDataService) {
     // this.length = this.data.length;
    }
@@ -83,6 +83,24 @@ export class CasesComponent implements OnInit {
     })
   }
 
+  getBackgroundColor(patient){
+    let color = 'red';
+    switch(patient.status){
+      case "HOSPITALIZED":
+      case "Hospitalized":
+        color = '#FF9A2E';
+        break;
+      case "Died":
+      case "DIED":
+        color = '#FF5555';
+        break;
+      case "RECOVERED":
+      case "Recovered":
+        color = '#4AB900';
+        break;
+    }
+    return color;
+  }
   
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
