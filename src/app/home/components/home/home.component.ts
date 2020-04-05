@@ -259,7 +259,8 @@ export class HomeComponent implements OnInit {
     let dates = [];
     let intensiveCasesByDates = [];
     let confirmedCasesByDates = [];
-    let dischargedByDates = []
+    let dischargedByDates = [];
+    let deceasedByDates=[];
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     dateWiseData.sort((a, b) => {
       let dateA = new Date(a.confirmAt);
@@ -270,15 +271,18 @@ export class HomeComponent implements OnInit {
     for (let cases in dateWiseCases) {
       dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
       intensiveCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Intensive Care").length);
-      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed" || x.caseType == "CONFIRMED").length);
+      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed" || x.caseType == "CONFIRMED" || x.caseType == "Deceased"|| x.caseType == "DECEASED").length);
       dischargedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Recovered/Discharged").length);
+      deceasedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Deceased"|| x.caseType == "DECEASED").length);
     }
 
     this.barChartLabels = dates;
     this.barChartData = [
-      { data: intensiveCasesByDates, label: 'INTENSIVE CARE CASES', stack: 'a' },
+      //{ data: intensiveCasesByDates, label: 'INTENSIVE CARE CASES', stack: 'a' },
       { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
-      { data: dischargedByDates, label: ' DISCHARGED', stack: 'a' }
+      //{ data: dischargedByDates, label: ' DISCHARGED', stack: 'a' },
+      { data: deceasedByDates, label: 'Deceased', stack: 'a' },
+
     ];
   }
 
