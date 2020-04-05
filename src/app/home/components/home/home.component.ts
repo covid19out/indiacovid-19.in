@@ -226,7 +226,7 @@ export class HomeComponent implements OnInit {
     twttr.widgets.createTimeline(
       {
         sourceType: "list",
-        ownerScreenName: "TwitterDev",
+        ownerScreenName: "covid_19_India",
         slug: "covid_19_India"
       },
       document.getElementById("twitterTimelineWrapper")
@@ -270,7 +270,7 @@ export class HomeComponent implements OnInit {
     for (let cases in dateWiseCases) {
       dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
       intensiveCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Intensive Care").length);
-      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed").length);
+      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed" || x.caseType == "CONFIRMED").length);
       dischargedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Recovered/Discharged").length);
     }
 
@@ -309,6 +309,7 @@ export class HomeComponent implements OnInit {
     if (dateWiseData.length) {
       var states = _.groupBy(dateWiseData, 'state');
       var sortedStates = this.getSortedObject(states);
+      //console.log(sortedStates);
       for (let state in sortedStates) {
         this.stateBarChartLabels.push(state);
         

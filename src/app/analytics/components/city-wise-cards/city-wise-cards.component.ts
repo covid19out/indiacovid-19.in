@@ -58,7 +58,7 @@ export class CityWiseCardsComponent implements OnInit {
 
   getCityStats(city,cityWisePatients){
     return {
-      cityName: city == "" ? "City Not Confirmed" : city,
+      cityName: city == "" ? "Unknown" : city,
       totalIndianConfirmCases: cityWisePatients[city].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length,
       totalForeignConfirmCases: cityWisePatients[city].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length,
       totalDischargedCases: cityWisePatients[city].filter(x => x.caseType == "Recovered/Discharged").length,
