@@ -22,6 +22,7 @@
 
     </div>
 
+
     <div class="row" style="margin-bottom: 10px;">
       <div class="col-lg-12">
         <a href="/analytics/state_wise_cases" class="btn btn-link link-button">State wise cases</a>
@@ -31,7 +32,7 @@
 
     <div class="row row-xs quick-link">
       <div class="col-quick-link margin-top-10">
-        <div class="card card-body">
+        <div class="card card-body confirmed-card">
 
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
@@ -70,7 +71,7 @@
 
       </div>
       <div class="col-quick-link margin-top-10">
-        <div class="card card-body">
+        <div class="card card-body active-card">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-4">Active</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-warning" *ngIf="totalHospitalisedCases">
@@ -92,7 +93,7 @@
       </div>
 
       <div class="col-quick-link margin-top-10">
-        <div class="card card-body">
+        <div class="card card-body recovered-card">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-4">Recovered</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">{{totalDischargedCases}}</h3>
@@ -110,10 +111,10 @@
         </div>
       </div>
       <div class="col-quick-link margin-top-10">
-        <div class="card card-body">
+        <div class="card card-body deceased-card">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-4">Deceased</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalDeathCases">{{totalDeathCases}}</h3>
+            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">{{totalDeathCases}}</h3>
               <!-- -->
             <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
               <span class="tx-medium">{{(100*totalDeathCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
@@ -128,7 +129,7 @@
         </div>
       </div>
       <div class="col-quick-link margin-top-10">
-        <div class="card card-body">
+        <div class="card card-body tests-conducted-card">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Tests Conducted</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state" *ngIf="lastDateTestConductedData">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-info">{{lastDateTestConductedData.PositiveCount}}</h3>
@@ -155,7 +156,8 @@
 
 
     <div class="row row-xs">
-      <div class="col-lg-12 margin-top-10">
+
+      <div class="col-lg-8 margin-top-10">
         <div class="card">
           <div class="card-header">
             Map
@@ -166,10 +168,27 @@
           </div>
         </div>
       </div>
+
+      <div class="col-lg-4 margin-top-10">
+        <div class="card">
+          <div class="card-body self-assessment-body" style="background-image: url('/assets/images/self-assessment-image.jpg');">
+              <div>
+                <h4 class="m-3 mt-4">Self assessment for symptoms of Corona Virus Infection</h4>
+                <a target="_blank" href="https://covid-19.maharashtra.gov.in/" class="btn btn-success m-3">Visit</a>
+              </div>
+              <!-- <div class="col">
+                <img width="100%" src="" alt="">
+              </div> -->
+            </div>
+        </div>
+      </div>
+
       <div class="col-lg-12 margin-top-10">
         <div class="card">
           <div class="card-header">
-            States Statistics
+            <strong>
+              States Statistics
+            </strong>
           </div>
           <!-- <div class="card-body">
           </div> -->
@@ -246,9 +265,9 @@
         </div>
       </div> -->
       <div class="col-lg-12 margin-top-10">
-        <div class="card">
+        <div class="card cumulative-confirmed-card">
         <div class="card-header">Cumulative Confirmed Codiv-19 Cases in India</div>
-        <div class="card card-body">
+        <div class="card-body">
           <app-confirm-cumulative-chart [cases]="dateWisePateintData" [endDate]="endDate"></app-confirm-cumulative-chart>
         </div>
       </div>

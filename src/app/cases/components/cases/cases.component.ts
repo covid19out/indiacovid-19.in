@@ -88,20 +88,40 @@ export class CasesComponent implements OnInit {
     switch(patient.status){
       case "HOSPITALIZED":
       case "Hospitalized":
-        color = '#FF9A2E';
+        color = '#fff5e0';
         break;
       case "Died":
       case "DIED":
-        color = '#FF5555';
+        color = '#ffcdcd';
         break;
       case "RECOVERED":
       case "Recovered":
-        color = '#4AB900';
+        color = '#bfffb6';
         break;
     }
     return color;
   }
   
+  getTextColor(patient){
+    let color = 'red';
+    switch(patient.status){
+      case "HOSPITALIZED":
+      case "Hospitalized":
+        color = '#ffad00';
+        break;
+      case "Died":
+      case "DIED":
+        color = '#ff0707';
+        break;
+      case "RECOVERED":
+      case "Recovered":
+        color = '#20ab0d';
+        break;
+    }
+    return color;
+  }
+
+
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
     let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;

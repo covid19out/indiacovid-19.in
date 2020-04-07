@@ -52,6 +52,74 @@
 }
 
 
+.confirmed-card{
+  border-color:transparent;
+  background-color: #fff6f6;
+  .text-danger{
+    color: #fd1717 !important;
+  }
+}
+
+.active-card{
+  border-color:transparent;
+  background-color: #fffbef;
+  .text-warning{
+    color: #ffc107 !important;
+  }
+}
+
+.recovered-card{
+  border-color:transparent;
+  background-color: #ebfff0;
+  .text-success{
+    color: #17ce41 !important;
+  }
+}
+
+.deceased-card{
+  border-color:transparent;
+  background-color: #f5f5f5;
+  .text-light{
+    color: #c1c1c1 !important;
+  }
+}
+
+.tests-conducted-card{
+  border-color:transparent;
+  background-color: #eff2ff;
+  .text-info{
+    color: #11a0e0 !important;
+  }
+}
+
+.cumulative-confirmed-card{
+  //border-color:transparent;
+  background-color: #fff6f6;
+}
+
+.self-assessment-body{
+  padding: 0px; 
+  background-color: #ffffff;
+  background-position: right bottom;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  padding-bottom: 6rem;
+  h4{
+    font-weight: normal;
+    line-height: 2.2rem;
+  }
+  .btn{
+    padding: 0.5rem 2rem;
+  }
+  @media (max-width: 992px){
+    background-size: 48% auto;
+    h4{
+      max-width: 300px;
+    }
+  }
+}
+
+
 .legend-label-color{
   width: 8px;
   height: 8px;
