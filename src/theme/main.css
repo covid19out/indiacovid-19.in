@@ -4,7 +4,8 @@
 .navbar {
 	height: 70px;
 	background-color: #fff;
-	border-bottom: 1px solid rgba(72, 94, 144, .16);
+	box-shadow: rgba(0,0,0,.04) 0 20px 30px 0;
+	/* border-bottom: 1px solid rgba(72, 94, 144, .16); */
 	padding: 0 1rem !important;
 }
 .navbar .nav-item {

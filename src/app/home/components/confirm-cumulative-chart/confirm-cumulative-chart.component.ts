@@ -45,18 +45,24 @@ export class ConfirmCumulativeChartComponent implements OnInit {
         xAxes: [{
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
+          },
+          ticks: {
+            fontSize: 11
           }
         }],
         yAxes: [{
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
+          },
+          ticks: {
+            fontSize: 11
           }
         }]
       }
     };
     this.cumulativeChartConfirmColors = [{
-      borderColor: '#ffa1b5',
-      backgroundColor: 'rgba(0,0,0,0)',
+      borderColor: '#fd1717',
+      backgroundColor: 'rgba(253,23,23,0.2)',
       pointBackgroundColor: '#FF0000',
       pointBorderColor: '#fff',
     }];
