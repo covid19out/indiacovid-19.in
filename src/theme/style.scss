@@ -66,8 +66,10 @@ body{
 
 .card{
   height: 100%;
+  
   .card-header{
     background-color: rgba(0,0,0,0);
+    border-bottom: 0px solid rgba(0,0,0,.125);
     p{
       font-size: 0.8rem;
       color: rgba(0,0,0,0.5);

@@ -275,7 +275,7 @@ export class CountryMapComponent implements OnInit {
       },
       "areasSettings": {
         "color": "rgba(129,129,129,1)",
-        "outlineColor": "rgba(80,80,80,1)",
+        "outlineColor": "rgba(80,80,80,0.2)",
         "rollOverOutlineColor": "rgba(80,80,80,1)",
         "rollOverBrightness": 20,
         "selectedBrightness": 20,

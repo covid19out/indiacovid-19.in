@@ -57,7 +57,7 @@ export class CasesComponent implements OnInit {
     className: ['table-striped', 'table-bordered']
   };
 
-  private data:Array<any>;
+  public data:Array<any>;
   constructor(private patientsDataService: PatientsDataService) {
     // this.length = this.data.length;
    }
@@ -83,7 +83,45 @@ export class CasesComponent implements OnInit {
     })
   }
 
+  getBackgroundColor(patient){
+    let color = 'red';
+    switch(patient.status){
+      case "HOSPITALIZED":
+      case "Hospitalized":
+        color = '#fff5e0';
+        break;
+      case "Died":
+      case "DIED":
+        color = '#ffcdcd';
+        break;
+      case "RECOVERED":
+      case "Recovered":
+        color = '#bfffb6';
+        break;
+    }
+    return color;
+  }
   
+  getTextColor(patient){
+    let color = 'red';
+    switch(patient.status){
+      case "HOSPITALIZED":
+      case "Hospitalized":
+        color = '#ffad00';
+        break;
+      case "Died":
+      case "DIED":
+        color = '#ff0707';
+        break;
+      case "RECOVERED":
+      case "Recovered":
+        color = '#20ab0d';
+        break;
+    }
+    return color;
+  }
+
+
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
     let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
