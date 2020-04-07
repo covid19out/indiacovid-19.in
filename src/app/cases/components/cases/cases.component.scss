@@ -40,8 +40,6 @@
           align-items: center;
           justify-content: center;
           flex-direction: column;
-        
-          //color: white;
           padding:10px;
         }
     }
@@ -49,7 +47,7 @@
 }
 
 ::ng-deep .popover {
-  width: 190px;
+  width: 200px;
 }
 
 .case-number-container{
@@ -59,7 +57,7 @@
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   font-size: 0.74rem;
   .card{
-    border-radius: 0px;
+    border-radius: 5px;
     border: 0px;
     .card-stats{
       padding: 4px 2px;
