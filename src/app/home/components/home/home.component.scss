@@ -117,6 +117,14 @@
       max-width: 300px;
     }
   }
+
+  @media (max-width: 500px){
+    padding-bottom: 8rem;
+    background-size: 60% auto;
+    h4{
+      max-width: 300px;
+    }
+  }
 }
 
 

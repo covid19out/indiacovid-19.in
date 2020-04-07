@@ -29,3 +29,25 @@
       }
     }
   }
+
+  .table {
+    tr{
+      th{
+        i{
+          font-size: 0.6rem;
+        }
+      }
+      th:first-child{
+        padding-right: 0px;
+        i{
+          font-size: 0.6rem;
+        }
+      } 
+      td:first-child{
+        padding-right: 0px;
+        i{
+          font-size: 0.6rem;
+        }
+      }
+    }
+  }
