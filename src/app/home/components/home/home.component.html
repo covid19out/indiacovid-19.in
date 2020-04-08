@@ -23,12 +23,12 @@
     </div>
 
 
-    <div class="row" style="margin-bottom: 10px;">
+    <!-- <div class="row" style="margin-bottom: 10px;">
       <div class="col-lg-12">
         <a href="/analytics/state_wise_cases" class="btn btn-link link-button">State wise cases</a>
         <a href="/analytics/city_wise_cases" class="btn btn-link link-button">City wise cases</a>
       </div>
-    </div>
+    </div> -->
 
     <div class="row row-xs quick-link">
       <div class="col-quick-link margin-top-10">
@@ -42,9 +42,9 @@
               <span class="tx-medium " *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
                 <i class="icon ion-md-arrow-up"></i>
               </span>
-              <span class="tx-medium" *ngIf="!totalIntesiveCases"> 0
+              <!-- <span class="tx-medium" *ngIf="!totalIntesiveCases"> 0
                 <i class="icon ion-md-arrow-up"></i>
-              </span> in ICU
+              </span> in ICU -->
             </p>
             <div class="deltas-container">
               <ng-container *ngIf="totalConfirmUpCasesCount">
@@ -130,7 +130,7 @@
       </div>
       <div class="col-quick-link margin-top-10">
         <div class="card card-body tests-conducted-card">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Tests Conducted</h6>
+          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">ICMR Tests</h6>
           <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state" *ngIf="lastDateTestConductedData">
             <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-info">{{lastDateTestConductedData.PositiveCount}}</h3>
             <p class="tx-11 tx-color-03 mg-b-0">
@@ -176,9 +176,6 @@
                 <h4 class="m-3 mt-4">Self assessment for symptoms of Corona Virus Infection</h4>
                 <a target="_blank" href="https://covid-19.maharashtra.gov.in/" class="btn btn-success m-3">Visit</a>
               </div>
-              <!-- <div class="col">
-                <img width="100%" src="" alt="">
-              </div> -->
             </div>
         </div>
       </div>
