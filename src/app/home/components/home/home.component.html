@@ -201,11 +201,17 @@
               {{endDate.toLocaleDateString("en-US" , "Option")}}</p>
           </div>
           <div class="card-body">
-            <div style="display: block;" class="stacked-chart">
+            <!-- <div style="display: block;" class="stacked-chart">
               <canvas width="500px" height="340px" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                 [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
               </canvas>
-            </div>
+            </div> -->
+            <div style="display: block;">
+              <canvas width="500px" height="300px" baseChart [datasets]="casesLineChartData" 
+                  [labels]="casesLineChartLabels" [options]="casesLineChartOptions"
+                  [colors]="casesLineChartColors" [chartType]="'line'">
+              </canvas>
+          </div>
           </div>
         </div>
       </div>
