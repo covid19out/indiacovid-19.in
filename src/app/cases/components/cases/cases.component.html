@@ -11,9 +11,8 @@
         </nav>
         <h5 class="mg-b-0 tx-spacing--1">Showing all results.</h5>
       </div>
-      <!-- <div class="d-flex justify-content-end calendar-button">
-        <input *ngIf="config.filtering" placeholder="Filter all columns" [ngTableFiltering]="config.filtering"
-          class="form-control" (tableChanged)="onChangeTable(config)" />
+      <!-- <div class="d-flex justify-content-end">
+
       </div> -->
     </div>
     <div>
@@ -30,22 +29,39 @@
       <!-- <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre> -->
     </div>
 
+    <div class="d-flex justify-content-end case-number-legends mb-3">
+      <div class="row">
+        <div class="col">
+          <span style="background-color: #ffdb8e;"></span>Hospitalized
+        </div>
+        <div class="col">
+          <span style="background-color: #83f473;"></span>Recovered
+        </div>
+        <div class="col">
+          <span style="background-color: #ffa1a1;"></span>Died
+        </div>
+      </div>
+    </div>
 
     <div class="case-number-container">
         <div class="case-number" *ngFor="let patient of data">
-          <div class="card" [popover]="popTemplate"
-          [popoverTitle]="patient.caseNumber" [adaptivePosition]="false" placement="top"
-          [triggers]="'focus'" tabindex="1">
+          <div class="card" [popover]="popTemplate" [adaptivePosition]="false" placement="auto"
+          [triggers]="'focus'" tabindex="1" outsideClick="true">
             <!-- <div class="card-text-stats"></div> -->
-            <div class="card-stats" [style.background-color]="getBackgroundColor(patient)" [style.color]="getTextColor(patient)">
-              {{patient.caseNumber.split('P')[1]}}
+            <div class="card-stats" [style.background-color]="getboxBackgroundColor(patient)">
+              <!-- {{patient.caseNumber.split('P')[1]}} -->
             </div>
           </div>
-          <ng-template #popTemplate>
-            <div>Status: {{patient.status}}</div>
-            <div>State: {{patient.state}}</div>
-            <div *ngIf="patient.cityName">City: {{patient.cityName}}</div>
-            <div>Confirm On: {{patient.confirmAt}}</div>
+          <ng-template  #popTemplate>
+            <div class="popover-container" [style.background-color]="getGenderBackgroundColor(patient)">
+              <h5 *ngIf="patient.caseNumber">{{patient.caseNumber}}</h5>
+              <div *ngIf="patient.gender">Gender: {{patient.gender}}</div>
+              <div *ngIf="!patient.gender">Gender: ?</div>
+              <div>Status: {{patient.status}}</div>
+              <div>State: {{patient.state}}</div>
+              <div *ngIf="patient.cityName">City: {{patient.cityName}}</div>
+              <div>Confirm On: {{patient.confirmAt}}</div>
+            </div>
           </ng-template>
         </div>
     </div>

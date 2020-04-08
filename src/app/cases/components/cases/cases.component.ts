@@ -83,39 +83,52 @@ export class CasesComponent implements OnInit {
     })
   }
 
-  getBackgroundColor(patient){
+  getGenderBackgroundColor(patient){
     let color = 'red';
-    switch(patient.status){
-      case "HOSPITALIZED":
-      case "Hospitalized":
-        color = '#fff5e0';
+    // switch(patient.status){
+    //   case "HOSPITALIZED":
+    //   case "Hospitalized":
+    //     color = '#fff5e0';
+    //     break;
+    //   case "Died":
+    //   case "DIED":
+    //     color = '#ffcdcd';
+    //     break;
+    //   case "RECOVERED":
+    //   case "Recovered":
+    //     color = '#bfffb6';
+    //     break;
+    // }
+
+    switch(patient.gender.toLowerCase()){
+      case "male":
+        color = '#b4d8ff';
         break;
-      case "Died":
-      case "DIED":
-        color = '#ffcdcd';
+      case "female":
+        color = '#ffade3';
         break;
-      case "RECOVERED":
-      case "Recovered":
-        color = '#bfffb6';
+      default:
+        color = '#f0f0f0';
         break;
     }
+
     return color;
   }
   
-  getTextColor(patient){
+  getboxBackgroundColor(patient){
     let color = 'red';
     switch(patient.status){
       case "HOSPITALIZED":
       case "Hospitalized":
-        color = '#ffad00';
+        color = '#ffdb8e';
         break;
       case "Died":
       case "DIED":
-        color = '#ff0707';
+        color = '#ffa1a1';
         break;
       case "RECOVERED":
       case "Recovered":
-        color = '#20ab0d';
+        color = '#83f473';
         break;
     }
     return color;
