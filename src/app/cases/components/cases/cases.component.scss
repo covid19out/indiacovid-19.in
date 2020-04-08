@@ -46,21 +46,47 @@
 
 }
 
+.case-number-legends{
+  .col{
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    span{
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+  }
+}
+
 ::ng-deep .popover {
-  width: 200px;
+  width: 190px;
+  padding: 0px;
+  > div{
+    padding: 0px;
+  }
+  
+  .popover-container{
+    padding: 10px;
+  }
 }
 
 .case-number-container{
   display: grid;
   grid-auto-rows: 1fr;
-  grid-gap: 2px;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  grid-gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(16px, 1fr));
   font-size: 0.74rem;
+  
   .card{
     border-radius: 5px;
     border: 0px;
     .card-stats{
-      padding: 4px 2px;
+      padding: 4px;
+      min-height: 16px;
+      border-radius: 2px;
     }
     &:hover{
       z-index: 2;
