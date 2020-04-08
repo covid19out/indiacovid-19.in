@@ -45,7 +45,7 @@
 
     <div class="case-number-container">
         <div class="case-number" *ngFor="let patient of data">
-          <div class="card" [popover]="popTemplate" [adaptivePosition]="false" placement="auto"
+          <div class="card" [popover]="popTemplate" [adaptivePosition]="true" placement="auto"
           [triggers]="'focus'" tabindex="1" outsideClick="true">
             <!-- <div class="card-text-stats"></div> -->
             <div class="card-stats" [style.background-color]="getboxBackgroundColor(patient)">
@@ -58,6 +58,7 @@
               <div *ngIf="patient.gender">Gender: {{patient.gender}}</div>
               <div *ngIf="!patient.gender">Gender: ?</div>
               <div>Status: {{patient.status}}</div>
+              <div *ngIf="patient.daysInHospital">Days in Hospital: {{patient.daysInHospital}}</div>
               <div>State: {{patient.state}}</div>
               <div *ngIf="patient.cityName">City: {{patient.cityName}}</div>
               <div>Confirm On: {{patient.confirmAt}}</div>
