@@ -77,21 +77,21 @@ export class HomeComponent implements OnInit {
   };
   casesLineChartColors: Color[] = [
   {
-    borderColor: '#ffdb8e',
+    borderColor: '#FD1717 ',
     backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#ffdb8e',
+    pointBackgroundColor: '#FD1717',
     pointBorderColor: '#fff',
   },
   {
-    borderColor: '#83f473',
+    borderColor: '#17CE41',
     backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#83f473',
+    pointBackgroundColor: '#17CE41',
     pointBorderColor: '#fff',
   },
   {
-    borderColor: '#ffa1a1',
+    borderColor: '#C1C1C1',
     backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#FF0000',
+    pointBackgroundColor: '#C1C1C1',
     pointBorderColor: '#fff',
   }];
 
