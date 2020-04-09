@@ -312,15 +312,15 @@ export class HomeComponent implements OnInit {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     
     let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
-    let dateWiseRecoverdCases = _.groupBy(dateWiseData, 'recoveredAt');
-    let dateWiseDeceasedCases = _.groupBy(dateWiseData, 'deceasedAt');
+    //let dateWiseRecoverdCases = _.groupBy(dateWiseData, 'recoveredAt');
+    //let dateWiseDeceasedCases = _.groupBy(dateWiseData, 'deceasedAt');
 
     for (let confirmDate in dateWiseConfirmCases) {
       let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
       this.casesLineChartLabels.push(label);
       let confirmCount = dateWiseConfirmCases[confirmDate].length;
-      let recoverCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
-      let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
+      //let recoverCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
+      //let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
     
 
       // dateWiseCases[confirmDate].forEach(test => {
@@ -333,8 +333,8 @@ export class HomeComponent implements OnInit {
       // });
 
       this.casesLineChartData[0].data.push(confirmCount);
-      this.casesLineChartData[1].data.push(recoverCount);
-      this.casesLineChartData[2].data.push(deceasedCount);
+      //this.casesLineChartData[1].data.push(recoverCount);
+      //this.casesLineChartData[2].data.push(deceasedCount);
     }
   }
 
@@ -429,9 +429,12 @@ export class HomeComponent implements OnInit {
 
   setCasesAnalytics(filteredData) {
     this.totalCases = this.totalConfirmedCases = filteredData.length;
-    this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
-    this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
-    this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
+    //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
+    this.totalHospitalisedCases = 5897;
+    this.totalDeathCases = 226;
+    this.totalDischargedCases= 602;
+    //this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
+    //this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
     this.maleCount = 0;
     this.femaleCount = 0;
