@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+import { database } from 'firebase';
 
 @Component({
   selector: 'app-confirm-cumulative-chart',
@@ -84,7 +85,9 @@ export class ConfirmCumulativeChartComponent implements OnInit {
       let label = `${new Date(confirmdate).getDate()} ${months[new Date(confirmdate).getMonth()]} ${new Date(confirmdate).getFullYear()}`;
       this.cumulativeChartConfirmLabels.push(label);
       this.cumulativeChartConfirmData[0].data.push(count);
+      //console.log(label,":",count);
     }
+    
   }
 
   setEndDateConfirmCount(filteredData) {

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
-import { TableData } from './table-data';
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 @Component({
@@ -11,38 +9,22 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
 export class CasesComponent implements OnInit {
   public rows:Array<any> = [];
   public columns:Array<any> = [
-    // { title: 'Case', name: 'case'},
-    // { title: 'Patient', name: 'patient'},
-    // { title: 'Age', className: [''], name: 'age', sort: ''},
-    // { title: 'Gender', name: 'gender', sort: ''},
-    // { title: 'Nationality', className: '', name: 'nationality'},
-    // { title: 'Status', name: 'status'},
-    // { title: 'Infection Source', name: 'infectionSource'},
-    // { title: 'Symptomatic To Confirmation', name: 'symptomaticToConfirmation', sort:''},
-    // { title: 'Days To Recover', name: 'daysToRecover', sort:''},
-    // { title: 'Symptomatic At', name: 'symptomaticAt', sort:''},
-    // { title: 'Confirmed At', name: 'confirmedAt', sort:''},
-    // { title: 'Recovered At', name: 'recoveredAt', sort:''},
-    // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''} 
-
-//For new Data
-
+    //For new Data
     { title: 'Case', name: 'caseNumber'},
-    // { title: 'Patient', name: 'details'},
     { title: 'Age', className: [''], name: 'age', sort: ''},
     { title: 'Gender', name: 'gender', sort: ''},
-    //{ title: 'Nationality', className: '', name: 'nationality'},
     { title: 'State', className: '', name: 'state'},
     { title: 'City', className: '', name: 'cityName', sort:''},
+    { title: 'Confirmed At', name: 'confirmAt', sort:''},
+    // { title: 'Patient', name: 'details'},   
+    //{ title: 'Nationality', className: '', name: 'nationality'},
     // { title: 'Status', name: 'status'},
     // { title: 'Infection Source', name: 'infectionSource'},
     // { title: 'Symptomatic To Confirmation', name: 'symptomaticToConfirmation', sort:''},
     // { title: 'Days To Recover', name: 'daysToRecover', sort:''},
     //{ title: 'Symptomatic At', name: 'symtomaticAt', sort:''},
-    { title: 'Confirmed At', name: 'confirmAt', sort:''},
     //{ title: 'Recovered At', name: 'recoveredAt', sort:''},
-    // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''}   
-    
+    // { title: 'Displayed Symptoms', name: 'displayedSymptoms', sort:''}
   ]; 
   public page:number = 1;
   public itemsPerPage:number = 10;
@@ -68,12 +50,19 @@ export class CasesComponent implements OnInit {
       //For firebase Data
       if(data){
         data.forEach(patient => {
-          let symptomaticDiffInTime = new Date(patient.confirmAt).getTime() - new Date(patient.symptomaticAt).getTime();
-          patient.symptomaticToConfirmation = symptomaticDiffInTime / (1000 * 3600 * 24) || '-';
-          let daysRecoverDiffInTime = new Date(patient.recoveredAt).getTime() - new Date(patient.confirmAt).getTime();
-          patient.daysToRecover = daysRecoverDiffInTime / (1000 * 3600 * 24) || '-';
+          if(patient.status.toLowerCase() == 'recovered'){
+            let recoveredAt = new Date(patient.recoveredAt);
+            if(recoveredAt.getDate()){                             
+              patient.daysInHospital = this.getDifferenceInDays(new Date(patient.confirmAt),recoveredAt);
+            }
+          } else if(patient.status.toLowerCase() == 'died'){
+            let deceasedAt = new Date(patient.deceasedAt);
+            if(deceasedAt.getDate()){                            
+              patient.daysInHospital = this.getDifferenceInDays(new Date(patient.confirmAt),deceasedAt);               
+            }
+          }
         });
-       // data.sort((a,b)=>b.caseNumber - a.caseNumber);
+
        data.sort((a, b) => b.caseNumber.split("P")[1] - a.caseNumber.split("P")[1]);
         this.data = data;   
         this.length = this.data.length;         
@@ -83,39 +72,57 @@ export class CasesComponent implements OnInit {
     })
   }
 
-  getBackgroundColor(patient){
+  getDifferenceInDays(startDate, endDate){
+    let differenceInTime = endDate.getTime() - new Date(startDate).getTime();
+    return differenceInTime / (1000 * 3600 * 24);
+  }
+
+  getGenderBackgroundColor(patient){
     let color = 'red';
-    switch(patient.status){
-      case "HOSPITALIZED":
-      case "Hospitalized":
-        color = '#fff5e0';
+    // switch(patient.status){
+    //   case "HOSPITALIZED":
+    //   case "Hospitalized":
+    //     color = '#fff5e0';
+    //     break;
+    //   case "Died":
+    //   case "DIED":
+    //     color = '#ffcdcd';
+    //     break;
+    //   case "RECOVERED":
+    //   case "Recovered":
+    //     color = '#bfffb6';
+    //     break;
+    // }
+
+    switch(patient.gender.toLowerCase()){
+      case "male":
+        color = '#b4d8ff';
         break;
-      case "Died":
-      case "DIED":
-        color = '#ffcdcd';
+      case "female":
+        color = '#ffade3';
         break;
-      case "RECOVERED":
-      case "Recovered":
-        color = '#bfffb6';
+      default:
+        color = '#f0f0f0';
         break;
     }
+
     return color;
   }
   
-  getTextColor(patient){
+  getboxBackgroundColor(patient){
     let color = 'red';
     switch(patient.status){
       case "HOSPITALIZED":
       case "Hospitalized":
-        color = '#ffad00';
+        color = '#ffdb8e';
         break;
       case "Died":
       case "DIED":
-        color = '#ff0707';
+        color = '#ffa1a1';
         break;
       case "RECOVERED":
       case "Recovered":
-        color = '#20ab0d';
+        color = '#83f473';
         break;
     }
     return color;

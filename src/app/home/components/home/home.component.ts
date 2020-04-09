@@ -39,18 +39,62 @@ export class HomeComponent implements OnInit {
   public endDate: any = new Date();
 
   //stacked chart
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public barChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [
-    { data: [], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
-    { data: [], label: 'CONFIRMED CASES', stack: 'a' },
-    { data: [], label: ' DISCHARGED', stack: 'a' }
+  // public barChartOptions: ChartOptions = {
+  //   responsive: true,
+  // };
+  // public barChartLabels: Label[] = [];
+  // public barChartType: ChartType = 'bar';
+  // public barChartLegend = true;
+  // public barChartPlugins = [];
+  // public barChartData: ChartDataSets[] = [
+  //   { data: [], label: 'REPORTED SYMPTOMATIC', stack: 'a' },
+  //   { data: [], label: 'CONFIRMED CASES', stack: 'a' },
+  //   { data: [], label: ' DISCHARGED', stack: 'a' }
+  // ];
+  
+  //Number of cases line chart
+  casesLineChartLabels: Label[] = [];  
+  casesLineChartData: ChartDataSets[] = [
+    { data: [], label: 'CONFIRMED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+    { data: [], label: 'DISCHARGED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
+    { data: [], label: 'DECEASED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },      
   ];
+  casesLineChartOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    annotation: true,
+    scales: {
+      xAxes: [{
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        }
+      }]
+    }
+  };
+  casesLineChartColors: Color[] = [
+  {
+    borderColor: '#FD1717 ',
+    backgroundColor: 'rgba(0,0,0,0)',
+    pointBackgroundColor: '#FD1717',
+    pointBorderColor: '#fff',
+  },
+  {
+    borderColor: '#17CE41',
+    backgroundColor: 'rgba(0,0,0,0)',
+    pointBackgroundColor: '#17CE41',
+    pointBorderColor: '#fff',
+  },
+  {
+    borderColor: '#C1C1C1',
+    backgroundColor: 'rgba(0,0,0,0)',
+    pointBackgroundColor: '#C1C1C1',
+    pointBorderColor: '#fff',
+  }];
+
 
   //Statewise Bar chart
   public stateBarChartOptions: ChartOptions = {
@@ -239,7 +283,8 @@ export class HomeComponent implements OnInit {
 
   prepareBarChartData(patientRecords: any) {
     var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
-    this.assignDatatoBarChart(patientRecords);
+    this.assignNumberOfCasesLineChartData(patientRecords);
+    // this.assignDatatoBarChart(patientRecords);
     //this.assigndoughnutChartData(patientRecords);
     // this.assignConfimedLineChartData(dateWiseData);
     // this.assignHospitalisedLineChartData(dateWiseData);
@@ -255,36 +300,74 @@ export class HomeComponent implements OnInit {
     return this.chartColors[0].backgroundColor[i];
   }
 
-  assignDatatoBarChart(dateWiseData) {
-    let dates = [];
-    let intensiveCasesByDates = [];
-    let confirmedCasesByDates = [];
-    let dischargedByDates = [];
-    let deceasedByDates=[];
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    dateWiseData.sort((a, b) => {
-      let dateA = new Date(a.confirmAt);
-      let dateB = new Date(b.confirmAt);
-      return dateA.getTime() - dateB.getTime();
+  assignNumberOfCasesLineChartData(patientRecords) {
+    let dateWiseData = patientRecords.sort((a, b) => {
+      return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
     });
-    let dateWiseCases = _.groupBy(dateWiseData, 'confirmAt');
-    for (let cases in dateWiseCases) {
-      dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
-      intensiveCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Intensive Care").length);
-      confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed" || x.caseType == "CONFIRMED" || x.caseType == "Deceased"|| x.caseType == "DECEASED").length);
-      dischargedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Recovered/Discharged").length);
-      deceasedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Deceased"|| x.caseType == "DECEASED").length);
+
+    this.casesLineChartLabels = [];
+    this.casesLineChartData[0].data = [];
+    this.casesLineChartData[1].data = [];
+    this.casesLineChartData[2].data = [];
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    
+    let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
+    //let dateWiseRecoverdCases = _.groupBy(dateWiseData, 'recoveredAt');
+    //let dateWiseDeceasedCases = _.groupBy(dateWiseData, 'deceasedAt');
+
+    for (let confirmDate in dateWiseConfirmCases) {
+      let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
+      this.casesLineChartLabels.push(label);
+      let confirmCount = dateWiseConfirmCases[confirmDate].length;
+      //let recoverCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
+      //let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
+    
+
+      // dateWiseCases[confirmDate].forEach(test => {
+      //   if (test.IndividualTestCount > testcount) {
+      //     testcount = test.IndividualTestCount;
+      //   }
+      //   if (test.PositiveCount) {
+      //     positiveCount = test.PositiveCount;
+      //   }
+      // });
+
+      this.casesLineChartData[0].data.push(confirmCount);
+      //this.casesLineChartData[1].data.push(recoverCount);
+      //this.casesLineChartData[2].data.push(deceasedCount);
     }
-
-    this.barChartLabels = dates;
-    this.barChartData = [
-      //{ data: intensiveCasesByDates, label: 'INTENSIVE CARE CASES', stack: 'a' },
-      { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
-      //{ data: dischargedByDates, label: ' DISCHARGED', stack: 'a' },
-      { data: deceasedByDates, label: 'Deceased', stack: 'a' },
-
-    ];
   }
+
+  // assignDatatoBarChart(dateWiseData) {
+  //   let dates = [];
+  //   let intensiveCasesByDates = [];
+  //   let confirmedCasesByDates = [];
+  //   let dischargedByDates = [];
+  //   let deceasedByDates=[];
+  //   let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+  //   dateWiseData.sort((a, b) => {
+  //     let dateA = new Date(a.confirmAt);
+  //     let dateB = new Date(b.confirmAt);
+  //     return dateA.getTime() - dateB.getTime();
+  //   });
+  //   let dateWiseCases = _.groupBy(dateWiseData, 'confirmAt');
+  //   for (let cases in dateWiseCases) {
+  //     dates.push(new Date(cases).getDate() + " " + months[new Date(cases).getMonth()]);
+  //     intensiveCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Intensive Care").length);
+  //     confirmedCasesByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Confirmed" || x.caseType == "CONFIRMED" || x.caseType == "Deceased"|| x.caseType == "DECEASED").length);
+  //     dischargedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Recovered/Discharged").length);
+  //     deceasedByDates.push(_.groupBy(dateWiseData, 'confirmAt')[cases].filter(x => x.caseType == "Deceased"|| x.caseType == "DECEASED").length);
+  //   }
+
+  //   this.barChartLabels = dates;
+  //   this.barChartData = [
+  //     //{ data: intensiveCasesByDates, label: 'INTENSIVE CARE CASES', stack: 'a' },
+  //     { data: confirmedCasesByDates, label: 'CONFIRMED CASES', stack: 'a' },
+  //     //{ data: dischargedByDates, label: ' DISCHARGED', stack: 'a' },
+  //     { data: deceasedByDates, label: 'Deceased', stack: 'a' },
+
+  //   ];
+  // }
 
   getSortedObject(objectToSort) {
     var sortedObject = {};
@@ -346,9 +429,12 @@ export class HomeComponent implements OnInit {
 
   setCasesAnalytics(filteredData) {
     this.totalCases = this.totalConfirmedCases = filteredData.length;
-    this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
-    this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
-    this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
+    //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
+    this.totalHospitalisedCases = 5897;
+    this.totalDeathCases = 226;
+    this.totalDischargedCases= 602;
+    //this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
+    //this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
     this.maleCount = 0;
     this.femaleCount = 0;
