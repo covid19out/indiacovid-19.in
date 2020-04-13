@@ -26,7 +26,7 @@ export class PatientsDataService {
   public testsConductedData = new BehaviorSubject(null);
 
   loadPatientsData() {
-    return this.firestore.collection<any>('newCases').snapshotChanges().subscribe(data => {
+    return this.firestore.collection<any>('CovidCases_IN').snapshotChanges().subscribe(data => {
       let covidCases = data.map(item => {
         var data = item.payload.doc.data();
         data.id = item.payload.doc.id;
@@ -87,7 +87,7 @@ export class PatientsDataService {
   }
 
   filterDataByCasetype(data: {}, patient: any): {} {
-    if (patient.status == 'HOSPITALIZED') {
+    if (patient.status == 'HOSPITALIZED' || 'Hospitalized') {
       data['confirmedCasesByDates'] = data['confirmedCasesByDates'] + 1 || 1;
     }
     if (patient.status == 'SYMPTOMATIC') {
