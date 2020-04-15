@@ -430,9 +430,9 @@ export class HomeComponent implements OnInit {
   setCasesAnalytics(filteredData) {
     this.totalCases = this.totalConfirmedCases = filteredData.length;
     //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
-    this.totalHospitalisedCases = 10404;
-    this.totalDeathCases = 420;
-    this.totalDischargedCases= 1498;
+    this.totalHospitalisedCases = 10440;
+    this.totalDeathCases = 422;
+    this.totalDischargedCases= 1509;
     //this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
     //this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
     this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
