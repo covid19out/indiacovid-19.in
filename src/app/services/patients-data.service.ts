@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
 import { map } from 'rxjs/operators';
 import { Meta } from '@angular/platform-browser';
+//import PatientsDataJson from '../../assets/data/patientsData.json';
 
 @Injectable({
   providedIn: 'root'
@@ -26,26 +27,46 @@ export class PatientsDataService {
   public testsConductedData = new BehaviorSubject(null);
 
   loadPatientsData() {
-    return this.firestore.collection<any>('CovidCases_IN').snapshotChanges().subscribe(data => {
-      let covidCases = data.map(item => {
-        var data = item.payload.doc.data();
-        data.id = item.payload.doc.id;
-        return data;
-      });
-      this.patientsData.next(covidCases);
+    this.http.get("assets/data/patientsData.json").subscribe(data =>{
+          this.patientsData.next(data);
+          console.log("unsorted",this.patientsData.value);
+          let dateWiseData = this.patientsData.value.sort((a, b) => {
+            return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
+          });
+          console.log("sorted",this.patientsData.value);
     });
+    
+    
+    
+    // return this.firestore.collection<any>('CovidCases_IN').snapshotChanges().subscribe(data => {
+    //   let covidCases = data.map(item => {
+    //     var data = item.payload.doc.data();
+    //     data.id = item.payload.doc.id;
+    //     return data;
+    //   });
+    //   this.patientsData.next(covidCases);
+    // });
   }
 
   loadTestConductedData() {
-    return this.firestore.collection<any>('Tests').snapshotChanges().subscribe(data => {
-      if(data){
-        let testsConducted = data.map(item => {
-          var data = item.payload.doc.data();
-          data.id = item.payload.doc.id;
-          return data;
-        });
-        this.testsConductedData.next(testsConducted);
-      }
+    // return this.firestore.collection<any>('Tests').snapshotChanges().subscribe(data => {
+    //   if(data){
+    //     let testsConducted = data.map(item => {
+    //       var data = item.payload.doc.data();
+    //       data.id = item.payload.doc.id;
+    //       return data;
+    //     });
+    //     this.testsConductedData.next(testsConducted);
+    //   }
+    // });
+
+    this.http.get("assets/data/icmrTestsData.json").subscribe(data =>{
+      this.testsConductedData.next(data);
+      let dateWiseData = this.testsConductedData.value.sort((a, b) => {
+        return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
+      });
+
+      this.testsConductedData.next(dateWiseData);
     });
   }
 
