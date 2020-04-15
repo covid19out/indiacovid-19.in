@@ -256,7 +256,7 @@ export class HomeComponent implements OnInit {
     this.patientsDataService.patientsData.subscribe(data => {
       if (data) {
         this.patientsData = data;
-        //this.dateFilterChanged([this.startDate, this.endDate]);
+        this.dateFilterChanged([this.startDate, this.endDate]);
       }
     });
 
@@ -279,14 +279,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngDoCheck() {
-    this.setTestConductedData();
-    this.setCasesAnalytics(this.patientsData);
-    this.prepareBarChartData(this.patientsData);
-    this.assignStateBarChartDate(this.patientsData);
   }
 
   prepareBarChartData(patientRecords: any) {
-    //var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
+    var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignNumberOfCasesLineChartData(patientRecords);
     // this.assignDatatoBarChart(patientRecords);
     //this.assigndoughnutChartData(patientRecords);
@@ -424,7 +420,10 @@ export class HomeComponent implements OnInit {
       }
     });
     this.dateWisePateintData = filteredData;
-    
+    this.setTestConductedData();
+    this.setCasesAnalytics(filteredData);
+    this.prepareBarChartData(filteredData);
+    this.assignStateBarChartDate(filteredData);
     // this.assignDeathLineChartData(filteredData);
   }
 
