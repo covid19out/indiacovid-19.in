@@ -1,18 +1,19 @@
 function gtag() {
     dataLayer.push(arguments)
 }
-// window.fbAsyncInit = function() {
-//         FB.init({
-//             appId: "631795427369724",
-//             cookie: !0,
-//             xfbml: !0,
-//             version: "v6.0"
-//         }), FB.AppEvents.logPageView()
-//     },
-//     function(e, a, t) {
-//         var n, o = e.getElementsByTagName(a)[0];
-//         e.getElementById(t) || ((n = e.createElement(a)).id = t, n.src = "https://connect.facebook.net/en_US/sdk.js", o.parentNode.insertBefore(n, o))
-//     }(document, "script", "facebook-jssdk"), window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", "UA-131358040-4");
+window.fbAsyncInit = function() {
+        FB.init({
+            appId: "631795427369724",
+            cookie: !0,
+            xfbml: !0,
+            version: "v6.0"
+        }), FB.AppEvents.logPageView()
+    },
+    function(e, a, t) {
+        var n, o = e.getElementsByTagName(a)[0];
+        e.getElementById(t) || ((n = e.createElement(a)).id = t, n.src = "https://connect.facebook.net/en_US/sdk.js", o.parentNode.insertBefore(n, o))
+    }(document, "script", "facebook-jssdk"), window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", "UA-131358040-4");
+
 var isCollapsed = !0;
 
 function toggleNavbarMobile() {
