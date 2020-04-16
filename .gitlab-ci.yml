@@ -83,6 +83,7 @@ build:deploy:
  - npm install -g @angular/cli
  - npm install
  - ng config -g cli.warnings.versionMismatch false
+ - ng add @scullyio/init
  - ng build --prod
  - npm run scully
  script:
