@@ -85,9 +85,6 @@ build:deploy:
  - ng config -g cli.warnings.versionMismatch false
  - ng add @scullyio/init
  - ng build --prod
- - npm run scully
- script:
- - firebase deploy --only hosting:india-covid-19 --token $FIREBASE_TOKEN
  only:
     refs:
       - develop
