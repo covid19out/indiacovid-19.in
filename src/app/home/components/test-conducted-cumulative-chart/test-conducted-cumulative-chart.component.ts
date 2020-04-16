@@ -10,19 +10,28 @@ import * as _ from 'lodash';
 })
 export class TestConductedCumulativeChartComponent implements OnInit {
   @Input() filteredTestConductedData: any;
-  constructor() { }
+  
   cumulativeChartTestData: ChartDataSets[];
   cumulativeChartTestLabels: Label[] = [];
   cumulativeChartTestOptions: (ChartOptions & { annotation: any });
   cumulativeChartTestColors: Color[];
+  isInitialized:boolean = false;
+
+  constructor() { }
 
   ngOnInit() {
+    if(this.isInitialized) return;
     this.initChart();
+    this.isInitialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     let testData = changes.filteredTestConductedData.currentValue;
     if (testData && testData.length) {
+      if(!this.isInitialized){
+        this.initChart();
+        this.isInitialized = true;
+      }
       this.assignChartData(testData);
     }
   }
@@ -65,15 +74,13 @@ export class TestConductedCumulativeChartComponent implements OnInit {
   }
 
   assignChartData(testsData) {
-    let dateWiseData = testsData.sort((a, b) => {
-      return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
-    });
+    
 
     this.cumulativeChartTestLabels = [];
     this.cumulativeChartTestData[0].data = [];
     this.cumulativeChartTestData[1].data = [];
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    let dateWiseTests = _.groupBy(dateWiseData, 'ConductedOn');
+    let dateWiseTests = _.groupBy(testsData, 'ConductedOn');
 
     for (let testDate in dateWiseTests) {
       let label = `${new Date(testDate).getDate()} ${months[new Date(testDate).getMonth()]} ${new Date(testDate).getFullYear()}`;

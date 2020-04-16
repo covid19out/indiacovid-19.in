@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { Meta } from '@angular/platform-browser';
+//import PatientsDataJson from '../../assets/data/patientsData.json';
 
 @Injectable({
   providedIn: 'root'
@@ -24,28 +26,59 @@ export class PatientsDataService {
   }
   public patientsData = new BehaviorSubject(null);
   public testsConductedData = new BehaviorSubject(null);
-
+  public recoveredPatientsData = new BehaviorSubject(null);
+  public deceasedPatientsData = new BehaviorSubject(null);
+  
   loadPatientsData() {
-    return this.firestore.collection<any>('CovidCases_IN').snapshotChanges().subscribe(data => {
-      let covidCases = data.map(item => {
-        var data = item.payload.doc.data();
-        data.id = item.payload.doc.id;
-        return data;
+    this.http.get("assets/data/patientsData.json").subscribe(data => {
+      let cases: any = data;
+      cases.sort((a, b) => {
+        return moment(a.confirmAt, "DD/MM/YYYY").toDate().getTime() - moment(b.confirmAt, "DD/MM/YYYY").toDate().getTime();
       });
-      this.patientsData.next(covidCases);
+      this.patientsData.next(data);
     });
+    // return this.firestore.collection<any>('CovidCases_IN').snapshotChanges().subscribe(data => {
+    //   let covidCases = data.map(item => {
+    //     var data = item.payload.doc.data();
+    //     data.id = item.payload.doc.id;
+    //     return data;
+    //   });
+    //   this.patientsData.next(covidCases);
+    // });
   }
 
   loadTestConductedData() {
-    return this.firestore.collection<any>('Tests').snapshotChanges().subscribe(data => {
-      if(data){
-        let testsConducted = data.map(item => {
-          var data = item.payload.doc.data();
-          data.id = item.payload.doc.id;
-          return data;
-        });
-        this.testsConductedData.next(testsConducted);
-      }
+    // return this.firestore.collection<any>('Tests').snapshotChanges().subscribe(data => {
+    //   if(data){
+    //     let testsConducted = data.map(item => {
+    //       var data = item.payload.doc.data();
+    //       data.id = item.payload.doc.id;
+    //       return data;
+    //     });
+    //     this.testsConductedData.next(testsConducted);
+    //   }
+    // });
+    this.http.get("assets/data/icmrTestsData.json").subscribe(data =>{
+      //this.testsConductedData.next(data);
+      let tests: any = data;
+      let dateWiseData = tests.sort((a, b) => {
+        return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
+      });
+      this.testsConductedData.next(dateWiseData);
+    });
+  }
+
+  loadClosedCasesData() {
+    this.http.get("assets/data/deaths_recoveries.json").subscribe(data =>{
+      let closedCases: any = data;
+      let dateWiseData = closedCases.deaths_recoveries.sort((a, b) => {
+        return moment(a.date, "DD/MM/YYYY").toDate().getTime() - moment(b.date, "DD/MM/YYYY").toDate().getTime();
+      });
+      let recoveredCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "recovered");
+      let deceasedCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "deceased");
+      
+      this.recoveredPatientsData.next(recoveredCasesData);
+      this.deceasedPatientsData.next(deceasedCasesData);
     });
   }
 

@@ -29,7 +29,9 @@
               "src/Robots.txt",
               "src/sitemap.xml",
               "src/theme/main.css",
-              "src/theme/maincovid-19.js"
+              "src/theme/maincovid-19.js",
+              "src/theme/ammap.js",
+              "src/theme/indiaLow.js"
             ],
             "styles": [
               "src/styles.scss"
@@ -53,7 +55,7 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -100,8 +102,9 @@
               "src/Robots.txt",
               "src/sitemap.xml",
               "src/theme/main.css",
-              "src/theme/maincovid-19.js"
-              
+              "src/theme/maincovid-19.js",
+              "src/theme/ammap.js",
+              "src/theme/indiaLow.js"              
             ],
             "styles": [
               "src/styles.scss"
@@ -136,5 +139,5 @@
         }
       }
     }},
-  "defaultProject": "INDIA COVID-19 - Corona Virus Updates"
+  "defaultProject": "CovidStat"
 }
