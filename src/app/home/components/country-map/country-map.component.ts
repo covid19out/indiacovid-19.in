@@ -12,14 +12,22 @@ export class CountryMapComponent implements OnInit {
   @Input() cases:any;
   constructor() { }
   countryMap:any;
-
+  isInitialized:boolean = false;
   ngOnInit() {
-    this.generateMap();
+    if(!this.isInitialized){
+      this.generateMap();
+      this.isInitialized = true;
+    }    
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if(this.isInitialized){}
     let dateWiseCases = changes.cases.currentValue;
     if(dateWiseCases && dateWiseCases.length){
+      if(!this.isInitialized){
+        this.generateMap();
+        this.isInitialized = true;
+      }
       this.assignMapData(dateWiseCases);
     }
   }

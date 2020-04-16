@@ -20,14 +20,14 @@ export class ConfirmedComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public dates=['10 Mar', '11 Mar', '12 Mar', '13 Mar', '14 Mar', '15 Mar', '16 Mar'];
-  public dataByDates=[65, 59, 80, 81, 56, 55, 40];
-  public barChartLabels: Label[] = this.dates;
+  // public dates=['10 Mar', '11 Mar', '12 Mar', '13 Mar', '14 Mar', '15 Mar', '16 Mar'];
+  // public dataByDates=[];
+  public barChartLabels: Label[] =[];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [
-    { data: this.dataByDates, label: 'CONFIRMED CASES', stack: 'a' }
+    { data: [], label: 'CONFIRMED CASES', stack: 'a' }
   ];
   public startDate: any=new Date("30 January 2020");
   public endDate: any=new Date();

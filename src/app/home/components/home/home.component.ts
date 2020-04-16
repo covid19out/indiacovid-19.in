@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
   public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
   public totalDeathCases = 0;
-  public maleCount = 0;
-  public femaleCount = 0;
+  // public maleCount = 0;
+  // public femaleCount = 0;
   public totalConfirmUpCasesCount = 0;
   public totalConfirmDownCasesCount = 0;
   public chartColors = [
@@ -247,7 +247,8 @@ export class HomeComponent implements OnInit {
   public testsConducatedData: any;
   public filteredTestConductedData: any;
   public lastDateTestConductedData: any;
-
+  public recoveredPatientData : any = []; 
+  public deceasedPatientData : any = [];
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
@@ -256,7 +257,8 @@ export class HomeComponent implements OnInit {
     this.patientsDataService.patientsData.subscribe(data => {
       if (data) {
         this.patientsData = data;
-        this.dateFilterChanged([this.startDate, this.endDate]);
+        //this.dateFilterChanged([this.startDate, this.endDate]);
+        this.initData();
       }
     });
 
@@ -265,6 +267,22 @@ export class HomeComponent implements OnInit {
         this.testsConducatedData = tests;
         this.setTestConductedData();
       }
+    });
+
+    this.patientsDataService.recoveredPatientsData.subscribe(data => {
+      if(data){
+        this.recoveredPatientData = data; 
+        this.totalDischargedCases = data.length;
+        this.setCasesAnalytics();
+      }
+    });
+
+    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
+      if(data){
+        this.deceasedPatientData = data;   
+        this.totalDeathCases = data.length;
+        this.setCasesAnalytics();
+      }      
     });
 
     twttr.widgets.createTimeline(
@@ -278,11 +296,16 @@ export class HomeComponent implements OnInit {
 
   }
 
-  ngDoCheck() {
+  initData(){    
+    // this.setTestConductedData();
+    this.setCasesAnalytics();
+    this.prepareBarChartData( this.patientsData);
+    this.assignStateBarChartDate( this.patientsData);
+    this.dateWisePateintData =  this.patientsData;
   }
 
   prepareBarChartData(patientRecords: any) {
-    var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
+    // var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
     this.assignNumberOfCasesLineChartData(patientRecords);
     // this.assignDatatoBarChart(patientRecords);
     //this.assigndoughnutChartData(patientRecords);
@@ -301,26 +324,26 @@ export class HomeComponent implements OnInit {
   }
 
   assignNumberOfCasesLineChartData(patientRecords) {
-    let dateWiseData = patientRecords.sort((a, b) => {
-      return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
-    });
+    // let dateWiseData = patientRecords.sort((a, b) => {
+    //   return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
+    // });
 
     this.casesLineChartLabels = [];
     this.casesLineChartData[0].data = [];
     this.casesLineChartData[1].data = [];
     this.casesLineChartData[2].data = [];
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    
-    let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
-    //let dateWiseRecoverdCases = _.groupBy(dateWiseData, 'recoveredAt');
-    //let dateWiseDeceasedCases = _.groupBy(dateWiseData, 'deceasedAt');
+    let dateWiseConfirmCases = _.groupBy(patientRecords, 'confirmAt');
+    // let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
+    let dateWiseRecoverdCases = _.groupBy(this.recoveredPatientData, 'date');
+    let dateWiseDeceasedCases = _.groupBy(this.deceasedPatientData, 'date');
 
     for (let confirmDate in dateWiseConfirmCases) {
       let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
       this.casesLineChartLabels.push(label);
       let confirmCount = dateWiseConfirmCases[confirmDate].length;
-      //let recoverCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
-      //let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
+      let recoveredCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
+      let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
     
 
       // dateWiseCases[confirmDate].forEach(test => {
@@ -333,8 +356,8 @@ export class HomeComponent implements OnInit {
       // });
 
       this.casesLineChartData[0].data.push(confirmCount);
-      //this.casesLineChartData[1].data.push(recoverCount);
-      //this.casesLineChartData[2].data.push(deceasedCount);
+      this.casesLineChartData[1].data.push(recoveredCount);
+      this.casesLineChartData[2].data.push(deceasedCount);
     }
   }
 
@@ -406,39 +429,50 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  dateFilterChanged(event) {
-    if (!event) return;
+  // dateFilterChanged(event) {
+  //   if (!event) return;
 
-    event[0].setHours(0, 0, 0, 0);
-    event[1].setHours(23, 59, 59, 999);
-    this.startDate = event[0];
-    this.endDate = event[1];
-    var filteredData = _.filter(this.patientsData, function (patient) {
-      let patientsDate = new Date(patient.confirmAt);
-      if (patientsDate >= event[0] && patientsDate <= event[1]) {
-        return patient;
-      }
-    });
-    this.dateWisePateintData = filteredData;
-    this.setTestConductedData();
-    this.setCasesAnalytics(filteredData);
-    this.prepareBarChartData(filteredData);
-    this.assignStateBarChartDate(filteredData);
-    // this.assignDeathLineChartData(filteredData);
-  }
+  //   event[0].setHours(0, 0, 0, 0);
+  //   event[1].setHours(23, 59, 59, 999);
+  //   this.startDate = event[0];
+  //   this.endDate = event[1];
+  //   var filteredData = _.filter(this.patientsData, function (patient) {
+  //     let patientsDate = new Date(patient.confirmAt);
+  //     if (patientsDate >= event[0] && patientsDate <= event[1]) {
+  //       return patient;
+  //     }
+  //   });
+  //   this.dateWisePateintData = filteredData;
+  //   this.setTestConductedData();
+  //   this.setCasesAnalytics(filteredData);
+  //   this.prepareBarChartData(filteredData);
+  //   this.assignStateBarChartDate(filteredData);
+  //   // this.assignDeathLineChartData(filteredData);
+  // }
 
-  setCasesAnalytics(filteredData) {
-    this.totalCases = this.totalConfirmedCases = filteredData.length;
-    //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
-    this.totalHospitalisedCases = 10440;
-    this.totalDeathCases = 422;
-    this.totalDischargedCases= 1509;
+  setCasesAnalytics() {
+    if(this.patientsData && this.patientsData.length){
+      this.totalCases = this.totalConfirmedCases = this.patientsData.length;
+      this.totalIntesiveCases = this.patientsData.filter(x => x.caseType == "Intensive Care").length;
+      this.setConfirmCountDaviation(this.patientsData);
+    }
+
+    if(this.totalCases && this.totalDeathCases && this.totalDischargedCases){
+      this.totalHospitalisedCases = this.totalCases - this.totalDeathCases - this.totalDischargedCases;
+    }
+    // if(this.recoveredPatients){
+    //   this.totalDischargedCases= this.recoveredPatients;
+    // }
+    // this.totalHospitalisedCases = 10440;
+    // this.totalDeathCases = 422;
+    
+    
+    
+    //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;    
     //this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
     //this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
-    this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
-    this.maleCount = 0;
-    this.femaleCount = 0;
-    this.setConfirmCountDaviation(filteredData);
+    //this.maleCount = 0;
+    //this.femaleCount = 0;    
   }
 
   setTestConductedData() {

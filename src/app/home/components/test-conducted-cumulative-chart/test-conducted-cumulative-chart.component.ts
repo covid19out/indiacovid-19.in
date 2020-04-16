@@ -10,19 +10,28 @@ import * as _ from 'lodash';
 })
 export class TestConductedCumulativeChartComponent implements OnInit {
   @Input() filteredTestConductedData: any;
-  constructor() { }
+  
   cumulativeChartTestData: ChartDataSets[];
   cumulativeChartTestLabels: Label[] = [];
   cumulativeChartTestOptions: (ChartOptions & { annotation: any });
   cumulativeChartTestColors: Color[];
+  isInitialized:boolean = false;
+
+  constructor() { }
 
   ngOnInit() {
+    if(this.isInitialized) return;
     this.initChart();
+    this.isInitialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     let testData = changes.filteredTestConductedData.currentValue;
     if (testData && testData.length) {
+      if(!this.isInitialized){
+        this.initChart();
+        this.isInitialized = true;
+      }
       this.assignChartData(testData);
     }
   }

@@ -11,25 +11,29 @@
                     <div class="card-text-stats">
                         <div class="card-text-stat">
                             <h5>
-                                <app-counter [maxValue]="state.totalIndianConfirmCases"></app-counter>
+                                {{state.totalIndianConfirmCases}}
+                                <!-- <app-counter [maxValue]="state.totalIndianConfirmCases"></app-counter> -->
                             </h5>
                             <p>Confirmed</p>
                         </div>
                         <div class="card-text-stat">
                             <h5>
-                                <app-counter [maxValue]="state.totalForeignConfirmCases"></app-counter>
+                                {{state.totalForeignConfirmCases}}
+                                <!-- <app-counter [maxValue]="state.totalForeignConfirmCases"></app-counter> -->
                             </h5>
                             <p>Foreign</p>
                         </div>
                         <div class="card-text-stat">
                             <h5>
-                                <app-counter [maxValue]="state.totalDischargedCases"></app-counter>
+                                {{state.totalDischargedCases}}
+                                <!-- <app-counter [maxValue]="state.totalDischargedCases"></app-counter> -->
                             </h5>
                             <p>Recovered</p>
                         </div>
                         <div class="card-text-stat">
                             <h5>
-                                <app-counter [maxValue]="state.totalDeathCases"></app-counter>
+                                {{state.totalDeathCases}}
+                                <!-- <app-counter [maxValue]="state.totalDeathCases"></app-counter> -->
                             </h5>
                             <p>Deaths</p>
                         </div>
@@ -38,7 +42,8 @@
                     <div class="card-stats" [ngStyle]="{'background-color': state.backgroundColor}">
                         <div class="stat">
                             <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.stateName}} :
-                                <app-counter [maxValue]="state.totalCount"></app-counter>
+                                {{state.totalCount}}
+                                <!-- <app-counter [maxValue]="state.totalCount"></app-counter> -->
                             </h6>
                         </div>
                     </div>
