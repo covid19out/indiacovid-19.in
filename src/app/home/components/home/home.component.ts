@@ -52,49 +52,6 @@ export class HomeComponent implements OnInit {
   //   { data: [], label: 'CONFIRMED CASES', stack: 'a' },
   //   { data: [], label: ' DISCHARGED', stack: 'a' }
   // ];
-  
-  //Number of cases line chart
-  casesLineChartLabels: Label[] = [];  
-  casesLineChartData: ChartDataSets[] = [
-    { data: [], label: 'CONFIRMED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    { data: [], label: 'DISCHARGED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    { data: [], label: 'DECEASED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },      
-  ];
-  casesLineChartOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    annotation: true,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        }
-      }]
-    }
-  };
-  casesLineChartColors: Color[] = [
-  {
-    borderColor: '#FD1717 ',
-    backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#FD1717',
-    pointBorderColor: '#fff',
-  },
-  {
-    borderColor: '#17CE41',
-    backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#17CE41',
-    pointBorderColor: '#fff',
-  },
-  {
-    borderColor: '#C1C1C1',
-    backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#C1C1C1',
-    pointBorderColor: '#fff',
-  }];
 
 
   //Statewise Bar chart
@@ -307,7 +264,7 @@ export class HomeComponent implements OnInit {
 
   prepareBarChartData(patientRecords: any) {
     // var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
-    this.assignNumberOfCasesLineChartData(patientRecords);
+    // this.assignNumberOfCasesLineChartData(patientRecords);
     // this.assignDatatoBarChart(patientRecords);
     //this.assigndoughnutChartData(patientRecords);
     // this.assignConfimedLineChartData(dateWiseData);
@@ -322,45 +279,6 @@ export class HomeComponent implements OnInit {
 
   getNationalityChartLabelColor(i) {
     return this.chartColors[0].backgroundColor[i];
-  }
-
-  assignNumberOfCasesLineChartData(patientRecords) {
-    // let dateWiseData = patientRecords.sort((a, b) => {
-    //   return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
-    // });
-
-    this.casesLineChartLabels = [];
-    this.casesLineChartData[0].data = [];
-    this.casesLineChartData[1].data = [];
-    this.casesLineChartData[2].data = [];
-    // let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    let dateWiseConfirmCases = _.groupBy(patientRecords, 'confirmAt');
-    // let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
-    let dateWiseRecoverdCases = _.groupBy(this.recoveredPatientData, 'date');
-    let dateWiseDeceasedCases = _.groupBy(this.deceasedPatientData, 'date');
-
-    for (let confirmDate in dateWiseConfirmCases) {
-      //let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
-      let label = moment(confirmDate, "DD/MM/YYYY").format("DD MMM YYYY");
-      this.casesLineChartLabels.push(label);
-      let confirmCount = dateWiseConfirmCases[confirmDate].length;
-      let recoveredCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
-      let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
-    
-
-      // dateWiseCases[confirmDate].forEach(test => {
-      //   if (test.IndividualTestCount > testcount) {
-      //     testcount = test.IndividualTestCount;
-      //   }
-      //   if (test.PositiveCount) {
-      //     positiveCount = test.PositiveCount;
-      //   }
-      // });
-
-      this.casesLineChartData[0].data.push(confirmCount);
-      this.casesLineChartData[1].data.push(recoveredCount);
-      this.casesLineChartData[2].data.push(deceasedCount);
-    }
   }
 
   // assignDatatoBarChart(dateWiseData) {
