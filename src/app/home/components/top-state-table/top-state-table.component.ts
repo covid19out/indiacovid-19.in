@@ -98,26 +98,6 @@ export class TopStateTableComponent implements OnInit {
     return topFiveCitiesData;
   }
 
-  getSortedObject(objectToSort) {
-    var sortedObject = {};
-    var arraysToSort = [];
-    var obj: any;
-    for (var o in objectToSort) {
-      obj = {
-        "state": o,
-        "objects": objectToSort[o]
-      }
-      arraysToSort.push(obj);
-    }
-    arraysToSort.sort((a, b) => b.objects.length - a.objects.length);
-    for (var i = 0; i < arraysToSort.length; i++) {
-      obj = arraysToSort[i];
-      sortedObject[obj.state] = obj.objects;
-    }
-    return sortedObject;
-
-  }
-
   getEndDatesConfirmCounts(state,topFiveStates){
     let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
     return topFiveStates[state].filter(x => x.confirmAt == lastDate).length;

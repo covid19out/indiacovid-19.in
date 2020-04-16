@@ -25,19 +25,17 @@ export class PatientsDataService {
   }
   public patientsData = new BehaviorSubject(null);
   public testsConductedData = new BehaviorSubject(null);
-
+  public recoveredPatientsData = new BehaviorSubject(null);
+  public deceasedPatientsData = new BehaviorSubject(null);
+  
   loadPatientsData() {
-    this.http.get("assets/data/patientsData.json").subscribe(data =>{
-          this.patientsData.next(data);
-          console.log("unsorted",this.patientsData.value);
-          let dateWiseData = this.patientsData.value.sort((a, b) => {
-            return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
-          });
-          console.log("sorted",this.patientsData.value);
+    this.http.get("assets/data/patientsData.json").subscribe(data => {
+      let cases: any = data;
+      cases.sort((a, b) => {
+        return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
+      });
+      this.patientsData.next(data);
     });
-    
-    
-    
     // return this.firestore.collection<any>('CovidCases_IN').snapshotChanges().subscribe(data => {
     //   let covidCases = data.map(item => {
     //     var data = item.payload.doc.data();
@@ -59,14 +57,27 @@ export class PatientsDataService {
     //     this.testsConductedData.next(testsConducted);
     //   }
     // });
-
     this.http.get("assets/data/icmrTestsData.json").subscribe(data =>{
-      this.testsConductedData.next(data);
-      let dateWiseData = this.testsConductedData.value.sort((a, b) => {
+      //this.testsConductedData.next(data);
+      let tests: any = data;
+      let dateWiseData = tests.sort((a, b) => {
         return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
       });
-
       this.testsConductedData.next(dateWiseData);
+    });
+  }
+
+  loadClosedCasesData() {
+    this.http.get("assets/data/deaths_recoveries.json").subscribe(data =>{
+      let closedCases: any = data;
+      let dateWiseData = closedCases.deaths_recoveries.sort((a, b) => {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      });
+      let recoveredCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "recovered");
+      let deceasedCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "deceased");
+      
+      this.recoveredPatientsData.next(recoveredCasesData);
+      this.deceasedPatientsData.next(deceasedCasesData);
     });
   }
 
