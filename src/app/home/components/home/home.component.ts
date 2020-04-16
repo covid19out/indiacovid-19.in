@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/cor
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 declare var twttr:any;
 
 import { PatientsDataService } from 'src/app/services/patients-data.service';
@@ -20,8 +21,8 @@ export class HomeComponent implements OnInit {
   public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
   public totalDeathCases = 0;
-  public maleCount = 0;
-  public femaleCount = 0;
+  // public maleCount = 0;
+  // public femaleCount = 0;
   public totalConfirmUpCasesCount = 0;
   public totalConfirmDownCasesCount = 0;
   public chartColors = [
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
         "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF", "#F5FCC1", "#84A9AC", "#698474", "#F8DC88", "#CC0E74"]
     }
   ];
-  public dateWisePateintData: any;
+  public dateWisePateintData: any = [];
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -51,49 +52,6 @@ export class HomeComponent implements OnInit {
   //   { data: [], label: 'CONFIRMED CASES', stack: 'a' },
   //   { data: [], label: ' DISCHARGED', stack: 'a' }
   // ];
-  
-  //Number of cases line chart
-  casesLineChartLabels: Label[] = [];  
-  casesLineChartData: ChartDataSets[] = [
-    { data: [], label: 'CONFIRMED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    { data: [], label: 'DISCHARGED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },
-    { data: [], label: 'DECEASED', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' },      
-  ];
-  casesLineChartOptions: (ChartOptions & { annotation: any }) = {
-    responsive: true,
-    annotation: true,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        }
-      }]
-    }
-  };
-  casesLineChartColors: Color[] = [
-  {
-    borderColor: '#FD1717 ',
-    backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#FD1717',
-    pointBorderColor: '#fff',
-  },
-  {
-    borderColor: '#17CE41',
-    backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#17CE41',
-    pointBorderColor: '#fff',
-  },
-  {
-    borderColor: '#C1C1C1',
-    backgroundColor: 'rgba(0,0,0,0)',
-    pointBackgroundColor: '#C1C1C1',
-    pointBorderColor: '#fff',
-  }];
 
 
   //Statewise Bar chart
@@ -247,7 +205,8 @@ export class HomeComponent implements OnInit {
   public testsConducatedData: any;
   public filteredTestConductedData: any;
   public lastDateTestConductedData: any;
-
+  public recoveredPatientData : any = [];
+  public deceasedPatientData : any = [];
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
@@ -256,7 +215,8 @@ export class HomeComponent implements OnInit {
     this.patientsDataService.patientsData.subscribe(data => {
       if (data) {
         this.patientsData = data;
-        this.dateFilterChanged([this.startDate, this.endDate]);
+        //this.dateFilterChanged([this.startDate, this.endDate]);
+        this.initData();
       }
     });
 
@@ -265,6 +225,22 @@ export class HomeComponent implements OnInit {
         this.testsConducatedData = tests;
         this.setTestConductedData();
       }
+    });
+
+    this.patientsDataService.recoveredPatientsData.subscribe(data => {
+      if(data){
+        this.recoveredPatientData = data; 
+        this.totalDischargedCases = data.length;
+        this.setCasesAnalytics();
+      }
+    });
+
+    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
+      if(data){
+        this.deceasedPatientData = data;   
+        this.totalDeathCases = data.length;
+        this.setCasesAnalytics();
+      }      
     });
 
     twttr.widgets.createTimeline(
@@ -278,12 +254,17 @@ export class HomeComponent implements OnInit {
 
   }
 
-  ngDoCheck() {
+  initData(){    
+    // this.setTestConductedData();
+    this.setCasesAnalytics();
+    this.prepareBarChartData( this.patientsData);
+    this.assignStateBarChartDate( this.patientsData);
+    this.dateWisePateintData =  this.patientsData;
   }
 
   prepareBarChartData(patientRecords: any) {
-    var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
-    this.assignNumberOfCasesLineChartData(patientRecords);
+    // var dateWiseData = this.patientsDataService.filterDataByDates(patientRecords);
+    // this.assignNumberOfCasesLineChartData(patientRecords);
     // this.assignDatatoBarChart(patientRecords);
     //this.assigndoughnutChartData(patientRecords);
     // this.assignConfimedLineChartData(dateWiseData);
@@ -298,44 +279,6 @@ export class HomeComponent implements OnInit {
 
   getNationalityChartLabelColor(i) {
     return this.chartColors[0].backgroundColor[i];
-  }
-
-  assignNumberOfCasesLineChartData(patientRecords) {
-    let dateWiseData = patientRecords.sort((a, b) => {
-      return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
-    });
-
-    this.casesLineChartLabels = [];
-    this.casesLineChartData[0].data = [];
-    this.casesLineChartData[1].data = [];
-    this.casesLineChartData[2].data = [];
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    
-    let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
-    //let dateWiseRecoverdCases = _.groupBy(dateWiseData, 'recoveredAt');
-    //let dateWiseDeceasedCases = _.groupBy(dateWiseData, 'deceasedAt');
-
-    for (let confirmDate in dateWiseConfirmCases) {
-      let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
-      this.casesLineChartLabels.push(label);
-      let confirmCount = dateWiseConfirmCases[confirmDate].length;
-      //let recoverCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
-      //let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
-    
-
-      // dateWiseCases[confirmDate].forEach(test => {
-      //   if (test.IndividualTestCount > testcount) {
-      //     testcount = test.IndividualTestCount;
-      //   }
-      //   if (test.PositiveCount) {
-      //     positiveCount = test.PositiveCount;
-      //   }
-      // });
-
-      this.casesLineChartData[0].data.push(confirmCount);
-      //this.casesLineChartData[1].data.push(recoverCount);
-      //this.casesLineChartData[2].data.push(deceasedCount);
-    }
   }
 
   // assignDatatoBarChart(dateWiseData) {
@@ -406,39 +349,50 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  dateFilterChanged(event) {
-    if (!event) return;
+  // dateFilterChanged(event) {
+  //   if (!event) return;
 
-    event[0].setHours(0, 0, 0, 0);
-    event[1].setHours(23, 59, 59, 999);
-    this.startDate = event[0];
-    this.endDate = event[1];
-    var filteredData = _.filter(this.patientsData, function (patient) {
-      let patientsDate = new Date(patient.confirmAt);
-      if (patientsDate >= event[0] && patientsDate <= event[1]) {
-        return patient;
-      }
-    });
-    this.dateWisePateintData = filteredData;
-    this.setTestConductedData();
-    this.setCasesAnalytics(filteredData);
-    this.prepareBarChartData(filteredData);
-    this.assignStateBarChartDate(filteredData);
-    // this.assignDeathLineChartData(filteredData);
-  }
+  //   event[0].setHours(0, 0, 0, 0);
+  //   event[1].setHours(23, 59, 59, 999);
+  //   this.startDate = event[0];
+  //   this.endDate = event[1];
+  //   var filteredData = _.filter(this.patientsData, function (patient) {
+  //     let patientsDate = new Date(patient.confirmAt);
+  //     if (patientsDate >= event[0] && patientsDate <= event[1]) {
+  //       return patient;
+  //     }
+  //   });
+  //   this.dateWisePateintData = filteredData;
+  //   this.setTestConductedData();
+  //   this.setCasesAnalytics(filteredData);
+  //   this.prepareBarChartData(filteredData);
+  //   this.assignStateBarChartDate(filteredData);
+  //   // this.assignDeathLineChartData(filteredData);
+  // }
 
-  setCasesAnalytics(filteredData) {
-    this.totalCases = this.totalConfirmedCases = filteredData.length;
-    //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;
-    this.totalHospitalisedCases = 11006;
-    this.totalDeathCases = 432;
-    this.totalDischargedCases= 1734;
+  setCasesAnalytics() {
+    if(this.patientsData && this.patientsData.length){
+      this.totalCases = this.totalConfirmedCases = this.patientsData.length;
+      this.totalIntesiveCases = this.patientsData.filter(x => x.caseType == "Intensive Care").length;
+      this.setConfirmCountDaviation(this.patientsData);
+    }
+
+    if(this.totalCases && this.totalDeathCases && this.totalDischargedCases){
+      this.totalHospitalisedCases = this.totalCases - this.totalDeathCases - this.totalDischargedCases;
+    }
+    // if(this.recoveredPatients){
+    //   this.totalDischargedCases= this.recoveredPatients;
+    // }
+    // this.totalHospitalisedCases = 10440;
+    // this.totalDeathCases = 422;
+    
+    
+    
+    //this.totalHospitalisedCases = filteredData.filter(x => x.status == "HOSPITALIZED"|| x.status == "Hospitalized").length;    
     //this.totalDeathCases = filteredData.filter(x => x.status == "Died" || x.status == "DIED").length;
     //this.totalDischargedCases = filteredData.filter(x => x.status == "Recovered" || x.status == "RECOVERED").length;
-    this.totalIntesiveCases = filteredData.filter(x => x.caseType == "Intensive Care").length;
-    this.maleCount = 0;
-    this.femaleCount = 0;
-    this.setConfirmCountDaviation(filteredData);
+    //this.maleCount = 0;
+    //this.femaleCount = 0;    
   }
 
   setTestConductedData() {
@@ -461,10 +415,13 @@ export class HomeComponent implements OnInit {
   }
 
   setConfirmCountDaviation(filteredData) {
-    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
-    let yesterday = new Date(lastDate);
-    yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
-    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    
+    // let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    // let yesterday = new Date(lastDate);
+    // yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
+    //let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    let lastDate = moment(this.endDate).format("DD-MM-YYYY");
+    let secondLastDate = moment().subtract(1, 'days').format("DD-MM-YYYY");
     let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
 
     if (difference >= 0) {

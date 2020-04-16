@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
-import { database } from 'firebase';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-confirm-cumulative-chart',
@@ -19,16 +19,23 @@ export class ConfirmCumulativeChartComponent implements OnInit {
   cumulativeChartConfirmLabels: Label[] = [];
   cumulativeChartConfirmOptions: (ChartOptions & { annotation: any });
   cumulativeChartConfirmColors: Color[];
+  isInitialized:boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+    if(this.isInitialized) return;
     this.initChart();
+    this.isInitialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     let dateWiseCases = changes.cases.currentValue;
     if (dateWiseCases && dateWiseCases.length) {
+      if(!this.isInitialized){
+        this.initChart();
+        this.isInitialized = true;
+      }
       this.totalConfirmedCases = dateWiseCases.length;
       this.assignChartData(dateWiseCases);
       this.setEndDateConfirmCount(dateWiseCases);
@@ -70,22 +77,19 @@ export class ConfirmCumulativeChartComponent implements OnInit {
   }
 
   assignChartData(filteredData) {
-    let dateWiseData = filteredData.sort((a, b) => {
-      return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
-    });
 
     this.cumulativeChartConfirmLabels = [];
     this.cumulativeChartConfirmData[0].data = [];
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    let dateWiseConfirm = _.groupBy(dateWiseData, 'confirmAt');
+    let dateWiseConfirm = _.groupBy(filteredData, 'confirmAt');
     let count = 0;
 
     for (let confirmdate in dateWiseConfirm) {
       count += dateWiseConfirm[confirmdate].length;
-      let label = `${new Date(confirmdate).getDate()} ${months[new Date(confirmdate).getMonth()]} ${new Date(confirmdate).getFullYear()}`;
+      // let label = `${new Date(confirmdate).getDate()} ${months[new Date(confirmdate).getMonth()]} ${new Date(confirmdate).getFullYear()}`;
+      let label = moment(confirmdate, "DD/MM/YYYY").format("DD MMM YYYY");
       this.cumulativeChartConfirmLabels.push(label);
       this.cumulativeChartConfirmData[0].data.push(count);
-      //console.log(label,":",count);
     }
     
   }

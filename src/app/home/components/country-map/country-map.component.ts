@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as _ from 'lodash';
+import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 declare var AmCharts:any;
 
@@ -9,37 +10,77 @@ declare var AmCharts:any;
   styleUrls: ['./country-map.component.scss']
 })
 export class CountryMapComponent implements OnInit {
-  @Input() cases:any;
-  constructor() { }
+  // @Input() cases:any;
+  // @Input() recoveredCases: any;
+  // @Input() deceasedCases: any;
+
+  constructor(private patientsDataService:PatientsDataService) { }
   countryMap:any;
-
+  patientsData: any;
+  recoveredPatientData: any;
+  deceasedPatientData: any;
+  // isInitialized:boolean = false;
   ngOnInit() {
+    // if(!this.isInitialized){
+    //   this.generateMap();
+    //   this.isInitialized = true;
+    // }
     this.generateMap();
-  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    let dateWiseCases = changes.cases.currentValue;
-    if(dateWiseCases && dateWiseCases.length){
-      this.assignMapData(dateWiseCases);
-    }
-  }
-
-  assignMapData(dateWiseCases){
-    let states = this.countryMap.dataProvider.areas;
-    let stateWiseCases = _.groupBy(dateWiseCases,'state');
-
-    states.forEach((state,i) => {
-      if(stateWiseCases[state.name]){
-         state.title = `${state.name} <br/>
-          Confirmed Cases : ${stateWiseCases[state.name].filter( x => x.caseType == "Confirmed").length} <br/>
-          Recovered Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Recovered/Discharged").length} <br/>
-          Deceased Cases : ${stateWiseCases[state.name].filter(x => x.caseType == "Deceased").length} <br/>
-          Total Cases : ${stateWiseCases[state.name].length}`;
-      } else {
-        state.title = `${state.name}  - Total Cases 0`;
+    this.patientsDataService.patientsData.subscribe(data => {
+      if (data) {
+        this.patientsData = data;
+        this.assignMapData();
       }
     });
-    this.countryMap.dataProvider.areas = states;
+
+    this.patientsDataService.recoveredPatientsData.subscribe(data => {
+      if(data){
+        this.recoveredPatientData = data;
+        this.assignMapData();
+      }
+    });
+
+    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
+      if(data){
+        this.deceasedPatientData = data;
+        this.assignMapData();
+      }      
+    });
+  }
+
+  // ngOnChanges(changes: SimpleChanges) {
+  //   let dateWiseCases = changes.cases.currentValue;
+  //   if(dateWiseCases && dateWiseCases.length){
+  //     if(!this.isInitialized){
+  //       this.generateMap();
+  //       this.isInitialized = true;
+  //     }
+  //     this.assignMapData(dateWiseCases);
+  //   }
+  // }
+
+  assignMapData() {
+    if (this.patientsData && this.deceasedPatientData && this.recoveredPatientData) {
+      let states = this.countryMap.dataProvider.areas;
+      let stateWiseConfirmCases = _.groupBy(this.patientsData, 'state');
+      let stateWiseRecoveredCases =  _.groupBy(this.recoveredPatientData, 'state');
+      let stateWiseDeceasedCases =  _.groupBy(this.deceasedPatientData, 'state');
+
+      states.forEach((state, i) => {
+        if (stateWiseConfirmCases[state.name]) {
+          state.title = `${state.name} <br/>
+          Confirmed Cases : ${stateWiseConfirmCases[state.name].length} <br/>
+          Recovered Cases : ${stateWiseRecoveredCases[state.name] ? stateWiseRecoveredCases[state.name].length : 0 } <br/>
+          Deceased Cases : ${stateWiseDeceasedCases[state.name] ? stateWiseDeceasedCases[state.name].length : 0} <br/>`;
+          //Total Cases : ${stateWiseCases[state.name].length}`;
+        } 
+        else {
+           state.title = `${state.name}  - Total Cases 0`;
+         }
+      });
+      this.countryMap.dataProvider.areas = states;
+    }
   }
 
   generateMap(){

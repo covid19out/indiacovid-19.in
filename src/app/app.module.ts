@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { PathLocationStrategy, LocationStrategy } from '@angular/common';
+import { ScullyLibModule } from '@scullyio/ng-lib-v8';
+//import { ScullyLibModule } from '@scullyio/ng-lib';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { PathLocationStrategy, LocationStrategy } from '@angular/common';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    CollapseModule
+    CollapseModule,
+    ScullyLibModule
   ],
   providers: [AngularFireDatabase, AngularFirestore, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]

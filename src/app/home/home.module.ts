@@ -10,9 +10,10 @@ import { CountryMapComponent } from './components/country-map/country-map.compon
 import { TopStateTableComponent } from './components/top-state-table/top-state-table.component';
 import { TestConductedCumulativeChartComponent } from './components/test-conducted-cumulative-chart/test-conducted-cumulative-chart.component';
 import { ConfirmCumulativeChartComponent } from './components/confirm-cumulative-chart/confirm-cumulative-chart.component';
+import { NumberOfCasesComponent } from './components/number-of-cases/number-of-cases.component';
 
 @NgModule({
-  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent, ConfirmCumulativeChartComponent],
+  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent, ConfirmCumulativeChartComponent, NumberOfCasesComponent],
   imports: [
     CommonModule,
     FormsModule,
