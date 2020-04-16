@@ -163,8 +163,8 @@
             Map
             <p>Rollover each state to view the stats</p>
           </div>
-          <div class="card-body" *ngIf="dateWisePateintData && dateWisePateintData.length">
-            <app-country-map [cases]="dateWisePateintData"></app-country-map>
+          <div class="card-body">
+            <app-country-map></app-country-map>
           </div>
         </div>
       </div>
@@ -189,7 +189,7 @@
           </div>
           <!-- <div class="card-body">
           </div> -->
-          <app-top-state-table [cases]="dateWisePateintData" [endDate]="endDate"></app-top-state-table>
+          <app-top-state-table [endDate]="endDate"></app-top-state-table>
         </div>
       </div>
 

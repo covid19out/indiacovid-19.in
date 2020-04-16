@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/cor
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 declare var twttr:any;
 
 import { PatientsDataService } from 'src/app/services/patients-data.service';
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
         "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF", "#F5FCC1", "#84A9AC", "#698474", "#F8DC88", "#CC0E74"]
     }
   ];
-  public dateWisePateintData: any;
+  public dateWisePateintData: any = [];
 
   bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
@@ -247,7 +248,7 @@ export class HomeComponent implements OnInit {
   public testsConducatedData: any;
   public filteredTestConductedData: any;
   public lastDateTestConductedData: any;
-  public recoveredPatientData : any = []; 
+  public recoveredPatientData : any = [];
   public deceasedPatientData : any = [];
   constructor(private patientsDataService: PatientsDataService) { }
 
@@ -332,14 +333,15 @@ export class HomeComponent implements OnInit {
     this.casesLineChartData[0].data = [];
     this.casesLineChartData[1].data = [];
     this.casesLineChartData[2].data = [];
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    // let months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     let dateWiseConfirmCases = _.groupBy(patientRecords, 'confirmAt');
     // let dateWiseConfirmCases = _.groupBy(dateWiseData, 'confirmAt');
     let dateWiseRecoverdCases = _.groupBy(this.recoveredPatientData, 'date');
     let dateWiseDeceasedCases = _.groupBy(this.deceasedPatientData, 'date');
 
     for (let confirmDate in dateWiseConfirmCases) {
-      let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
+      //let label = `${new Date(confirmDate).getDate()} ${months[new Date(confirmDate).getMonth()]} ${new Date(confirmDate).getFullYear()}`;
+      let label = moment(confirmDate, "DD/MM/YYYY").format("DD MMM YYYY");
       this.casesLineChartLabels.push(label);
       let confirmCount = dateWiseConfirmCases[confirmDate].length;
       let recoveredCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
@@ -495,10 +497,13 @@ export class HomeComponent implements OnInit {
   }
 
   setConfirmCountDaviation(filteredData) {
-    let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
-    let yesterday = new Date(lastDate);
-    yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
-    let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    
+    // let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth() + 1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
+    // let yesterday = new Date(lastDate);
+    // yesterday = new Date(yesterday.setDate(yesterday.getDate() - 1));
+    //let secondLastDate = `${yesterday.getFullYear()}-${('0' + (yesterday.getMonth() + 1)).slice(-2)}-${('0' + yesterday.getDate()).slice(-2)}`;
+    let lastDate = moment(this.endDate).format("DD-MM-YYYY");
+    let secondLastDate = moment().subtract(1, 'days').format("DD-MM-YYYY");
     let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
 
     if (difference >= 0) {

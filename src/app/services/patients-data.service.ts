@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { Meta } from '@angular/platform-browser';
 //import PatientsDataJson from '../../assets/data/patientsData.json';
@@ -32,7 +33,7 @@ export class PatientsDataService {
     this.http.get("assets/data/patientsData.json").subscribe(data => {
       let cases: any = data;
       cases.sort((a, b) => {
-        return new Date(a.confirmAt).getTime() - new Date(b.confirmAt).getTime();
+        return moment(a.confirmAt, "DD/MM/YYYY").toDate().getTime() - moment(b.confirmAt, "DD/MM/YYYY").toDate().getTime();
       });
       this.patientsData.next(data);
     });
@@ -71,7 +72,7 @@ export class PatientsDataService {
     this.http.get("assets/data/deaths_recoveries.json").subscribe(data =>{
       let closedCases: any = data;
       let dateWiseData = closedCases.deaths_recoveries.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
+        return moment(a.date, "DD/MM/YYYY").toDate().getTime() - moment(b.date, "DD/MM/YYYY").toDate().getTime();
       });
       let recoveredCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "recovered");
       let deceasedCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "deceased");
