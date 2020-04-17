@@ -6,7 +6,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
 export interface StateData {
   stateName: string;
   totalIndianConfirmCases: number;
-  totalForeignConfirmCases: number;
+  // totalForeignConfirmCases: number;
   totalDischargedCases: number;
   totalDeathCases: number;
   totalCount: number;
@@ -20,6 +20,8 @@ export interface StateData {
 })
 export class StateWiseCardsComponent implements OnInit {
   patientsData: any = [];
+  recoveredPatientData: any;
+  deceasedPatientData: any;
   stateWiseData: StateData[] = [];
   backgroundColor = ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
     "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
@@ -31,13 +33,28 @@ export class StateWiseCardsComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data => {
       if (data) {
-        this.prepareData(data);
+        this.patientsData = data;
+        this.prepareData();
       }
+    });
+
+    this.patientsDataService.recoveredPatientsData.subscribe(data => {
+      if(data){
+        this.recoveredPatientData = data;
+        this.prepareData();
+      }
+    });
+
+    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
+      if(data){
+        this.deceasedPatientData = data;
+        this.prepareData();
+      }      
     });
   }
 
-  prepareData(data) {
-    this.patientsData = data;
+  prepareData() {
+    if (this.patientsData && this.deceasedPatientData && this.recoveredPatientData) {
     let stateWiseStat: StateData[] = [];
     let stateWisePatients = _.groupBy(this.patientsData, 'state');
 
@@ -54,16 +71,23 @@ export class StateWiseCardsComponent implements OnInit {
     }
     
     this.stateWiseData = this.getSortedData(stateWiseStat);
+    }
+    
   }
 
   getStateStats(state,stateWisePatients){
+    let cityWiseRecoveredData = _.groupBy(this.recoveredPatientData, 'state');
+    let cityWiseDeceasedData = _.groupBy(this.deceasedPatientData, 'state');
+    let confirmCasesCount = stateWisePatients[state].length;
+    let recoveredCasesCount = cityWiseRecoveredData[state] ? cityWiseRecoveredData[state].length : 0;
+    let deceasedCasesCount = cityWiseDeceasedData[state] ? cityWiseDeceasedData[state].length : 0;
     return {
       stateName: state == "" ? "State Not Confirmed" : state,
-      totalIndianConfirmCases: stateWisePatients[state].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length,
-      totalForeignConfirmCases: stateWisePatients[state].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length,
-      totalDischargedCases: stateWisePatients[state].filter(x => x.caseType == "Recovered/Discharged").length,
-      totalDeathCases: stateWisePatients[state].filter(x => x.caseType == "Deceased").length,
-      totalCount: stateWisePatients[state].length,
+      totalIndianConfirmCases: confirmCasesCount,
+      // totalForeignConfirmCases: stateWisePatients[state].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length,
+      totalDischargedCases: recoveredCasesCount,
+      totalDeathCases: deceasedCasesCount,
+      totalCount: confirmCasesCount,
       backgroundColor: this.getRandomColor()
     };
   }
