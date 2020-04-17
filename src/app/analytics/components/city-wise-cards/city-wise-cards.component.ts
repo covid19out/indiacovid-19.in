@@ -5,7 +5,7 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
 export interface CityData {
   cityName: string;
   totalIndianConfirmCases: number;
-  totalForeignConfirmCases: number;
+  // totalForeignConfirmCases: number;
   totalDischargedCases: number;
   totalDeathCases: number;
   totalCount: number;
@@ -20,6 +20,8 @@ export interface CityData {
 })
 export class CityWiseCardsComponent implements OnInit {
   patientsData: any = [];
+  recoveredPatientData: any;
+  deceasedPatientData: any;
   cityWiseData: CityData[] = [];
   backgroundColor = ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
     "#DCEDC1", "#E2CFD8", "#FFF8D3", "#E6E6FA", "#EFE0C6", "#D2E2E2", "#A8FFA8", "#FFFF89", "#FFC3A0",
@@ -31,39 +33,60 @@ export class CityWiseCardsComponent implements OnInit {
   ngOnInit() {
     this.patientsDataService.patientsData.subscribe(data => {
       if (data) {
-        this.prepareData(data);
+        this.patientsData = data;
+        this.prepareData();
       }
+    });
+
+    this.patientsDataService.recoveredPatientsData.subscribe(data => {
+      if(data){
+        this.recoveredPatientData = data;
+        this.prepareData();
+      }
+    });
+
+    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
+      if(data){
+        this.deceasedPatientData = data;
+        this.prepareData();
+      }      
     });
   }
 
-  prepareData(data) {
-    this.patientsData = data;
-    let cityWiseStat: CityData[] = [];
-    let cityWisePatients = _.groupBy(this.patientsData, 'cityName');
+  prepareData() {
+    if (this.patientsData && this.deceasedPatientData && this.recoveredPatientData) {
+      let cityWiseStat: CityData[] = [];
+      let cityWisePatients = _.groupBy(this.patientsData, 'cityName');
 
-    for (let city in cityWisePatients) {
-      if (city) {
-        var patientData: CityData = this.getCityStats(city,cityWisePatients);
-        cityWiseStat.push(patientData);
+      for (let city in cityWisePatients) {
+        if (city) {
+          var patientData: CityData = this.getCityStats(city, cityWisePatients);
+          cityWiseStat.push(patientData);
+        }
       }
-    }
 
-    //If city is unknown add records at first place
-    if(cityWisePatients.hasOwnProperty("") || cityWisePatients.hasOwnProperty(undefined)){
-      cityWiseStat.unshift(this.getCityUnconfirmedRecord(cityWisePatients));
-    }
+      //If city is unknown add records at first place
+      if (cityWisePatients.hasOwnProperty("") || cityWisePatients.hasOwnProperty(undefined)) {
+        cityWiseStat.unshift(this.getCityUnconfirmedRecord(cityWisePatients));
+      }
 
-    this.cityWiseData = this.getSortedData(cityWiseStat);
+      this.cityWiseData = this.getSortedData(cityWiseStat);
+    }
   }
 
   getCityStats(city,cityWisePatients){
+    let cityWiseRecoveredData = _.groupBy(this.recoveredPatientData, 'district');
+    let cityWiseDeceasedData = _.groupBy(this.deceasedPatientData, 'district');
+    let confirmCasesCount = cityWisePatients[city].length;
+    let recoveredCasesCount = cityWiseRecoveredData[city] ? cityWiseRecoveredData[city].length : 0;
+    let deceasedCasesCount = cityWiseDeceasedData[city] ? cityWiseDeceasedData[city].length : 0;
     return {
       cityName: city == "" ? "Unknown" : city,
-      totalIndianConfirmCases: cityWisePatients[city].filter(x => x.nationality == "Indian" && x.caseType == "Confirmed").length,
-      totalForeignConfirmCases: cityWisePatients[city].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length,
-      totalDischargedCases: cityWisePatients[city].filter(x => x.caseType == "Recovered/Discharged").length,
-      totalDeathCases: cityWisePatients[city].filter(x => x.caseType == "Deceased").length,
-      totalCount: cityWisePatients[city].length,
+      totalIndianConfirmCases: confirmCasesCount,
+      // totalForeignConfirmCases: cityWisePatients[city].filter(x => x.nationality !== "Indian" && x.caseType == "Confirmed").length,
+      totalDischargedCases: recoveredCasesCount,
+      totalDeathCases: deceasedCasesCount,
+      totalCount: confirmCasesCount,
       backgroundColor: this.getRandomColor()
     };
   }
@@ -77,7 +100,6 @@ export class CityWiseCardsComponent implements OnInit {
       return b.totalCount - a.totalCount;
     });
   }
-
 
   getRandomColor() {
     let number = Math.floor(Math.random() * 35);
