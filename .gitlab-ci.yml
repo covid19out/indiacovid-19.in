@@ -8,7 +8,6 @@
 
 stages:
   - install
-  #- test
   - build
 
 ##############################################################################
@@ -27,36 +26,13 @@ install:
    refs:
      - master
     
-
-##############################################################################
-# Stage: Test
-##############################################################################
-
-#test:unit:
-#  image: trion/ng-cli-karma
-#  stage: test
-#  except:
-#    - /^ci\/.*/
-#  script:
-#    - npm test
-#  allow_failure: true
-#  artifacts:
-#    paths:
-#      - coverage/lcov.info
-#    reports:
-#      junit:
-#        - coverage/junit.xml
-#  dependencies:
-#    - install
-    
-
 ##############################################################################
 # Stage: Document
 ##############################################################################
 
 # Build Documentation
 build:doc:
-  image: node:10
+  image: node:latest
   stage: build
   only:
     refs:
@@ -85,6 +61,9 @@ build:deploy:
  - ng config -g cli.warnings.versionMismatch false
  - ng add @scullyio/init
  - ng build --prod
+ - ci=false npm run scully
+ script:
+ - firebase deploy --only hosting:india-covid-19 --token $FIREBASE_TOKEN
  only:
     refs:
       - develop
