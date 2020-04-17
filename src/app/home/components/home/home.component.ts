@@ -203,7 +203,7 @@ export class HomeComponent implements OnInit {
 
   public patientsData: any;
   public testsConducatedData: any;
-  public filteredTestConductedData: any;
+  public filteredTestConductedData: any = [];
   public lastDateTestConductedData: any;
   public recoveredPatientData : any = [];
   public deceasedPatientData : any = [];
