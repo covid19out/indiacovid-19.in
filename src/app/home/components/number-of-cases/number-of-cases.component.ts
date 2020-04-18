@@ -25,26 +25,19 @@ export class NumberOfCasesComponent implements OnInit {
 
   ngOnInit() {
     this.initChart();
-    this.patientsDataService.patientsData.subscribe(data => {
-      if (data) {
-        this.patientsData = data;
-        this.assignNumberOfCasesLineChartData();
-      }
-    });
+    if(this.patientsDataService.patientsData){
+      this.patientsData = this.patientsDataService.patientsData;
+      this.assignNumberOfCasesLineChartData();
+    }
+    if(this.patientsDataService.recoveredPatientsData){
+      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
+      this.assignNumberOfCasesLineChartData();
+    }
+    if(this.patientsDataService.deceasedPatientsData){
+      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
+      this.assignNumberOfCasesLineChartData();
+    }
 
-    this.patientsDataService.recoveredPatientsData.subscribe(data => {
-      if (data) {
-        this.recoveredPatientData = data;
-        this.assignNumberOfCasesLineChartData();
-      }
-    });
-
-    this.patientsDataService.deceasedPatientsData.subscribe(data => {
-      if (data) {
-        this.deceasedPatientData = data;
-        this.assignNumberOfCasesLineChartData();
-      }
-    });
   }
 
   initChart() {

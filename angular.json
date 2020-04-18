@@ -31,7 +31,14 @@
               "src/theme/main.css",
               "src/theme/maincovid-19.js",
               "src/theme/ammap.js",
-              "src/theme/indiaLow.js"
+              "src/theme/indiaLow.js",
+              "src/theme/bootstrap.min.css",
+              "src/theme/bootstrap.min.js",
+              "src/theme/jquery.min.js",
+              "src/theme/bootstrap.min.css.map",
+              "src/theme/bootstrap.min.js.map",
+              "src/theme/jquery.min.js.map"
+              
             ],
             "styles": [
               "src/styles.scss"
@@ -60,8 +67,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -104,7 +111,10 @@
               "src/theme/main.css",
               "src/theme/maincovid-19.js",
               "src/theme/ammap.js",
-              "src/theme/indiaLow.js"              
+              "src/theme/indiaLow.js",
+              "src/theme/bootstrap.min.css",
+              "src/theme/bootstrap.min.js",
+              "src/theme/jquery.min.js"             
             ],
             "styles": [
               "src/styles.scss"

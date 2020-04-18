@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StateCardsComponent } from './components/state-cards/state-cards.component';
 
 const routes: Routes = [
-  { path: '',  component: StateCardsComponent,data : { title: 'Covid-19 India Statewise Analytics and Dashboard'}  },
+  { path: '',  component: StateCardsComponent,data : { title: 'Live Data from MOHFW India Website on India Covid-19'}},
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { PatientsDataService } from 'src/app/services/patients-data.service';
@@ -49,26 +49,20 @@ export class TopStateTableComponent implements OnInit {
     this.topFiveStatesData = []; 
     this.showCityTable = [];
 
-    this.patientsDataService.patientsData.subscribe(data => {
-      if (data) {
-        this.patientsData = data;
-        this.setTableStatistics();
-      }
-    });
+    if(this.patientsDataService.patientsData){
+      this.patientsData = this.patientsDataService.patientsData;
+      this.setTableStatistics();
+    }
+    if(this.patientsDataService.recoveredPatientsData){
+      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
+      this.setTableStatistics();
+    }
+    if(this.patientsDataService.deceasedPatientsData){
+      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
+      this.setTableStatistics();
+    }
 
-    this.patientsDataService.recoveredPatientsData.subscribe(data => {
-      if(data){
-        this.recoveredPatientData = data;
-        this.setTableStatistics();
-      }
-    });
 
-    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
-      if(data){
-        this.deceasedPatientData = data;
-        this.setTableStatistics();
-      }      
-    });
   }
 
   // ngOnChanges(changes: SimpleChanges) {

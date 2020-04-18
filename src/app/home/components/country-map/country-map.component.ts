@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as _ from 'lodash';
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
@@ -10,43 +10,47 @@ declare var AmCharts:any;
   styleUrls: ['./country-map.component.scss']
 })
 export class CountryMapComponent implements OnInit {
-  // @Input() cases:any;
-  // @Input() recoveredCases: any;
-  // @Input() deceasedCases: any;
-
   constructor(private patientsDataService:PatientsDataService) { }
   countryMap:any;
   patientsData: any;
   recoveredPatientData: any;
   deceasedPatientData: any;
-  // isInitialized:boolean = false;
+  
   ngOnInit() {
-    // if(!this.isInitialized){
-    //   this.generateMap();
-    //   this.isInitialized = true;
-    // }
     this.generateMap();
+    if(this.patientsDataService.patientsData){
+      this.patientsData = this.patientsDataService.patientsData;
+      this.assignMapData();
+    }
+    if(this.patientsDataService.recoveredPatientsData){
+      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
+      this.assignMapData();
+    }
+    if(this.patientsDataService.deceasedPatientsData){
+      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
+      this.assignMapData();
+    }
 
-    this.patientsDataService.patientsData.subscribe(data => {
-      if (data) {
-        this.patientsData = data;
-        this.assignMapData();
-      }
-    });
+    // this.patientsDataService.patientsData.subscribe(data => {
+    //   if (data) {
+    //     this.patientsData = data;
+    //     this.assignMapData();
+    //   }
+    // });
 
-    this.patientsDataService.recoveredPatientsData.subscribe(data => {
-      if(data){
-        this.recoveredPatientData = data;
-        this.assignMapData();
-      }
-    });
+    // this.patientsDataService.recoveredPatientsData.subscribe(data => {
+    //   if(data){
+    //     this.recoveredPatientData = data;
+    //     this.assignMapData();
+    //   }
+    // });
 
-    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
-      if(data){
-        this.deceasedPatientData = data;
-        this.assignMapData();
-      }      
-    });
+    // this.patientsDataService.deceasedPatientsData.subscribe(data => {   
+    //   if(data){
+    //     this.deceasedPatientData = data;
+    //     this.assignMapData();
+    //   }      
+    // });
   }
 
   // ngOnChanges(changes: SimpleChanges) {
