@@ -41,7 +41,7 @@ export class PatientsDataService {
   loadTestConductedData() {
     this.testsConductedData=IcmrTestsDataJSON;
       let tests: any = this.testsConductedData;
-      console.log(tests);
+      //console.log(tests);
       let dateWiseData = tests.sort((a, b) => {
         //return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
         return moment(a.ConductedOn, "DD-MM-YYYY").toDate().getTime() - moment(b.ConductedOn, "DD-MM-YYYY").toDate().getTime();
