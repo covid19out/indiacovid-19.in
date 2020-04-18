@@ -91,7 +91,7 @@ export class ConfirmCumulativeChartComponent implements OnInit {
       this.cumulativeChartConfirmLabels.push(label);
       this.cumulativeChartConfirmData[0].data.push(count);
     }
-    
+    this.setEndDateConfirmCount(filteredData);
   }
 
   setEndDateConfirmCount(filteredData) {
