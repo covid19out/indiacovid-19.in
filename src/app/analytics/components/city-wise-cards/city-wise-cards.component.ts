@@ -31,26 +31,18 @@ export class CityWiseCardsComponent implements OnInit {
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
-    this.patientsDataService.patientsData.subscribe(data => {
-      if (data) {
-        this.patientsData = data;
-        this.prepareData();
-      }
-    });
-
-    this.patientsDataService.recoveredPatientsData.subscribe(data => {
-      if(data){
-        this.recoveredPatientData = data;
-        this.prepareData();
-      }
-    });
-
-    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
-      if(data){
-        this.deceasedPatientData = data;
-        this.prepareData();
-      }      
-    });
+    if(this.patientsDataService.patientsData){
+      this.patientsData = this.patientsDataService.patientsData;
+      this.prepareData();
+    }
+    if(this.patientsDataService.recoveredPatientsData){
+      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
+      this.prepareData();
+    }
+    if(this.patientsDataService.deceasedPatientsData){
+      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
+      this.prepareData();
+    }
   }
 
   prepareData() {

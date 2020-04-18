@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 export interface StateData {
   stateName: string;
   totalIndianConfirmCases: number;
-  // totalForeignConfirmCases: number;
   totalDischargedCases: number;
   totalDeathCases: number;
   totalCount: number;
@@ -31,26 +29,19 @@ export class StateWiseCardsComponent implements OnInit {
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
-    this.patientsDataService.patientsData.subscribe(data => {
-      if (data) {
-        this.patientsData = data;
-        this.prepareData();
-      }
-    });
 
-    this.patientsDataService.recoveredPatientsData.subscribe(data => {
-      if(data){
-        this.recoveredPatientData = data;
-        this.prepareData();
-      }
-    });
-
-    this.patientsDataService.deceasedPatientsData.subscribe(data => {   
-      if(data){
-        this.deceasedPatientData = data;
-        this.prepareData();
-      }      
-    });
+    if(this.patientsDataService.patientsData){
+      this.patientsData = this.patientsDataService.patientsData;
+      this.prepareData();
+    }
+    if(this.patientsDataService.recoveredPatientsData){
+      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
+      this.prepareData();
+    }
+    if(this.patientsDataService.deceasedPatientsData){
+      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
+      this.prepareData();
+    }
   }
 
   prepareData() {

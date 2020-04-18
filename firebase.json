@@ -1,13 +1,6 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
   "hosting": {
-    "public": "./dist/static",
+    "public": "./dist/CovidStat",
     "site": "india-covid-19",
     "ignore": [
       "firebase.json",
