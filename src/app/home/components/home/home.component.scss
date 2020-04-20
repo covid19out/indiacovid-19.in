@@ -116,57 +116,7 @@ grid-template-columns: auto 360px;
   .card-header{
     padding-bottom: 0px;
   }
-  .state-container{
-    padding: 14px;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(72,94,144,0.16);
-    border-radius: 0.25rem;
-    display: grid;
-    grid-column-gap: 0.5rem;
-    grid-template-columns: 60px auto;
-    margin-bottom: 1rem;
-
-    .state-percentage{
-      position: relative;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .state-progress-text{
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        top: 12px;
-        left: 15px;
-        font-size: 0.6rem;
-        font-weight: 600;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 30px;
-      }
-      .state-progress{
-        transform: scale(0.5);
-        transform-origin: center;
-      }
-    }
-
-    .state-title{
-      h5{
-        font-size: 1rem;
-        font-weight: 600;
-      }
-      p{
-        font-size: 0.8rem;
-        color: rgba(0,0,0,0.7);
-        margin-bottom: 0px;
-      }
-    }
-
-
-  }
-}
+ }
 }
 
 @media (max-width: 768px){
