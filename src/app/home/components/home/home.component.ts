@@ -72,39 +72,7 @@ export class HomeComponent implements OnInit {
   public stateBarChartPlugins = [];
   public stateBarChartData: ChartDataSets[] = [
     { data: [], label: 'State', stack: 'a' }
-  ];
-
-
-  // header bar ////
-
-  public headerBarChartOptions: ChartOptions = {
-    tooltips: { enabled: false },
-    responsive: true,
-    // annotation: false,
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    }
-  };
-  public headerBarChartSourceLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2006','2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public headerBarChartType: ChartType = 'bar';
-
-  public headerBarChartData: ChartDataSets[] = [
-    { data: [10, 50, 120, 200, 400, 500, 800, 1000, 2000, 2500, 3000, 3500, 3800, 4000, 7000, 6002, 4504, 8000, 4006, 5000, 5005, 5000, 4500, 4000, 8000, 6000], label: 'Series A' }
-  ];
-
-  public headerBarChartSourceColors: Color[] = [
-    {
-      borderColor: '#9399ff',
-      backgroundColor: 'rgba(255,255,255,0.3)',
-    }
-  ];
-
-// ///////////////// end header bar chart
+  ];  
 
 //////////// Icmr test chart
 
@@ -278,7 +246,7 @@ export class HomeComponent implements OnInit {
 
   initData(){    
     this.setCasesAnalytics();
-    this.assignStateBarChartDate( this.patientsData);
+    this.assignStateBarChartDate(this.patientsData);
     this.dateWisePateintData =  this.patientsData;
   }
 

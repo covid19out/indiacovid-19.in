@@ -12,9 +12,10 @@ import { TestConductedCumulativeChartComponent } from './components/test-conduct
 import { ConfirmCumulativeChartComponent } from './components/confirm-cumulative-chart/confirm-cumulative-chart.component';
 import { NumberOfCasesComponent } from './components/number-of-cases/number-of-cases.component';
 import { CardLineChartComponent } from './components/card-line-chart/card-line-chart.component';
+import { HeaerBarChartComponent } from './components/heaer-bar-chart/heaer-bar-chart.component';
 
 @NgModule({
-  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent, ConfirmCumulativeChartComponent, NumberOfCasesComponent, CardLineChartComponent],
+  declarations: [HomeComponent, CountryMapComponent, TopStateTableComponent, TestConductedCumulativeChartComponent, ConfirmCumulativeChartComponent, NumberOfCasesComponent, CardLineChartComponent, HeaerBarChartComponent],
   imports: [
     CommonModule,
     FormsModule,
