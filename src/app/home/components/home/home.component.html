@@ -26,7 +26,10 @@
                 </div>
               </div>
               <div>
-                <app-card-line-chart></app-card-line-chart>
+                <canvas baseChart width="80" height="24" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
+                  [options]="cardLineChartOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="'line'"
+                  [plugins]="lineChartPlugins">
+               </canvas>
               </div>
             </div>
             <div class="deltas-container">
@@ -63,7 +66,10 @@
                 </div>
               </div>
               <div>
-                <app-card-line-chart></app-card-line-chart>
+                <canvas baseChart width="80" height="24" [datasets]="lineChartActiveData" [labels]="lineChartActiveSourceLabels"
+                  [options]="cardLineChartOptions" [colors]="lineChartActiveSourceColors" [legend]="false" [chartType]="'line'"
+                  [plugins]="lineChartPlugins">
+               </canvas>
               </div>
             </div>
 
@@ -91,7 +97,10 @@
                 </div>
               </div>
               <div>
-                <app-card-line-chart></app-card-line-chart>
+                <canvas baseChart width="80" height="24" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
+                  [options]="cardLineChartOptions" [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="'line'"
+                  [plugins]="lineChartPlugins">
+               </canvas>
               </div>
             </div>
 
@@ -120,7 +129,10 @@
                 </div>
               </div>
               <div>
-                <app-card-line-chart></app-card-line-chart>
+                <canvas baseChart width="80" height="24" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
+                  [options]="cardLineChartOptions" [colors]="lineChartDeathColors" [legend]="false" [chartType]="'line'"
+                  [plugins]="lineChartPlugins">
+                </canvas>
               </div>
             </div>
 
