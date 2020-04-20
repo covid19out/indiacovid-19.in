@@ -268,11 +268,11 @@
         <div class="card-header" style="text-align: center;">ICMR Tests</div>
         <div class="card-body">
           <canvas height="200" baseChart [data]="doughnutIcmrChartData" [legend]="false"
-            [labels]="doughnutIcmrChartLabels" [chartType]="doughnutIcmrChartType" [options]="doughnutIcmrChartOptions"
+            [labels]="doughnutIcmrChartLabels" [chartType]="doughnutChartType" [options]="doughnutIcmrChartOptions"
             [colors]="doughnutIcmrChartColors">
           </canvas>
         </div>
-        <!-- <div class="card-footer">
+        <div class="card-footer">
           <div>
             <h6>{{lastDateTestConductedData.PositiveCount}}</h6>
              Positives
@@ -281,19 +281,17 @@
             <h6>{{lastDateTestConductedData.IndividualTestCount}}</h6>
             Test Conducted
           </div>
-        </div> -->
+        </div>
       </div>
 
 
-      <!-- <div class="card">
+      <div class="card">
         <div class="card-header">Tests Conducted Cumulative</div>
         <div class="card-body" *ngIf="filteredTestConductedData && filteredTestConductedData.length">
            <app-test-conducted-cumulative-chart [filteredTestConductedData]="filteredTestConductedData">
             </app-test-conducted-cumulative-chart>
         </div>
-      </div> -->
-
-
+      </div>
     </div>
 
 
