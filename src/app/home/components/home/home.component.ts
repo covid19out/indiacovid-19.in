@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { Label, MultiDataSet, Color } from 'ng2-charts';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 declare var twttr:any;
@@ -46,8 +46,19 @@ export class HomeComponent implements OnInit {
         align: 'end',
       }
     },
+
     scales: {
+      xAxes: [{
+        display: false,
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        }
+      }],
       yAxes: [{
+        display: true,
+        gridLines: {
+          color: "rgba(0, 0, 0, 0)",
+        },
         ticks: {
           autoSkip: false,
           fontSize: 11
@@ -62,6 +73,67 @@ export class HomeComponent implements OnInit {
   public stateBarChartData: ChartDataSets[] = [
     { data: [], label: 'State', stack: 'a' }
   ];
+
+
+  // header bar ////
+
+  public headerBarChartOptions: ChartOptions = {
+    tooltips: { enabled: false },
+    responsive: true,
+    // annotation: false,
+    scales: {
+      xAxes: [{
+        display: false
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  };
+  public headerBarChartSourceLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2006','2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public headerBarChartType: ChartType = 'bar';
+
+  public headerBarChartData: ChartDataSets[] = [
+    { data: [10, 50, 120, 200, 400, 500, 800, 1000, 2000, 2500, 3000, 3500, 3800, 4000, 7000, 6002, 4504, 8000, 4006, 5000, 5005, 5000, 4500, 4000, 8000, 6000], label: 'Series A' }
+  ];
+
+  public headerBarChartSourceColors: Color[] = [
+    {
+      borderColor: '#9399ff',
+      backgroundColor: 'rgba(255,255,255,0.3)',
+    }
+  ];
+
+// ///////////////// end header bar chart
+
+//////////// Icmr test chart
+
+
+  public doughnutIcmrChartType: ChartType = 'doughnut';
+
+  public doughnutIcmrChartLabels: Label[] = ['Download Sales', 'In-Store Sales'];
+  public doughnutIcmrChartData: MultiDataSet = [
+    [350, 450]
+  ];
+
+  public doughnutIcmrChartOptions: ChartOptions = {
+    rotation: 1 * Math.PI,
+    circumference: 1 * Math.PI,
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+  };
+  public doughnutIcmrChartColors = [
+    {
+      backgroundColor: [
+        '#FF3324',
+        '#C0C0C0'
+      ]
+    }
+  ];
+
+////////////////// end icmr test chart
 
 
   // Doughnut charts

@@ -1,45 +1,41 @@
 <div class="content content-fixed">
   <div class="container">
-    <div class="d-md-flex justify-content-between page-heading mg-b-10 mg-lg-b-25 mg-xl-b-30"
-      style="margin-bottom: 20px;">
-      
-      <div>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb breadcrumb-title">
-            <li class="breadcrumb-item"><a>Coronavirus Tracker India</a></li>
-            
-          </ol>
-        </nav>
-        <h1 class="mg-b-0 tx-spacing--1 text-font-size-h5">Coronavirus Live Tracker - Dashboard for the COVID-19 Virus Outbreak in India</h1>
+
+
+    <div class="page-header">
+      <div class="page-header-text">
+        <span class="ed-tag">Coronavirus Live Tracker India</span>
+        <!-- Coronavirus Live Tracker -  -->
+        <h1>Dashboard for the COVID-19 Virus Outbreak in India</h1>
       </div>
-      
-     
-
-    </div>
-
-
-    <div class="row" style="margin-bottom: 10px;">
-      <div class="col-lg-12">
-        <a href="/analytics/state_wise_cases" class="btn btn-link link-button">State wise cases</a>
-        <a href="/analytics/city_wise_cases" class="btn btn-link link-button">City wise cases</a>
+      <div class="chart-container">
+        <canvas baseChart width="300" height="100" [datasets]="headerBarChartData"
+              [labels]="headerBarChartSourceLabels" [options]="headerBarChartOptions"
+              [colors]="headerBarChartSourceColors" [legend]="false" [chartType]="headerBarChartType">
+        </canvas>
       </div>
     </div>
 
-    <div class="row row-xs quick-link">
-      <div class="col-quick-link margin-top-10">
-        <div class="card card-body confirmed-card">
 
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
-          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalConfirmedCases">
-              {{totalConfirmedCases | number}}</h3>
-            <p class="tx-11 tx-color-03 mg-b-0">
-              <span class="tx-medium " *ngIf="totalIntesiveCases">{{totalIntesiveCases | number}}
-                <i class="icon ion-md-arrow-up"></i>
-              </span>
-          
-            </p>
+    <div class="quick-link">
+      <div class="col-quick-link">
+        <div class="card confirmed-card">
+          <div class="card-body">
+            <div class="card-statistics-container">
+              <div>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
+                <div class="quick-link-state">
+                  <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalConfirmedCases">
+                    {{totalConfirmedCases | number}}
+                  </h3>
+                </div>
+              </div>
+              <div>
+                <app-card-line-chart></app-card-line-chart>
+              </div>
+            </div>
             <div class="deltas-container">
+              <!-- *ngIf="totalConfirmUpCasesCount" -->
               <ng-container *ngIf="totalConfirmUpCasesCount">
                 <span class="deltas deltas-up">
                   <i class="fa fa-arrow-up" aria-hidden="true"></i>{{totalConfirmUpCasesCount}}
@@ -54,60 +50,95 @@
               </ng-container>
             </div>
           </div>
-          <div style="display: block;">
-       
-          </div>
-        </div>
-
-      </div>
-      <div class="col-quick-link margin-top-10">
-        <div class="card card-body active-card">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-4">Active</h6>
-          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-warning" *ngIf="totalHospitalisedCases">
-              {{totalHospitalisedCases}}
-            </h3>
-            <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
-              <span
-                class="tx-medium">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}}
-                %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
-          </div>
-          <div style="display: block;">
-         
-          </div>
         </div>
       </div>
 
-      <div class="col-quick-link margin-top-10">
-        <div class="card card-body recovered-card">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-4">Recovered</h6>
-          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">{{totalDischargedCases}}</h3>
-       
-            <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
-              <span class="tx-medium">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}}
-                %<i class="icon ion-md-arrow-up"></i></span> of total cases</p> 
-          </div>
-          <div style="display: block;">
-        
-          </div>
-        </div>
-      </div>
-      <div class="col-quick-link margin-top-10">
-        <div class="card card-body deceased-card">
-          <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-4">Deceased</h6>
-          <div class="d-flex d-lg-block d-xl-flex align-items-end quick-link-state">
-            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">{{totalDeathCases}}</h3>
-        
-            <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
-              <span class="tx-medium">{{(100*totalDeathCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
-                  class="icon ion-md-arrow-up"></i></span> of total cases</p> 
-          </div>
-          <div style="display: block;">
-         
+
+      <div class="col-quick-link">
+        <div class="card active-card">
+            <div class="card-body">
+
+              <div class="card-statistics-container">
+                <div>
+                  <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
+                  <div class="quick-link-state">
+                    <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-warning" *ngIf="totalHospitalisedCases">
+                      {{totalHospitalisedCases}}
+                    </h3>
+                  </div>
+                </div>
+                <div>
+                  <app-card-line-chart></app-card-line-chart>
+                </div>
+              </div>
+
+              <div class="deltas-container">
+                <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
+                  <span class="tx-medium">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}}
+                    %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
+              </div>
+
           </div>
         </div>
       </div>
+
+      <div class="col-quick-link">
+        <div class="card  recovered-card">
+            <div class="card-body">
+
+              <div class="card-statistics-container">
+                <div>
+                  <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
+                  <div class="quick-link-state">
+                    <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">
+                      {{totalDischargedCases}}
+                    </h3>
+                  </div>
+                </div>
+                <div>
+                  <app-card-line-chart></app-card-line-chart>
+                </div>
+              </div>
+
+              <div class="deltas-container">
+                <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
+                  <span class="tx-medium">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}}
+                    %<i class="icon ion-md-arrow-up"></i></span> of total cases</p>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-quick-link">
+        <div class="card  deceased-card">
+          <div class="card-body">
+
+
+            <div class="card-statistics-container">
+              <div>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
+                <div class="quick-link-state">
+                  <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">
+                    {{totalDeathCases}}
+                  </h3>
+                </div>
+              </div>
+              <div>
+                <app-card-line-chart></app-card-line-chart>
+              </div>
+            </div>
+
+            <div class="deltas-container">
+              <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
+                <span class="tx-medium">{{(100*totalDeathCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
+                    class="icon ion-md-arrow-up"></i></span> of total cases</p> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- <div class="col-quick-link margin-top-10">
         <div class="card card-body tests-conducted-card">
           <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">ICMR Tests</h6>
@@ -131,116 +162,239 @@
           </div>
         </div>
       </div> -->
+
     </div>
 
 
-
-    <div class="row row-xs">
-
-      <div class="col-lg-8 margin-top-10">
-        <div class="card">
-          <div class="card-header">
-            Map
-            <p>Rollover each state to view the stats</p>
-          </div>
-          <div class="card-body">
+    <div class="india-map">
+      <div class="card">
+        <div class="card-header">
+          Map
+          <p>Rollover each state to view the stats</p>
+        </div>
+        <div class="card-body">
+          <div class="map">
             <app-country-map></app-country-map>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-4 margin-top-10">
-        <div class="card">
-          <div class="card-body self-assessment-body" style="background-image: url('/assets/images/self-assessment-image.jpg');">
-              <div>
-                <h4 class="m-3 mt-4">Self assessment for symptoms of Corona Virus Infection</h4>
-                <a target="_blank" href="https://covid-19.maharashtra.gov.in/" class="btn btn-success m-3">Visit</a>
+      <div class="card">
+        <div class="card-header">
+          Top State
+        </div>
+        <div class="card-body top-state-body">
+          <div class="state-container">
+            <div class="state-percentage">
+              <div class="state-progress-text" style="background-color: #FFF0F0; color: #FF3324;">
+                90%
+              </div>
+              <div class="scale-svg">
+                <svg class="state-progress" height="110" width="110">
+                  <path d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9" data-value="60000" fill="#FF3324"></path>
+                  <path d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354" data-value="100" fill="#E1E6ED"></path>
+                </svg>
               </div>
             </div>
-        </div>
-      </div>
-
-      <div class="col-lg-12 margin-top-10">
-        <div class="card">
-          <div class="card-header">
-            <strong>
-              States Statistics
-            </strong>
-          </div>
-        
-          <app-top-state-table [endDate]="endDate"></app-top-state-table>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-xl-8 margin-top-10">
-        <div class="card">
-          <div class="card-header">
-            Number Of Cases
-            <p *ngIf="startDate && endDate">{{startDate.toLocaleDateString("en-US" , "Option")}} to
-              {{endDate.toLocaleDateString("en-US" , "Option")}}</p>
-          </div>
-          <div class="card-body">
-       
-            <app-number-of-cases></app-number-of-cases>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-xl-4 margin-top-10">
-        <div class="card">
-          <div class="card-header">Tweets</div>
-          <div class="card-body twitter-timeline-body">
-            <div class="twitter-timeline-wrapper" id="twitterTimelineWrapper">
-              <a class="twitter-timeline" data-theme="light" href="https://twitter.com/covid_19_India?ref_src=twsrc%5Etfw">Tweets by covid_19_India</a>
+            <div class="state-title">
+              <h5>Maharashtra</h5>
+              <p>
+                <span>Confirmed - 3000</span>
+                &nbsp;&nbsp;
+                <span>Recovered - 200</span>
+              </p>
             </div>
           </div>
-        </div>
-      </div>
 
-      
-      <div class="col-lg-12 margin-top-10">
-        <div class="card cumulative-confirmed-card">
-        <div class="card-header">Cumulative Confirmed Codiv-19 Cases in India</div>
-        <div class="card-body" *ngIf="dateWisePateintData && dateWisePateintData.length">
-          <app-confirm-cumulative-chart [cases]="dateWisePateintData" [endDate]="endDate"></app-confirm-cumulative-chart>
-        </div>
-      </div>
-      </div>
-
-      <div class="col-lg-12 margin-top-10">
-        <div class="card">
-          <div class="card-header">State chart</div>
-          <div class="card-body">
-            <div id="chart">
-              <div style="display: block;" class="stacked-chart">
-                <canvas class="for-desktop" width="500px" height="300px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
-                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
-                  [legend]="false" chartType="horizontalBar">
-                </canvas>
-                <canvas class="for-mobile" width="600px" height="800px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
-                  [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
-                  [legend]="false" chartType="horizontalBar">
-                </canvas>
+          <div class="state-container">
+            <div class="state-percentage">
+              <div class="state-progress-text" style="background-color: #fff8e3; color: #ffbf00;">
+                50%
+              </div>
+              <div class="scale-svg">
+                <svg class="state-progress" height="110" width="110">
+                  <path d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9" data-value="60000" fill="#ffbf00"></path>
+                  <path d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354" data-value="100" fill="#E1E6ED"></path>
+                </svg>
               </div>
             </div>
+            <div class="state-title">
+              <h5>Tamil Nadu</h5>
+              <p>
+                <span>Confirmed - 2500</span>
+                &nbsp;&nbsp;
+                <span>Recovered - 100</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="state-container">
+            <div class="state-percentage">
+              <div class="state-progress-text" style="background-color: #E0F4E9; color: #1BB65D;">
+                30%
+              </div>
+              <div class="scale-svg">
+                <svg class="state-progress" height="110" width="110">
+                  <path d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9" data-value="60000" fill="#1BB65D"></path>
+                  <path d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354" data-value="100" fill="#E1E6ED"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="state-title">
+              <h5>Delhi</h5>
+              <p>
+                <span>Confirmed - 1000</span>
+                &nbsp;&nbsp;
+                <span>Recovered - 100</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="state-container">
+            <div class="state-percentage">
+              <div class="state-progress-text" style="background-color: #F0F0F8; color: #46467F;">
+                10%
+              </div>
+              <div class="scale-svg">
+                <svg class="state-progress" height="110" width="110">
+                  <path d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9" data-value="60000" fill="#46467F"></path>
+                  <path d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354" data-value="100" fill="#E1E6ED"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="state-title">
+              <h5>Kerala</h5>
+              <p>
+                <span>Confirmed - 800</span>
+                &nbsp;&nbsp;
+                <span>Recovered - 50</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="states-table">
+      <div class="card">
+        <div class="card-header">
+          <strong>
+            States Statistics
+          </strong>
+        </div>
+        <app-top-state-table [endDate]="endDate"></app-top-state-table>
+      </div>
+    </div>
+
+
+    <div class="number-of-cases">
+      <div class="card">
+        <div class="card-header">
+          Number Of Cases
+          <p *ngIf="startDate && endDate">{{startDate.toLocaleDateString("en-US" , "Option")}} to
+            {{endDate.toLocaleDateString("en-US" , "Option")}}</p>
+        </div>
+        <div class="card-body">
+          <!-- <div style="display: block;">
+            <canvas width="500px" height="300px" baseChart [datasets]="casesLineChartData" 
+                [labels]="casesLineChartLabels" [options]="casesLineChartOptions"
+                [colors]="casesLineChartColors" [chartType]="'line'">
+            </canvas>
+          </div> -->
+          <app-number-of-cases></app-number-of-cases>
+        </div>
+      </div>
+
+      <div class="card cumulative-confirmed-card">
+        <div class="card-header">Cumulative Confirmed Cases in India</div>
+        <div class="card-body" style="padding: 0px; position: relative;" *ngIf="dateWisePateintData && dateWisePateintData.length">
+          <div style="width: 100%; position: absolute; bottom: 0px;">
+            <app-confirm-cumulative-chart [cases]="dateWisePateintData" [endDate]="endDate"></app-confirm-cumulative-chart>
           </div>
         </div>
       </div>
 
+    </div>
 
-      <!-- <div class="col-lg-12 margin-top-10">
-        <div class="card">
-          <div class="card-header">Tests Conducted</div>
-          <div class="card-body" *ngIf="filteredTestConductedData && filteredTestConductedData.length">
-            <app-test-conducted-cumulative-chart [filteredTestConductedData]="filteredTestConductedData">
+
+    <div class="state-chart">
+      <div class="card">
+        <div class="card-header">State chart</div>
+        <div class="card-body">
+          <div id="chart">
+            <div style="display: block;" class="stacked-chart">
+              <canvas class="for-desktop" width="500px" height="300px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
+                [legend]="false" chartType="horizontalBar">
+              </canvas>
+              <canvas class="for-mobile" width="600px" height="800px" baseChart [datasets]="stateBarChartData" [labels]="stateBarChartLabels"
+                [options]="stateBarChartOptions" [plugins]="stateBarChartPlugins" [colors]="chartColors"
+                [legend]="false" chartType="horizontalBar">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="test-conducted">
+
+      <div class="card">
+        <div class="card-header" style="text-align: center;">ICMR Tests</div>
+        <div class="card-body">
+          <canvas height="200" baseChart [data]="doughnutIcmrChartData" [legend]="false" [labels]="doughnutIcmrChartLabels"
+          [chartType]="doughnutIcmrChartType" [options]="doughnutIcmrChartOptions" [colors]="doughnutIcmrChartColors">
+          </canvas>
+        </div>
+        <!-- <div class="card-footer">
+          <div>
+            <h6>{{lastDateTestConductedData.PositiveCount}}</h6>
+             Positives
+          </div>
+          <div>
+            <h6>{{lastDateTestConductedData.IndividualTestCount}}</h6>
+            Test Conducted
+          </div>
+        </div> -->
+      </div>
+
+
+      <!-- <div class="card">
+        <div class="card-header">Tests Conducted Cumulative</div>
+        <div class="card-body" *ngIf="filteredTestConductedData && filteredTestConductedData.length">
+           <app-test-conducted-cumulative-chart [filteredTestConductedData]="filteredTestConductedData">
             </app-test-conducted-cumulative-chart>
-          </div>
         </div>
       </div> -->
 
-      
-
 
     </div>
+
+
+    <div class="social">
+
+      <div class="card">
+        <div class="card-body self-assessment-body" style="background-image: url('/assets/images/self-assessment-image.jpg');">
+            <div>
+              <h4 class="m-3 mt-4">Self assessment for symptoms of Corona Virus Infection</h4>
+              <a target="_blank" href="https://covid-19.maharashtra.gov.in/" class="btn btn-success m-3">Visit</a>
+            </div>
+          </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Tweets</div>
+        <div class="card-body twitter-timeline-body">
+          <div class="twitter-timeline-wrapper" id="twitterTimelineWrapper">
+            <a class="twitter-timeline" data-theme="light" href="https://twitter.com/covid_19_India?ref_src=twsrc%5Etfw">Tweets by covid_19_India</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   </div>
 </div>

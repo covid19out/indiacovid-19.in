@@ -51,11 +51,13 @@ export class NumberOfCasesComponent implements OnInit {
       annotation: true,
       scales: {
         xAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           }
         }],
         yAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           }

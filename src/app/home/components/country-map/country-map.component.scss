@@ -1,0 +1,26 @@
+.legend-container{
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    .map-legend{
+        width:20px;
+        height:10px;
+        margin: 4px;
+    }
+    
+    .light-1{
+        background-color: #FFE9E9;    
+    }
+    
+    .light-2{
+        background: #FFADAD;    
+    }
+    .light-3{
+        background-color: #FF5C5C;    
+    }
+    .light-4{
+        background-color: #FF0000;    
+    }
+}
+
