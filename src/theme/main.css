@@ -42,6 +42,11 @@ body {
     z-index: 5;
 }
 
+.main-wrapper{
+	position: relative;
+	z-index: 10;
+}
+
 .navbar .covid-19-logo {
 	height: 44px
 }
@@ -66,13 +71,13 @@ body {
 }
 .navbar-nav {
 	font-size: 1rem !important;
-	font-weight: 500;
+	font-weight: 600;
 }
 
 .dropdown .nav-link, .dropdown .btn-link{
 	text-decoration: none;
 	font-size: 1rem !important;
-	font-weight: 500;
+	font-weight: 600;
 	color: rgba(0,0,0,1) !important;
 }
 

@@ -1,4 +1,4 @@
-<div class="content content-fixed">
+<div class="content content-fixed background-transparent">
   <div class="container">
 
 
@@ -9,7 +9,7 @@
         <h1>Dashboard for the COVID-19 Virus Outbreak in India</h1>
       </div>
       <div class="chart-container">
-        <canvas baseChart width="300" height="100" [datasets]="headerBarChartData"
+        <canvas baseChart width="300" height="60" [datasets]="headerBarChartData"
               [labels]="headerBarChartSourceLabels" [options]="headerBarChartOptions"
               [colors]="headerBarChartSourceColors" [legend]="false" [chartType]="headerBarChartType">
         </canvas>
