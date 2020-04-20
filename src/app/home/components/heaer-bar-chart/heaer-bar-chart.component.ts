@@ -15,7 +15,7 @@ export class HeaerBarChartComponent implements OnInit {
   public headerBarChartSourceLabels: Label[] = [];
   public headerBarChartType: ChartType = 'bar';
   public headerBarChartData: ChartDataSets[] = [
-    { data: [], label: 'Series A' }
+    { data: [], label: 'Confirmed' }
   ];
   public headerBarChartSourceColors: Color[];
 
@@ -33,7 +33,7 @@ export class HeaerBarChartComponent implements OnInit {
 
   initChart() {
     this.headerBarChartOptions = {
-      tooltips: { enabled: false },
+      tooltips: { enabled: true },
       responsive: true,
       // annotation: false,
       scales: {
@@ -49,7 +49,7 @@ export class HeaerBarChartComponent implements OnInit {
     this.headerBarChartSourceColors = [
       {
         borderColor: '#9399ff',
-        backgroundColor: 'rgba(255,255,255,0.3)',
+        backgroundColor: 'rgba(255,255,255,0.4)',
       }
     ];
   }

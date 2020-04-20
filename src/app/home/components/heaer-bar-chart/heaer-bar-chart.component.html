@@ -1,5 +1,12 @@
-<div class="chart-container">
-    <canvas baseChart width="300" height="100" [datasets]="headerBarChartData" [labels]="headerBarChartSourceLabels"
+<div class="chart-container desktop-chart">
+    <canvas class="desktop-chart" baseChart width="300" height="60" [datasets]="headerBarChartData" [labels]="headerBarChartSourceLabels"
+        [options]="headerBarChartOptions" [colors]="headerBarChartSourceColors" [legend]="false"
+        [chartType]="headerBarChartType">
+    </canvas>
+</div>
+
+<div class="chart-container mobile-chart">
+    <canvas class="mobile-chart" baseChart width="300" height="150" [datasets]="headerBarChartData" [labels]="headerBarChartSourceLabels"
         [options]="headerBarChartOptions" [colors]="headerBarChartSourceColors" [legend]="false"
         [chartType]="headerBarChartType">
     </canvas>

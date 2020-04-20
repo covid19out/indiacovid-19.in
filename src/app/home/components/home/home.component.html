@@ -19,14 +19,14 @@
             <div class="card-statistics-container">
               <div>
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
-                <div class="quick-link-state">
+                <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalConfirmedCases">
-                    {{totalConfirmedCases | number}}
+                    {{totalConfirmedCases | number}} <span class="new-record-update">[+1750]</span>
                   </h3>
                 </div>
               </div>
               <div>
-                <canvas baseChart width="80" height="24" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
+                <canvas baseChart width="120" height="80" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
                   [options]="cardLineChartOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="'line'"
                   [plugins]="lineChartPlugins">
                </canvas>
@@ -47,6 +47,9 @@
                 less than yesterday
               </ng-container>
             </div>
+            <div class="smiley">
+              <img src="/assets/images/confirmed-smiley.svg" alt="">
+            </div>
           </div>
         </div>
       </div>
@@ -59,14 +62,15 @@
             <div class="card-statistics-container">
               <div>
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
-                <div class="quick-link-state">
+                <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-warning" *ngIf="totalHospitalisedCases">
                     {{totalHospitalisedCases| number}}
+                    <span class="new-record-update">&nbsp;</span>
                   </h3>
                 </div>
               </div>
               <div>
-                <canvas baseChart width="80" height="24" [datasets]="lineChartActiveData" [labels]="lineChartActiveSourceLabels"
+                <canvas baseChart width="120" height="80" [datasets]="lineChartActiveData" [labels]="lineChartActiveSourceLabels"
                   [options]="cardLineChartOptions" [colors]="lineChartActiveSourceColors" [legend]="false" [chartType]="'line'"
                   [plugins]="lineChartPlugins">
                </canvas>
@@ -77,6 +81,10 @@
               <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
                 <span class="tx-medium">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}}
                   %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
+            </div>
+
+            <div class="smiley">
+              <img src="/assets/images/active-smiley.svg" alt="">
             </div>
 
           </div>
@@ -90,14 +98,15 @@
             <div class="card-statistics-container">
               <div>
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
-                <div class="quick-link-state">
+                <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">
                     {{totalDischargedCases| number}}
+                    <span class="new-record-update">[+50]</span>
                   </h3>
                 </div>
               </div>
               <div>
-                <canvas baseChart width="80" height="24" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
+                <canvas baseChart width="120" height="80" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
                   [options]="cardLineChartOptions" [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="'line'"
                   [plugins]="lineChartPlugins">
                </canvas>
@@ -108,6 +117,10 @@
               <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
                 <span class="tx-medium">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}}
                   %<i class="icon ion-md-arrow-up"></i></span> of total cases</p>
+            </div>
+
+            <div class="smiley">
+              <img src="/assets/images/recovered-smiley.svg" alt="">
             </div>
 
           </div>
@@ -122,14 +135,15 @@
             <div class="card-statistics-container">
               <div>
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
-                <div class="quick-link-state">
+                <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">
                     {{totalDeathCases| number}}
+                    <span class="new-record-update">[+10]</span>
                   </h3>
                 </div>
               </div>
               <div>
-                <canvas baseChart width="80" height="24" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
+                <canvas baseChart width="120" height="80" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
                   [options]="cardLineChartOptions" [colors]="lineChartDeathColors" [legend]="false" [chartType]="'line'"
                   [plugins]="lineChartPlugins">
                 </canvas>
@@ -140,6 +154,10 @@
               <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
                 <span class="tx-medium">{{(100*totalDeathCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
                     class="icon ion-md-arrow-up"></i></span> of total cases</p>
+            </div>
+
+            <div class="smiley">
+              <img src="/assets/images/deceased-smiley.svg" alt="">
             </div>
 
           </div>

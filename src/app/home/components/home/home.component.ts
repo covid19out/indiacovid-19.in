@@ -128,11 +128,12 @@ export class HomeComponent implements OnInit {
   };
   //Confirmed card Line chart 
   public lineChartConfirmedData: ChartDataSets[] = [
-    { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'CONFIRMED CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = [];
   public lineChartConfirmedSourceColors: Color[] = [
     {
+      borderWidth: 2.2,
       borderColor: '#FF3324',
       backgroundColor: 'rgba(110,127,144,0)',
     }
@@ -140,11 +141,12 @@ export class HomeComponent implements OnInit {
 
   //Hospitalized card line chart
   public lineChartActiveData: ChartDataSets[] = [
-    { data: [], label: 'Hospitalised CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'Hospitalised CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartActiveSourceLabels: Label[] = [];
   public lineChartActiveSourceColors: Color[] = [
     {
+      borderWidth: 2.2,
       borderColor: '#fdd365',
       backgroundColor: 'rgba(110,127,144,0)',
     }
@@ -152,11 +154,12 @@ export class HomeComponent implements OnInit {
 
   //Death card line chart
   public lineChartDeathData: ChartDataSets[] = [
-    { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'DEATH CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDeathLabels: Label[] = [];
   public lineChartDeathColors: Color[] = [
     {
+      borderWidth: 2.2,
       borderColor: '#C0C0C0',
       backgroundColor: 'rgba(110,127,144,0)',
     }
@@ -164,11 +167,12 @@ export class HomeComponent implements OnInit {
 
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
-    { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'DISCHARGED CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDischargeSourceLabels: Label[] = [];
   public lineChartDischargeSourceColors: Color[] = [
     {
+      borderWidth: 2.2,
       borderColor: '#21bf73',
       backgroundColor: 'rgba(110,127,144,0)',
     }

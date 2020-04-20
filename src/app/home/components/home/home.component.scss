@@ -48,34 +48,96 @@ grid-row-gap: 1rem;
 grid-auto-rows: 1fr;
 grid-template-columns: repeat(4, 1fr);
 .card{
+  overflow: hidden;
   box-shadow: 0 7.5rem 6.25rem 0 rgba(5,22,70,0.05);
+    .new-record-update{
+      // position: absolute;
+      // top: 10px;
+      // right: 10px;
+      font-weight: bolder;
+      font-size: 0.7rem;
+      opacity: 0.6;
+    }
   .card-statistics-container{
     display: grid;
-    grid-column-gap: 0.5rem;
-    grid-template-columns: auto 80px;
+    grid-column-gap: 0.2rem;
+    grid-template-columns: auto 70px;
     align-items: center;
+    h3{
+      font-size: 1.4rem;
+    }
+    
     h6{
       font-size: 0.9rem;
       font-weight: 700;
     }
-    .quick-link-state{
-      height: 1.76rem;
-      line-height: 1.76rem;
+    .quick-link-statistics{
+      // height: 1.76rem;
+      // line-height: 1.76rem;
+    }
+  }
+  .smiley{
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    bottom: -14px;
+    right: -14px;
+    opacity: 0.02;
+    img{
+      width: 100%;
+      height: 100%;
     }
   }
 }
 }
 
-@media(max-width: 1024px){
+@media(max-width: 1124px){
+  .quick-link{
+    grid-template-columns: repeat(2, 1fr);
+    .card{
+      .card-statistics-container{
+        grid-template-columns: auto 60px;
+      }
+    }
+  }
+}
+
+@media(max-width: 768px){
 .quick-link{
   grid-template-columns: repeat(2, 1fr);
-  //grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   .card{
+    .card-body{
+      padding: 0.8rem;
+    }
+    h6{
+      font-size: 0.8rem !important;
+    }
+    h3{
+      font-size: 1.3rem !important;
+      .new-record-update{
+        font-size: 0.6rem;
+      }
+    }
     .card-statistics-container{
       grid-template-columns: auto 50px;
     }
   }
 }
+}
+
+@media(max-width: 420px){
+  .quick-link{
+    .card{
+      .card-statistics-container{
+        h3{
+          .new-record-update{
+            display: block;
+            margin-top: 6px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 576px){
@@ -86,12 +148,12 @@ grid-template-columns: repeat(4, 1fr);
   .page-header-text{
     position: relative;
     z-index: 2;
-    margin-top: 8rem;
+    margin-top: 2rem;
     margin-bottom: 2rem;
-    max-width: 340px;
+    max-width: 300px;
 
     h1{
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       line-height: 1.5;
       color: #37383C;
       font-weight: 500;
@@ -103,7 +165,7 @@ grid-template-columns: repeat(4, 1fr);
 
 .india-map{
 overflow: hidden;
-background-color: #fff;
+background-color: rgba(255, 255, 255, 0.8);
 border-radius: 5px;
 box-shadow: 0 7.5rem 6.25rem 0 rgba(5, 22, 70, 0.05);
 margin-top: 1rem;
@@ -493,7 +555,7 @@ flex-direction: column;
 }
 }
 
-.quick-link-state{
+.quick-link-statistics{
 p{
   font-size: 0.7rem;
   margin-left: 6px;
