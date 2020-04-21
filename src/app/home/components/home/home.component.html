@@ -104,7 +104,7 @@
                 <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">
                     {{totalDischargedCases| number}}
-                    <span class="new-record-update">[+{{todaysRecoveredCount}}]</span>
+                    <span class="new-record-update" *ngIf="todaysRecoveredCount">[+{{todaysRecoveredCount}}]</span>
                   </h3>
                 </div>
               </div>
@@ -141,7 +141,7 @@
                 <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">
                     {{totalDeathCases| number}}
-                    <span class="new-record-update">[+{{todaysDeathCount}}]</span>
+                    <span class="new-record-update" *ngIf="todaysDeathCount">[+{{todaysDeathCount}}]</span>
                   </h3>
                 </div>
               </div>
