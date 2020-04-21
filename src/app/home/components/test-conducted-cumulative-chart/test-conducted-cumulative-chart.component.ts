@@ -47,11 +47,13 @@ export class TestConductedCumulativeChartComponent implements OnInit {
       annotation: true,
       scales: {
         xAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           }
         }],
         yAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           }
@@ -60,15 +62,15 @@ export class TestConductedCumulativeChartComponent implements OnInit {
     };
     this.cumulativeChartTestColors = [
     {
-      borderColor: '#86c7f3',
+      borderColor: '#46467F',
       backgroundColor: 'rgba(0,0,0,0)',
-      pointBackgroundColor: '#00B6B5',
+      pointBackgroundColor: '#46467F',
       pointBorderColor: '#fff',
     },
     {
-      borderColor: '#ffa1b5',
+      borderColor: '#FF3324',
       backgroundColor: 'rgba(0,0,0,0)',
-      pointBackgroundColor: '#FF0000',
+      pointBackgroundColor: '#FF3324',
       pointBorderColor: '#fff',
     }];
   }

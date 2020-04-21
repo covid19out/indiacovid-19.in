@@ -51,6 +51,7 @@ export class ConfirmCumulativeChartComponent implements OnInit {
       annotation: true,
       scales: {
         xAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           },
@@ -59,6 +60,7 @@ export class ConfirmCumulativeChartComponent implements OnInit {
           }
         }],
         yAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           },

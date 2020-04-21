@@ -30,7 +30,7 @@
               <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="showCityTable[i]"></i>
               <i class="fas fa-chevron-right" aria-hidden="true" *ngIf="!showCityTable[i]"></i>
             </td>
-            <td class="text-uppercase" style="font-size: 0.72rem; font-weight:500;">{{state.name}}</td>
+            <td class="text-uppercase">{{state.name}}</td>
             <td class="text-right">
               <span class="deltas deltas-danger" *ngIf="state.confirmUpCount">
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.confirmUpCount}}
@@ -76,7 +76,7 @@
                   <tbody>
                     <tr *ngFor="let city of state.topFiveCities"> 
                       <td class="text-left">{{city.name}}</td>
-                      <td class="text-right">
+                      <td class="text-right" style="font-weight: 500;">
                         <span class="deltas deltas-danger" *ngIf="city.confirmUpCount">
                           <i class="fa fa-arrow-up" aria-hidden="true"></i>{{city.confirmUpCount}}
                         </span>
