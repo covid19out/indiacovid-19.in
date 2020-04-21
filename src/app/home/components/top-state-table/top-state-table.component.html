@@ -2,24 +2,39 @@
     <table class="table table-dashboard mg-b-0 states-table">
       <thead>
         <tr>
-          <th width="10px">&nbsp;</th>
-          <th width="300px">State</th>
-          <th class="text-right" (click)="toggleStateConfimSort()">Confirmed
-            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
-            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
+          <th width="10px" class="sticky">&nbsp;</th>
+          <th width="300px" class="sticky">State</th>
+          <th class="text-right sticky" (click)="toggleStateConfimSort()" title="Confirmed">
+            <span>
+              <span class="table-heading-for-desktop">Confirmed</span>
+              <span class="table-heading-for-mobile">Cnfmd</span>
+            </span>
+            <span>
+              <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
+              <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
+            </span>
           </th>
           <!-- <th class="text-right" (click)="toggleStateConfimSort()">Active
             <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateConfim"></i>
             <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateConfim"></i>
           </th> -->
           <!-- <th class="text-right">Active</th> -->
-          <th class="text-right" (click)="toggleStateRecoveredSort()">Recovered
-            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateRecovered"></i>
-            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateRecovered"></i>
+          <th class="text-right sticky" (click)="toggleStateRecoveredSort()" title="Recovered">
+            <span class="table-heading-for-desktop">Recovered</span>
+            <span class="table-heading-for-mobile">Rcvrd</span>
+            <span>
+              <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateRecovered"></i>
+              <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateRecovered"></i>
+            </span>
+            
           </th>
-          <th class="text-right" (click)="toggleStateDeceasedSort()">Deceased
-            <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateDeceased"></i>
-            <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateDeceased"></i>
+          <th class="text-right sticky" (click)="toggleStateDeceasedSort()" title="Deceased">
+            <span class="table-heading-for-desktop">Deceased</span>
+            <span class="table-heading-for-mobile">Dcsd</span>
+            <span>
+              <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleStateDeceased"></i>
+              <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleStateDeceased"></i>
+            </span>
           </th>
         </tr>
       </thead>
@@ -55,9 +70,15 @@
                   <thead>
                     <tr>
                       <th width="300px">City</th>
-                      <th class="text-right" (click)="toggleCityConfimSort(state.topFiveCities, i)">Confirmed
-                        <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>
-                        <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityConfim[i]"></i>
+                      <th class="text-right" (click)="toggleCityConfimSort(state.topFiveCities, i)">
+                        <span>
+                          <span class="table-heading-for-desktop">Confirmed</span>
+                          <span class="table-heading-for-mobile">Cnfmd</span>
+                        </span>
+                        <span>
+                          <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>
+                          <i class="fas fa-chevron-up" aria-hidden="true" *ngIf="toggleCityConfim[i]"></i>
+                        </span>
                       </th>
                       <!-- <th class="text-right" (click)="toggleCityConfimSort(state.topFiveCities, i)">Active
                         <i class="fa fa-chevron-down" aria-hidden="true" *ngIf="!toggleCityConfim[i]"></i>

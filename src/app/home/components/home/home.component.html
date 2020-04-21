@@ -28,12 +28,7 @@
                   </h3>
                 </div>
               </div>
-              <div>
-                <canvas baseChart width="120" height="80" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
-                  [options]="cardLineChartOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="'line'"
-                  [plugins]="lineChartPlugins">
-               </canvas>
-              </div>
+              <div class="chart-base"></div>
             </div>
             <div class="deltas-container">
               <!-- *ngIf="totalConfirmUpCasesCount" -->
@@ -51,7 +46,11 @@
               </ng-container>
             </div>
             <div class="smiley">
-              <img src="/assets/images/confirmed-smiley.svg" alt="">
+                <canvas baseChart width="120" height="80" [datasets]="lineChartConfirmedData" [labels]="lineChartConfirmedSourceLabels"
+                  [options]="cardLineChartOptions" [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="'line'"
+                  [plugins]="lineChartPlugins">
+               </canvas>
+              <!-- <img src="/assets/images/confirmed-smiley.svg" alt=""> -->
             </div>
           </div>
         </div>
@@ -72,12 +71,7 @@
                   </h3>
                 </div>
               </div>
-              <div>
-                <canvas baseChart width="120" height="80" [datasets]="lineChartActiveData" [labels]="lineChartActiveSourceLabels"
-                  [options]="cardLineChartOptions" [colors]="lineChartActiveSourceColors" [legend]="false" [chartType]="'line'"
-                  [plugins]="lineChartPlugins">
-               </canvas>
-              </div>
+              <div class="chart-base"></div>
             </div>
 
             <div class="deltas-container">
@@ -87,7 +81,10 @@
             </div>
 
             <div class="smiley">
-              <img src="/assets/images/active-smiley.svg" alt="">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartActiveData" [labels]="lineChartActiveSourceLabels"
+                [options]="cardLineChartOptions" [colors]="lineChartActiveSourceColors" [legend]="false" [chartType]="'line'"
+                [plugins]="lineChartPlugins">
+              </canvas>
             </div>
 
           </div>
@@ -108,12 +105,7 @@
                   </h3>
                 </div>
               </div>
-              <div>
-                <canvas baseChart width="120" height="80" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
-                  [options]="cardLineChartOptions" [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="'line'"
-                  [plugins]="lineChartPlugins">
-               </canvas>
-              </div>
+              <div class="chart-base"></div>
             </div>
 
             <div class="deltas-container">
@@ -123,7 +115,10 @@
             </div>
 
             <div class="smiley">
-              <img src="/assets/images/recovered-smiley.svg" alt="">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartDischargeData" [labels]="lineChartDischargeSourceLabels"
+                  [options]="cardLineChartOptions" [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="'line'"
+                  [plugins]="lineChartPlugins">
+               </canvas>
             </div>
 
           </div>
@@ -145,12 +140,7 @@
                   </h3>
                 </div>
               </div>
-              <div>
-                <canvas baseChart width="120" height="80" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
-                  [options]="cardLineChartOptions" [colors]="lineChartDeathColors" [legend]="false" [chartType]="'line'"
-                  [plugins]="lineChartPlugins">
-                </canvas>
-              </div>
+              <div class="chart-base"></div>
             </div>
 
             <div class="deltas-container">
@@ -160,7 +150,10 @@
             </div>
 
             <div class="smiley">
-              <img src="/assets/images/deceased-smiley.svg" alt="">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
+              [options]="cardLineChartOptions" [colors]="lineChartDeathColors" [legend]="false" [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+              </canvas>
             </div>
 
           </div>

@@ -88,13 +88,14 @@ grid-template-columns: repeat(4, 1fr);
   }
   .smiley{
     position: absolute;
-    width: 90px;
-    height: 90px;
-    bottom: -14px;
-    right: -14px;
-    opacity: 0.02;
-    display: none;
+    width: 66px;
+    height: 66px;
+    top: 10px;
+    right: 10px;
+    opacity: 0.8;
+    // display: none;
     img{
+      display: none;
       width: 100%;
       height: 100%;
     }
@@ -107,7 +108,7 @@ grid-template-columns: repeat(4, 1fr);
     grid-template-columns: repeat(2, 1fr);
     .card{
       .card-statistics-container{
-        grid-template-columns: auto 60px;
+        grid-template-columns: auto 70px;
       }
     }
   }
@@ -130,7 +131,7 @@ grid-template-columns: repeat(4, 1fr);
       }
     }
     .card-statistics-container{
-      grid-template-columns: auto 50px;
+      grid-template-columns: auto 70px;
     }
   }
 }
