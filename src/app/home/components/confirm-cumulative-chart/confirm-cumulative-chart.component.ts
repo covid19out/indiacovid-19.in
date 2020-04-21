@@ -49,6 +49,14 @@ export class ConfirmCumulativeChartComponent implements OnInit {
     this.cumulativeChartConfirmOptions = {
       responsive: true,
       annotation: true,
+      layout: {
+        padding: {
+          top: 5,
+          bottom: 5,
+          right: 5,
+          left: 5,
+        }
+      },
       scales: {
         xAxes: [{
           display: false,
