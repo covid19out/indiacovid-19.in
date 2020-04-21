@@ -4,11 +4,12 @@
 
 .page-header{
 position: relative;
+margin-bottom: 0.6rem;
 .page-header-text{
   position: relative;
   z-index: 2;
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   max-width: 600px;
     .ed-tag{
       background-image: linear-gradient(90deg, #42C2EF 0%, #15B7EE 100%);
@@ -28,6 +29,7 @@ position: relative;
       line-height: 1.5;
       color: #37383C;
       font-weight: 500;
+      margin-bottom: 0px;
     }
 }
 // .chart-container{
@@ -39,9 +41,17 @@ position: relative;
 // }
 }
 
-
+.data-updated-time{
+  color:rgba(0,0,0,0.5);
+  h6{
+    text-align: right;
+    font-size:0.9rem;
+    margin-bottom: 0px;
+  }
+}
 
 .quick-link{
+margin-top: 0.5rem;
 display: grid;
 grid-column-gap: 1rem;
 grid-row-gap: 1rem;

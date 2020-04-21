@@ -27,7 +27,7 @@ export class TopStateCardsComponent implements OnInit {
     { backgoundColor: "#fff8e3", color: "#ffbf00" },
     { backgoundColor: "#E0F4E9", color: "#1BB65D" },
     { backgoundColor: "#F0F0F8", color: "#46467F" },
-    { backgoundColor: "#FFF0F0", color: "#FF3324" },
+    { backgoundColor: "#FFEBFD", color: "#FF24EC" },
   ]
 
   constructor(private patientsDataService: PatientsDataService) { }

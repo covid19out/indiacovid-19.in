@@ -1,122 +1,36 @@
 <div class="state-container" *ngFor="let state of topStates">
-    
-    <div class="state-percentage">
-        <circle-progress
-        [percent]="state.confirmedPercentage"
-        [radius]="100"
-        [outerStrokeWidth]="18"
-        [innerStrokeWidth]="18"
-        [space] = "-18"
-        [outerStrokeColor]="state.color"
-        [innerStrokeColor]="state.backgroundColor"
-        [titleFontSize]= "40"
-        [unitsFontSize]= "0"
-        [showSubtitle] = "false"
-        [animation]="true"
-        [animationDuration]="300"
-        [startFromZero]="false"
-        [responsive]="true"
-        [showTitle] = "true"
-        >
+  <div class="state-percentage">
+    <circle-progress
+      [percent]="state.confirmedPercentage"
+      [radius]="100"
+      [outerStrokeWidth]="18"
+      [innerStrokeWidth]="18"
+      [space] = "-18"
+      [outerStrokeColor]="state.color"
+      innerStrokeColor="#f6f6f6"
+      [titleFontSize]= "40"
+      [unitsFontSize]= "0"
+      [showSubtitle] = "false"
+      [animation]="true"
+      [animationDuration]="300"
+      [startFromZero]="false"
+      [responsive]="true"
+      [showTitle] = "true"
+      >
     </circle-progress>
-      <!-- <div class="state-progress-text" style="background-color: #FFF0F0; color: #FF3324;">
-        {{state.confirmedPercentage}}
-      </div>
-      <div class="scale-svg">
-        <svg class="state-progress" height="110" width="110">
-          <path
-            d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-            data-value="60000" fill="#FF3324"></path>
-          <path
-            d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-            data-value="100" fill="#E1E6ED"></path>
-        </svg>
-      </div> -->
+
+    <div class="state-progress-text" [ngStyle]="{'background-color' : state.backgroundColor, 'color' : state.color}">
+      {{state.confirmedPercentage}}%
     </div>
-    <div class="state-title">
-      <h5>{{state.name}}</h5>
-      <p>
-        <span>Confirmed - {{state.confirmed}}</span>
-        &nbsp;&nbsp;
-        <span>Recovered - {{state.recovered}}</span>
-      </p>
-    </div>
+
+  </div>
+
+  <div class="state-title">
+    <h5>{{state.name}}</h5>
+    <p>
+      <span>Confirmed - {{state.confirmed}}</span>
+      &nbsp;&nbsp;
+      <span>Recovered - {{state.recovered}}</span>
+    </p>
+  </div>
 </div>
-<!-- 
-  <div class="state-container">
-    <div class="state-percentage">
-      <div class="state-progress-text" style="background-color: #fff8e3; color: #ffbf00;">
-        50%
-      </div>
-      <div class="scale-svg">
-        <svg class="state-progress" height="110" width="110">
-          <path
-            d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-            data-value="60000" fill="#ffbf00"></path>
-          <path
-            d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-            data-value="100" fill="#E1E6ED"></path>
-        </svg>
-      </div>
-    </div>
-    <div class="state-title">
-      <h5>Tamil Nadu</h5>
-      <p>
-        <span>Confirmed - 2500</span>
-        &nbsp;&nbsp;
-        <span>Recovered - 100</span>
-      </p>
-    </div>
-  </div>
-
-  <div class="state-container">
-    <div class="state-percentage">
-      <div class="state-progress-text" style="background-color: #E0F4E9; color: #1BB65D;">
-        30%
-      </div>
-      <div class="scale-svg">
-        <svg class="state-progress" height="110" width="110">
-          <path
-            d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-            data-value="60000" fill="#1BB65D"></path>
-          <path
-            d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-            data-value="100" fill="#E1E6ED"></path>
-        </svg>
-      </div>
-    </div>
-    <div class="state-title">
-      <h5>Delhi</h5>
-      <p>
-        <span>Confirmed - 1000</span>
-        &nbsp;&nbsp;
-        <span>Recovered - 100</span>
-      </p>
-    </div>
-  </div>
-
-  <div class="state-container">
-    <div class="state-percentage">
-      <div class="state-progress-text" style="background-color: #F0F0F8; color: #46467F;">
-        10%
-      </div>
-      <div class="scale-svg">
-        <svg class="state-progress" height="110" width="110">
-          <path
-            d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-            data-value="60000" fill="#46467F"></path>
-          <path
-            d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-            data-value="100" fill="#E1E6ED"></path>
-        </svg>
-      </div>
-    </div>
-    <div class="state-title">
-      <h5>Kerala</h5>
-      <p>
-        <span>Confirmed - 800</span>
-        &nbsp;&nbsp;
-        <span>Recovered - 50</span>
-      </p>
-    </div>
-  </div> -->
