@@ -24,7 +24,7 @@
                 <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
                 <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalConfirmedCases">
-                    {{totalConfirmedCases | number}} <span class="new-record-update">[+1750]</span>
+                    {{totalConfirmedCases | number}} <span class="new-record-update" *ngIf="todaysConfirmCount">[+{{todaysConfirmCount}}]</span>
                   </h3>
                 </div>
               </div>
@@ -104,7 +104,7 @@
                 <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">
                     {{totalDischargedCases| number}}
-                    <span class="new-record-update">[+50]</span>
+                    <span class="new-record-update">[+{{todaysRecoveredCount}}]</span>
                   </h3>
                 </div>
               </div>
@@ -141,7 +141,7 @@
                 <div class="quick-link-statistics">
                   <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">
                     {{totalDeathCases| number}}
-                    <span class="new-record-update">[+10]</span>
+                    <span class="new-record-update">[+{{todaysDeathCount}}]</span>
                   </h3>
                 </div>
               </div>

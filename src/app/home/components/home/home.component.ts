@@ -23,6 +23,9 @@ export class HomeComponent implements OnInit {
   public totalDeathCases = 0;
   public totalConfirmUpCasesCount = 0;
   public totalConfirmDownCasesCount = 0;
+  public todaysConfirmCount = 0;
+  public todaysRecoveredCount = 0;
+  public todaysDeathCount = 0;
   public chartColors = [
     {
       backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
@@ -194,6 +197,7 @@ export class HomeComponent implements OnInit {
     if (this.patientsDataService.recoveredPatientsData) {
       this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
       this.totalDischargedCases = this.recoveredPatientData.length;
+      this.setTodaysRecoveredCount();
       this.setRecoveredLineChartData();
       this.setCasesAnalytics();
     }
@@ -201,11 +205,12 @@ export class HomeComponent implements OnInit {
     if (this.patientsDataService.deceasedPatientsData) {
       this.deceasedPatientData = this.patientsDataService.deceasedPatientsData;
       this.totalDeathCases = this.deceasedPatientData.length;
+      this.setTodaysDeathCount();
       this.setDeceasedLineChartData();
       this.setCasesAnalytics();
     }
 
-    this.setActiveLineChartData(); 
+    this.setActiveLineChartData();
 
     this.patientsDataService.titleSubject.next("India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak");
     this.patientsDataService.metaData.next({ name: "twitter:card", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
@@ -229,7 +234,8 @@ export class HomeComponent implements OnInit {
 
   initData() {
     this.setCasesAnalytics();
-    this.setConfimLineChartData();   
+    this.setTodaysConfirmCount();
+    this.setConfimLineChartData();
     this.assignStateBarChartDate(this.patientsData);
     this.dateWisePateintData = this.patientsData;
   }
@@ -292,8 +298,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  setTestsDoughnutData(){
-    this.doughnutIcmrChartLabels.push('Positives','Tests conducted');
+  setTestsDoughnutData() {
+    this.doughnutIcmrChartLabels.push('Positives', 'Tests conducted');
     this.doughnutIcmrChartData[0].push(this.lastDateTestConductedData.PositiveCount, this.lastDateTestConductedData.IndividualTestCount);
   }
 
@@ -302,7 +308,7 @@ export class HomeComponent implements OnInit {
     this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
       if (tests.ConductedOn) {
         // let testDate = new Date(tests.ConductedOn);
-        let testDate = moment(tests.ConductedOn,"DD-MM-YYYY").toDate();
+        let testDate = moment(tests.ConductedOn, "DD-MM-YYYY").toDate();
         if (testDate <= self.endDate) {
           return tests;
         }
@@ -310,7 +316,7 @@ export class HomeComponent implements OnInit {
     });
 
     let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
-      return moment(tests.ConductedOn,"DD-MM-YYYY").toDate();
+      return moment(tests.ConductedOn, "DD-MM-YYYY").toDate();
     })));
 
     let highestDateString = moment(highestDate).format("DD-MM-YYYY");
@@ -331,6 +337,24 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  setTodaysConfirmCount() {
+    let today = moment(new Date()).format("DD-MM-YYYY");
+    let todaysConfirms = this.patientsData.filter(x => x.confirmAt == today);
+    this.todaysConfirmCount = todaysConfirms.length;
+  }
+
+  setTodaysRecoveredCount() {
+    let today = moment(new Date()).format("DD-MM-YYYY");
+    let todaysRecovered = this.recoveredPatientData.filter(x => x.date == today);
+    this.todaysRecoveredCount = todaysRecovered.length;
+  }
+
+  setTodaysDeathCount() {
+    let today = moment(new Date()).format("DD-MM-YYYY");
+    let todaysDeaths = this.deceasedPatientData.filter(x => x.date == today);
+    this.todaysDeathCount = todaysDeaths.length;
+  }
+
   setConfimLineChartData() {
     this.lineChartConfirmedSourceLabels = [];
     this.lineChartConfirmedData[0].data = [];
@@ -349,17 +373,17 @@ export class HomeComponent implements OnInit {
     if (this.patientsData && this.recoveredPatientData && this.deceasedPatientData) {
       this.lineChartActiveSourceLabels = [];
       this.lineChartActiveData[0].data = [];
-        var dateWiseConfirm = _.groupBy(this.patientsData, 'confirmAt');
-        var dateWiseRecovered = _.groupBy(this.recoveredPatientData, 'date');
-        var dateWiseDeceased = _.groupBy(this.deceasedPatientData, 'date');
+      var dateWiseConfirm = _.groupBy(this.patientsData, 'confirmAt');
+      var dateWiseRecovered = _.groupBy(this.recoveredPatientData, 'date');
+      var dateWiseDeceased = _.groupBy(this.deceasedPatientData, 'date');
 
-        for (let confirmAt in dateWiseConfirm) {
-          let totalRecoveredAtDate = dateWiseRecovered[confirmAt] ? dateWiseRecovered[confirmAt].length : 0;
-          let totalDeceasedAtDate = dateWiseDeceased[confirmAt] ? dateWiseDeceased[confirmAt].length : 0;
-          let totalActiveCases = dateWiseConfirm[confirmAt].length - totalRecoveredAtDate - totalDeceasedAtDate;
-          this.lineChartActiveSourceLabels.push(confirmAt);
-          this.lineChartActiveData[0].data.push(totalActiveCases);
-        };      
+      for (let confirmAt in dateWiseConfirm) {
+        let totalRecoveredAtDate = dateWiseRecovered[confirmAt] ? dateWiseRecovered[confirmAt].length : 0;
+        let totalDeceasedAtDate = dateWiseDeceased[confirmAt] ? dateWiseDeceased[confirmAt].length : 0;
+        let totalActiveCases = dateWiseConfirm[confirmAt].length - totalRecoveredAtDate - totalDeceasedAtDate;
+        this.lineChartActiveSourceLabels.push(confirmAt);
+        this.lineChartActiveData[0].data.push(totalActiveCases);
+      };
     }
   }
 
@@ -387,5 +411,5 @@ export class HomeComponent implements OnInit {
       };
     }
   }
-  
+
 }
