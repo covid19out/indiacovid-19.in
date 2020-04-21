@@ -9,6 +9,8 @@ export interface States{
   confirmed: number;
   recovered: number;
   confirmedPercentage: number;
+  backgroundColor: string;
+  color: string;
 }
 
 @Component({
@@ -20,6 +22,13 @@ export class TopStateCardsComponent implements OnInit {
   patientsData:any;
   recoveredPatientData:any;
   topStates: any = [];
+  stateColors = [
+    { backgoundColor: "#FFF0F0", color: "#FF3324" },
+    { backgoundColor: "#fff8e3", color: "#ffbf00" },
+    { backgoundColor: "#E0F4E9", color: "#1BB65D" },
+    { backgoundColor: "#F0F0F8", color: "#46467F" },
+    { backgoundColor: "#FFF0F0", color: "#FF3324" },
+  ]
 
   constructor(private patientsDataService: PatientsDataService) { }
   
@@ -38,13 +47,17 @@ export class TopStateCardsComponent implements OnInit {
   setStates(){
     let stateWiseConfirmed = _.groupBy(this.patientsData,'state');
     let sortedStates = this.getTopFiveSortedObject(stateWiseConfirmed);
+    let counter = 0;
     for(let stateName in sortedStates){
       let state: States = {
         name : stateName,
         confirmed : sortedStates[stateName].length,
         recovered: this.getStateRecoveredCount(stateName),
-        confirmedPercentage: this.getConfirmedPercentage(sortedStates[stateName].length)
+        confirmedPercentage: this.getConfirmedPercentage(sortedStates[stateName].length),
+        backgroundColor: this.stateColors[counter].backgoundColor,
+        color: this.stateColors[counter].color
       }
+      counter++;
       this.topStates.push(state);
     }
       

@@ -230,8 +230,6 @@ export class HomeComponent implements OnInit {
     this.dateWisePateintData = this.patientsData;
   }
 
-
-
   getDataCount(data: any): any {
     return data.length;
   }
@@ -239,8 +237,6 @@ export class HomeComponent implements OnInit {
   getNationalityChartLabelColor(i) {
     return this.chartColors[0].backgroundColor[i];
   }
-
-
 
   getSortedObject(objectToSort) {
     var sortedObject = {};
@@ -279,10 +275,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   setCasesAnalytics() {
     if (this.patientsData && this.patientsData.length) {
-      //console.log(this.patientsData);
       this.totalCases = this.totalConfirmedCases = this.patientsData.length;
       this.totalIntesiveCases = this.patientsData.filter(x => x.caseType == "Intensive Care").length;
       this.setConfirmCountDaviation(this.patientsData);
@@ -320,8 +314,6 @@ export class HomeComponent implements OnInit {
   }
 
   setConfirmCountDaviation(filteredData) {
-
-
     let lastDate = moment(this.endDate).format("DD-MM-YYYY");
     let secondLastDate = moment().subtract(1, 'days').format("DD-MM-YYYY");
     let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
