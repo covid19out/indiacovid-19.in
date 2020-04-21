@@ -98,7 +98,7 @@ export class CountryMapComponent implements OnInit {
     } else if (confirmedCaseCount > 1000 && confirmedCaseCount <= 2000) {
       return "#FF5C5C";
     } else if (confirmedCaseCount > 2000) {
-      return "#FF0000";
+      return "#D60000";
     }
 
   }
