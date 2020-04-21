@@ -74,15 +74,12 @@ export class HomeComponent implements OnInit {
     { data: [], label: 'State', stack: 'a' }
   ];
 
+
+  // Doughnut charts
+  public doughnutChartType: ChartType = 'doughnut';
   //////////// Icmr test chart
-
-
-  public doughnutIcmrChartType: ChartType = 'doughnut';
-
-  public doughnutIcmrChartLabels: Label[] = ['Download Sales', 'In-Store Sales'];
-  public doughnutIcmrChartData: MultiDataSet = [
-    [350, 450]
-  ];
+  public doughnutIcmrChartLabels: Label[] = [];
+  public doughnutIcmrChartData: MultiDataSet = [[]];
 
   public doughnutIcmrChartOptions: ChartOptions = {
     rotation: 1 * Math.PI,
@@ -102,11 +99,6 @@ export class HomeComponent implements OnInit {
   ];
 
   ////////////////// end icmr test chart
-
-
-  // Doughnut charts
-  public doughnutChartType: ChartType = 'doughnut';
-
 
   //Line charts
   public lineChartLegend = false;
@@ -196,6 +188,7 @@ export class HomeComponent implements OnInit {
     if (this.patientsDataService.testsConductedData) {
       this.testsConducatedData = this.patientsDataService.testsConductedData;
       this.setTestConductedData();
+      this.setTestsDoughnutData();
     }
 
     if (this.patientsDataService.recoveredPatientsData) {
@@ -241,8 +234,6 @@ export class HomeComponent implements OnInit {
     this.dateWisePateintData = this.patientsData;
   }
 
-
-
   getDataCount(data: any): any {
     return data.length;
   }
@@ -250,8 +241,6 @@ export class HomeComponent implements OnInit {
   getNationalityChartLabelColor(i) {
     return this.chartColors[0].backgroundColor[i];
   }
-
-
 
   getSortedObject(objectToSort) {
     var sortedObject = {};
@@ -290,10 +279,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   setCasesAnalytics() {
     if (this.patientsData && this.patientsData.length) {
-      //console.log(this.patientsData);
       this.totalCases = this.totalConfirmedCases = this.patientsData.length;
       this.totalIntesiveCases = this.patientsData.filter(x => x.caseType == "Intensive Care").length;
       this.setConfirmCountDaviation(this.patientsData);
@@ -305,11 +292,17 @@ export class HomeComponent implements OnInit {
 
   }
 
+  setTestsDoughnutData(){
+    this.doughnutIcmrChartLabels.push('Positives','Tests conducted');
+    this.doughnutIcmrChartData[0].push(this.lastDateTestConductedData.PositiveCount, this.lastDateTestConductedData.IndividualTestCount);
+  }
+
   setTestConductedData() {
     let self = this;
     this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
       if (tests.ConductedOn) {
-        let testDate = new Date(tests.ConductedOn);
+        // let testDate = new Date(tests.ConductedOn);
+        let testDate = moment(tests.ConductedOn,"DD-MM-YYYY").toDate();
         if (testDate <= self.endDate) {
           return tests;
         }
@@ -317,16 +310,14 @@ export class HomeComponent implements OnInit {
     });
 
     let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
-      return new Date(tests.ConductedOn);
+      return moment(tests.ConductedOn,"DD-MM-YYYY").toDate();
     })));
 
-    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth() + 1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
+    let highestDateString = moment(highestDate).format("DD-MM-YYYY");
     this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);
   }
 
   setConfirmCountDaviation(filteredData) {
-
-
     let lastDate = moment(this.endDate).format("DD-MM-YYYY");
     let secondLastDate = moment().subtract(1, 'days').format("DD-MM-YYYY");
     let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;

@@ -209,109 +209,7 @@
           Top State
         </div>
         <div class="card-body top-state-body">
-          <div class="state-container">
-            <div class="state-percentage">
-              <div class="state-progress-text" style="background-color: #FFF0F0; color: #FF3324;">
-                90%
-              </div>
-              <div class="scale-svg">
-                <svg class="state-progress" height="110" width="110">
-                  <path
-                    d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-                    data-value="60000" fill="#FF3324"></path>
-                  <path
-                    d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-                    data-value="100" fill="#E1E6ED"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="state-title">
-              <h5>Maharashtra</h5>
-              <p>
-                <span>Confirmed - 3000</span>
-                &nbsp;&nbsp;
-                <span>Recovered - 200</span>
-              </p>
-            </div>
-          </div>
-
-          <div class="state-container">
-            <div class="state-percentage">
-              <div class="state-progress-text" style="background-color: #fff8e3; color: #ffbf00;">
-                50%
-              </div>
-              <div class="scale-svg">
-                <svg class="state-progress" height="110" width="110">
-                  <path
-                    d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-                    data-value="60000" fill="#ffbf00"></path>
-                  <path
-                    d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-                    data-value="100" fill="#E1E6ED"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="state-title">
-              <h5>Tamil Nadu</h5>
-              <p>
-                <span>Confirmed - 2500</span>
-                &nbsp;&nbsp;
-                <span>Recovered - 100</span>
-              </p>
-            </div>
-          </div>
-
-          <div class="state-container">
-            <div class="state-percentage">
-              <div class="state-progress-text" style="background-color: #E0F4E9; color: #1BB65D;">
-                30%
-              </div>
-              <div class="scale-svg">
-                <svg class="state-progress" height="110" width="110">
-                  <path
-                    d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-                    data-value="60000" fill="#1BB65D"></path>
-                  <path
-                    d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-                    data-value="100" fill="#E1E6ED"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="state-title">
-              <h5>Delhi</h5>
-              <p>
-                <span>Confirmed - 1000</span>
-                &nbsp;&nbsp;
-                <span>Recovered - 100</span>
-              </p>
-            </div>
-          </div>
-
-          <div class="state-container">
-            <div class="state-percentage">
-              <div class="state-progress-text" style="background-color: #F0F0F8; color: #46467F;">
-                10%
-              </div>
-              <div class="scale-svg">
-                <svg class="state-progress" height="110" width="110">
-                  <path
-                    d="M 55 0 A 55 55 0 1 1 12.188869083072447 20.471648321796614 L 19.194326869478772 26.121742232775354 A 46 46 0 1 0 55 9"
-                    data-value="60000" fill="#46467F"></path>
-                  <path
-                    d="M 12.188869083072447 20.471648321796614 A 55 55 0 0 1 54.99999999999999 0 L 54.99999999999999 9 A 46 46 0 0 0 19.194326869478772 26.121742232775354"
-                    data-value="100" fill="#E1E6ED"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="state-title">
-              <h5>Kerala</h5>
-              <p>
-                <span>Confirmed - 800</span>
-                &nbsp;&nbsp;
-                <span>Recovered - 50</span>
-              </p>
-            </div>
-          </div>
+          <app-top-state-cards></app-top-state-cards>
         </div>
       </div>
     </div>
@@ -388,11 +286,11 @@
         <div class="card-header" style="text-align: center;">ICMR Tests</div>
         <div class="card-body">
           <canvas height="200" baseChart [data]="doughnutIcmrChartData" [legend]="false"
-            [labels]="doughnutIcmrChartLabels" [chartType]="doughnutIcmrChartType" [options]="doughnutIcmrChartOptions"
+            [labels]="doughnutIcmrChartLabels" [chartType]="doughnutChartType" [options]="doughnutIcmrChartOptions"
             [colors]="doughnutIcmrChartColors">
           </canvas>
         </div>
-        <!-- <div class="card-footer">
+        <div class="card-footer">
           <div>
             <h6>{{lastDateTestConductedData.PositiveCount}}</h6>
              Positives
@@ -401,19 +299,17 @@
             <h6>{{lastDateTestConductedData.IndividualTestCount}}</h6>
             Test Conducted
           </div>
-        </div> -->
+        </div>
       </div>
 
 
-      <!-- <div class="card">
+      <div class="card">
         <div class="card-header">Tests Conducted Cumulative</div>
         <div class="card-body" *ngIf="filteredTestConductedData && filteredTestConductedData.length">
            <app-test-conducted-cumulative-chart [filteredTestConductedData]="filteredTestConductedData">
             </app-test-conducted-cumulative-chart>
         </div>
-      </div> -->
-
-
+      </div>
     </div>
 
 
