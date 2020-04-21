@@ -98,11 +98,11 @@ export class NumberOfCasesComponent implements OnInit {
 
       for (let confirmDate in dateWiseConfirmCases) {
         let label = moment(confirmDate, "DD/MM/YYYY").format("DD MMM YYYY");
-        let labelDate = moment(confirmDate, "DD-MM-YYYY").format("DD/MM/YYYY");
+        //let labelDate = moment(confirmDate, "DD-MM-YYYY").format("DD/MM/YYYY");
         this.casesLineChartLabels.push(label);
         let confirmCount = dateWiseConfirmCases[confirmDate].length;
-        let recoveredCount = dateWiseRecoverdCases[labelDate] ? dateWiseRecoverdCases[labelDate].length : 0;
-        let deceasedCount = dateWiseDeceasedCases[labelDate] ? dateWiseDeceasedCases[labelDate].length : 0;
+        let recoveredCount = dateWiseRecoverdCases[confirmDate] ? dateWiseRecoverdCases[confirmDate].length : 0;
+        let deceasedCount = dateWiseDeceasedCases[confirmDate] ? dateWiseDeceasedCases[confirmDate].length : 0;
 
         this.casesLineChartData[0].data.push(confirmCount);
         this.casesLineChartData[1].data.push(recoveredCount);
