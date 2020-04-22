@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { Label, MultiDataSet, Color } from 'ng2-charts';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-declare var twttr:any;
+declare var twttr: any;
 
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
@@ -13,16 +13,16 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public minDate = new Date('30 jan 2020');
-  public maxDate = new Date();
   public totalCases = 0;
   public totalConfirmedCases = 0;
   public totalHospitalisedCases = 0;
-  public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
   public totalDeathCases = 0;
   public totalConfirmUpCasesCount = 0;
   public totalConfirmDownCasesCount = 0;
+  public todaysConfirmCount = 0;
+  public todaysRecoveredCount = 0;
+  public todaysDeathCount = 0;
   public chartColors = [
     {
       backgroundColor: ["#86C7F3", "#FFA1B5", "#FFE29A", "#FFC7F7", "#E4FF90", "#FFB2B2", "#C5D0D2", "#B8FDE1",
@@ -31,43 +31,10 @@ export class HomeComponent implements OnInit {
         "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF", "#F5FCC1", "#84A9AC", "#698474", "#F8DC88", "#CC0E74"]
     }
   ];
-  public dateWisePateintData: any = [];
 
-  bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
   public endDate: any = new Date();
 
-  //Statewise Bar chart
-  public stateBarChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      labels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          autoSkip: false,
-          fontSize: 11
-        }
-      }]
-    }
-  };
-
-  public stateBarChartLabels: Label[] = [];
-  public stateBarChartLegend = true;
-  public stateBarChartPlugins = [];
-  public stateBarChartData: ChartDataSets[] = [
-    { data: [], label: 'State', stack: 'a' }
-  ];
-
-
-  // Doughnut charts
-  public doughnutChartType: ChartType = 'doughnut';
-
-  
   //Line charts
   public lineChartLegend = false;
   public lineChartType = 'line';
@@ -77,6 +44,14 @@ export class HomeComponent implements OnInit {
     tooltips: { enabled: false },
     responsive: true,
     annotation: false,
+    layout: {
+      padding: {
+        top: 5,
+        bottom: 5,
+        right: 5,
+        left: 5,
+      }
+    },
     scales: {
       xAxes: [{
         display: false
@@ -86,50 +61,41 @@ export class HomeComponent implements OnInit {
       }]
     }
   };
-  //Confirmed card Line chart
+  //Confirmed card Line chart 
   public lineChartConfirmedData: ChartDataSets[] = [
-    { data: [], label: 'CONFIRMED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'CONFIRMED CASES',  lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = [];
   public lineChartConfirmedSourceColors: Color[] = [
     {
-      borderColor: '#9399ff',
+      borderWidth: 2.2,
+      borderColor: '#FF3324',
       backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 
   //Hospitalized card line chart
-  public lineChartSymptomaticData: ChartDataSets[] = [
+  public lineChartActiveData: ChartDataSets[] = [
     { data: [], label: 'Hospitalised CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
-  public lineChartSymptomaticSourceLabels: Label[] = [];
-  public lineChartSymptomaticSourceColors: Color[] = [
+  public lineChartActiveSourceLabels: Label[] = [];
+  public lineChartActiveSourceColors: Color[] = [
     {
+      borderWidth: 2.2,
       borderColor: '#fdd365',
       backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 
-  //Intensive card line chart
-  public lineChartIntensiveData: ChartDataSets[] = [
-    { data: [], label: 'INTENSIVE CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
-  ];
-  public lineChartIntensiveSourceLabels: Label[] = [];
-  public lineChartIntensiveSourceColors: Color[] = [
-    {
-      borderColor: '#6e7f90',
-      backgroundColor: 'rgba(110,127,144,0.3)',
-    }
-  ];
-
-  //Death card line chart 
+  //Death card line chart
   public lineChartDeathData: ChartDataSets[] = [
     { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDeathLabels: Label[] = [];
   public lineChartDeathColors: Color[] = [
     {
-      borderColor: '#fd5e53',
+      borderWidth: 2.2,
+      borderColor: '#C0C0C0',
       backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
@@ -141,57 +107,34 @@ export class HomeComponent implements OnInit {
   public lineChartDischargeSourceLabels: Label[] = [];
   public lineChartDischargeSourceColors: Color[] = [
     {
+      borderWidth: 2.2,
       borderColor: '#21bf73',
       backgroundColor: 'rgba(110,127,144,0)',
     }
   ];
 
   public patientsData: any;
+  public stateDistrictData: any;
   public testsConducatedData: any;
   public filteredTestConductedData: any = [];
   public lastDateTestConductedData: any;
-  public recoveredPatientData : any = [];
-  public deceasedPatientData : any = [];
+  public recoveredPatientData: any = [];
+  public deceasedPatientData: any = [];
+  public lastUpdatedOn: string;
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
-    this.bsRangeValue = [this.startDate, this.endDate];
-    if(this.patientsDataService.patientsData){
-      this.patientsData = this.patientsDataService.patientsData;
-      this.initData();
-    }
+    this.getCasesData();
+    this.getStateDistrictData();
 
+    this.patientsDataService.titleSubject.next("India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak");
+    this.patientsDataService.metaData.next({ name: "twitter:card", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
+    this.patientsDataService.metaData.next({ property: "og:title", content: "India Covid-19 - https://indiacovid-19.in - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
+    this.patientsDataService.metaData.next({ property: "og:description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
+    this.patientsDataService.metaData.next({ name: "twitter:description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
+    this.patientsDataService.metaData.next({ property: "og:site_name", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
+    this.patientsDataService.metaData.next({ name: "keywords", content: "MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Coronavirus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates, live, tracker, covid19, hourly updates" });
 
-    if(this.patientsDataService.testsConductedData){
-      this.testsConducatedData = this.patientsDataService.testsConductedData;
-      this.setTestConductedData();
-    }
-
-    
-
-    if(this.patientsDataService.recoveredPatientsData){
-      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
-      this.totalDischargedCases = this.recoveredPatientData.length;
-      this.setCasesAnalytics();
-    }
-
-
-    
-
-    if(this.patientsDataService.deceasedPatientsData){
-      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData;
-      this.totalDeathCases = this.deceasedPatientData.length;
-      this.setCasesAnalytics();
-    }
-
-    this.patientsDataService.titleSubject.next("India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - "+this.totalConfirmedCases+" confirmed,  "+(this.totalConfirmedCases-this.totalDeathCases-this.totalDischargedCases)+" Active, "+this.totalDischargedCases+" Recovered and "+this.totalDeathCases+" deceased in India from Coronavirus aka Covid19 Outbreak");
-    this.patientsDataService.metaData.next({name:"twitter:card" , content:"India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - "+this.totalConfirmedCases+" confirmed, "+(this.totalConfirmedCases-this.totalDeathCases-this.totalDischargedCases)+" Active, "+this.totalDischargedCases+" Recovered and "+this.totalDeathCases+" deceased in India from Coronavirus aka Covid19 Outbreak"});
-    this.patientsDataService.metaData.next({property:"og:title" , content:"India Covid-19 - https://indiacovid-19.in - Coronavirus Tracker India (Live) - Dashboard - "+this.totalConfirmedCases+" confirmed, "+(this.totalConfirmedCases-this.totalDeathCases-this.totalDischargedCases)+" Active, "+this.totalDischargedCases+" Recovered and "+this.totalDeathCases+" deceased in India from Coronavirus aka Covid19 Outbreak"});
-    this.patientsDataService.metaData.next({property:"og:description" , content:"India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - "+this.totalConfirmedCases+" confirmed, "+(this.totalConfirmedCases-this.totalDeathCases-this.totalDischargedCases)+" Active, "+this.totalDischargedCases+" Recovered and "+this.totalDeathCases+" deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
-    this.patientsDataService.metaData.next({name:"twitter:description" , content:"India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - "+this.totalConfirmedCases+" confirmed, "+(this.totalConfirmedCases-this.totalDeathCases-this.totalDischargedCases)+" Active, "+this.totalDischargedCases+" Recovered and "+this.totalDeathCases+" deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates"});
-    this.patientsDataService.metaData.next({property:"og:site_name" , content:"India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - "+this.totalConfirmedCases+" confirmed,  "+(this.totalConfirmedCases-this.totalDeathCases-this.totalDischargedCases)+" Active, "+this.totalDischargedCases+" Recovered and "+this.totalDeathCases+" deceased in India from Coronavirus aka Covid19 Outbreak"});
-    this.patientsDataService.metaData.next({name:"keywords" , content:"MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Coronavirus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates, live, tracker, covid19, hourly updates"});   
-    
 
     twttr.widgets.createTimeline(
       {
@@ -204,23 +147,23 @@ export class HomeComponent implements OnInit {
 
   }
 
-  initData(){    
+  async getCasesData(){
+    await this.patientsDataService.loadCasesData().subscribe(data => {
+      this.patientsData = data;
+      this.initData();
+    });
+  }
+
+  async getStateDistrictData(){
+    await this.patientsDataService.loadStateDistrictData().subscribe(data => {
+      this.stateDistrictData = data;
+    })
+  }
+
+  initData() {
     this.setCasesAnalytics();
-    this.assignStateBarChartDate( this.patientsData);
-    this.dateWisePateintData =  this.patientsData;
-  }
-
-
-
-  getDataCount(data: any): any {
-    return data.length;
-  }
-
-  getNationalityChartLabelColor(i) {
-    return this.chartColors[0].backgroundColor[i];
-  }
-
-  
+    this.setCardLineChartsData();
+  } 
 
   getSortedObject(objectToSort) {
     var sortedObject = {};
@@ -242,70 +185,44 @@ export class HomeComponent implements OnInit {
 
   }
 
-  assignStateBarChartDate(dateWiseData) {
-    this.stateBarChartLabels = [];
-    this.stateBarChartData[0].data = [];
-    
-    if (dateWiseData.length) {
-      var states = _.groupBy(dateWiseData, 'state');
-      var sortedStates = this.getSortedObject(states);
-     
-      for (let state in sortedStates) {
-        this.stateBarChartLabels.push(state);
-        
-        this.stateBarChartData[0].data.push(sortedStates[state].length);
-      };
-
-    }
-  }
-
-  
   setCasesAnalytics() {
-    if(this.patientsData && this.patientsData.length){
-      //console.log(this.patientsData);
-      this.totalCases = this.totalConfirmedCases = this.patientsData.length;
-      this.totalIntesiveCases = this.patientsData.filter(x => x.caseType == "Intensive Care").length;
-      this.setConfirmCountDaviation(this.patientsData);
-    }
-
-    if(this.totalCases && this.totalDeathCases && this.totalDischargedCases){
-      this.totalHospitalisedCases = this.totalCases - this.totalDeathCases - this.totalDischargedCases;
-    }
-    
+    let totalCases = this.patientsData.statewise.find(x => x.state.toLowerCase() == 'total');
+    this.totalCases = this.totalConfirmedCases = totalCases.confirmed;
+    this.todaysConfirmCount = totalCases.deltaconfirmed;
+    this.todaysRecoveredCount = totalCases.deltarecovered;
+    this.todaysDeathCount = totalCases.deltadeaths;   
+    this.totalDischargedCases = totalCases.recovered;
+    this.totalDeathCases = totalCases.deaths;
+    this.totalHospitalisedCases = totalCases.active;
+    this.lastUpdatedOn = moment(totalCases.lastupdatedtime,'DD/MM/YYYY HH:mm:ss',true).format('DD MMM HH:mm');
   }
 
-  setTestConductedData() {
-    let self = this;
-    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
-      if (tests.ConductedOn) {
-        let testDate = new Date(tests.ConductedOn);
-        if (testDate <= self.endDate) {
-          return tests;
-        }
-      }
-    });
-
-    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
-      return new Date(tests.ConductedOn);
-    })));
-
-    let highestDateString = `${highestDate.getFullYear()}-${('0' + (highestDate.getMonth() + 1)).slice(-2)}-${('0' + highestDate.getDate()).slice(-2)}`;
-    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);
+  setCardLineChartsData(){
+    this.lineChartConfirmedSourceLabels = [];
+    this.lineChartConfirmedData[0].data = [];
+    this.lineChartActiveSourceLabels = [];
+    this.lineChartActiveData[0].data = [];
+    this.lineChartDischargeSourceLabels = [];
+    this.lineChartDischargeData[0].data = [];
+    this.lineChartDeathLabels = [];
+    this.lineChartDeathData[0].data = [];
+    //Draw graph of last 15 days
+    let latestData = this.patientsData.cases_time_series.slice(this.patientsData.cases_time_series.length-15,this.patientsData.cases_time_series.length-1)
+    if(latestData){
+      latestData.forEach(cases => {
+        this.lineChartConfirmedSourceLabels.push(cases.date);
+        this.lineChartConfirmedData[0].data.push(cases.dailyconfirmed);
+        
+        this.lineChartActiveSourceLabels.push(cases.date);
+        this.lineChartActiveData[0].data.push(cases.totalconfirmed - cases.totaldeceased - cases.totalrecovered);
+        
+        this.lineChartDischargeSourceLabels.push(cases.date);
+        this.lineChartDischargeData[0].data.push(cases.dailyrecovered)
+        
+        this.lineChartDeathLabels.push(cases.date);
+        this.lineChartDeathData[0].data.push(cases.dailydeceased)
+      });
+    }
   }
 
-  setConfirmCountDaviation(filteredData) {
-    
-    
-    let lastDate = moment(this.endDate).format("DD-MM-YYYY");
-    let secondLastDate = moment().subtract(1, 'days').format("DD-MM-YYYY");
-    let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
-
-    if (difference >= 0) {
-      this.totalConfirmUpCasesCount = difference;
-      this.totalConfirmDownCasesCount = 0;
-    } else {
-      this.totalConfirmUpCasesCount = 0;
-      this.totalConfirmDownCasesCount = -difference;
-    }
-  }  
 }

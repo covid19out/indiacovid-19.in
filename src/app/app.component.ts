@@ -12,9 +12,9 @@ export class AppComponent {
   //title = 'INDIA COVID-19 - Corona Virus Updates';
   
   constructor(private PatientsDataService:PatientsDataService,private router: Router,private activatedRoute:ActivatedRoute,private metaTag:Meta){
-    this.PatientsDataService.loadPatientsData();
-    this.PatientsDataService.loadTestConductedData();
-    this.PatientsDataService.loadClosedCasesData();
+    // this.PatientsDataService.loadPatientsData();
+    // this.PatientsDataService.loadTestConductedData();
+    // this.PatientsDataService.loadClosedCasesData();
   }
   ngOnInit() {
     this.PatientsDataService.titleSubject.subscribe((data:string) =>{

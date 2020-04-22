@@ -59,8 +59,10 @@ build:deploy:
  - npm install -g @angular/cli
  - npm install
  - ng config -g cli.warnings.versionMismatch false
- script:
  - ng build --prod
+ - npm run scully
+ script:
+ - firebase deploy --only hosting:india-covid-19 --token $FIREBASE_TOKEN
  only:
     refs:
       - develop

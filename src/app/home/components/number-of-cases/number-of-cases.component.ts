@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Color, Label } from 'ng2-charts';
 import { ChartOptions, ChartDataSets } from 'chart.js';
-import * as _ from 'lodash';
-import * as moment from 'moment';
-
-import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 @Component({
   selector: 'app-number-of-cases',
@@ -12,32 +8,18 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./number-of-cases.component.scss']
 })
 export class NumberOfCasesComponent implements OnInit {
+  @Input() patientsData: any;
+
   casesLineChartLabels: Label[] = [];
   casesLineChartData: ChartDataSets[] = [];
   casesLineChartOptions: (ChartOptions & { annotation: any });
   casesLineChartColors: Color[];
 
-  patientsData: any;
-  recoveredPatientData: any;
-  deceasedPatientData: any;
-
-  constructor(private patientsDataService: PatientsDataService) { }
+  constructor() { }
 
   ngOnInit() {
     this.initChart();
-    if(this.patientsDataService.patientsData){
-      this.patientsData = this.patientsDataService.patientsData;
-      this.assignNumberOfCasesLineChartData();
-    }
-    if(this.patientsDataService.recoveredPatientsData){
-      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
-      this.assignNumberOfCasesLineChartData();
-    }
-    if(this.patientsDataService.deceasedPatientsData){
-      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
-      this.assignNumberOfCasesLineChartData();
-    }
-
+    this.assignNumberOfCasesLineChartData();
   }
 
   initChart() {
@@ -49,13 +31,30 @@ export class NumberOfCasesComponent implements OnInit {
     this.casesLineChartOptions = {
       responsive: true,
       annotation: true,
+      legend: {
+        display: true,
+        labels: {
+          boxWidth: 11,
+          fontSize: 10,
+        }
+      },
+      layout: {
+        padding: {
+          top: 5,
+          bottom: 5,
+          right: 5,
+          left: 5,
+        }
+      },
       scales: {
         xAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           }
         }],
         yAxes: [{
+          display: false,
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           }
@@ -84,28 +83,18 @@ export class NumberOfCasesComponent implements OnInit {
   }
 
   assignNumberOfCasesLineChartData() {
-    if (this.patientsData && this.deceasedPatientData && this.recoveredPatientData) {
+    if (this.patientsData.cases_time_series) {
       this.casesLineChartLabels = [];
       this.casesLineChartData[0].data = [];
       this.casesLineChartData[1].data = [];
       this.casesLineChartData[2].data = [];
 
-      let dateWiseConfirmCases = _.groupBy(this.patientsData, 'confirmAt');
-      let dateWiseRecoverdCases = _.groupBy(this.recoveredPatientData, 'date');
-      let dateWiseDeceasedCases = _.groupBy(this.deceasedPatientData, 'date');
-
-      for (let confirmDate in dateWiseConfirmCases) {
-        let label = moment(confirmDate, "DD/MM/YYYY").format("DD MMM YYYY");
-        let labelDate = moment(confirmDate, "DD-MM-YYYY").format("DD/MM/YYYY");
-        this.casesLineChartLabels.push(label);
-        let confirmCount = dateWiseConfirmCases[confirmDate].length;
-        let recoveredCount = dateWiseRecoverdCases[labelDate] ? dateWiseRecoverdCases[labelDate].length : 0;
-        let deceasedCount = dateWiseDeceasedCases[labelDate] ? dateWiseDeceasedCases[labelDate].length : 0;
-
-        this.casesLineChartData[0].data.push(confirmCount);
-        this.casesLineChartData[1].data.push(recoveredCount);
-        this.casesLineChartData[2].data.push(deceasedCount);
-      }
+      this.patientsData.cases_time_series.forEach(dateWiseData => {
+        this.casesLineChartLabels.push(dateWiseData.date);
+        this.casesLineChartData[0].data.push(dateWiseData.dailyconfirmed);
+        this.casesLineChartData[1].data.push(dateWiseData.dailyrecovered);
+        this.casesLineChartData[2].data.push(dateWiseData.dailydeceased);
+      });
     }
   }
 

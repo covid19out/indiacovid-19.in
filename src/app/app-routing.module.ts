@@ -1,15 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-//import { SelectivePreloadingStrategyService } from './selective-preloading.service';
 
 const routes: Routes = [
-  //{ path: '', redirectTo:'', pathMatch:'full' },
   { path: '', loadChildren: './home/home.module#HomeModule'},
   { path: 'dashboard', loadChildren: './home/home.module#HomeModule'},
-  { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsModule'},
-  { path: 'cases', loadChildren: './home/home.module#HomeModule'},
-  { path: 'insight', loadChildren: './home/home.module#HomeModule'},
-  { path: 'map', loadChildren: './home/home.module#HomeModule'},
   { path: 'worldwide', loadChildren: './worldwide/worldwide.module#WorldwideModule'},
   { path: 'sources', loadChildren: './sources/sources.module#SourcesModule'},
   { path: 'helpline', loadChildren: './helpline/helpline.module#HelplineModule'},

@@ -1,0 +1,25 @@
+.chart-container{
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: 0;
+  }
+
+  .desktop-chart{
+    display: block;
+  }
+
+  .mobile-chart{
+    display: none;
+  }
+
+  @media (max-width: 576px){
+    .desktop-chart{
+      display: none;
+    }
+  
+    .mobile-chart{
+      display: block;
+    }
+  }
