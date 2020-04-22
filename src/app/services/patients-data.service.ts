@@ -28,6 +28,7 @@ export class PatientsDataService {
   public testsConductedData:any;
   public recoveredPatientsData:any;
   public deceasedPatientsData:any;
+  public stateDistrictWiseData: any;
   
   loadPatientsData() {
     this.patientsData = PatientsDataJson;
@@ -36,6 +37,16 @@ export class PatientsDataService {
         return moment(a.confirmAt, "DD/MM/YYYY").toDate().getTime() - moment(b.confirmAt, "DD/MM/YYYY").toDate().getTime();
       });
       this.patientsData=cases;
+
+
+  }
+
+  loadCasesData(){
+    return this.http.get("https://api.covid19india.org/data.json");
+  }
+
+  loadStateDistrictData(){
+    return this.http.get("https://api.covid19india.org/state_district_wise.json");
   }
 
   loadTestConductedData() {

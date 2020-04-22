@@ -10,7 +10,9 @@ export interface StateStatistics {
   deceasedCases: number,
   confirmUpCount: number,
   topFiveCities: any[],
-  activeCases: number
+  activeCases: number,
+  recoveredUpCount: number,
+  deceasedUpCount: number
 }
 
 export interface CityStatistics {
@@ -28,12 +30,8 @@ export interface CityStatistics {
   styleUrls: ['./top-state-table.component.scss']
 })
 export class TopStateTableComponent implements OnInit {
-  // @Input() cases: any;
-  @Input() endDate: any;
-
-  patientsData: any;
-  recoveredPatientData: any;
-  deceasedPatientData: any;
+  @Input() patientsData: any;
+  @Input() stateDistrictData: any;
   topFiveStatesData:any[] = []; 
   showCityTable:Boolean[] = [];
   toggleStateConfim: Boolean = false;
@@ -48,103 +46,60 @@ export class TopStateTableComponent implements OnInit {
   ngOnInit() {    
     this.topFiveStatesData = []; 
     this.showCityTable = [];
-
-    if(this.patientsDataService.patientsData){
-      this.patientsData = this.patientsDataService.patientsData;
-      this.setTableStatistics();
-    }
-    if(this.patientsDataService.recoveredPatientsData){
-      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
-      this.setTableStatistics();
-    }
-    if(this.patientsDataService.deceasedPatientsData){
-      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
-      this.setTableStatistics();
-    }
-
-
+    this.setTableStatistics();
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   let dateWiseCases = changes.cases.currentValue;
-  //   if(dateWiseCases && dateWiseCases.length){
-  //     this.topFiveStatesData = []; 
-  //     this.showCityTable = [];
-  //     this.setTableStatistics(dateWiseCases);
-  //   }
-  // }
 
   setTableStatistics() {
-    if (this.patientsData && this.deceasedPatientData && this.recoveredPatientData) {
-      //var stateWiseData = _.groupBy(this.patientsData, 'state');
-      let stateWiseConfirmCases = _.groupBy(this.patientsData, 'state');
-      let stateWiseRecoveredCases =  _.groupBy(this.recoveredPatientData, 'state');
-      let stateWiseDeceasedCases =  _.groupBy(this.deceasedPatientData, 'state');
-
+    if(this.patientsData.statewise && this.stateDistrictData) {
       let statesData: StateStatistics[] = [];
+      let stateWisePatients = this.patientsData.statewise.filter(x => x.state.toLowerCase() !== 'total');
       
-      for (let state in stateWiseConfirmCases) {
-        let confirmCount = this.getEndDatesConfirmCounts(state, stateWiseConfirmCases);
-        let confirmCasesCount = stateWiseConfirmCases[state].length;
-        let recoveredCasesCount = stateWiseRecoveredCases[state] ? stateWiseRecoveredCases[state].length : 0;
-        let deceasedCasesCount = stateWiseDeceasedCases[state] ? stateWiseDeceasedCases[state].length : 0;
-        
+      stateWisePatients.forEach(stateCases => {
         let stateData: StateStatistics = {
-          name: state,
-          confirmCases: confirmCasesCount,
-          activeCases: confirmCasesCount - recoveredCasesCount - deceasedCasesCount,
-          recoveredCases: recoveredCasesCount,
-          deceasedCases: deceasedCasesCount,
-          topFiveCities: this.getTopFiveCities(stateWiseConfirmCases[state],stateWiseRecoveredCases[state],stateWiseDeceasedCases[state]),
-          confirmUpCount: confirmCount || 0
+          name: stateCases.state,
+          confirmCases: stateCases.confirmed,
+          activeCases: stateCases.active,
+          recoveredCases: stateCases.recovered,
+          deceasedCases: stateCases.deaths,
+          topFiveCities: this.getStateCities(stateCases.state),
+          confirmUpCount: stateCases.deltaconfirmed,
+          recoveredUpCount: stateCases.deltarecovered,
+          deceasedUpCount: stateCases.deltadeaths
         };
         statesData.push(stateData);
-      }
-      //sort by state name
-      statesData.sort((a, b) => a.name.localeCompare(b.name));
-      //First sort by confirm cases in cases no confirm up count
-      statesData = statesData.sort((a, b) => {
-        return b.confirmCases - a.confirmCases;
       });
 
-      this.topFiveStatesData = statesData;
+       //sort by state name
+       statesData.sort((a, b) => a.name.localeCompare(b.name));
+       //First sort by confirm cases in cases no confirm up count
+       statesData = statesData.sort((a, b) => {
+         return b.confirmCases - a.confirmCases;
+       });
+ 
+       this.topFiveStatesData = statesData;
     }
-
   }
 
-  getTopFiveCities(confirmedCases, recoveredCases, deceasedCases){
-    let cityWiseConfirmData = _.groupBy(confirmedCases, 'cityName');
-    let cityWiseRecoveredData = _.groupBy(recoveredCases, 'district');
-    let cityWiseDeceasedData = _.groupBy(deceasedCases, 'district');
+  getStateCities(stateName){
     let topFiveCitiesData = [];
+    let stateDistricts = this.stateDistrictData[stateName];
+    if(stateDistricts){
+      for(let district in stateDistricts.districtData){
+        let cityData: CityStatistics = {
+          name: district,
+          confirmCases: stateDistricts.districtData[district].confirmed,
+          activeCases: stateDistricts.districtData[district].active,
+          recoveredCases: stateDistricts.districtData[district].recovered,
+          deceasedCases: stateDistricts.districtData[district].deceased,
+          confirmUpCount: stateDistricts.districtData[district].delta.confirmed,
+          
+        };
+        topFiveCitiesData.push(cityData);
+      }
 
-    for(let city in cityWiseConfirmData){
-
-      let confirmCasesCount = cityWiseConfirmData[city].length;
-      let recoveredCasesCount = cityWiseRecoveredData[city] ? cityWiseRecoveredData[city].length : 0;
-      let deceasedCasesCount = cityWiseDeceasedData[city] ? cityWiseDeceasedData[city].length : 0;
-      
-      let cityData: CityStatistics = {
-        name: city == "" ? "Unknown" : city,
-        confirmCases: confirmCasesCount,
-        activeCases: confirmCasesCount - recoveredCasesCount - deceasedCasesCount,
-        recoveredCases: recoveredCasesCount,
-        deceasedCases: deceasedCasesCount,
-        confirmUpCount: this.getEndDatesConfirmCounts(city,cityWiseConfirmData),
-        
-      };
-      topFiveCitiesData.push(cityData);
+      topFiveCitiesData.sort((a,b) => a.name.localeCompare(b.name));
+      return topFiveCitiesData;
     }
-    //topFiveCitiesData.sort((a,b) => a.confirmCases.localeCompare(b.confirmCases));
-    //topFiveCitiesData.sort((a, b) => b.confirmCases - a.confirmCases);
-    topFiveCitiesData.sort((a,b) => a.name.localeCompare(b.name));
-    return topFiveCitiesData;
-  }
-
-  getEndDatesConfirmCounts(state,topFiveStates){
-    // let lastDate = `${this.endDate.getFullYear()}-${('0' + (this.endDate.getMonth()+1)).slice(-2)}-${('0' + this.endDate.getDate()).slice(-2)}`;
-    let lastDate = moment(this.endDate).format("DD-MM-YYYY");
-    return topFiveStates[state].filter(x => x.confirmAt == lastDate).length;
   }
 
   toggleStateConfimSort(){

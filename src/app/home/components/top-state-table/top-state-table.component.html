@@ -47,7 +47,7 @@
             </td>
             <td class="text-uppercase">{{state.name}}</td>
             <td class="text-right">
-              <span class="deltas deltas-danger" *ngIf="state.confirmUpCount">
+              <span class="deltas deltas-danger" *ngIf="state.confirmUpCount > 0">
                 <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.confirmUpCount}}
               </span>
               {{state.confirmCases}}
@@ -56,9 +56,15 @@
               {{state.activeCases}}
             </td> -->
             <td class="text-right">
+              <span class="deltas deltas-success" *ngIf="state.recoveredUpCount > 0">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.recoveredUpCount}}
+              </span>
               {{state.recoveredCases}}
             </td>
             <td class="text-right">
+              <span class="deltas deltas-failure" *ngIf="state.deceasedUpCount > 0">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>{{state.deceasedUpCount}}
+              </span>
               {{state.deceasedCases}}
             </td>
           </tr>
