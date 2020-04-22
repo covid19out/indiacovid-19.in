@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import * as _ from 'lodash';
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
@@ -10,83 +10,39 @@ declare var AmCharts:any;
   styleUrls: ['./country-map.component.scss']
 })
 export class CountryMapComponent implements OnInit {
+  @Input() patientsData: any;
   constructor(private patientsDataService:PatientsDataService) { }
   countryMap:any;
-  patientsData: any;
-  recoveredPatientData: any;
-  deceasedPatientData: any;
   
   ngOnInit() {
     this.generateMap();
-    if(this.patientsDataService.patientsData){
-      this.patientsData = this.patientsDataService.patientsData;
-      this.assignMapData();
-    }
-    if(this.patientsDataService.recoveredPatientsData){
-      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
-      this.assignMapData();
-    }
-    if(this.patientsDataService.deceasedPatientsData){
-      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData; 
-      this.assignMapData();
-    }
+    this.assignMapData();
 
-    // this.patientsDataService.patientsData.subscribe(data => {
-    //   if (data) {
-    //     this.patientsData = data;
-    //     this.assignMapData();
-    //   }
-    // });
-
-    // this.patientsDataService.recoveredPatientsData.subscribe(data => {
-    //   if(data){
-    //     this.recoveredPatientData = data;
-    //     this.assignMapData();
-    //   }
-    // });
-
-    // this.patientsDataService.deceasedPatientsData.subscribe(data => {   
-    //   if(data){
-    //     this.deceasedPatientData = data;
-    //     this.assignMapData();
-    //   }      
-    // });
+    // if(this.patientsDataService.patientsData){
+    //   this.patientsData = this.patientsDataService.patientsData;
+    //   this.assignMapData();
+    // }
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   let dateWiseCases = changes.cases.currentValue;
-  //   if(dateWiseCases && dateWiseCases.length){
-  //     if(!this.isInitialized){
-  //       this.generateMap();
-  //       this.isInitialized = true;
-  //     }
-  //     this.assignMapData(dateWiseCases);
-  //   }
-  // }
-
   assignMapData() {
-    if (this.patientsData && this.deceasedPatientData && this.recoveredPatientData) {
+    if(this.patientsData.statewise){
       let states = this.countryMap.dataProvider.areas;
-      let stateWiseConfirmCases = _.groupBy(this.patientsData, 'state');
-      let stateWiseRecoveredCases =  _.groupBy(this.recoveredPatientData, 'state');
-      let stateWiseDeceasedCases =  _.groupBy(this.deceasedPatientData, 'state');
-
       states.forEach((state, i) => {
-        if (stateWiseConfirmCases[state.name]) {
-          state.title = `${state.name} <br/>
-          Confirmed Cases : ${stateWiseConfirmCases[state.name].length} <br/>
-          Recovered Cases : ${stateWiseRecoveredCases[state.name] ? stateWiseRecoveredCases[state.name].length : 0 } <br/>
-          Deceased Cases : ${stateWiseDeceasedCases[state.name] ? stateWiseDeceasedCases[state.name].length : 0} <br/>`;
-          //Total Cases : ${stateWiseCases[state.name].length}`;
-          state.color = this.getStateColor(stateWiseConfirmCases[state.name].length);
-        } 
-        else {
-           state.title = `${state.name}  - Total Cases 0`;
-         }
-      });
-      
-      this.countryMap.dataProvider.areas = states;
-      this.countryMap.validateData();      
+        let stateData = this.patientsData.statewise.find(x => x.state == state.name);
+            if (stateData) {
+              state.title = `${state.name} <br/>
+              Confirmed Cases : ${stateData.confirmed} <br/>
+              Recovered Cases : ${stateData.recovered} <br/>
+              Deceased Cases : ${stateData.deaths} <br/>`;
+              //Total Cases : ${stateWiseCases[state.name].length}`;
+              state.color = this.getStateColor(stateData.confirmed);
+            } 
+            else {
+               state.title = `${state.name}  - Total Cases 0`;
+             }
+        });
+        this.countryMap.dataProvider.areas = states;
+        this.countryMap.validateData();
     }
   }
 

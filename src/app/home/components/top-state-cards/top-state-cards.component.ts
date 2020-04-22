@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { PatientsDataService } from 'src/app/services/patients-data.service';
-import { StateData } from 'src/app/analytics/components/state-wise-cards/state-wise-cards.component';
-
-export interface States{
+export interface States {
   name: string;
   confirmed: number;
   recovered: number;
@@ -19,8 +16,7 @@ export interface States{
   styleUrls: ['./top-state-cards.component.scss']
 })
 export class TopStateCardsComponent implements OnInit {
-  patientsData:any;
-  recoveredPatientData:any;
+  @Input() patientsData: any;
   topStates: any = [];
   stateColors = [
     { backgoundColor: "#FFF0F0", color: "#FF3324" },
@@ -30,70 +26,33 @@ export class TopStateCardsComponent implements OnInit {
     { backgoundColor: "#FFEBFD", color: "#FF24EC" },
   ]
 
-  constructor(private patientsDataService: PatientsDataService) { }
-  
+  constructor() { }
+
   ngOnInit() {
-    if (this.patientsDataService.patientsData) {
-      this.patientsData = this.patientsDataService.patientsData;
-    }
-
-    if (this.patientsDataService.recoveredPatientsData) {
-      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;      
-    }
-
     this.setStates();
   }
 
-  setStates(){
-    let stateWiseConfirmed = _.groupBy(this.patientsData,'state');
-    let sortedStates = this.getTopFiveSortedObject(stateWiseConfirmed);
-    let counter = 0;
-    for(let stateName in sortedStates){
-      let state: States = {
-        name : stateName,
-        confirmed : sortedStates[stateName].length,
-        recovered: this.getStateRecoveredCount(stateName),
-        confirmedPercentage: this.getConfirmedPercentage(sortedStates[stateName].length),
-        backgroundColor: this.stateColors[counter].backgoundColor,
-        color: this.stateColors[counter].color
+  setStates() {
+    if (this.patientsData.statewise) {
+      let sortedStates = this.patientsData.statewise.sort((a, b) => b.confirmed - a.confirmed);
+      sortedStates = sortedStates.slice(1, 6);
+      for (let i = 0; i < 5; i++) {
+        let state: States = {
+          name: sortedStates[i].state,
+          confirmed: sortedStates[i].confirmed,
+          recovered: sortedStates[i].recovered,
+          confirmedPercentage: this.getConfirmedPercentage(sortedStates[i].confirmed),
+          backgroundColor: this.stateColors[i].backgoundColor,
+          color: this.stateColors[i].color
+        }
+        this.topStates.push(state);
       }
-      counter++;
-      this.topStates.push(state);
     }
-      
-    
   }
 
-  getTopFiveSortedObject(objectToSort) {
-    var sortedObject = {};
-    var arraysToSort = [];
-    var obj: any;
-    for (var o in objectToSort) {
-      obj = {
-        "state": o,
-        "objects": objectToSort[o]
-      }
-      arraysToSort.push(obj);
-    }
-    arraysToSort.sort((a, b) => b.objects.length - a.objects.length);
-    for (var i = 0; i < 5; i++) {
-      obj = arraysToSort[i];
-      sortedObject[obj.state] = obj.objects;
-    }
-    return sortedObject;
-
-  }
-
-  getStateRecoveredCount(stateName){
-    let stateRecoveredCount = 0;
-    let stateWiseRecovered = _.groupBy(this.recoveredPatientData,'state');
-    stateRecoveredCount = stateWiseRecovered[stateName] ? stateWiseRecovered[stateName].length : 0;
-    return stateRecoveredCount;
-  }
-
-  getConfirmedPercentage(confirmedCases){
-    let totalCases = this.patientsData.length;
-    return Math.floor(confirmedCases * 100 / totalCases);
+  getConfirmedPercentage(confirmedCases) {
+    let totalCases = this.patientsData.statewise.find(x => x.state.toLowerCase() == 'total');
+    return Math.floor(confirmedCases * 100 / totalCases.confirmed);
   }
 
 }

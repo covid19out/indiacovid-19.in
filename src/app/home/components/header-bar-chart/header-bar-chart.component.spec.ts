@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaerBarChartComponent } from './heaer-bar-chart.component';
+import { HeaderBarChartComponent } from './header-bar-chart.component';
 
-describe('HeaerBarChartComponent', () => {
-  let component: HeaerBarChartComponent;
-  let fixture: ComponentFixture<HeaerBarChartComponent>;
+describe('HeaderBarChartComponent', () => {
+  let component: HeaderBarChartComponent;
+  let fixture: ComponentFixture<HeaderBarChartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaerBarChartComponent ]
+      declarations: [ HeaderBarChartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaerBarChartComponent);
+    fixture = TestBed.createComponent(HeaderBarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

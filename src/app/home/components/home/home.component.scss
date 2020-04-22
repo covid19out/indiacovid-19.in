@@ -88,12 +88,14 @@ grid-template-columns: repeat(4, 1fr);
   }
   .smiley{
     position: absolute;
-    width: 90px;
-    height: 90px;
-    bottom: -14px;
-    right: -14px;
-    opacity: 0.02;
+    width: 66px;
+    height: 66px;
+    top: 10px;
+    right: 10px;
+    opacity: 0.8;
+    // display: none;
     img{
+      display: none;
       width: 100%;
       height: 100%;
     }
@@ -106,7 +108,7 @@ grid-template-columns: repeat(4, 1fr);
     grid-template-columns: repeat(2, 1fr);
     .card{
       .card-statistics-container{
-        grid-template-columns: auto 60px;
+        grid-template-columns: auto 70px;
       }
     }
   }
@@ -129,7 +131,7 @@ grid-template-columns: repeat(4, 1fr);
       }
     }
     .card-statistics-container{
-      grid-template-columns: auto 50px;
+      grid-template-columns: auto 70px;
     }
   }
 }
@@ -198,13 +200,30 @@ grid-template-columns: auto 360px;
 }
 
 .states-table{
-margin-top: 1rem;
-display: grid;
-grid-column-gap: 1rem;
-grid-row-gap: 1rem;
-grid-auto-rows: 1fr;
-grid-template-columns: repeat(1, 1fr);
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  box-shadow: 0 7.5rem 6.25rem 0 rgba(5, 22, 70, 0.05);
+  margin-top: 1rem;
+  display: grid;
+  grid-column-gap: 0rem;
+  grid-template-columns: auto 360px;
+  .card{
+    box-shadow: none;
+    border-radius: 0px;
+    .card-header{
+      padding-bottom: 0px;
+    }
+   }
 }
+
+
+@media (max-width: 768px){
+  .states-table{
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  }
+
 
 .number-of-cases{
 margin-top: 1rem;
@@ -212,7 +231,7 @@ display: grid;
 grid-column-gap: 1rem;
 grid-row-gap: 1rem;
 grid-auto-rows: 1fr;
-grid-template-columns: auto 360px;
+grid-template-columns: repeat(1, 1fr);
 
 // .cumulative-confirmed-card{
 //   background: linear-gradient(to right, rgb(255, 237, 237) 0%,rgb(249, 196, 196) 100%);
@@ -559,10 +578,15 @@ color: #fff;
 }
 
 .twitter-timeline-body{
-max-height: 300px;
+max-height: 1200px;
 //max-height: -webkit-fill-available;
 overflow-y: auto;
 }
+@media (max-width: 768px) {
+  .twitter-timeline-body{
+    max-height: 300px;
+  }
+  }
 
 @media (max-width: 768px) {
 .date-range-select{

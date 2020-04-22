@@ -13,12 +13,9 @@ import { PatientsDataService } from 'src/app/services/patients-data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public minDate = new Date('30 jan 2020');
-  public maxDate = new Date();
   public totalCases = 0;
   public totalConfirmedCases = 0;
   public totalHospitalisedCases = 0;
-  public totalIntesiveCases = 0;
   public totalDischargedCases = 0;
   public totalDeathCases = 0;
   public totalConfirmUpCasesCount = 0;
@@ -34,74 +31,9 @@ export class HomeComponent implements OnInit {
         "#FFC967", "#C2C9B4", "#D0A892", "#D8F4AF", "#F5FCC1", "#84A9AC", "#698474", "#F8DC88", "#CC0E74"]
     }
   ];
-  public dateWisePateintData: any = [];
 
-  bsRangeValue: Date[];
   public startDate: any = new Date("30 January 2020");
   public endDate: any = new Date();
-
-  //Statewise Bar chart
-  public stateBarChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      labels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    },
-
-    scales: {
-      xAxes: [{
-        display: false,
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        }
-      }],
-      yAxes: [{
-        display: true,
-        gridLines: {
-          color: "rgba(0, 0, 0, 0)",
-        },
-        ticks: {
-          autoSkip: false,
-          fontSize: 11
-        }
-      }]
-    }
-  };
-
-  public stateBarChartLabels: Label[] = [];
-  public stateBarChartLegend = true;
-  public stateBarChartPlugins = [];
-  public stateBarChartData: ChartDataSets[] = [
-    { data: [], label: 'State', stack: 'a' }
-  ];
-
-
-  // Doughnut charts
-  public doughnutChartType: ChartType = 'doughnut';
-  //////////// Icmr test chart
-  public doughnutIcmrChartLabels: Label[] = [];
-  public doughnutIcmrChartData: MultiDataSet = [[]];
-
-  public doughnutIcmrChartOptions: ChartOptions = {
-    rotation: 1 * Math.PI,
-    circumference: 1 * Math.PI,
-    responsive: true,
-    legend: {
-      position: 'top',
-    },
-  };
-  public doughnutIcmrChartColors = [
-    {
-      backgroundColor: [
-        '#FF3324',
-        '#C0C0C0'
-      ]
-    }
-  ];
-
-  ////////////////// end icmr test chart
 
   //Line charts
   public lineChartLegend = false;
@@ -112,6 +44,14 @@ export class HomeComponent implements OnInit {
     tooltips: { enabled: false },
     responsive: true,
     annotation: false,
+    layout: {
+      padding: {
+        top: 5,
+        bottom: 5,
+        right: 5,
+        left: 5,
+      }
+    },
     scales: {
       xAxes: [{
         display: false
@@ -123,7 +63,7 @@ export class HomeComponent implements OnInit {
   };
   //Confirmed card Line chart 
   public lineChartConfirmedData: ChartDataSets[] = [
-    { data: [], label: 'CONFIRMED CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'CONFIRMED CASES',  lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartConfirmedSourceLabels: Label[] = [];
   public lineChartConfirmedSourceColors: Color[] = [
@@ -136,7 +76,7 @@ export class HomeComponent implements OnInit {
 
   //Hospitalized card line chart
   public lineChartActiveData: ChartDataSets[] = [
-    { data: [], label: 'Hospitalised CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'Hospitalised CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartActiveSourceLabels: Label[] = [];
   public lineChartActiveSourceColors: Color[] = [
@@ -149,7 +89,7 @@ export class HomeComponent implements OnInit {
 
   //Death card line chart
   public lineChartDeathData: ChartDataSets[] = [
-    { data: [], label: 'DEATH CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'DEATH CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDeathLabels: Label[] = [];
   public lineChartDeathColors: Color[] = [
@@ -162,7 +102,7 @@ export class HomeComponent implements OnInit {
 
   //Discharge card line chart
   public lineChartDischargeData: ChartDataSets[] = [
-    { data: [], label: 'DISCHARGED CASES', pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
+    { data: [], label: 'DISCHARGED CASES', lineTension: 0, pointBackgroundColor: 'rgba(0, 0, 0, 0)', pointBorderColor: 'rgba(0, 0, 0, 0)' }
   ];
   public lineChartDischargeSourceLabels: Label[] = [];
   public lineChartDischargeSourceColors: Color[] = [
@@ -174,43 +114,18 @@ export class HomeComponent implements OnInit {
   ];
 
   public patientsData: any;
+  public stateDistrictData: any;
   public testsConducatedData: any;
   public filteredTestConductedData: any = [];
   public lastDateTestConductedData: any;
   public recoveredPatientData: any = [];
   public deceasedPatientData: any = [];
+  public lastUpdatedOn: string;
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
-    this.bsRangeValue = [this.startDate, this.endDate];
-    if (this.patientsDataService.patientsData) {
-      this.patientsData = this.patientsDataService.patientsData;
-      this.initData();
-    }
-
-    if (this.patientsDataService.testsConductedData) {
-      this.testsConducatedData = this.patientsDataService.testsConductedData;
-      this.setTestConductedData();
-      this.setTestsDoughnutData();
-    }
-
-    if (this.patientsDataService.recoveredPatientsData) {
-      this.recoveredPatientData = this.patientsDataService.recoveredPatientsData;
-      this.totalDischargedCases = this.recoveredPatientData.length;
-      this.setTodaysRecoveredCount();
-      this.setRecoveredLineChartData();
-      this.setCasesAnalytics();
-    }
-
-    if (this.patientsDataService.deceasedPatientsData) {
-      this.deceasedPatientData = this.patientsDataService.deceasedPatientsData;
-      this.totalDeathCases = this.deceasedPatientData.length;
-      this.setTodaysDeathCount();
-      this.setDeceasedLineChartData();
-      this.setCasesAnalytics();
-    }
-
-    this.setActiveLineChartData();
+    this.getCasesData();
+    this.getStateDistrictData();
 
     this.patientsDataService.titleSubject.next("India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak");
     this.patientsDataService.metaData.next({ name: "twitter:card", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
@@ -232,21 +147,23 @@ export class HomeComponent implements OnInit {
 
   }
 
+  async getCasesData(){
+    await this.patientsDataService.loadCasesData().subscribe(data => {
+      this.patientsData = data;
+      this.initData();
+    });
+  }
+
+  async getStateDistrictData(){
+    await this.patientsDataService.loadStateDistrictData().subscribe(data => {
+      this.stateDistrictData = data;
+    })
+  }
+
   initData() {
     this.setCasesAnalytics();
-    this.setTodaysConfirmCount();
-    this.setConfimLineChartData();
-    this.assignStateBarChartDate(this.patientsData);
-    this.dateWisePateintData = this.patientsData;
-  }
-
-  getDataCount(data: any): any {
-    return data.length;
-  }
-
-  getNationalityChartLabelColor(i) {
-    return this.chartColors[0].backgroundColor[i];
-  }
+    this.setCardLineChartsData();
+  } 
 
   getSortedObject(objectToSort) {
     var sortedObject = {};
@@ -268,147 +185,43 @@ export class HomeComponent implements OnInit {
 
   }
 
-  assignStateBarChartDate(dateWiseData) {
-    this.stateBarChartLabels = [];
-    this.stateBarChartData[0].data = [];
-
-    if (dateWiseData.length) {
-      var states = _.groupBy(dateWiseData, 'state');
-      var sortedStates = this.getSortedObject(states);
-
-      for (let state in sortedStates) {
-        this.stateBarChartLabels.push(state);
-
-        this.stateBarChartData[0].data.push(sortedStates[state].length);
-      };
-
-    }
-  }
-
   setCasesAnalytics() {
-    if (this.patientsData && this.patientsData.length) {
-      this.totalCases = this.totalConfirmedCases = this.patientsData.length;
-      this.totalIntesiveCases = this.patientsData.filter(x => x.caseType == "Intensive Care").length;
-      this.setConfirmCountDaviation(this.patientsData);
-    }
-
-    if (this.totalCases && this.totalDeathCases && this.totalDischargedCases) {
-      this.totalHospitalisedCases = this.totalCases - this.totalDeathCases - this.totalDischargedCases;
-    }
-
+    let totalCases = this.patientsData.statewise.find(x => x.state.toLowerCase() == 'total');
+    this.totalCases = this.totalConfirmedCases = totalCases.confirmed;
+    this.todaysConfirmCount = totalCases.deltaconfirmed;
+    this.todaysRecoveredCount = totalCases.deltarecovered;
+    this.todaysDeathCount = totalCases.deltadeaths;   
+    this.totalDischargedCases = totalCases.recovered;
+    this.totalDeathCases = totalCases.deaths;
+    this.totalHospitalisedCases = totalCases.active;
+    this.lastUpdatedOn = moment(totalCases.lastupdatedtime,'DD/MM/YYYY HH:mm:ss',true).format('DD MMM HH:mm');
   }
 
-  setTestsDoughnutData() {
-    this.doughnutIcmrChartLabels.push('Positives', 'Tests conducted');
-    this.doughnutIcmrChartData[0].push(this.lastDateTestConductedData.PositiveCount, this.lastDateTestConductedData.IndividualTestCount);
-  }
-
-  setTestConductedData() {
-    let self = this;
-    this.filteredTestConductedData = _.filter(self.testsConducatedData, function (tests) {
-      if (tests.ConductedOn) {
-        // let testDate = new Date(tests.ConductedOn);
-        let testDate = moment(tests.ConductedOn, "DD-MM-YYYY").toDate();
-        if (testDate <= self.endDate) {
-          return tests;
-        }
-      }
-    });
-
-    let highestDate = new Date(Math.max.apply(null, this.filteredTestConductedData.map(function (tests) {
-      return moment(tests.ConductedOn, "DD-MM-YYYY").toDate();
-    })));
-
-    let highestDateString = moment(highestDate).format("DD-MM-YYYY");
-    this.lastDateTestConductedData = this.filteredTestConductedData.find(x => x.ConductedOn === highestDateString);
-  }
-
-  setConfirmCountDaviation(filteredData) {
-    let lastDate = moment(this.endDate).format("DD-MM-YYYY");
-    let secondLastDate = moment().subtract(1, 'days').format("DD-MM-YYYY");
-    let difference = filteredData.filter(x => x.confirmAt == lastDate).length - filteredData.filter(x => x.confirmAt == secondLastDate).length;
-
-    if (difference >= 0) {
-      this.totalConfirmUpCasesCount = difference;
-      this.totalConfirmDownCasesCount = 0;
-    } else {
-      this.totalConfirmUpCasesCount = 0;
-      this.totalConfirmDownCasesCount = -difference;
-    }
-  }
-
-  setTodaysConfirmCount() {
-    let today = moment(new Date()).format("DD-MM-YYYY");
-    let todaysConfirms = this.patientsData.filter(x => x.confirmAt == today);
-    this.todaysConfirmCount = todaysConfirms.length;
-  }
-
-  setTodaysRecoveredCount() {
-    let today = moment(new Date()).format("DD-MM-YYYY");
-    let todaysRecovered = this.recoveredPatientData.filter(x => x.date == today);
-    this.todaysRecoveredCount = todaysRecovered.length;
-  }
-
-  setTodaysDeathCount() {
-    let today = moment(new Date()).format("DD-MM-YYYY");
-    let todaysDeaths = this.deceasedPatientData.filter(x => x.date == today);
-    this.todaysDeathCount = todaysDeaths.length;
-  }
-
-  setConfimLineChartData() {
+  setCardLineChartsData(){
     this.lineChartConfirmedSourceLabels = [];
     this.lineChartConfirmedData[0].data = [];
-    if (this.patientsData.length) {
-      var dateWiseConfirm = _.groupBy(this.patientsData, 'confirmAt');
-      for (let confirmAt in dateWiseConfirm) {
-        this.lineChartConfirmedSourceLabels.push(confirmAt);
-
-        this.lineChartConfirmedData[0].data.push(dateWiseConfirm[confirmAt].length);
-      };
-
-    }
-  }
-
-  setActiveLineChartData() {
-    if (this.patientsData && this.recoveredPatientData && this.deceasedPatientData) {
-      this.lineChartActiveSourceLabels = [];
-      this.lineChartActiveData[0].data = [];
-      var dateWiseConfirm = _.groupBy(this.patientsData, 'confirmAt');
-      var dateWiseRecovered = _.groupBy(this.recoveredPatientData, 'date');
-      var dateWiseDeceased = _.groupBy(this.deceasedPatientData, 'date');
-
-      for (let confirmAt in dateWiseConfirm) {
-        let totalRecoveredAtDate = dateWiseRecovered[confirmAt] ? dateWiseRecovered[confirmAt].length : 0;
-        let totalDeceasedAtDate = dateWiseDeceased[confirmAt] ? dateWiseDeceased[confirmAt].length : 0;
-        let totalActiveCases = dateWiseConfirm[confirmAt].length - totalRecoveredAtDate - totalDeceasedAtDate;
-        this.lineChartActiveSourceLabels.push(confirmAt);
-        this.lineChartActiveData[0].data.push(totalActiveCases);
-      };
-    }
-  }
-
-  setRecoveredLineChartData() {
+    this.lineChartActiveSourceLabels = [];
+    this.lineChartActiveData[0].data = [];
     this.lineChartDischargeSourceLabels = [];
     this.lineChartDischargeData[0].data = [];
-    if (this.recoveredPatientData.length) {
-      var dateWiseRecovered = _.groupBy(this.recoveredPatientData, 'date');
-      for (let recoveredAt in dateWiseRecovered) {
-        this.lineChartDischargeSourceLabels.push(recoveredAt);
-
-        this.lineChartDischargeData[0].data.push(dateWiseRecovered[recoveredAt].length);
-      };
-    }
-  }
-
-  setDeceasedLineChartData() {
     this.lineChartDeathLabels = [];
     this.lineChartDeathData[0].data = [];
-    if (this.deceasedPatientData.length) {
-      var dateWiseDeaths = _.groupBy(this.deceasedPatientData, 'date');
-      for (let deceasedAt in dateWiseDeaths) {
-        this.lineChartDeathLabels.push(deceasedAt);
-        this.lineChartDeathData[0].data.push(dateWiseDeaths[deceasedAt].length);
-      };
+    //Draw graph of last 15 days
+    let latestData = this.patientsData.cases_time_series.slice(this.patientsData.cases_time_series.length-15,this.patientsData.cases_time_series.length-1)
+    if(latestData){
+      latestData.forEach(cases => {
+        this.lineChartConfirmedSourceLabels.push(cases.date);
+        this.lineChartConfirmedData[0].data.push(cases.dailyconfirmed);
+        
+        this.lineChartActiveSourceLabels.push(cases.date);
+        this.lineChartActiveData[0].data.push(cases.totalconfirmed - cases.totaldeceased - cases.totalrecovered);
+        
+        this.lineChartDischargeSourceLabels.push(cases.date);
+        this.lineChartDischargeData[0].data.push(cases.dailyrecovered)
+        
+        this.lineChartDeathLabels.push(cases.date);
+        this.lineChartDeathData[0].data.push(cases.dailydeceased)
+      });
     }
   }
 

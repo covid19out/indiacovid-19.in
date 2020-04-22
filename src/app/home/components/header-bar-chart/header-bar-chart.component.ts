@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
 import { PatientsDataService } from 'src/app/services/patients-data.service';
 
 @Component({
-  selector: 'app-heaer-bar-chart',
-  templateUrl: './heaer-bar-chart.component.html',
-  styleUrls: ['./heaer-bar-chart.component.scss']
+  selector: 'app-header-bar-chart',
+  templateUrl: './header-bar-chart.component.html',
+  styleUrls: ['./header-bar-chart.component.scss']
 })
-export class HeaerBarChartComponent implements OnInit {
-
+export class HeaderBarChartComponent implements OnInit {
+  @Input() patientsData:any;
   public headerBarChartOptions: ChartOptions;
   public headerBarChartSourceLabels: Label[] = [];
   public headerBarChartType: ChartType = 'bar';
@@ -19,16 +19,12 @@ export class HeaerBarChartComponent implements OnInit {
   ];
   public headerBarChartSourceColors: Color[];
 
-  patientsData: any;
-
   constructor(private patientsDataService: PatientsDataService) { }
 
   ngOnInit() {
-    this.initChart();
-    if (this.patientsDataService.patientsData) {
-      this.patientsData = this.patientsDataService.patientsData;
-      this.assignHeaderBarChartData();
-    }
+    this.initChart();   
+    console.log('header patientsData',this.patientsData);
+    this.assignHeaderBarChartData();   
   }
 
   initChart() {
@@ -58,16 +54,11 @@ export class HeaerBarChartComponent implements OnInit {
     this.headerBarChartSourceLabels = [];
     this.headerBarChartData[0].data = [];
 
-    if (this.patientsData.length) {
-      var dateWiseConfirm = _.groupBy(this.patientsData, 'confirmAt');
-
-      for (let confirmAt in dateWiseConfirm) {
-        this.headerBarChartSourceLabels.push(confirmAt);
-
-        this.headerBarChartData[0].data.push(dateWiseConfirm[confirmAt].length);
-      };
-
+    if (this.patientsData.cases_time_series) {
+      this.patientsData.cases_time_series.forEach(cases => {
+        this.headerBarChartSourceLabels.push(cases.date);
+        this.headerBarChartData[0].data.push(cases.dailyconfirmed);
+      });
     }
   }
-
 }
