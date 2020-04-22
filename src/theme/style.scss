@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+body{
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  //padding-top: 4.5rem;
+  //padding-bottom: 4.5rem;
+  // padding-left: 10px;
+  // padding-right: 10px;
+  
+  // -webkit-touch-callout: none;
+  //   -webkit-user-select: none;
+  //   -khtml-user-select: none;
+  //   -moz-user-select: none;
+  //   -ms-user-select: none;
+  //   user-select: none;
+    
+}
+
+.navbar-nav{
+  font-size: 0.9rem;
+  .nav-item{
+    margin-right: 10px;
+    .btn-link{
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: rgba(0,0,0,.5);
+      &:hover{
+        color: rgba(0,0,0,.7);
+      }
+    }
+  }
+}
+
+
+.content{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  //background-color: #ffffff;
+  &.background-transparent{
+    background-color: transparent;
+  }
+}
+
+.page-heading{
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.breadcrumb-item.active {
+    color: #0166e6;
+}
+
+.breadcrumb-title{
+  border-radius: 0;
+  background-color: transparent;
+  padding: 0;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.calendar-button{
+  display: flex;
+  align-items: center;
+  .btn{
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+
+.margin-top-10{
+  margin-top: 10px;
+}
+
+.row-xs>div{
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.container{
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.card{
+  height: 100%;
+  border: 0px;
+  //border-radius: 12px;
+  border-radius: 5px;
+  box-shadow: 0 7.5rem 6.25rem 0 rgba(5, 22, 70, 0.05);
+  background-color: rgba(255, 255, 255, 0.8);
+  
+  .card-header{
+    background-color: rgba(0,0,0,0);
+    border-bottom: 0px solid rgba(0,0,0,.125);
+    font-weight: 600;
+    p{
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 0px;
+      margin-top: 2px;
+    }
+  }
+}
+

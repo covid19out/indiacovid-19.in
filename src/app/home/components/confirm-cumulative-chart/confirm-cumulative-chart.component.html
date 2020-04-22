@@ -1,0 +1,20 @@
+<!-- <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mb-4">Cumulative Confirmed Codiv-19 Cases
+    in India</h6> -->
+<div style="display: block; position: relative;">
+    <div class="cumulative-chart-confirm-count">
+        <div class="media">
+            <div class="media-body mg-l-10">
+                <h6 class="tx-normal tx-rubik tx-spacing--2 lh-1 mg-b-5">
+                    {{totalConfirmedCases}} 
+                    <!-- <small style="font-size: 0.7rem; color: red;">[ +{{endDateConfirmCount}}
+                        ]</small> -->
+                </h6>
+                <p class="tx-10 tx-uppercase tx-medium tx-color-03 tx-spacing-1 tx-nowrap mg-b-0">CONFIRMED</p>
+            </div>
+        </div>
+    </div>
+    <canvas width="500px" height="300px" baseChart [datasets]="cumulativeChartConfirmData" [legend]="false"
+        [labels]="cumulativeChartConfirmLabels" [options]="cumulativeChartConfirmOptions"
+        [colors]="cumulativeChartConfirmColors" [chartType]="'line'">
+    </canvas>
+</div>

@@ -1,0 +1,87 @@
+.states-table{
+  font-size: 0.86rem;
+  thead{
+    th{
+      vertical-align: top;
+      font-weight: 600;
+      &.sticky{
+        // top: 4px;
+        // position: sticky;
+      }
+
+      .table-heading-for-desktop{
+        display: block;
+      }
+      .table-heading-for-mobile{
+        display: none;
+      }
+    }
+  }
+  thead th {
+    border-top: 0px;
+    border-bottom: 1px solid #dee2e6;
+  }
+  .cities-row{
+    background-color: #f6f6f6;
+  }
+  .deltas{
+    font-size: 0.7rem;
+    margin-right: 2px;
+    i{
+      margin-right: 2px;
+    }
+    &.deltas-danger{
+      color: #fd5e53;
+    }
+    &.deltas-warning{
+      color: #ffd30a;
+    }
+    &.deltas-success{
+      color: #21bf73;
+    }
+    &.deltas-failure{
+      color: #C0C0C0 ;
+    }
+  }
+}
+
+.table {
+  tr{
+    th{
+      i{
+        font-size: 0.6rem;
+      }
+    }
+    th:first-child{
+      padding-right: 0px;
+      i{
+        font-size: 0.6rem;
+      }
+    } 
+    td:first-child{
+      padding-right: 0px;
+      i{
+        font-size: 0.6rem;
+      }
+    }
+    td:nth-child(2){
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 576px){
+  .states-table{
+    thead{
+      th{
+        .table-heading-for-desktop{
+          display: none;
+        }
+        .table-heading-for-mobile{
+          display: block;
+        }
+      }
+    }
+  }
+}

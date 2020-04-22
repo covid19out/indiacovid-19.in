@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.shareaholic-canvas {
+    margin-top: 40px;
+}
+
+.footer {
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    padding: 10px 25px;
+    color: #637388;
+    border-top: 1px solid rgba(72, 94, 144, 0.16);
+    text-transform: uppercase;
+    display:block; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    //height: 45px; 
+    z-index: 100;
+    background-color: #f6f6f6;
+    //margin-bottom: 0px;
+}
+
+@media (max-width: 768px){
+    .footer {
+        .created-by-link{
+            margin-bottom: 6px;
+        }
+    }
+}
+
+
+@import "theme/icon";
+@import "theme/style";

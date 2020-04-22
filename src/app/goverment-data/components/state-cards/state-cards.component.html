@@ -1,0 +1,56 @@
+<div class="content content-fixed">
+    <div class="container">
+        <br/>
+       
+        <div [innerHTML]="htmlString" style="display:none"></div>
+        
+        <div><h6>Live Data from MOHFW India Website {{dataDate}}</h6></div>
+
+        <div class="my-3">
+            <a href="https://wa.me/919013151515?text=Hi%20%E2%80%A6" target="_blank">Covid-19 Whatsapp Bot <img width="16px" height="16px" src="/assets/images/whatsapp.svg" alt=""></a>
+        </div>
+        
+        <div class="row row-xs quick-link">
+            <div class="col-md-4 col-sm-6 margin-top-10" *ngFor="let state of stateWiseData">
+
+                <div class="card" [ngStyle]="{'border-color': state.backgroundColor}">
+                    <div class="card-text-stats">
+                    <div class="card-text-stat">
+                        <h5>                            
+                            {{state.totalIndianConfirmCases}}
+                            
+                        </h5>
+                        <p>Active</p>
+                    </div>
+           
+                    <div class="card-text-stat">                        
+                        <h5>
+                            {{state.totalDischargedCases}}
+                            
+                        </h5>
+                        <p>Recovered</p>
+                    </div>
+                    <div class="card-text-stat">
+                        <h5>
+                            {{state.totalDeathCases}}
+                            
+                        </h5>
+                        <p>Deaths</p>
+                    </div>
+            
+                    </div>
+                    <div class="card-stats" [ngStyle]="{'background-color': state.backgroundColor}">
+                      <div class="stat">
+                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{state.name}} : 
+                            {{state.totalCount}}
+                            
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                
+
+            </div>
+        </div>
+</div>
+</div>

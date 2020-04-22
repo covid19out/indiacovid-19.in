@@ -1,0 +1,240 @@
+<div class="content content-fixed background-transparent">
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-header-text">
+        <span class="ed-tag">Coronavirus Live Tracker India</span>
+        <!-- Coronavirus Live Tracker -  -->
+        <h1>Dashboard for the COVID-19 Virus Outbreak in India</h1>
+      </div>
+      <ng-container *ngIf="patientsData">
+        <app-header-bar-chart [patientsData]="patientsData"></app-header-bar-chart>
+      </ng-container>
+      
+    </div>
+
+    <div class="data-updated-time">
+      <h6>Last Updated on <strong>{{lastUpdatedOn}}</strong></h6>
+    </div>
+
+    <div class="quick-link">
+      <div class="col-quick-link">
+        <div class="card confirmed-card">
+          <div class="card-body">
+            <div class="card-statistics-container">
+              <div>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Confirmed</h6>
+                <div class="quick-link-statistics">
+                  <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-danger" *ngIf="totalConfirmedCases">
+                    {{totalConfirmedCases | number}} <span class="new-record-update"
+                      *ngIf="todaysConfirmCount">[+{{todaysConfirmCount}}]</span>
+                  </h3>
+                </div>
+              </div>
+              <div class="chart-base"></div>
+            </div>
+            <div class="deltas-container">
+              <!-- *ngIf="totalConfirmUpCasesCount" -->
+              <ng-container *ngIf="totalConfirmUpCasesCount">
+                <span class="deltas deltas-up">
+                  <i class="fa fa-arrow-up" aria-hidden="true"></i>{{totalConfirmUpCasesCount}}
+                </span>
+                more than yesterday
+              </ng-container>
+              <ng-container *ngIf="totalConfirmDownCasesCount">
+                <span class="deltas deltas-down">
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>{{totalConfirmDownCasesCount}}
+                </span>
+                less than yesterday
+              </ng-container>
+            </div>
+            <div class="smiley">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartConfirmedData"
+                [labels]="lineChartConfirmedSourceLabels" [options]="cardLineChartOptions"
+                [colors]="lineChartConfirmedSourceColors" [legend]="false" [chartType]="'line'"
+                [plugins]="lineChartPlugins">
+              </canvas>
+              <!-- <img src="/assets/images/confirmed-smiley.svg" alt=""> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-quick-link">
+        <div class="card active-card">
+          <div class="card-body">
+
+            <div class="card-statistics-container">
+              <div>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Active</h6>
+                <div class="quick-link-statistics">
+                  <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-warning" *ngIf="totalHospitalisedCases">
+                    {{totalHospitalisedCases| number}}
+                    <span class="new-record-update">&nbsp;</span>
+                  </h3>
+                </div>
+              </div>
+              <div class="chart-base"></div>
+            </div>
+
+            <div class="deltas-container">
+              <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalHospitalisedCases && totalCases">
+                <span class="tx-medium">{{(100*totalHospitalisedCases/totalCases).toFixed(2) | number: '1.0-0'}}
+                  %<i class="icon ion-md-arrow-down"></i></span> of total cases</p>
+            </div>
+
+            <div class="smiley">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartActiveData"
+                [labels]="lineChartActiveSourceLabels" [options]="cardLineChartOptions"
+                [colors]="lineChartActiveSourceColors" [legend]="false" [chartType]="'line'"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-quick-link">
+        <div class="card  recovered-card">
+          <div class="card-body">
+
+            <div class="card-statistics-container">
+              <div>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Recovered</h6>
+                <div class="quick-link-statistics">
+                  <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-success" *ngIf="totalDischargedCases">
+                    {{totalDischargedCases| number}}
+                    <span class="new-record-update" *ngIf="todaysRecoveredCount">[+{{todaysRecoveredCount}}]</span>
+                  </h3>
+                </div>
+              </div>
+              <div class="chart-base"></div>
+            </div>
+
+            <div class="deltas-container">
+              <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDischargedCases && totalCases">
+                <span class="tx-medium">{{(100*totalDischargedCases/totalCases).toFixed(2)| number: '1.0-0'}}
+                  %<i class="icon ion-md-arrow-up"></i></span> of total cases</p>
+            </div>
+
+            <div class="smiley">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartDischargeData"
+                [labels]="lineChartDischargeSourceLabels" [options]="cardLineChartOptions"
+                [colors]="lineChartDischargeSourceColors" [legend]="false" [chartType]="'line'"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-quick-link">
+        <div class="card  deceased-card">
+          <div class="card-body">
+
+
+            <div class="card-statistics-container">
+              <div>
+                <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Deceased</h6>
+                <div class="quick-link-statistics">
+                  <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 text-light" *ngIf="totalDeathCases">
+                    {{totalDeathCases| number}}
+                    <span class="new-record-update" *ngIf="todaysDeathCount">[+{{todaysDeathCount}}]</span>
+                  </h3>
+                </div>
+              </div>
+              <div class="chart-base"></div>
+            </div>
+
+            <div class="deltas-container">
+              <p class="tx-11 tx-color-03 mg-b-0" *ngIf="totalDeathCases && totalCases">
+                <span class="tx-medium">{{(100*totalDeathCases/totalCases).toFixed(2)| number: '1.0-0'}} %<i
+                    class="icon ion-md-arrow-up"></i></span> of total cases</p>
+            </div>
+
+            <div class="smiley">
+              <canvas baseChart width="120" height="80" [datasets]="lineChartDeathData" [labels]="lineChartDeathLabels"
+                [options]="cardLineChartOptions" [colors]="lineChartDeathColors" [legend]="false" [chartType]="'line'"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="india-map">
+      <div class="card">
+        <div class="card-header">
+          Map
+          <p>Rollover each state to view the stats</p>
+        </div>
+        <div class="card-body">
+          <div class="map">
+            <ng-container *ngIf="patientsData">
+              <app-country-map [patientsData]="patientsData"></app-country-map>
+            </ng-container>            
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          Top State
+        </div>
+        <div class="card-body top-state-body">
+          <ng-container *ngIf="patientsData">
+            <app-top-state-cards [patientsData]="patientsData"></app-top-state-cards>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="states-table">
+      <div class="card">
+        <div class="card-header">
+          <strong>
+            States Statistics
+          </strong>
+        </div>
+        <div class="card-body">
+          <ng-container *ngIf="patientsData && stateDistrictData">
+            <app-top-state-table [stateDistrictData]="stateDistrictData" [patientsData]="patientsData"></app-top-state-table>
+          </ng-container>
+          
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Tweets</div>
+        <div class="card-body twitter-timeline-body">
+          <div class="twitter-timeline-wrapper" id="twitterTimelineWrapper">
+            <a class="twitter-timeline" data-theme="light"
+              href="https://twitter.com/covid_19_India?ref_src=twsrc%5Etfw">Tweets by covid_19_India</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="number-of-cases">
+      <div class="card">
+        <div class="card-header">
+          Number Of Cases
+          <p *ngIf="startDate && endDate">{{startDate.toLocaleDateString("en-US" , "Option")}} to
+            {{endDate.toLocaleDateString("en-US" , "Option")}}</p>
+        </div>
+        <div class="card-body">
+          <ng-container *ngIf="patientsData">
+            <app-number-of-cases [patientsData]="patientsData"></app-number-of-cases>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

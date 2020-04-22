@@ -1,0 +1,203 @@
+body {
+	background: #F2F4F5;
+}
+
+.hero-bg {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	opacity: .7;
+	z-index: 0;
+}
+
+.hero-bg--launch span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+}
+
+.hero-bg--launch span:first-child {
+    background-image: radial-gradient(circle at 20% 43%, #e8fbfd 0%, rgba(203,220,247,0) 63%);
+}
+
+.hero-bg--launch span:nth-child(2) {
+    background-image: radial-gradient(circle at 14% 51%, #C3EFFE 0%, rgba(195,239,254,0) 52%);
+}
+
+.hero-bg--launch span:nth-child(3) {
+    opacity: .3;
+    background-image: radial-gradient(circle at 75% 208%, #C6FFF3 100%, rgba(198,255,243,0) 100%);
+}
+
+.hero-bg--launch span:nth-child(4) {
+    background-image: radial-gradient(circle at 81% 99%, #C3D7FF 0%, rgba(195,215,255,0) 100%);
+}
+
+.hero-bg--launch span:nth-child(5) {
+    background-image: linear-gradient(179deg, rgba(255,255,255,0) 34%, #fff 100%);
+    z-index: 5;
+}
+
+.main-wrapper{
+	position: relative;
+	z-index: 10;
+}
+
+.navbar .covid-19-logo {
+	height: 44px
+}
+
+.navbar {
+	height: 70px;
+	z-index: 1000;
+	/* background-color: #fff; */
+	/* box-shadow: 0 0.05rem 0.01rem rgba(75,75,90,.075); */
+	/* box-shadow: rgba(0,0,0,.04) 0 20px 30px 0; */
+	/* border-bottom: 1px solid rgba(72, 94, 144, .16); */
+	
+}
+
+.navbar-collapse{
+    margin-top: 10px !important;
+}
+
+.navbar .nav-item {
+	display: flex;
+	align-items: center
+}
+.navbar-nav {
+	font-size: 1rem !important;
+	font-weight: 600;
+}
+
+.dropdown .nav-link, .dropdown .btn-link{
+	text-decoration: none;
+	font-size: 1rem !important;
+	font-weight: 600;
+	color: rgba(0,0,0,1) !important;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(0,0,0,1) !important;
+}
+
+.navbar-nav .nav-item {
+	margin-right: 16px
+}
+
+.btn-group .btn+.btn{
+	margin-left: 0px !important;
+}
+
+.navbar .nav-item .dropdown-toggle {
+	padding-left: 0;
+	padding-right: 0
+}
+.navbar .gov-data-link {
+	font-size: .8rem
+}
+.awareness-button {
+	padding-left: 0!important;
+	padding-right: 4px!important;
+	font-size: .9rem !important;
+}
+.awareness-button:focus {
+	outline: 0!important;
+	box-shadow: none!important
+}
+.awareness-dropdown-toggle {
+	background-color: transparent!important;
+	font-size: .9rem !important;
+}
+.awareness-dropdown-toggle:focus {
+	outline: 0!important;
+	box-shadow: none!important
+}
+.awareness-dropdown-toggle .dropdown-toggle::after {
+	margin-left: 0!important
+}
+.awareness-dropdown-menu {
+	width: 300px;
+	max-height: calc(100vh - 120px);
+	overflow-y: auto;
+}
+.awareness-dropdown-menu .dropdown-item {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+
+
+.footer {
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    padding: 10px 25px;
+    color: #637388;
+    border-top: 1px solid rgba(72, 94, 144, 0.16);
+    text-transform: uppercase;
+    display: block; 
+	position: fixed;
+	left: 0px;
+    bottom: 0; 
+    width: 100%; 
+    z-index: 100;
+    background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .footer .created-by-link {
+        margin-bottom: 6px;
+	}
+}
+
+
+@media (max-width: 992px) {
+	.navbar .gov-data-link {
+		position: absolute;
+		right: 70px
+	}
+	.navbar .mobile-navbar {
+		margin: 0 -1rem;
+		background-color: #f8f9fa;
+		padding: 0 1rem
+	}
+	.navbar .mobile-navbar.collapse.show {
+		border-bottom: 1px solid rgba(72, 94, 144, .16)
+	}
+	.navbar .mobile-navbar .nav-item.dropdown .btn-group {
+		width: 100%;
+		display: inline-block
+	}
+	.navbar .mobile-navbar .nav-item.dropdown .btn-group .btn {
+		width: 100%;
+		text-align: left;
+		padding: .375rem 0
+	}
+	.navbar-nav .dropdown-menu {
+		position: relative;
+		flex-basis: 100%;
+		flex-grow: 1
+	}
+	.dropdown.show {
+		width: 100%
+	}
+	.awareness-button {
+		width: 84px !important;
+		display: inline !important;
+	}
+	.awareness-dropdown-toggle {
+		width: auto !important
+	}
+	.awareness-dropdown-menu {
+		width: 100%;
+		max-height: 200px;
+		overflow-y: auto
+	}
+	.awareness-dropdown-menu .dropdown-item {
+		max-width: 90vw !important;
+	}
+}

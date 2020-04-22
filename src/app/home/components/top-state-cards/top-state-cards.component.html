@@ -1,0 +1,36 @@
+<div class="state-container" *ngFor="let state of topStates">
+  <div class="state-percentage">
+    <circle-progress
+      [percent]="state.confirmedPercentage"
+      [radius]="100"
+      [outerStrokeWidth]="18"
+      [innerStrokeWidth]="18"
+      [space] = "-18"
+      [outerStrokeColor]="state.color"
+      innerStrokeColor="#f6f6f6"
+      [titleFontSize]= "40"
+      [unitsFontSize]= "0"
+      [showSubtitle] = "false"
+      [animation]="true"
+      [animationDuration]="300"
+      [startFromZero]="false"
+      [responsive]="true"
+      [showTitle] = "true"
+      >
+    </circle-progress>
+
+    <div class="state-progress-text" [ngStyle]="{'background-color' : state.backgroundColor, 'color' : state.color}">
+      {{state.confirmedPercentage}}%
+    </div>
+
+  </div>
+
+  <div class="state-title">
+    <h5>{{state.name}}</h5>
+    <p>
+      <span>Confirmed - {{state.confirmed}}</span>
+      &nbsp;&nbsp;
+      <span>Recovered - {{state.recovered}}</span>
+    </p>
+  </div>
+</div>

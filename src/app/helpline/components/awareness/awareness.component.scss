@@ -1,0 +1,28 @@
+.blog{
+  img{
+    width: 100%;
+  }
+  .blog-date{
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 0px;
+    margin-top: 2px;
+  }
+  .blog-body{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}
+.hidden{
+  display: none;
+}
+.info-text{
+  background-image: url('/assets/images/corona-info-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
