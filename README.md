@@ -10,8 +10,8 @@ npm i && ng s
 ## Maintainers
 
 - [aniketdharia](https://github.com/aniketdharia)
-- [aptlogica] (https://github.com/aptlogica)
-- [covid19out] (https://github.com/covid19out)
+- [aptlogica](https://github.com/aptlogica)
+- [covid19out](https://github.com/covid19out)
 
 ## Contribution
 
