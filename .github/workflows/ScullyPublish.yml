@@ -4,9 +4,6 @@ on:
   push: 
     branches:   
       - master
-  schedule:
-    # https://crontab.guru/every-hour
-    - cron: 10 * * * *
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
