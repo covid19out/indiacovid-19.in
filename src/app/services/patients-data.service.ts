@@ -6,9 +6,6 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { Meta } from '@angular/platform-browser';
-import PatientsDataJson from '../../assets/data/patientsData.json';
-import IcmrTestsDataJSON from '../../assets/data/icmrTestsData.json';
-import RecoveryandDeathJSON from '../../assets/data/deaths_recoveries.json';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +14,6 @@ export class PatientsDataService {
   apiUrl: string;
   titleSubject = new Subject();
   metaData = new Subject();
-  // public covid19TotalConfirmedCases:any;
-  // public covid19TotalDeaths:any;
 
   constructor(
     protected http: HttpClient, private metadata: Meta
@@ -30,16 +25,16 @@ export class PatientsDataService {
   public deceasedPatientsData:any;
   public stateDistrictWiseData: any;
   
-  loadPatientsData() {
-    this.patientsData = PatientsDataJson;
-    let cases: any = this.patientsData;
-      cases.sort((a, b) => {
-        return moment(a.confirmAt, "DD/MM/YYYY").toDate().getTime() - moment(b.confirmAt, "DD/MM/YYYY").toDate().getTime();
-      });
-      this.patientsData=cases;
+  // loadPatientsData() {
+  //   this.patientsData = PatientsDataJson;
+  //   let cases: any = this.patientsData;
+  //     cases.sort((a, b) => {
+  //       return moment(a.confirmAt, "DD/MM/YYYY").toDate().getTime() - moment(b.confirmAt, "DD/MM/YYYY").toDate().getTime();
+  //     });
+  //     this.patientsData=cases;
 
 
-  }
+  // }
 
   loadCasesData(){
     return this.http.get("https://api.covid19india.org/data.json");
@@ -49,30 +44,30 @@ export class PatientsDataService {
     return this.http.get("https://api.covid19india.org/state_district_wise.json");
   }
 
-  loadTestConductedData() {
-    this.testsConductedData=IcmrTestsDataJSON;
-      let tests: any = this.testsConductedData;
-      //console.log(tests);
-      let dateWiseData = tests.sort((a, b) => {
-        //return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
-        return moment(a.ConductedOn, "DD-MM-YYYY").toDate().getTime() - moment(b.ConductedOn, "DD-MM-YYYY").toDate().getTime();
-      });
-      this.testsConductedData=dateWiseData;
-  }
+  // loadTestConductedData() {
+  //   this.testsConductedData=IcmrTestsDataJSON;
+  //     let tests: any = this.testsConductedData;
+  //     //console.log(tests);
+  //     let dateWiseData = tests.sort((a, b) => {
+  //       //return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
+  //       return moment(a.ConductedOn, "DD-MM-YYYY").toDate().getTime() - moment(b.ConductedOn, "DD-MM-YYYY").toDate().getTime();
+  //     });
+  //     this.testsConductedData=dateWiseData;
+  // }
 
-  loadClosedCasesData() {
-      let closedCases: any = RecoveryandDeathJSON;
+  // loadClosedCasesData() {
+  //     let closedCases: any = RecoveryandDeathJSON;
       
-      let dateWiseData = closedCases.sort((a, b) => {
-        return moment(a.date, "DD/MM/YYYY").toDate().getTime() - moment(b.date, "DD/MM/YYYY").toDate().getTime();
-      });
-      let recoveredCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "recovered");
-      let deceasedCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "deceased");
+  //     let dateWiseData = closedCases.sort((a, b) => {
+  //       return moment(a.date, "DD/MM/YYYY").toDate().getTime() - moment(b.date, "DD/MM/YYYY").toDate().getTime();
+  //     });
+  //     let recoveredCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "recovered");
+  //     let deceasedCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "deceased");
       
-      this.recoveredPatientsData=recoveredCasesData;
-      this.deceasedPatientsData=deceasedCasesData;
+  //     this.recoveredPatientsData=recoveredCasesData;
+  //     this.deceasedPatientsData=deceasedCasesData;
  
-  }
+  // }
 
   loadGovtData() {
     return this.http.get('https://www.mohfw.gov.in/', { responseType: 'text' })

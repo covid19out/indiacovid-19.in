@@ -57,12 +57,10 @@ export class StateCardsComponent implements OnInit {
         let $tds = myJQuery(rows[i]).find('td');
         let stateData: StateData = {
           name: $tds.eq(1).text(),
-          totalIndianConfirmCases: $tds.eq(2).text(),
-          // totalForeignConfirmCases: $tds.eq(3).text(),
+          totalIndianConfirmCases: $tds.eq(2).text()-$tds.eq(3).text()-$tds.eq(4).text(),
           totalDischargedCases: $tds.eq(3).text(),
           totalDeathCases: $tds.eq(4).text(),
-          totalCount : parseInt($tds.eq(2).text()) + parseInt($tds.eq(3).text()) + 
-                       parseInt($tds.eq(4).text()),
+          totalCount : parseInt($tds.eq(2).text()),
           backgroundColor: self.getRandomColor()
         };        
         stateWiseCases.push(stateData);
@@ -77,11 +75,10 @@ export class StateCardsComponent implements OnInit {
       let $statColumns = myJQuery(rows[rows.length - 3]).find('td'); //Second Last column of total counts
       let totalStat: StateData = {
         name: 'Total Cases',
-        totalIndianConfirmCases: parseInt($statColumns.eq(1).text()),
+        totalIndianConfirmCases: parseInt($statColumns.eq(1).text())-parseInt($statColumns.eq(2).text())-parseInt($statColumns.eq(3).text()),
         totalDischargedCases: parseInt($statColumns.eq(2).text()),
         totalDeathCases: parseInt($statColumns.eq(3).text()),
-        totalCount: parseInt($statColumns.eq(1).text()) + parseInt($statColumns.eq(2).text()) + 
-                    parseInt($statColumns.eq(3).text()),
+        totalCount: parseInt($statColumns.eq(1).text()),
         backgroundColor: self.getRandomColor()
       }
       self.stateWiseData.unshift(totalStat); 

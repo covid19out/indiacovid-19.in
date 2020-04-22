@@ -6,7 +6,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './components/home/home.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CountryMapComponent } from './components/country-map/country-map.component';
 import { TopStateTableComponent } from './components/top-state-table/top-state-table.component';
 import { TestConductedCumulativeChartComponent } from './components/test-conducted-cumulative-chart/test-conducted-cumulative-chart.component';
@@ -22,7 +21,6 @@ import { TopStateCardsComponent } from './components/top-state-cards/top-state-c
     FormsModule,
     HomeRoutingModule,
     ChartsModule,
-    BsDatepickerModule.forRoot(),
     NgCircleProgressModule.forRoot({})
   ]
 })

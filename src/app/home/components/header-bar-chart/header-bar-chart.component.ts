@@ -23,7 +23,7 @@ export class HeaderBarChartComponent implements OnInit {
 
   ngOnInit() {
     this.initChart();   
-    console.log('header patientsData',this.patientsData);
+    //console.log('header patientsData',this.patientsData);
     this.assignHeaderBarChartData();   
   }
 

@@ -22,29 +22,24 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
               "src/Robots.txt",
-              "src/sitemap.xml",
-              "src/theme/main.css",
-              "src/theme/maincovid-19.js",
-              "src/theme/ammap.js",
-              "src/theme/indiaLow.js",
-              "src/theme/bootstrap.min.css",
-              "src/theme/bootstrap.min.js",
-              "src/theme/jquery.min.js",
-              "src/theme/bootstrap.min.css.map",
-              "src/theme/bootstrap.min.js.map",
-              "src/theme/jquery.min.js.map"
-              
+              "src/sitemap.xml"              
             ],
             "styles": [
+              "src/theme/main.css",
+              "src/theme/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js"
+              "src/theme/jquery.min.js",
+              "src/theme/maincovid-19.js",
+              "src/theme/ammap.js",
+              "src/theme/indiaLow.js",
+              "src/theme/bootstrap.min.js"             
             ]
           },
           "configurations": {
@@ -59,7 +54,7 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
-              "namedChunks": false,
+              "namedChunks": true,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": true,
@@ -67,8 +62,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "8mb",
-                  "maximumError": "15mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -107,19 +102,20 @@
               "src/favicon.ico",
               "src/assets",
               "src/Robots.txt",
-              "src/sitemap.xml",
+              "src/sitemap.xml"              
+            ],
+            "styles": [
               "src/theme/main.css",
+              "src/theme/bootstrap.min.css",
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "src/theme/jquery.min.js",
               "src/theme/maincovid-19.js",
               "src/theme/ammap.js",
               "src/theme/indiaLow.js",
-              "src/theme/bootstrap.min.css",
-              "src/theme/bootstrap.min.js",
-              "src/theme/jquery.min.js"             
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+              "src/theme/bootstrap.min.js"             
+            ]
           }
         },
         "lint": {
