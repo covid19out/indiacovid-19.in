@@ -27,7 +27,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/Robots.txt",
-              "src/sitemap.xml"              
+              "src/sitemap.xml",
+              "src/CNAME"            
             ],
             "styles": [
               "src/theme/main.css",
@@ -102,7 +103,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/Robots.txt",
-              "src/sitemap.xml"              
+              "src/sitemap.xml",
+              "src/CNAME"              
             ],
             "styles": [
               "src/theme/main.css",
