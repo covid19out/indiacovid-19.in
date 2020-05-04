@@ -37,10 +37,11 @@ import { IssuesComponent } from './components/issues/issues.component';
 import { OpdMedicinesComponent } from './components/opd-medicines/opd-medicines.component';
 import { ManagementComponent } from './components/management/management.component';
 import { DialysisComponent } from './components/dialysis/dialysis.component';
+import { EssentialsComponent } from './components/essentials/essentials.component';
 
 
 @NgModule({
-  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent, TelemedicineComponent, GazetteComponent, PressInformationComponent, TestingComponent, HealthAdvisoryComponent, DisinfectionComponent, MindComponent, OwnersComponent, VentilatorComponent, IssuesComponent, OpdMedicinesComponent, ManagementComponent, DialysisComponent],
+  declarations: [helplineComponent, ContactInformationComponent, AwarenessComponent, TestingCenterComponent, AdvisorComponent, GuidelinesComponent, AdditionalAdvisoryComponent, PreventiveMeasuresComponent, StrategyCovid19Component, NotifyingPersonsComponent, ProcedureForPassengerComponent, EmergencyComponent, RevisedStrategyComponent, OrderComponent, InfectionComponent, DefeatComponent, SecretaryComponent, OfficeOrderComponent, OfficeMemorandumComponent, OutbreakComponent, GuidelineMeasuresComponent, RoleComponent, TelemedicineComponent, GazetteComponent, PressInformationComponent, TestingComponent, HealthAdvisoryComponent, DisinfectionComponent, MindComponent, OwnersComponent, VentilatorComponent, IssuesComponent, OpdMedicinesComponent, ManagementComponent, DialysisComponent, EssentialsComponent],
   imports: [
     CommonModule,
     HelplineRoutingModule
