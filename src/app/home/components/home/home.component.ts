@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, setTestabilityGetter } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label, MultiDataSet, Color } from 'ng2-charts';
+import { Component, OnInit} from '@angular/core';
+import { ChartOptions, ChartDataSets } from 'chart.js';
+import { Label, Color } from 'ng2-charts';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 declare var twttr: any;
@@ -126,16 +126,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getCasesData();
     this.getStateDistrictData();
-
-    this.patientsDataService.titleSubject.next("India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak");
-    this.patientsDataService.metaData.next({ name: "twitter:card", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
-    this.patientsDataService.metaData.next({ property: "og:title", content: "India Covid-19 - https://indiacovid-19.in - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
-    this.patientsDataService.metaData.next({ property: "og:description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
-    this.patientsDataService.metaData.next({ name: "twitter:description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
-    this.patientsDataService.metaData.next({ property: "og:site_name", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
-    this.patientsDataService.metaData.next({ name: "keywords", content: "MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Coronavirus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates, live, tracker, covid19, hourly updates" });
-
-
     twttr.widgets.createTimeline(
       {
         sourceType: "list",
@@ -144,9 +134,20 @@ export class HomeComponent implements OnInit {
       },
       document.getElementById("twitterTimelineWrapper")
     );
-
   }
-
+  // ngDoCheck(){
+  //   this.titleChange();
+  // }
+  titleChange(){
+    this.patientsDataService.metaData.next({ name: "description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
+    this.patientsDataService.titleSubject.next("India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak");
+    this.patientsDataService.metaData.next({ name: "twitter:card", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
+    this.patientsDataService.metaData.next({ property: "og:title", content: "India Covid-19 - https://indiacovid-19.in - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
+    this.patientsDataService.metaData.next({ property: "og:description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
+    this.patientsDataService.metaData.next({ name: "twitter:description", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed, " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak which started from Wuhan, China. Coronavirus counter with new cases, historical data, and info. Daily charts, graphs, and updates" });
+    this.patientsDataService.metaData.next({ property: "og:site_name", content: "India Covid-19 - Coronavirus Tracker India (Live) - Dashboard - " + this.totalConfirmedCases + " confirmed,  " + (this.totalConfirmedCases - this.totalDeathCases - this.totalDischargedCases) + " Active, " + this.totalDischargedCases + " Recovered and " + this.totalDeathCases + " deceased in India from Coronavirus aka Covid19 Outbreak" });
+    this.patientsDataService.metaData.next({ name: "keywords", content: "MOHFW India,COVID-19, Data Corona Virus,Outbreak in India, India COVID-19, India, India Coronavirus, Dashboard, Aggregator, Confirmed Cases,Live, Deaths,Covid 19, Awareness, Helpline, Testing Centers, Statewise, Citywise, Analytics, Worldwide, India, News, Covid News, Contact Information, Intensive Cases, ICU, Growth Rate, Discharged, Recovered, Released, death toll, stats, statistics, Wuhan, China, Virus, New Cases, historical data, graphs, charts, updates, live, tracker, covid19, hourly updates" });
+  }
   async getCasesData(){
     await this.patientsDataService.loadCasesData().subscribe(data => {
       this.patientsData = data;
@@ -195,6 +196,7 @@ export class HomeComponent implements OnInit {
     this.totalDeathCases = totalCases.deaths;
     this.totalHospitalisedCases = totalCases.active;
     this.lastUpdatedOn = moment(totalCases.lastupdatedtime,'DD/MM/YYYY HH:mm:ss',true).format('DD MMM HH:mm');
+    this.titleChange();
   }
 
   setCardLineChartsData(){
