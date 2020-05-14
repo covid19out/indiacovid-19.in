@@ -53,7 +53,7 @@ export class StateCardsComponent implements OnInit {
       //console.log(myJQuery('table'));      
       var rows = myJQuery('table')[0].tBodies[0].rows;
       
-      for (let i = 0; i < rows.length - 4; i++) { //Don't  process last two row of statistics and instruction
+      for (let i = 0; i < rows.length - 5; i++) { //Don't  process last two row of statistics and instruction
         let $tds = myJQuery(rows[i]).find('td');
         let stateData: StateData = {
           name: $tds.eq(1).text(),
@@ -72,7 +72,7 @@ export class StateCardsComponent implements OnInit {
 
       
 
-      let $statColumns = myJQuery(rows[rows.length - 4]).find('td'); //Second Last column of total counts
+      let $statColumns = myJQuery(rows[rows.length - 5]).find('td'); //Second Last column of total counts
       let totalStat: StateData = {
         name: 'Total Cases',
         totalIndianConfirmCases: parseInt($statColumns.eq(1).text())-parseInt($statColumns.eq(2).text())-parseInt($statColumns.eq(3).text()),
