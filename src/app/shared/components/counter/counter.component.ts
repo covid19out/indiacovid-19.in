@@ -6,22 +6,22 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./counter.component.scss']
 })
 export class CounterComponent implements OnInit {
-@Input() maxValue : number;
-counter: number = 0;
+@Input() maxValue: number;
+counter = 0;
   constructor() { }
 
   ngOnInit() {
     let i = 0;
-    while(i <= this.maxValue){
+    while (i <= this.maxValue) {
       this.incrementCounter(i++);
     }
   }
 
-  incrementCounter(count){    
-    setTimeout(this.setCounter.bind(this),700,count);
+  incrementCounter(count) {
+    setTimeout(this.setCounter.bind(this), 700, count);
   }
 
-  setCounter(count){
+  setCounter(count) {
     this.counter = count;
   }
 

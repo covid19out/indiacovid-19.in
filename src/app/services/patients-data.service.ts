@@ -22,52 +22,17 @@ export class PatientsDataService {
   public patientsData:any;
   public testsConductedData:any;
   public recoveredPatientsData:any;
-  public deceasedPatientsData:any;
+  public deceasedPatientsData: any;
   public stateDistrictWiseData: any;
-  
-  // loadPatientsData() {
-  //   this.patientsData = PatientsDataJson;
-  //   let cases: any = this.patientsData;
-  //     cases.sort((a, b) => {
-  //       return moment(a.confirmAt, "DD/MM/YYYY").toDate().getTime() - moment(b.confirmAt, "DD/MM/YYYY").toDate().getTime();
-  //     });
-  //     this.patientsData=cases;
 
 
-  // }
-
-  loadCasesData(){
-    return this.http.get("https://api.covid19india.org/data.json");
+  loadCasesData() {
+    return this.http.get('https://api.covid19india.org/data.json');
   }
 
-  loadStateDistrictData(){
-    return this.http.get("https://api.covid19india.org/state_district_wise.json");
+  loadStateDistrictData() {
+    return this.http.get('https://api.covid19india.org/state_district_wise.json');
   }
-
-  // loadTestConductedData() {
-  //   this.testsConductedData=IcmrTestsDataJSON;
-  //     let tests: any = this.testsConductedData;
-  //     //console.log(tests);
-  //     let dateWiseData = tests.sort((a, b) => {
-  //       //return new Date(a.ConductedOn).getTime() - new Date(b.ConductedOn).getTime();
-  //       return moment(a.ConductedOn, "DD-MM-YYYY").toDate().getTime() - moment(b.ConductedOn, "DD-MM-YYYY").toDate().getTime();
-  //     });
-  //     this.testsConductedData=dateWiseData;
-  // }
-
-  // loadClosedCasesData() {
-  //     let closedCases: any = RecoveryandDeathJSON;
-      
-  //     let dateWiseData = closedCases.sort((a, b) => {
-  //       return moment(a.date, "DD/MM/YYYY").toDate().getTime() - moment(b.date, "DD/MM/YYYY").toDate().getTime();
-  //     });
-  //     let recoveredCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "recovered");
-  //     let deceasedCasesData = dateWiseData.filter(x => x.patientstatus.toLowerCase() == "deceased");
-      
-  //     this.recoveredPatientsData=recoveredCasesData;
-  //     this.deceasedPatientsData=deceasedCasesData;
- 
-  // }
 
   loadGovtData() {
     return this.http.get('https://www.mohfw.gov.in/', { responseType: 'text' })
@@ -79,15 +44,15 @@ export class PatientsDataService {
   }
 
   filterDataByDates(patientRecords: any) {
-    var self = this;
-    var dateWiseData = [];
+    let self = this;
+    let dateWiseData = [];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     _.forEach(patientRecords, function (patient) {
-      let patientsDate = new Date(patient.confirmAt);
-      var foundDAta = _.find(dateWiseData, function (x) {
-        if (new Date(x.confirmAt).getDate() == patientsDate.getDate()) {
-          if (new Date(x.confirmAt).getMonth() == patientsDate.getMonth()) {
-            if (new Date(x.confirmAt).getFullYear() == patientsDate.getFullYear()) {
+      const patientsDate = new Date(patient.confirmAt);
+      let foundDAta = _.find(dateWiseData, function (x) {
+        if (new Date(x.confirmAt).getDate() === patientsDate.getDate()) {
+          if (new Date(x.confirmAt).getMonth() === patientsDate.getMonth()) {
+            if (new Date(x.confirmAt).getFullYear() === patientsDate.getFullYear()) {
               return true;
             }
           }
@@ -97,8 +62,8 @@ export class PatientsDataService {
         foundDAta = self.filterDataByCasetype(foundDAta, patient);
       } else {
         let data = {};
-        data["confirmAt"] = patient.confirmAt;
-        data["confirmedInMonth"] = months[patientsDate.getMonth()];
+        data['confirmAt'] = patient.confirmAt;
+        data['confirmedInMonth'] = months[patientsDate.getMonth()];
         data = self.filterDataByCasetype(data, patient);
         dateWiseData.push(data);
       }
