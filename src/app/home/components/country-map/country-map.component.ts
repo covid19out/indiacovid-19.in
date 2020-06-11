@@ -13,7 +13,7 @@ export class CountryMapComponent implements OnInit {
   @Input() patientsData: any;
   constructor(private patientsDataService:PatientsDataService) { }
   countryMap:any;
-  
+
   ngOnInit() {
     this.generateMap();
     this.assignMapData();
@@ -36,7 +36,7 @@ export class CountryMapComponent implements OnInit {
               Deceased Cases : ${stateData.deaths} <br/>`;
               //Total Cases : ${stateWiseCases[state.name].length}`;
               state.color = this.getStateColor(stateData.confirmed);
-            } 
+            }
             else {
                state.title = `${state.name}  - Total Cases 0`;
              }
@@ -48,12 +48,12 @@ export class CountryMapComponent implements OnInit {
 
   getStateColor(confirmedCaseCount) {
     if (confirmedCaseCount <= 100) {
-      return "#FFE9E9";
-    } else if (confirmedCaseCount > 100 && confirmedCaseCount <= 5000) {
+      return '#FFE9E9';
+    } else if (confirmedCaseCount > 100 && confirmedCaseCount <= 10000) {
       return "#FFADAD";
-    } else if (confirmedCaseCount > 5000 && confirmedCaseCount <= 10000) {
+    } else if (confirmedCaseCount > 10000 && confirmedCaseCount <= 30000) {
       return "#FF5C5C";
-    } else if (confirmedCaseCount > 10000) {
+    } else if (confirmedCaseCount > 30000) {
       return "#D60000";
     }
 
