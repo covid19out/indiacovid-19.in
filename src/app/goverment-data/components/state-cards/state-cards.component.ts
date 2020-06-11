@@ -51,7 +51,7 @@ export class StateCardsComponent implements OnInit {
       console.log(myJQuery('table'));
       const rows = myJQuery('table')[0].tBodies[0].rows;
 
-      for (let i = 0; i < rows.length - 6; i++) { // Don't  process last two row of statistics and instruction
+      for (let i = 0; i < rows.length - 5; i++) { // Don't  process last two row of statistics and instruction
       const $tds = myJQuery(rows[i]).find('td');
       const stateData: StateData = {
           name: $tds.eq(1).text(),
@@ -68,7 +68,7 @@ export class StateCardsComponent implements OnInit {
         return b.totalCount - a.totalCount;
       });
 
-      const $statColumns = myJQuery(rows[rows.length - 4]).find('td'); // Second Last column of total counts
+      const $statColumns = myJQuery(rows[rows.length - 5]).find('td'); // Second Last column of total counts
     }, 0);
 
   }
