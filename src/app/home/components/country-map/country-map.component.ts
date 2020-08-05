@@ -49,11 +49,11 @@ export class CountryMapComponent implements OnInit {
   getStateColor(confirmedCaseCount) {
     if (confirmedCaseCount <= 100) {
       return '#FFE9E9';
-    } else if (confirmedCaseCount > 100 && confirmedCaseCount <= 10000) {
+    } else if (confirmedCaseCount > 100 && confirmedCaseCount <= 100000) {
       return "#FFADAD";
-    } else if (confirmedCaseCount > 10000 && confirmedCaseCount <= 30000) {
+    } else if (confirmedCaseCount > 100000 && confirmedCaseCount <= 300000) {
       return "#FF5C5C";
-    } else if (confirmedCaseCount > 30000) {
+    } else if (confirmedCaseCount > 300000) {
       return "#D60000";
     }
 
