@@ -29,9 +29,9 @@ jobs:
          npm run staticgzip
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@3.6.2
-      env:
+      with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BASE_BRANCH: master
         BRANCH: gh-pages
         FOLDER: dist/static
         COMMIT_MESSAGE: "Website last updated ${{steps.date.outputs.date}}"
+        CLEAN: true
